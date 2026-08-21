@@ -17,3 +17,6 @@ function normalizeRiskyDemo(root=document){
 }
 const envShowBase=show;show=function(p,b){envShowBase(p,b);normalizeRiskyDemo(document.querySelector('#content'));};
 normalizeRiskyDemo(document);
+
+const sidebarSignature=document.getElementById('bycco-signature');
+if(sidebarSignature)sidebarSignature.src='winston_bycco_logo.png';
