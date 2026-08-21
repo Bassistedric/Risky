@@ -1,0 +1,1 @@
+(()=>{const mark=document.getElementById('bycco-signature');if(!mark)return;const sync=()=>{const h=(location.hash||'#dashboard').replace('#','').split('?')[0];mark.classList.toggle('visible',h===''||h==='dashboard')};window.addEventListener('hashchange',sync);document.addEventListener('click',()=>setTimeout(sync,0));sync()})();
