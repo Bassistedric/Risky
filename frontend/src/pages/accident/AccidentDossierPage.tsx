@@ -281,7 +281,7 @@ function AccidentDossierPage({
         <div>
             {onBack && (
                 <button
-                    className="accident-dossier-back"
+                    className="accident-dossier-back risky-back-button"
                     type="button"
                     onClick={onBack}
                 >
