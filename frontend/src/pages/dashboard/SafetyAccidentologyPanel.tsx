@@ -4,7 +4,7 @@ import './SafetyAccidentologyPanel.css'
 
 const API='http://127.0.0.1:8000'
 type Row={code:string;label:string;count:number;percent:number}
-type Accidentology={coverage:{events:number;heepo:number;classification:number;just_culture:number;actions:number};heepo:{families:Row[];factors:Row[]};classification:{deviation:Row[];material_agent:Row[];injury_nature:Row[];injury_location:Row[]};just_culture:{conclusions:Row[]};actions:{total:number;done:number;completion_percent:number|null;local_count:number;global_9001_count:number;overdue:number;statuses:{status:string;count:number}[]}}
+type Accidentology={coverage:{events:number;normal_events:number;advanced_events:number;heepo:number;classification:number;just_culture:number;actions:number};heepo:{families:Row[];factors:Row[]};classification:{deviation:Row[];material_agent:Row[];injury_nature:Row[];injury_location:Row[]};just_culture:{conclusions:Row[]};actions:{total:number;done:number;completion_percent:number|null;local_count:number;global_9001_count:number;overdue:number;statuses:{status:string;count:number}[]}}
 
 const PIE_COLORS=['#3f7f93','#e59b45','#6d9d63','#9b72b0','#cf6c68','#6d86b3']
 
@@ -44,9 +44,7 @@ export default function SafetyAccidentologyPanel({organizationId,year,month,trad
  const statusLabel=(s:string)=>t(`safetyStatistics.accidentology.actionStatus.${s}`,{defaultValue:s})
  return <section className="accidentology">
   <div className="accidentology__title"><h3>{t('safetyStatistics.accidentology.title')}</h3><p>{t('safetyStatistics.accidentology.subtitle')}</p></div>
-  <div className="acc-coverage">{(['heepo','classification','just_culture'] as const).map(k=><article key={k}><span>{t(`safetyStatistics.accidentology.coverage.${k}`)}</span><strong>{data.coverage[k]}/{data.coverage.events}</strong><small>{data.coverage.events?Math.round(data.coverage[k]*100/data.coverage.events):0}%</small></article>)}<article><span>{t('safetyStatistics.accidentology.coverage.actions')}</span><strong>{a.total}</strong><small>{t('safetyStatistics.accidentology.encoded')}</small></article></div>
-
-  <section className="acc-group acc-group--heepo"><h3>HEEPO</h3><div className="acc-grid"><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFamilies')}</h4><Pie rows={data.heepo.families}/></article><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFactors')}</h4><Bars rows={['H','E','En','P','O'].flatMap(prefix=>data.heepo.factors.filter(r=>r.code.startsWith(prefix)).slice(0,1))}/></article></div></section>
+  <div className="acc-coverage"><article><span>{t('safetyStatistics.accidentology.coverage.classification')}</span><strong>{data.coverage.classification}/{data.coverage.events}</strong><small>{data.coverage.events?Math.round(data.coverage.classification*100/data.coverage.events):0}%</small></article><article><span>{t('safetyStatistics.accidentology.coverage.heepo')}</span><strong>{data.coverage.heepo}/{data.coverage.events}</strong><small>{data.coverage.events?Math.round(data.coverage.heepo*100/data.coverage.events):0}%</small></article><article><span>{t('safetyStatistics.accidentology.coverage.just_culture')}</span><strong>{data.coverage.just_culture}/{data.coverage.normal_events}</strong><small>{data.coverage.normal_events?Math.round(data.coverage.just_culture*100/data.coverage.normal_events):0}%</small></article><article><span>{t('safetyStatistics.accidentology.coverage.actions')}</span><strong>{a.total}</strong><small>{t('safetyStatistics.accidentology.encoded')}</small></article></div>
 
   <section className="acc-group acc-group--fedris"><h3>{t('safetyStatistics.accidentology.classification')}</h3><div className="acc-grid acc-grid--four">
    <article className="acc-card"><h4>{t('safetyStatistics.accidentology.deviation')}</h4><Pie rows={topWithOther(data.classification.deviation,5,other)}/></article>
@@ -54,6 +52,8 @@ export default function SafetyAccidentologyPanel({organizationId,year,month,trad
    <article className="acc-card"><h4>{t('safetyStatistics.accidentology.injury_nature')}</h4><Pie rows={topWithOther(data.classification.injury_nature,5,other)}/></article>
    <article className="acc-card"><h4>{t('safetyStatistics.accidentology.injury_location')}</h4><Pie rows={topWithOther(data.classification.injury_location,5,other)}/></article>
   </div></section>
+
+  <section className="acc-group acc-group--heepo"><h3>HEEPO</h3><div className="acc-grid"><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFamilies')}</h4><Pie rows={data.heepo.families}/></article><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFactors')}</h4><Bars rows={['H','E','En','P','O'].flatMap(prefix=>data.heepo.factors.filter(r=>r.code.startsWith(prefix)).slice(0,1))}/></article></div></section>
 
   <section className="acc-group acc-group--culture"><h3>{t('safetyStatistics.accidentology.justCulture')}</h3><article className="acc-card"><Pie rows={data.just_culture.conclusions}/></article></section>
 
