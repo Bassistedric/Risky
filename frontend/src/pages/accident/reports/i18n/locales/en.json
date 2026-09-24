@@ -95,7 +95,8 @@
             "responsible": "Responsible",
             "dueDate": "Due date",
             "progress": "Progress"
-        }
+        },
+        "pdfGenerationError": "Unable to generate the PDF."
     },
     "values": {
         "eventType": {
