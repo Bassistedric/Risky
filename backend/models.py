@@ -8,6 +8,7 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    Text,
     UniqueConstraint,
 )
 
@@ -1425,6 +1426,57 @@ class SeriousAccidentCriterion(Base):
         nullable=False,
         default=True,
     )
+
+# ========================================================
+# RAPPORT CIRCONSTANCIÉ — DONNÉES COMPLÉMENTAIRES
+# ========================================================
+
+class EventCircumstantialReport(Base):
+    __tablename__ = "event_circumstantial_reports"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    event_id: Mapped[int] = mapped_column(
+        ForeignKey("events.id"), nullable=False, unique=True, index=True
+    )
+
+    victim_address: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+    victim_birth_date: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    victim_company_seniority: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    victim_job_seniority: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+
+    employer_name: Mapped[Optional[str]] = mapped_column(String(250), nullable=True)
+    employer_address: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+    insurer_name: Mapped[Optional[str]] = mapped_column(String(250), nullable=True)
+    insurance_policy_number: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    prevention_advisor: Mapped[Optional[str]] = mapped_column(String(250), nullable=True)
+    sipp_manager: Mapped[Optional[str]] = mapped_column(String(250), nullable=True)
+    sepp_name: Mapped[Optional[str]] = mapped_column(String(250), nullable=True)
+    sepp_contact: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+
+    primary_material_factors: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    primary_collective_protection: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    primary_personal_protection: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    primary_environmental_factors: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    primary_other: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    primary_details: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+
+    secondary_organization: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    secondary_communication: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    secondary_human_factors: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    secondary_other: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    secondary_details: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+
+    tertiary_third_party_material: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    tertiary_incorrect_advice: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    tertiary_third_party_organization: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    tertiary_other: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    tertiary_details: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+
+    report_contributors: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    report_recipients: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    committee_opinion: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
+
 
 # ========================================================
 # JUST CULTURE — VERSION DE L'ARBRE
