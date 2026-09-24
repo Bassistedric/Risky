@@ -1,7 +1,16 @@
 from typing import Optional
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, String, UniqueConstraint
+from sqlalchemy import (
+    Boolean,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    UniqueConstraint,
+)
+
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .database import Base
@@ -160,6 +169,183 @@ class Organization(Base):
         back_populates="parent",
     )
 
+# ============================================================
+# RÉFÉRENTIEL MÉTIERS
+# ============================================================
+
+class TradeReference(Base):
+    __tablename__ = "trade_references"
+
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+    )
+
+    code: Mapped[str] = mapped_column(
+        String(50),
+        unique=True,
+        index=True,
+        nullable=False,
+    )
+
+    name: Mapped[str] = mapped_column(
+        String(150),
+        nullable=False,
+    )
+
+    active: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=True,
+    )
+
+
+# ============================================================
+# RATTACHEMENT ORGANISATION ↔ MÉTIER
+# ============================================================
+
+class OrganizationTrade(Base):
+    __tablename__ = "organization_trades"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "organization_id",
+            "trade_id",
+            name="uq_organization_trade",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+    )
+
+    organization_id: Mapped[int] = mapped_column(
+        ForeignKey("organizations.id"),
+        nullable=False,
+        index=True,
+    )
+
+    trade_id: Mapped[int] = mapped_column(
+        ForeignKey("trade_references.id"),
+        nullable=False,
+        index=True,
+    )
+
+    organization: Mapped["Organization"] = relationship()
+    trade: Mapped["TradeReference"] = relationship()
+
+
+# ============================================================
+# HEURES PRESTÉES SÉCURITÉ
+# ============================================================
+
+class SafetyWorkHours(Base):
+    __tablename__ = "safety_work_hours"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "organization_id",
+            "year",
+            "month",
+            name="uq_safety_work_hours_period",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+    )
+
+    organization_id: Mapped[int] = mapped_column(
+        ForeignKey("organizations.id"),
+        nullable=False,
+        index=True,
+    )
+
+    year: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        index=True,
+    )
+
+    month: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    worked_hours: Mapped[float] = mapped_column(
+        Float,
+        nullable=False,
+        default=0,
+    )
+
+    source: Mapped[Optional[str]] = mapped_column(
+        String(250),
+        nullable=True,
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        nullable=False,
+        default=datetime.now,
+        onupdate=datetime.now,
+    )
+
+    organization: Mapped["Organization"] = relationship()
+
+
+# ============================================================
+# OBJECTIFS SÉCURITÉ CFE
+# ============================================================
+
+class SafetyTarget(Base):
+    __tablename__ = "safety_targets"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "organization_id",
+            "year",
+            name="uq_safety_target_organization_year",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+    )
+
+    organization_id: Mapped[int] = mapped_column(
+        ForeignKey("organizations.id"),
+        nullable=False,
+        index=True,
+    )
+
+    year: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        index=True,
+    )
+
+    tf_target: Mapped[Optional[float]] = mapped_column(
+        Float,
+        nullable=True,
+    )
+
+    tg_target: Mapped[Optional[float]] = mapped_column(
+        Float,
+        nullable=True,
+    )
+
+    source: Mapped[Optional[str]] = mapped_column(
+        String(250),
+        nullable=True,
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        nullable=False,
+        default=datetime.now,
+        onupdate=datetime.now,
+    )
+
+    organization: Mapped["Organization"] = relationship()
 
 class PersonCategory(Base):
     __tablename__ = "person_categories"

@@ -27,63 +27,208 @@ def seed_organizations(
     db = SessionLocal()
 
     try:
-        existing = db.scalar(
+
+        # ====================================================
+        # CLUSTER VMA
+        # ====================================================
+
+        vma = db.scalar(
             select(models.Organization).where(
                 models.Organization.code == "VMA"
             )
         )
 
-        if existing:
-            return {
-                "status": "already_exists",
-            }
+        if not vma:
+            vma = models.Organization(
+                code="VMA",
+                name="VMA",
+                entity_type="CLUSTER",
+            )
+            db.add(vma)
+            db.flush()
+        else:
+            vma.name = "VMA"
+            vma.entity_type = "CLUSTER"
 
-        vma = models.Organization(
-            code="VMA",
-            name="VMA",
-            entity_type="group",
+        # ====================================================
+        # ENTITÉS
+        # ====================================================
+
+        entity_definitions = [
+            ("VMA_NORD", "VMA Nord"),
+            ("VMA_MAINTENANCE", "VMA Maintenance"),
+            ("VMA_SUD", "VMA Sud"),
+            ("VMA_POLSKA", "VMA Polska"),
+        ]
+
+        entities = {}
+
+        for code, name in entity_definitions:
+            entity = db.scalar(
+                select(models.Organization).where(
+                    models.Organization.code == code
+                )
+            )
+
+            if not entity:
+                entity = models.Organization(
+                    code=code,
+                    name=name,
+                    entity_type="ENTITY",
+                    parent_id=vma.id,
+                )
+                db.add(entity)
+                db.flush()
+            else:
+                entity.name = name
+                entity.entity_type = "ENTITY"
+                entity.parent_id = vma.id
+
+            entities[code] = entity
+
+        # ====================================================
+        # RÉFÉRENTIEL MÉTIERS
+        # ====================================================
+
+        trade_definitions = [
+            ("HVAC", "HVAC"),
+            ("REF", "REF"),
+            ("ELEC", "ELEC"),
+            ("MAINTENANCE", "Maintenance"),
+        ]
+
+        trades = {}
+
+        for code, name in trade_definitions:
+            trade = db.scalar(
+                select(models.TradeReference).where(
+                    models.TradeReference.code == code
+                )
+            )
+
+            if not trade:
+                trade = models.TradeReference(
+                    code=code,
+                    name=name,
+                    active=True,
+                )
+                db.add(trade)
+                db.flush()
+
+            trades[code] = trade
+
+        # ====================================================
+        # TRADES VMA SUD
+        # ====================================================
+
+        vma_sud_trade_definitions = [
+            ("HVAC", "HVAC"),
+            ("REF", "REF"),
+            ("ELEC", "ELEC"),
+        ]
+
+        for code, name in vma_sud_trade_definitions:
+
+            organization = db.scalar(
+                select(models.Organization).where(
+                    models.Organization.code == code
+                )
+            )
+
+            if not organization:
+                organization = models.Organization(
+                    code=code,
+                    name=name,
+                    entity_type="TRADE",
+                    parent_id=entities["VMA_SUD"].id,
+                )
+                db.add(organization)
+                db.flush()
+            else:
+                organization.name = name
+                organization.entity_type = "TRADE"
+                organization.parent_id = (
+                    entities["VMA_SUD"].id
+                )
+
+            link = db.scalar(
+                select(models.OrganizationTrade).where(
+                    models.OrganizationTrade.organization_id
+                    == organization.id,
+                    models.OrganizationTrade.trade_id
+                    == trades[code].id,
+                )
+            )
+
+            if not link:
+                db.add(
+                    models.OrganizationTrade(
+                        organization_id=organization.id,
+                        trade_id=trades[code].id,
+                    )
+                )
+
+        # ====================================================
+        # MAINTENANCE — UNIQUEMENT VMA MAINTENANCE
+        # ====================================================
+
+        maintenance = db.scalar(
+            select(models.Organization).where(
+                models.Organization.code
+                == "VMA_MAINTENANCE_TRADE"
+            )
         )
 
-        db.add(vma)
-        db.flush()
+        if not maintenance:
+            maintenance = models.Organization(
+                code="VMA_MAINTENANCE_TRADE",
+                name="Maintenance",
+                entity_type="TRADE",
+                parent_id=entities["VMA_MAINTENANCE"].id,
+            )
+            db.add(maintenance)
+            db.flush()
+        else:
+            maintenance.name = "Maintenance"
+            maintenance.entity_type = "TRADE"
+            maintenance.parent_id = (
+                entities["VMA_MAINTENANCE"].id
+            )
 
-        vma_sud = models.Organization(
-            code="VMA_SUD",
-            name="VMA Sud",
-            entity_type="entity",
-            parent_id=vma.id,
+        maintenance_link = db.scalar(
+            select(models.OrganizationTrade).where(
+                models.OrganizationTrade.organization_id
+                == maintenance.id,
+                models.OrganizationTrade.trade_id
+                == trades["MAINTENANCE"].id,
+            )
         )
 
-        db.add(vma_sud)
-        db.flush()
-
-        db.add_all(
-            [
-                models.Organization(
-                    code="HVAC",
-                    name="HVAC",
-                    entity_type="business",
-                    parent_id=vma_sud.id,
-                ),
-                models.Organization(
-                    code="REF",
-                    name="REF",
-                    entity_type="business",
-                    parent_id=vma_sud.id,
-                ),
-                models.Organization(
-                    code="ELEC",
-                    name="ELEC",
-                    entity_type="business",
-                    parent_id=vma_sud.id,
-                ),
-            ]
-        )
+        if not maintenance_link:
+            db.add(
+                models.OrganizationTrade(
+                    organization_id=maintenance.id,
+                    trade_id=trades["MAINTENANCE"].id,
+                )
+            )
 
         db.commit()
 
         return {
-            "status": "created",
+            "status": "ok",
+            "cluster": "VMA",
+            "entities": [
+                "VMA Nord",
+                "VMA Maintenance",
+                "VMA Sud",
+                "VMA Polska",
+            ],
+            "trades": [
+                "HVAC",
+                "REF",
+                "ELEC",
+                "MAINTENANCE",
+            ],
         }
 
     finally:
