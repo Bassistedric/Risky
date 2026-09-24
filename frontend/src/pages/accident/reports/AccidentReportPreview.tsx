@@ -1354,17 +1354,28 @@ function AccidentReportPreview({
                                     </strong>
                                 </div>
 
-                                <div>
+                                <div className="report-preview__action-progress">
                                     <span>
                                         {rt(
                                             'preview.actions.progress',
                                         )}
                                     </span>
-
-                                    <strong>
-                                        {action.progress_percent ??
-                                            0}{' '}
-                                        %
+                                    <div className="report-preview__progress-track">
+                                        <div
+                                            className="report-preview__progress-bar"
+                                            style={{
+                                                width: `${Math.max(
+                                                    0,
+                                                    Math.min(
+                                                        100,
+                                                        action.progress_percent ?? 0,
+                                                    ),
+                                                )}%`,
+                                            }}
+                                        />
+                                    </div>
+                                    <strong className="report-preview__progress-value">
+                                        {action.progress_percent ?? 0} %
                                     </strong>
                                 </div>
                             </div>
