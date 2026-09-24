@@ -13,7 +13,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import (
     BaseDocTemplate, Frame, Image, KeepTogether, PageBreak, PageTemplate,
-    Paragraph, Spacer, Table, TableStyle,
+    Paragraph, Spacer, Table, TableStyle, Flowable,
 )
 from reportlab.platypus.tableofcontents import TableOfContents
 
@@ -50,7 +50,7 @@ I18N = {
         "direct_cause": "Cause directe", "deviation": "Déviation", "agent": "Agent matériel",
         "injury": "Nature de la lésion", "injury_location": "Localisation de la lésion",
         "conclusion": "Conclusion", "recommendation": "Recommandation", "action": "Action",
-        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement",
+        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement", "signatures": "Avis & signatures", "name_function": "Nom / fonction", "date": "Date", "signature": "Signature", "employer_sign": "Employeur / représentant", "prevention_sign": "Conseiller en prévention / SIPP",
     },
     "nl": {
         "report": "ANALYSERAPPORT VAN EEN GEBEURTENIS", "contents": "Inhoudsopgave",
@@ -68,7 +68,7 @@ I18N = {
         "deviation": "Afwijking", "agent": "Materiële agens", "injury": "Aard van het letsel",
         "injury_location": "Plaats van het letsel", "conclusion": "Conclusie",
         "recommendation": "Aanbeveling", "action": "Actie", "responsible": "Verantwoordelijke",
-        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang",
+        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang", "signatures": "Advies & handtekeningen", "name_function": "Naam / functie", "date": "Datum", "signature": "Handtekening", "employer_sign": "Werkgever / vertegenwoordiger", "prevention_sign": "Preventieadviseur / IDPBW",
     },
     "en": {
         "report": "EVENT ANALYSIS REPORT", "contents": "Table of contents",
@@ -85,7 +85,7 @@ I18N = {
         "description": "Event description", "direct_cause": "Direct cause", "deviation": "Deviation",
         "agent": "Material agent", "injury": "Nature of injury", "injury_location": "Injury location",
         "conclusion": "Conclusion", "recommendation": "Recommendation", "action": "Action",
-        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress",
+        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress", "signatures": "Opinion & signatures", "name_function": "Name / function", "date": "Date", "signature": "Signature", "employer_sign": "Employer / representative", "prevention_sign": "Prevention advisor / internal service",
     },
     "pl": {
         "report": "RAPORT Z ANALIZY ZDARZENIA", "contents": "Spis treści",
@@ -103,7 +103,7 @@ I18N = {
         "deviation": "Odchylenie", "agent": "Czynnik materialny", "injury": "Rodzaj urazu",
         "injury_location": "Umiejscowienie urazu", "conclusion": "Wniosek",
         "recommendation": "Zalecenie", "action": "Działanie", "responsible": "Odpowiedzialny",
-        "due": "Termin", "priority": "Priorytet", "progress": "Postęp",
+        "due": "Termin", "priority": "Priorytet", "progress": "Postęp", "signatures": "Opinia i podpisy", "name_function": "Imię, nazwisko / funkcja", "date": "Data", "signature": "Podpis", "employer_sign": "Pracodawca / przedstawiciel", "prevention_sign": "Doradca ds. prewencji / służba wewnętrzna",
     },
 }
 
@@ -151,6 +151,77 @@ class RiskyDocTemplate(BaseDocTemplate):
                 level = 0
                 text = flowable.getPlainText()
                 self.notify("TOCEntry", (level, text, self.page))
+
+
+
+class CauseTreeFlowable(Flowable):
+    """Dessine l'arbre des causes comme un schéma vectoriel sur une page dédiée."""
+
+    def __init__(self, tree, width=153 * mm, height=198 * mm):
+        super().__init__()
+        self.tree = tree or {}
+        self.width = width
+        self.height = height
+
+    def wrap(self, availWidth, availHeight):
+        return min(self.width, availWidth), min(self.height, availHeight)
+
+    def draw(self):
+        facts = self.tree.get("facts") or []
+        relations = self.tree.get("relations") or []
+        if not facts:
+            return
+
+        by_id = {f["id"]: f for f in facts}
+        levels = sorted({int(f.get("level") or 0) for f in facts})
+        level_index = {level: i for i, level in enumerate(levels)}
+        cols = max(1, len(levels))
+        col_w = self.width / cols
+        node_w = min(38 * mm, col_w - 5 * mm)
+        node_h = 18 * mm
+        positions = {}
+
+        for level in levels:
+            items = sorted(
+                [f for f in facts if int(f.get("level") or 0) == level],
+                key=lambda x: (x.get("sort_order") or 0, x.get("id") or 0),
+            )
+            gap = self.height / (len(items) + 1)
+            x = level_index[level] * col_w + (col_w - node_w) / 2
+            for idx, fact in enumerate(items, start=1):
+                y = self.height - idx * gap - node_h / 2
+                positions[fact["id"]] = (x, y)
+
+        canvas = self.canv
+        canvas.saveState()
+        canvas.setStrokeColor(colors.HexColor("#AAB8C1"))
+        canvas.setLineWidth(0.8)
+        for rel in relations:
+            a = positions.get(rel.get("cause_fact_id"))
+            b = positions.get(rel.get("effect_fact_id"))
+            if not a or not b:
+                continue
+            ax, ay = a
+            bx, by = b
+            canvas.line(ax + node_w, ay + node_h / 2, bx, by + node_h / 2)
+
+        node_style = ParagraphStyle(
+            "CauseTreeNode",
+            fontName="Helvetica",
+            fontSize=7.2,
+            leading=8.6,
+            textColor=TEXT,
+            alignment=TA_CENTER,
+        )
+        for fact_id, (x, y) in positions.items():
+            fact = by_id[fact_id]
+            canvas.setFillColor(IVORY)
+            canvas.setStrokeColor(ORANGE if fact.get("is_terminal") else BEIGE_BORDER)
+            canvas.roundRect(x, y, node_w, node_h, 4, fill=1, stroke=1)
+            p = Paragraph(escape(_s(fact.get("description"))), node_style)
+            pw, ph = p.wrap(node_w - 4 * mm, node_h - 3 * mm)
+            p.drawOn(canvas, x + 2 * mm, y + (node_h - ph) / 2)
+        canvas.restoreState()
 
 
 def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
@@ -227,52 +298,74 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         number = Paragraph(
             f"<b>{no:02d}</b>",
             ParagraphStyle(
-                f"SectionNumber{no}",
-                parent=body,
-                fontName="Helvetica-Bold",
-                fontSize=16,
-                textColor=colors.white,
-                alignment=TA_CENTER,
+                f"SectionNumber{no}", parent=body, fontName="Helvetica-Bold",
+                fontSize=10, textColor=ORANGE, alignment=TA_CENTER,
             ),
         )
         title = Paragraph(
             f"<b>{escape(tr[key])}</b>",
             ParagraphStyle(
-                f"SectionRisky{no}",
-                parent=section,
-                fontSize=15,
-                leading=18,
-                textColor=colors.white,
-                spaceBefore=0,
-                spaceAfter=0,
+                f"SectionRisky{no}", parent=section, fontSize=14, leading=17,
+                textColor=NAVY, spaceBefore=0, spaceAfter=0,
             ),
         )
-        banner = Table([[number, title]], colWidths=[20 * mm, 133 * mm], rowHeights=[13 * mm])
+        banner = Table([[number, title]], colWidths=[12 * mm, 141 * mm])
         banner.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (0, 0), ORANGE),
-            ("BACKGROUND", (1, 0), (1, 0), NAVY),
+            ("BACKGROUND", (0, 0), (-1, -1), LIGHT),
+            ("LINEBELOW", (0, 0), (-1, -1), .6, MID),
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-            ("LEFTPADDING", (1, 0), (1, 0), 6 * mm),
-            ("RIGHTPADDING", (0, 0), (-1, -1), 4 * mm),
-            ("TOPPADDING", (0, 0), (-1, -1), 0),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+            ("LEFTPADDING", (0, 0), (0, 0), 0),
+            ("LEFTPADDING", (1, 0), (1, 0), 2 * mm),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 7),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
         ]))
-        story.extend([banner, Spacer(1, 5 * mm)])
+        story.extend([banner, Spacer(1, 4 * mm)])
 
     def info_table(rows):
+        """Grille de cartes, calquée sur l'aperçu web du rapport."""
         usable = [(a, b) for a, b in rows if b not in (None, "")]
         if not usable:
-            story.append(Paragraph(escape(tr["not_provided"]), body)); return
-        table = Table([[Paragraph(f"<b>{escape(_s(a))}</b>", body), Paragraph(escape(_s(b)), body)] for a, b in usable], colWidths=[48 * mm, 105 * mm])
-        table.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (0, -1), IVORY), ("TEXTCOLOR", (0, 0), (0, -1), MUTED),
-            ("BACKGROUND", (1, 0), (1, -1), IVORY), ("BOX", (0, 0), (-1, -1), .5, MID),
-            ("INNERGRID", (0, 0), (-1, -1), .25, BEIGE_BORDER),
+            story.append(Paragraph(escape(tr["not_provided"]), body))
+            return
+
+        cells = []
+        label_style = ParagraphStyle("CardLabel", parent=small, fontSize=7.2, leading=9, textColor=MUTED)
+        value_style = ParagraphStyle("CardValue", parent=body, fontName="Helvetica-Bold", fontSize=9.2, leading=12)
+        for label, value in usable:
+            card = Table(
+                [[Paragraph(escape(_s(label)), label_style)],
+                 [Paragraph(escape(_s(value)), value_style)]],
+                colWidths=[72.5 * mm],
+            )
+            card.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), IVORY),
+                ("BOX", (0, 0), (-1, -1), .55, BEIGE_BORDER),
+                ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+                ("TOPPADDING", (0, 0), (-1, 0), 7),
+                ("BOTTOMPADDING", (0, 0), (-1, 0), 2),
+                ("TOPPADDING", (0, 1), (-1, 1), 2),
+                ("BOTTOMPADDING", (0, 1), (-1, 1), 8),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ]))
+            cells.append(card)
+
+        rows_out = []
+        for i in range(0, len(cells), 2):
+            row = cells[i:i + 2]
+            if len(row) == 1:
+                row.append("")
+            rows_out.append(row)
+        grid = Table(rows_out, colWidths=[76.5 * mm, 76.5 * mm], hAlign="LEFT")
+        grid.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
-            ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-            ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+            ("TOPPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
         ]))
-        story.append(table)
+        story.append(grid)
 
     # 01
     heading(1, "summary")
@@ -428,18 +521,15 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,-1),bg),("BOX",(0,0),(-1,-1),.7,ORANGE),("INNERGRID",(0,0),(-1,-1),.3,MID),("PADDING",(0,0),(-1,-1),8),("VALIGN",(0,0),(-1,-1),"TOP")]))
         story.append(table)
 
-    # 09
+    # 09 — ARBRE DES CAUSES : PAGE DÉDIÉE
+    story.append(PageBreak())
     heading(9, "tree")
     tree = data.get("cause_tree")
     if not tree or not tree.get("facts"):
         story.append(Paragraph(escape(tr["not_provided"]), body))
     else:
-        facts_by_id = {x["id"]: x for x in tree["facts"]}
-        relations = tree.get("relations") or []
-        for fact in sorted(tree["facts"], key=lambda x: (x.get("level") or 0, x.get("sort_order") or 0)):
-            parents = [facts_by_id.get(r["cause_fact_id"], {}).get("description") for r in relations if r["effect_fact_id"] == fact["id"]]
-            prefix = " ← " + " ; ".join(filter(None, parents)) if parents else ""
-            story.append(Paragraph("• " + escape(_s(fact.get("description")) + prefix), body))
+        story.append(CauseTreeFlowable(tree))
+    story.append(PageBreak())
 
     # 10
     heading(10, "actions")
@@ -479,6 +569,41 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         table = Table(rows, colWidths=[65 * mm, 32 * mm, 22 * mm, 20 * mm, 20 * mm], repeatRows=1)
         table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,0),NAVY),("TEXTCOLOR",(0,0),(-1,0),colors.white),("BOX",(0,0),(-1,-1),.4,MID),("INNERGRID",(0,0),(-1,-1),.25,MID),("VALIGN",(0,0),(-1,-1),"TOP"),("PADDING",(0,0),(-1,-1),5)]))
         story.append(table)
+
+    # 11 — AVIS & SIGNATURES, UNIQUEMENT POUR UN CIRCONSTANCIÉ
+    if circ:
+        story.append(PageBreak())
+        heading(11, "signatures")
+        sign_cards = []
+        for role, default_name in (
+            (tr["prevention_sign"], circ.get("prevention_advisor") or circ.get("sipp_manager")),
+            (tr["employer_sign"], circ.get("employer_name")),
+        ):
+            name = _s(default_name, "")
+            card = Table([
+                [Paragraph(f"<b>{escape(role)}</b>", body)],
+                [Paragraph(f"{escape(tr['name_function'])}: {escape(name)}", small)],
+                [Paragraph(f"{escape(tr['date'])}: ____________________", small)],
+                [Spacer(1, 24 * mm)],
+                [Paragraph(f"{escape(tr['signature'])}", small)],
+            ], colWidths=[72.5 * mm], rowHeights=[None, None, None, 26 * mm, None])
+            card.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), IVORY),
+                ("BOX", (0, 0), (-1, -1), .6, BEIGE_BORDER),
+                ("LEFTPADDING", (0, 0), (-1, -1), 9),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+                ("TOPPADDING", (0, 0), (-1, -1), 8),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ]))
+            sign_cards.append(card)
+        sign_grid = Table([sign_cards], colWidths=[76.5 * mm, 76.5 * mm])
+        sign_grid.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+        ]))
+        story.append(sign_grid)
 
     doc.multiBuild(story)
     return buffer.getvalue()
