@@ -50,7 +50,7 @@ I18N = {
         "direct_cause": "Cause directe", "deviation": "Déviation", "agent": "Agent matériel",
         "injury": "Nature de la lésion", "injury_location": "Localisation de la lésion",
         "conclusion": "Conclusion", "recommendation": "Recommandation", "action": "Action",
-        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement", "signatures": "Avis & signatures", "name_function": "Initiales", "victim_sign": "Victime", "hierarchy_sign": "Ligne hiérarchique", "date": "Date", "signature": "Signature", "employer_sign": "Employeur / représentant", "prevention_sign": "Conseiller en prévention / SIPP",
+        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement", "signatures": "Avis & signatures", "name_function": "Initiales", "victim_sign": "Victime", "hierarchy_sign": "Ligne hiérarchique", "date": "Date", "signature": "Signature", "employer_sign": "Employeur / représentant", "prevention_sign": "Conseiller en prévention / SIPP", "cause": "CAUSE", "terminal_cause": "CAUSE TERMINALE", "final_fact": "FAIT FINAL",
     },
     "nl": {
         "report": "ANALYSERAPPORT VAN EEN GEBEURTENIS", "contents": "Inhoudsopgave",
@@ -68,7 +68,7 @@ I18N = {
         "deviation": "Afwijking", "agent": "Materiële agens", "injury": "Aard van het letsel",
         "injury_location": "Plaats van het letsel", "conclusion": "Conclusie",
         "recommendation": "Aanbeveling", "action": "Actie", "responsible": "Verantwoordelijke",
-        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang", "signatures": "Advies & handtekeningen", "name_function": "Initialen", "victim_sign": "Slachtoffer", "hierarchy_sign": "Hiërarchische lijn", "date": "Datum", "signature": "Handtekening", "employer_sign": "Werkgever / vertegenwoordiger", "prevention_sign": "Preventieadviseur / IDPBW",
+        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang", "signatures": "Advies & handtekeningen", "name_function": "Initialen", "victim_sign": "Slachtoffer", "hierarchy_sign": "Hiërarchische lijn", "date": "Datum", "signature": "Handtekening", "employer_sign": "Werkgever / vertegenwoordiger", "prevention_sign": "Preventieadviseur / IDPBW", "cause": "OORZAAK", "terminal_cause": "EINDOORZAAK", "final_fact": "EINDGEBEURTENIS",
     },
     "en": {
         "report": "EVENT ANALYSIS REPORT", "contents": "Table of contents",
@@ -85,7 +85,7 @@ I18N = {
         "description": "Event description", "direct_cause": "Direct cause", "deviation": "Deviation",
         "agent": "Material agent", "injury": "Nature of injury", "injury_location": "Injury location",
         "conclusion": "Conclusion", "recommendation": "Recommendation", "action": "Action",
-        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress", "signatures": "Opinion & signatures", "name_function": "Initials", "victim_sign": "Victim", "hierarchy_sign": "Line management", "date": "Date", "signature": "Signature", "employer_sign": "Employer / representative", "prevention_sign": "Prevention advisor / internal service",
+        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress", "signatures": "Opinion & signatures", "name_function": "Initials", "victim_sign": "Victim", "hierarchy_sign": "Line management", "date": "Date", "signature": "Signature", "employer_sign": "Employer / representative", "prevention_sign": "Prevention advisor / internal service", "cause": "CAUSE", "terminal_cause": "TERMINAL CAUSE", "final_fact": "FINAL FACT",
     },
     "pl": {
         "report": "RAPORT Z ANALIZY ZDARZENIA", "contents": "Spis treści",
@@ -103,7 +103,7 @@ I18N = {
         "deviation": "Odchylenie", "agent": "Czynnik materialny", "injury": "Rodzaj urazu",
         "injury_location": "Umiejscowienie urazu", "conclusion": "Wniosek",
         "recommendation": "Zalecenie", "action": "Działanie", "responsible": "Odpowiedzialny",
-        "due": "Termin", "priority": "Priorytet", "progress": "Postęp", "signatures": "Opinia i podpisy", "name_function": "Inicjały", "victim_sign": "Poszkodowany", "hierarchy_sign": "Linia hierarchiczna", "date": "Data", "signature": "Podpis", "employer_sign": "Pracodawca / przedstawiciel", "prevention_sign": "Doradca ds. prewencji / służba wewnętrzna",
+        "due": "Termin", "priority": "Priorytet", "progress": "Postęp", "signatures": "Opinia i podpisy", "name_function": "Inicjały", "victim_sign": "Poszkodowany", "hierarchy_sign": "Linia hierarchiczna", "date": "Data", "signature": "Podpis", "employer_sign": "Pracodawca / przedstawiciel", "prevention_sign": "Doradca ds. prewencji / służba wewnętrzna", "cause": "PRZYCZYNA", "terminal_cause": "PRZYCZYNA KOŃCOWA", "final_fact": "ZDARZENIE KOŃCOWE",
     },
 }
 
@@ -315,74 +315,117 @@ CIRC_CAUSE_LABELS = {
 
 
 class CauseTreeFlowable(Flowable):
-    """Arbre vectoriel vertical : causes en haut, fait final en bas."""
+    """Version PDF calquée sur CauseTreeReportDiagram.tsx."""
 
-    def __init__(self, tree, width=153 * mm):
+    def __init__(self, tree, tr, width=153 * mm):
         super().__init__()
         self.tree = tree or {}
+        self.tr = tr
         self.width = width
-        count = len(self.tree.get("facts") or [])
-        self.height = min(150 * mm, max(72 * mm, (62 + count * 9) * mm))
+        linked = [f for f in (self.tree.get("facts") or []) if f.get("level") is not None]
+        level_count = max(1, len({f.get("level") for f in linked}))
+        self.height = max(62 * mm, min(145 * mm, (level_count * 31 + 8) * mm))
 
     def wrap(self, availWidth, availHeight):
         self._draw_width = min(self.width, availWidth)
-        self._draw_height = min(self.height, max(55 * mm, availHeight))
+        self._draw_height = min(self.height, max(50 * mm, availHeight))
         return self._draw_width, self._draw_height
 
     def draw(self):
         facts = self.tree.get("facts") or []
         relations = self.tree.get("relations") or []
-        if not facts:
+        linked = [f for f in facts if f.get("level") is not None]
+        if not linked:
             return
-        by_id = {f["id"]: f for f in facts}
-        effects = {r.get("effect_fact_id") for r in relations}
-        causes = {r.get("cause_fact_id") for r in relations}
-        finals = [f for f in facts if str(f.get("fact_type") or "").upper() == "FINAL"]
-        if not finals:
-            finals = [f for f in facts if f["id"] in effects and f["id"] not in causes]
-        final_id = finals[0]["id"] if finals else facts[0]["id"]
-        depth = {final_id: 0}
-        changed = True
-        while changed:
-            changed = False
-            for rel in relations:
-                cause_id, effect_id = rel.get("cause_fact_id"), rel.get("effect_fact_id")
-                if effect_id in depth:
-                    nd = depth[effect_id] + 1
-                    if depth.get(cause_id, -1) < nd:
-                        depth[cause_id] = nd
-                        changed = True
-        for fact in facts:
-            depth.setdefault(fact["id"], int(fact.get("level") or 0))
-        max_depth = max(depth.values()) if depth else 0
-        node_w, node_h = 43 * mm, 20 * mm
-        margin_y = 4 * mm
-        usable_h = self._draw_height - 2 * margin_y
+
+        levels = sorted({int(f["level"]) for f in linked}, reverse=True)
+        position_by_id = {}
+        facts_by_level = {}
+        # Même algorithme barycentrique que l'aperçu React.
+        for level in sorted(levels):
+            at_level = [f for f in linked if int(f["level"]) == level]
+            decorated = []
+            for fact in at_level:
+                effects = [
+                    position_by_id[r["effect_fact_id"]]
+                    for r in relations
+                    if r.get("cause_fact_id") == fact["id"]
+                    and r.get("effect_fact_id") in position_by_id
+                ]
+                bary = sum(effects) / len(effects) if effects else (fact.get("sort_order") or 0)
+                decorated.append((bary, fact.get("sort_order") or 0, fact.get("id") or 0, fact))
+            decorated.sort(key=lambda x: (x[0], x[1], x[2]))
+            ordered = [x[3] for x in decorated]
+            facts_by_level[level] = ordered
+            for idx, fact in enumerate(ordered):
+                position_by_id[fact["id"]] = idx
+
+        node_w, node_h = 44 * mm, 22 * mm
+        top_margin = 3 * mm
+        gap_y = 8 * mm
         positions = {}
-        for d in range(max_depth, -1, -1):
-            items = sorted([f for f in facts if depth.get(f["id"]) == d], key=lambda x:(x.get("sort_order") or 0,x.get("id") or 0))
-            if not items: continue
-            y = margin_y + (max_depth - d) * (usable_h - node_h) / max(1, max_depth)
+        for row_idx, level in enumerate(levels):
+            items = facts_by_level.get(level, [])
+            if not items:
+                continue
+            y = self._draw_height - top_margin - node_h - row_idx * (node_h + gap_y)
             slot = self._draw_width / len(items)
             for idx, fact in enumerate(items):
-                positions[fact["id"]] = (idx * slot + (slot-node_w)/2, y)
-        canvas=self.canv; canvas.saveState()
-        canvas.setStrokeColor(colors.HexColor("#667C98")); canvas.setLineWidth(1.15)
+                positions[fact["id"]] = (idx * slot + (slot - node_w) / 2, y)
+
+        canvas = self.canv
+        canvas.saveState()
+        canvas.setStrokeColor(colors.HexColor("#667C98"))
+        canvas.setFillColor(colors.HexColor("#667C98"))
+        canvas.setLineWidth(1.1)
         for rel in relations:
-            a,b=positions.get(rel.get("cause_fact_id")),positions.get(rel.get("effect_fact_id"))
-            if not a or not b: continue
-            x1,y1=a[0]+node_w/2,a[1]; x2,y2=b[0]+node_w/2,b[1]+node_h
-            canvas.line(x1,y1,x2,y2)
-        node_style=ParagraphStyle("CauseTreeNode",fontName="Helvetica",fontSize=7.6,leading=9.2,textColor=TEXT)
-        label_style=ParagraphStyle("CauseTreeLabel",fontName="Helvetica-Bold",fontSize=6.2,leading=7,textColor=colors.HexColor("#456078"))
-        for fact_id,(x,y) in positions.items():
-            fact=by_id[fact_id]; is_final=fact_id==final_id; is_terminal=bool(fact.get("is_terminal"))
-            border=NAVY if is_final else ORANGE if is_terminal else colors.HexColor("#C7D3DC")
-            canvas.setFillColor(IVORY); canvas.setStrokeColor(border); canvas.setLineWidth(1.3 if (is_final or is_terminal) else .7)
-            canvas.roundRect(x,y,node_w,node_h,5,fill=1,stroke=1)
-            label="FAIT FINAL" if is_final else ("CAUSE TERMINALE" if is_terminal else "CAUSE")
-            lp=Paragraph(label,label_style); _,lh=lp.wrap(node_w-5*mm,5*mm); lp.drawOn(canvas,x+2.5*mm,y+node_h-lh-2*mm)
-            p=Paragraph(escape(_s(fact.get("description"))),node_style); _,ph=p.wrap(node_w-5*mm,node_h-8*mm); p.drawOn(canvas,x+2.5*mm,y+2.5*mm)
+            a = positions.get(rel.get("cause_fact_id"))
+            b = positions.get(rel.get("effect_fact_id"))
+            if not a or not b:
+                continue
+            x1, y1 = a[0] + node_w / 2, a[1]
+            x2, y2 = b[0] + node_w / 2, b[1] + node_h
+            canvas.line(x1, y1, x2, y2)
+            # flèche à l'arrivée, comme markerEnd dans le SVG de l'aperçu
+            import math
+            angle = math.atan2(y2-y1, x2-x1)
+            size = 2.2 * mm
+            canvas.line(x2, y2, x2-size*math.cos(angle-.55), y2-size*math.sin(angle-.55))
+            canvas.line(x2, y2, x2-size*math.cos(angle+.55), y2-size*math.sin(angle+.55))
+
+        desc_style = ParagraphStyle("CauseTreeDescription", fontName="Helvetica", fontSize=7.6, leading=9.2, textColor=TEXT)
+        type_style = ParagraphStyle("CauseTreeType", fontName="Helvetica-Bold", fontSize=6.2, leading=7, textColor=colors.HexColor("#456078"))
+        for fact in linked:
+            pos = positions.get(fact["id"])
+            if not pos:
+                continue
+            x, y = pos
+            is_final = str(fact.get("fact_type") or "").upper() == "FINAL"
+            is_terminal = bool(fact.get("is_terminal"))
+            border = NAVY if is_final else ORANGE if is_terminal else colors.HexColor("#CBD5E1")
+            canvas.setFillColor(colors.white)
+            canvas.setStrokeColor(border)
+            canvas.setLineWidth(1.2 if (is_final or is_terminal) else .7)
+            canvas.roundRect(x, y, node_w, node_h, 5, fill=1, stroke=1)
+            # bandeau identique à l'aperçu
+            band_h = 8 * mm
+            if is_final:
+                canvas.setFillColor(colors.HexColor("#17384A"))
+            elif is_terminal:
+                canvas.setFillColor(colors.HexColor("#FFF7ED"))
+            else:
+                canvas.setFillColor(colors.HexColor("#FFFFFF"))
+            canvas.roundRect(x, y + node_h - band_h, node_w, band_h, 5, fill=1, stroke=0)
+            canvas.setStrokeColor(colors.HexColor("#DBE3E8"))
+            canvas.line(x, y + node_h - band_h, x + node_w, y + node_h - band_h)
+            label = self.tr["final_fact"] if is_final else self.tr["terminal_cause"] if is_terminal else self.tr["cause"]
+            ls = ParagraphStyle("TreeTypeLocal", parent=type_style, textColor=colors.white if is_final else ORANGE if is_terminal else colors.HexColor("#456078"))
+            lp = Paragraph(escape(label), ls)
+            _, lh = lp.wrap(node_w - 6 * mm, band_h - 2 * mm)
+            lp.drawOn(canvas, x + 3 * mm, y + node_h - band_h + (band_h-lh)/2)
+            dp = Paragraph(escape(_s(fact.get("description"))), desc_style)
+            _, dh = dp.wrap(node_w - 6 * mm, node_h - band_h - 3 * mm)
+            dp.drawOn(canvas, x + 3 * mm, y + 2.5 * mm)
         canvas.restoreState()
 
 
@@ -662,37 +705,72 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             ]))
             story += [card, Spacer(1, 3 * mm)]
 
-    # 07
+    # 07 — HEEPO : cartes identiques à l'aperçu
     heading(7, "heepo")
-    heepo = data.get("heepo") or []
+    heepo = [item for item in (data.get("heepo") or []) if not item.get("is_na")]
     if not heepo:
         story.append(Paragraph(escape(tr["not_provided"]), body))
     else:
-        rows = [["", ""]]
-        rows = [[Paragraph("<b>Famille</b>", body), Paragraph("<b>Facteur</b>", body)]]
+        family_style = ParagraphStyle("HeepoFamily", parent=small, fontSize=7.2, leading=9, textColor=MUTED)
+        code_style = ParagraphStyle("HeepoCode", parent=body, fontName="Helvetica-Bold", fontSize=9.5, textColor=ORANGE)
+        factor_style = ParagraphStyle("HeepoFactor", parent=body, fontSize=9.2, leading=12)
         for item in heepo:
             label = item.get("other_text") if item.get("factor_code") == "OTHER" else _localized(item, "factor_label", lang)
-            rows.append([Paragraph(escape(_s(item.get("family"))), body), Paragraph(escape(_s(label)), body)])
-        table = Table(rows, colWidths=[42 * mm, 111 * mm], repeatRows=1)
-        table.setStyle(TableStyle([("BACKGROUND", (0,0), (-1,0), NAVY), ("TEXTCOLOR", (0,0), (-1,0), colors.white), ("BOX",(0,0),(-1,-1),.4,MID), ("INNERGRID",(0,0),(-1,-1),.25,MID), ("VALIGN",(0,0),(-1,-1),"TOP"), ("PADDING",(0,0),(-1,-1),6)]))
-        story.append(table)
+            card = Table([[
+                Paragraph(escape(_s(item.get("factor_code"))), code_style),
+                [Paragraph(escape(_s(item.get("family"))), family_style), Paragraph(escape(_s(label)), factor_style)],
+            ]], colWidths=[16 * mm, 137 * mm])
+            card.setStyle(TableStyle([
+                ("BACKGROUND",(0,0),(-1,-1),colors.white), ("BOX",(0,0),(-1,-1),.55,MID),
+                ("VALIGN",(0,0),(-1,-1),"MIDDLE"), ("LEFTPADDING",(0,0),(-1,-1),8),
+                ("RIGHTPADDING",(0,0),(-1,-1),8), ("TOPPADDING",(0,0),(-1,-1),7),
+                ("BOTTOMPADDING",(0,0),(-1,-1),7),
+            ]))
+            story += [card, Spacer(1, 2.5 * mm)]
 
-    # 08
+    # 08 — JUST CULTURE : chemin de décision + conclusion
     heading(8, "jc")
     jc = data.get("just_culture")
     if not jc:
         story.append(Paragraph(escape(tr["not_applicable"]), body))
     else:
+        history = jc.get("history") or []
+        step_style = ParagraphStyle("JcStep", parent=body, fontName="Helvetica-Bold", fontSize=8.5, textColor=colors.white, alignment=TA_CENTER)
+        answer_style = ParagraphStyle("JcAnswer", parent=body, fontName="Helvetica-Bold", fontSize=8.5, textColor=ORANGE)
+        for step in history:
+            question = _localized(step, "question_text", lang)
+            answer = _localized(step, "answer_label", lang)
+            circle = Table([[Paragraph(str(step.get("step_order") or ""), step_style)]], colWidths=[9*mm], rowHeights=[9*mm])
+            circle.setStyle(TableStyle([
+                ("BACKGROUND",(0,0),(-1,-1),colors.HexColor("#17384A")),
+                ("VALIGN",(0,0),(-1,-1),"MIDDLE"), ("ALIGN",(0,0),(-1,-1),"CENTER"),
+                ("BOX",(0,0),(-1,-1),0,colors.HexColor("#17384A")),
+            ]))
+            text_block = [Paragraph(escape(_s(question)), body), Paragraph(escape(_s(answer)), answer_style)]
+            row = Table([[circle, text_block]], colWidths=[13*mm, 140*mm])
+            row.setStyle(TableStyle([
+                ("BACKGROUND",(0,0),(-1,-1),colors.white), ("BOX",(0,0),(-1,-1),.55,MID),
+                ("VALIGN",(0,0),(-1,-1),"MIDDLE"), ("LEFTPADDING",(0,0),(-1,-1),7),
+                ("RIGHTPADDING",(0,0),(-1,-1),7), ("TOPPADDING",(0,0),(-1,-1),7),
+                ("BOTTOMPADDING",(0,0),(-1,-1),7),
+            ]))
+            story += [row, Spacer(1, 2.5*mm)]
+
         conclusion = _localized(jc, "conclusion_label", lang)
         recommendation = _localized(jc, "recommendation_label", lang)
-        code = jc.get("recommendation_code")
-        bg = GREEN if code == "ACCOMPAGNEMENT" else YELLOW if code == "AVERTISSEMENT_VERBAL" else ORANGE_LIGHT if code in {"PREMIER_AVERTISSEMENT_ECRIT","DERNIER_AVERTISSEMENT_ECRIT"} else RED if code == "LICENCIEMENT" else LIGHT
-        table = Table([
-            [Paragraph(f"<b>{escape(tr['conclusion'])}</b>", body), Paragraph(escape(_s(conclusion)), body)],
-            [Paragraph(f"<b>{escape(tr['recommendation'])}</b>", body), Paragraph(escape(_s(recommendation)), body)],
-        ], colWidths=[45 * mm, 108 * mm])
-        table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,-1),bg),("BOX",(0,0),(-1,-1),.7,ORANGE),("INNERGRID",(0,0),(-1,-1),.3,MID),("PADDING",(0,0),(-1,-1),8),("VALIGN",(0,0),(-1,-1),"TOP")]))
-        story.append(table)
+        result_cards = Table([
+            [
+                [Paragraph(escape(tr["conclusion"]), small), Paragraph(f"<b>{escape(_s(conclusion))}</b>", body)],
+                [Paragraph(escape(tr["recommendation"]), small), Paragraph(f"<b>{escape(_s(recommendation))}</b>", body)],
+            ]
+        ], colWidths=[100*mm, 53*mm])
+        result_cards.setStyle(TableStyle([
+            ("BACKGROUND",(0,0),(-1,-1),colors.white), ("BOX",(0,0),(-1,-1),.7,MID),
+            ("INNERGRID",(0,0),(-1,-1),.4,MID), ("VALIGN",(0,0),(-1,-1),"TOP"),
+            ("LEFTPADDING",(0,0),(-1,-1),8), ("RIGHTPADDING",(0,0),(-1,-1),8),
+            ("TOPPADDING",(0,0),(-1,-1),7), ("BOTTOMPADDING",(0,0),(-1,-1),7),
+        ]))
+        story += [Spacer(1, 1*mm), result_cards]
 
     # 09 — ARBRE DES CAUSES : hauteur adaptative dans le flux
     heading(9, "tree")
@@ -700,7 +778,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     if not tree or not tree.get("facts"):
         story.append(Paragraph(escape(tr["not_provided"]), body))
     else:
-        story.append(CauseTreeFlowable(tree))
+        story.append(CauseTreeFlowable(tree, tr))
         story.append(Spacer(1, 5 * mm))
 
     # 10
