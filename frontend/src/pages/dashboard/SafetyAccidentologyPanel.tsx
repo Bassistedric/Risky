@@ -16,6 +16,13 @@ function Bars({rows,limit}:{rows:Row[];limit?:number}){
  </div>)}</div>
 }
 
+function topWithOther(rows:Row[],limit=5,otherLabel='Autres'):Row[]{
+ if(rows.length<=limit)return rows
+ const top=rows.slice(0,limit),rest=rows.slice(limit)
+ const count=rest.reduce((s,r)=>s+r.count,0),total=rows.reduce((s,r)=>s+r.count,0)
+ return [...top,{code:'OTHER',label:otherLabel,count,percent:total?count*100/total:0}]
+}
+
 function Pie({rows}:{rows:Row[]}){
  const total=rows.reduce((s,r)=>s+r.count,0)
  let cursor=0
@@ -28,6 +35,7 @@ function Pie({rows}:{rows:Row[]}){
 
 export default function SafetyAccidentologyPanel({organizationId,year,month,tradeCode}:{organizationId:number;year:number;month:number;tradeCode:string}){
  const {t}=useTranslation()
+ const other=t('safetyStatistics.accidentology.other')
  const [data,setData]=useState<Accidentology|null>(null),[error,setError]=useState('')
  useEffect(()=>{const q=new URLSearchParams({organization_id:String(organizationId),year:String(year),month_to:String(month)});if(tradeCode)q.set('trade_code',tradeCode);setError('');fetch(`${API}/safety-statistics/accidentology?${q}`).then(r=>{if(!r.ok)throw Error(t('safetyStatistics.accidentology.loadError'));return r.json()}).then(setData).catch(e=>{setData(null);setError(e.message)})},[organizationId,year,month,tradeCode,t])
  if(error)return <section className="safety-dashboard__panel"><div className="acc-error">{error}</div></section>
@@ -38,13 +46,13 @@ export default function SafetyAccidentologyPanel({organizationId,year,month,trad
   <div className="accidentology__title"><h3>{t('safetyStatistics.accidentology.title')}</h3><p>{t('safetyStatistics.accidentology.subtitle')}</p></div>
   <div className="acc-coverage">{(['heepo','classification','just_culture'] as const).map(k=><article key={k}><span>{t(`safetyStatistics.accidentology.coverage.${k}`)}</span><strong>{data.coverage[k]}/{data.coverage.events}</strong><small>{data.coverage.events?Math.round(data.coverage[k]*100/data.coverage.events):0}%</small></article>)}<article><span>{t('safetyStatistics.accidentology.coverage.actions')}</span><strong>{a.total}</strong><small>{t('safetyStatistics.accidentology.encoded')}</small></article></div>
 
-  <section className="acc-group acc-group--heepo"><h3>HEEPO</h3><div className="acc-grid"><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFamilies')}</h4><Pie rows={data.heepo.families}/></article><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFactors')}</h4><Bars rows={data.heepo.factors} limit={8}/></article></div></section>
+  <section className="acc-group acc-group--heepo"><h3>HEEPO</h3><div className="acc-grid"><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFamilies')}</h4><Pie rows={data.heepo.families}/></article><article className="acc-card"><h4>{t('safetyStatistics.accidentology.heepoFactors')}</h4><Bars rows={data.heepo.factors} limit={3}/></article></div></section>
 
   <section className="acc-group acc-group--fedris"><h3>{t('safetyStatistics.accidentology.classification')}</h3><div className="acc-grid acc-grid--four">
-   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.deviation')}</h4><Pie rows={data.classification.deviation}/></article>
-   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.material_agent')}</h4><Bars rows={data.classification.material_agent} limit={6}/></article>
-   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.injury_nature')}</h4><Pie rows={data.classification.injury_nature}/></article>
-   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.injury_location')}</h4><Pie rows={data.classification.injury_location}/></article>
+   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.deviation')}</h4><Pie rows={topWithOther(data.classification.deviation,5,other)}/></article>
+   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.material_agent')}</h4><Pie rows={topWithOther(data.classification.material_agent,5,other)}/></article>
+   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.injury_nature')}</h4><Pie rows={topWithOther(data.classification.injury_nature,5,other)}/></article>
+   <article className="acc-card"><h4>{t('safetyStatistics.accidentology.injury_location')}</h4><Pie rows={topWithOther(data.classification.injury_location,5,other)}/></article>
   </div></section>
 
   <section className="acc-group acc-group--culture"><h3>{t('safetyStatistics.accidentology.justCulture')}</h3><article className="acc-card"><Pie rows={data.just_culture.conclusions}/></article></section>
