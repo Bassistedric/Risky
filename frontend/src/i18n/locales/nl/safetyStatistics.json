@@ -23,5 +23,25 @@
   "accidents": "Ongevallen",
   "monthlyDetail": "Maandelijks detail",
   "month": "Maand",
-  "hours": "Uren"
+  "hours": "Uren",
+  "data": {
+    "title": "Statistische gegevens",
+    "rhTitle": "Import van HR-uren",
+    "rhHelp": "Importeer het maandelijkse Excel-bestand van HR. Voor opslag wordt een voorbeeld getoond.",
+    "preview": "Voorbeeld",
+    "apply": "Import bevestigen",
+    "throughMonth": "tot maand {{month}}",
+    "records": "records",
+    "importDone": "Import voltooid: {{count}} records.",
+    "targetsTitle": "CFE-doelstellingen",
+    "targetsHelp": "Jaarlijkse grenswaarden voor de opvolging van TF en TG.",
+    "save": "Opslaan",
+    "targetsSaved": "CFE-doelstellingen opgeslagen.",
+    "disabilityTitle": "Blijvende invaliditeit",
+    "disabilityHelp": "Voer de door AXA meegedeelde percentages in. JGC blijft 0 zolang de officiële schaal niet is geconfigureerd.",
+    "add": "Toevoegen",
+    "none": "Geen invaliditeit ingevoerd.",
+    "disabilitySaved": "Invaliditeit opgeslagen.",
+    "error": "De bewerking is mislukt."
+  }
 }
