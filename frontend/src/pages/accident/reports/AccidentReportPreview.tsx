@@ -654,12 +654,12 @@ function AccidentReportPreview({
                                 </span>
 
                                 <strong>
-                                    {circumstantial_report
-                                        ? rt('circumstantial.analysisType')
-                                        : translatedValue(
-                                            'analysisType',
-                                            event.analysis_type,
-                                        )}
+                                    {translatedValue(
+                                        'analysisType',
+                                        circumstantial_report
+                                            ? 'CIRCUMSTANTIAL'
+                                            : event.analysis_type,
+                                    )}
                                 </strong>
                             </div>
                         </div>
