@@ -511,7 +511,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         logo.drawWidth = logo.imageWidth * scale
         logo.drawHeight = logo.imageHeight * scale
         logo.hAlign = "CENTER"
-        story += [logo, Spacer(1, 18 * mm)]
+        story += [logo, Spacer(1, 24 * mm)]
     else:
         story += [Spacer(1, 25 * mm)]
     cover_title_block = Table([[
@@ -530,7 +530,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         ("LEFTPADDING",(1,0),(1,0),8 * mm), ("RIGHTPADDING",(1,0),(1,0),0),
         ("TOPPADDING",(1,0),(1,0),1 * mm), ("BOTTOMPADDING",(1,0),(1,0),1 * mm),
     ]))
-    story += [cover_title_block, Spacer(1, 16 * mm)]
+    story += [cover_title_block, Spacer(1, 23 * mm)]
 
     raw_date = event.get("event_date")
     if hasattr(raw_date, "strftime"):
@@ -574,8 +574,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         card.setStyle(TableStyle([
             ("BACKGROUND",(0,0),(-1,-1),IVORY), ("BOX",(0,0),(-1,-1),.6,BEIGE_BORDER),
             ("LEFTPADDING",(0,0),(-1,-1),9), ("RIGHTPADDING",(0,0),(-1,-1),9),
-            ("TOPPADDING",(0,0),(-1,0),7), ("BOTTOMPADDING",(0,0),(-1,0),2),
-            ("TOPPADDING",(0,1),(-1,1),2), ("BOTTOMPADDING",(0,1),(-1,1),8),
+            ("TOPPADDING",(0,0),(-1,0),9), ("BOTTOMPADDING",(0,0),(-1,0),3),
+            ("TOPPADDING",(0,1),(-1,1),3), ("BOTTOMPADDING",(0,1),(-1,1),10),
         ]))
         cover_cards.append(card)
     cover_grid_rows = []
@@ -588,7 +588,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     cover_grid.setStyle(TableStyle([
         ("VALIGN",(0,0),(-1,-1),"TOP"),
         ("LEFTPADDING",(0,0),(-1,-1),0), ("RIGHTPADDING",(0,0),(-1,-1),0),
-        ("TOPPADDING",(0,0),(-1,-1),0), ("BOTTOMPADDING",(0,0),(-1,-1),4),
+        ("TOPPADDING",(0,0),(-1,-1),0), ("BOTTOMPADDING",(0,0),(-1,-1),7),
     ]))
     story.append(cover_grid)
 
