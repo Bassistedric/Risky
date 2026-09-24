@@ -4,7 +4,7 @@ import './SafetyDashboardPage.css'
 
 const API='http://127.0.0.1:8000'
 type M={month:number;worked_hours:number;accidents_with_lost_time:number;accidents_without_lost_time:number;lost_days:number;incidents:number;near_misses:number;tf:number|null;tg:number|null;tf_ytd:number|null;tg_ytd:number|null}
-type S={scope:{organization_name:string;trade_code:string|null};period:{year:number;month_to:number};totals:{worked_hours:number;accidents_with_lost_time:number;accidents_without_lost_time:number;lost_days:number;conventional_days:number;incidents:number;near_misses:number};indicators:{tf:number|null;tg:number|null;tgg:number|null};targets:{tf_target:number|null;tg_target:number|null};projection:{projected_hours:number|null;projected_tf:number|null;projected_tg:number|null};monthly:M[]}
+type S={scope:{organization_name:string;trade_code:string|null};period:{year:number;month_to:number;indicator_month_to?:number};totals:{worked_hours:number;accidents_with_lost_time:number;accidents_without_lost_time:number;lost_days:number;conventional_days:number;incidents:number;near_misses:number};indicators:{tf:number|null;tg:number|null;tgg:number|null};targets:{tf_target:number|null;tg_target:number|null};projection:{projected_hours:number|null;projected_tf:number|null;projected_tg:number|null};monthly:M[]}
 type Trade={id:number;code:string;name:string}
 type Metric='tf'|'tg'|'accidents'
 
@@ -22,7 +22,7 @@ export default function SafetyDashboardPage(){
   const q=new URLSearchParams({organization_id:String(org),year:String(year),month_to:String(month)})
   if(trade)q.set('trade_code',trade)
   fetch(`${API}/safety-statistics/summary?${q}`).then(r=>{if(!r.ok)throw Error(t('safetyStatistics.loadError'));return r.json()})
-   .then(payload=>{setData(payload);if(payload.period?.month_to&&payload.period.month_to<month)setMonth(payload.period.month_to)}).catch(e=>{setData(null);setError(e.message)}).finally(()=>setLoading(false))
+   .then(setData).catch(e=>{setData(null);setError(e.message)}).finally(()=>setLoading(false))
  },[year,month,trade,t])
 
  const locale=i18n.language==='fr'?'fr-BE':i18n.language==='nl'?'nl-BE':i18n.language==='pl'?'pl-PL':'en-GB'
