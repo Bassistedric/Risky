@@ -521,6 +521,7 @@
             "sitePressure": "Pression de chantier",
             "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
         },
-        "noCauseSelected": "Aucune cause sélectionnée"
+        "noCauseSelected": "Aucune cause sélectionnée",
+        "analysisType": "Circonstancié"
     }
 }
