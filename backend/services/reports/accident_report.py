@@ -428,7 +428,7 @@ def build_accident_report_preview(
     # JUST CULTURE
     # ====================================================
 
-        just_culture_data = None
+    just_culture_data = None
 
     if (event.analysis_type or "").upper() in {"ADVANCED", "APPROFONDIE", "APPROFONDI"}:
         try:
