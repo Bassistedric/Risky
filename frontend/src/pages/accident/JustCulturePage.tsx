@@ -527,7 +527,7 @@ function JustCulturePage({
         <div className="just-culture-page">
             <button
                 type="button"
-                className="just-culture-page__back"
+                className="just-culture-page__back risky-back-button"
                 onClick={onBack}
             >
                 <span aria-hidden="true">←</span>
