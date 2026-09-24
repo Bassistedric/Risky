@@ -61,6 +61,11 @@ function AccidentDossierPage({
     const [statusError, setStatusError] =
         useState<string | null>(null)
 
+    const [isEditingTitle, setIsEditingTitle] = useState(false)
+    const [titleDraft, setTitleDraft] = useState('')
+    const [isSavingTitle, setIsSavingTitle] = useState(false)
+    const [titleError, setTitleError] = useState<string | null>(null)
+
     /* ========================================================
    APERÇU RAPPORT
    ======================================================== */
@@ -191,6 +196,42 @@ function AccidentDossierPage({
             setIsUpdatingStatus(false)
         }
     }
+    const saveTitle = async () => {
+        if (!event) return
+        const description = titleDraft.trim()
+        if (!description) {
+            setTitleError(at('dossier.editTitle.required'))
+            return
+        }
+        const token = sessionStorage.getItem('risky_session_token')
+        if (!token) {
+            setTitleError(at('dossier.editTitle.sessionRequired'))
+            return
+        }
+        try {
+            setIsSavingTitle(true)
+            setTitleError(null)
+            const response = await fetch(
+                `${API_BASE_URL}/events/${event.id}`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Session-Token': token,
+                    },
+                    body: JSON.stringify({ description }),
+                },
+            )
+            if (!response.ok) throw new Error()
+            await loadEvent()
+            setIsEditingTitle(false)
+        } catch {
+            setTitleError(at('dossier.editTitle.updateError'))
+        } finally {
+            setIsSavingTitle(false)
+        }
+    }
+
     /* ========================================================
        APERÇU RAPPORT
        ======================================================== */
@@ -251,9 +292,47 @@ function AccidentDossierPage({
 
                         <h1>{at('dossier.title')}</h1>
 
-                        <p className="accident-dossier__title">
-                            {event.description}
-                        </p>
+                        <div className="accident-dossier__title-row">
+                            {isEditingTitle ? (
+                                <div className="accident-dossier__title-editor">
+                                    <input
+                                        value={titleDraft}
+                                        autoFocus
+                                        disabled={isSavingTitle}
+                                        onChange={(e) => setTitleDraft(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') void saveTitle()
+                                            if (e.key === 'Escape') {
+                                                setIsEditingTitle(false)
+                                                setTitleError(null)
+                                            }
+                                        }}
+                                    />
+                                    <button type="button" disabled={isSavingTitle} onClick={() => void saveTitle()}>
+                                        {at('dossier.editTitle.save')}
+                                    </button>
+                                    <button type="button" disabled={isSavingTitle} onClick={() => { setIsEditingTitle(false); setTitleError(null) }}>
+                                        {at('dossier.editTitle.cancel')}
+                                    </button>
+                                </div>
+                            ) : (
+                                <>
+                                    <p className="accident-dossier__title">{event.description}</p>
+                                    <button
+                                        type="button"
+                                        className="accident-dossier__title-edit"
+                                        title={at('dossier.editTitle.button')}
+                                        aria-label={at('dossier.editTitle.button')}
+                                        onClick={() => {
+                                            setTitleDraft(event.description ?? '')
+                                            setTitleError(null)
+                                            setIsEditingTitle(true)
+                                        }}
+                                    >✎</button>
+                                </>
+                            )}
+                        </div>
+                        {titleError && <span className="accident-dossier__title-error">{titleError}</span>}
                     </div>
 
                     <div className="accident-dossier__status-control">
