@@ -17,3 +17,16 @@
 .accident-circumstantial__actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 .accident-circumstantial__error{margin-top:12px!important;color:#a83232!important;font-size:13px;font-weight:600}
 @media(max-width:900px){.accident-circumstantial__grid,.accident-circumstantial__cause-grid{grid-template-columns:1fr}.accident-circumstantial__grid label.wide{grid-column:auto}}
+
+/* ============================================================
+   ANALYSE COMPLÉMENTAIRE — ACCIDENT GRAVE
+   ============================================================ */
+.accident-circumstantial__cause-wrap{max-width:1120px;margin:0 auto;display:grid;gap:14px}
+.accident-circumstantial__cause-wrap .accident-circumstantial__cause-card{padding:18px}
+.accident-circumstantial__category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
+.accident-circumstantial__category{padding:12px 14px;border:1px solid #e3ddd3;border-radius:8px;background:#fbfaf7}
+.accident-circumstantial__category h4{margin:0 0 8px;color:#75604d;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.accident-circumstantial__selected{display:flex;flex-wrap:wrap;gap:8px;min-height:30px}
+.accident-circumstantial__pill{display:inline-flex;align-items:center;padding:7px 10px;border:1px solid #cfc3b3;border-radius:999px;background:#eee6d9;color:#493e34;font-size:13px;font-weight:700}
+.accident-circumstantial__empty{color:#7b8185;font-size:13px;font-style:italic}
+@media(max-width:900px){.accident-circumstantial__category-grid{grid-template-columns:1fr}}
