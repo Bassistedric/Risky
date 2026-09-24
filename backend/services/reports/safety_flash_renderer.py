@@ -7,23 +7,20 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import Image, Paragraph, Table, TableStyle
+from reportlab.platypus import Image, Paragraph
 from reportlab.pdfgen import canvas
 
 from backend.services.event_photos import STORAGE_ROOT
 
-
-ORANGE = colors.HexColor("#F28C00")
-NAVY = colors.HexColor("#17384A")
-GREY = colors.HexColor("#5F666D")
-LIGHT = colors.HexColor("#F4F5F6")
-WHITE = colors.white
+CFE_ORANGE = colors.HexColor("#C6530B")
+CFE_BLUE = colors.HexColor("#153B70")
+BLACK = colors.black
+YELLOW = colors.HexColor("#FFF200")
 
 _FONT_CANDIDATES = [
     (Path("C:/Windows/Fonts/arial.ttf"), Path("C:/Windows/Fonts/arialbd.ttf")),
@@ -37,115 +34,114 @@ for regular, bold in _FONT_CANDIDATES:
         FONT, FONT_BOLD = "SafetyFlashSans", "SafetyFlashSans-Bold"
         break
 
-
 TEXT = {
-    "fr": {"title":"CFE Safety Flash","what":"Quoi","incident":"Incident","accident":"Accident","near":"Presqu’accident","subject":"Sujet","facts":"Les faits","explanations":"Explications","support":"Support d’information (Photos / docs….)","photo":"Photo","actions":"Action corrective / Recommandations","internal":"Internal use only."},
-    "nl": {"title":"CFE Safety Flash","what":"Wat","incident":"Incident","accident":"Ongeval","near":"Bijna-ongeval","subject":"Onderwerp","facts":"De feiten","explanations":"Toelichting","support":"Informatiemateriaal (foto’s / documenten…)","photo":"Foto","actions":"Corrigerende acties / Aanbevelingen","internal":"Internal use only."},
-    "en": {"title":"CFE Safety Flash","what":"What","incident":"Incident","accident":"Accident","near":"Near miss","subject":"Subject","facts":"Facts","explanations":"Explanations","support":"Information support (Photos / documents…)","photo":"Photo","actions":"Corrective actions / Recommendations","internal":"Internal use only."},
-    "pl": {"title":"CFE Safety Flash","what":"Co","incident":"Incydent","accident":"Wypadek","near":"Zdarzenie potencjalnie wypadkowe","subject":"Temat","facts":"Fakty","explanations":"Wyjaśnienia","support":"Materiały informacyjne (zdjęcia / dokumenty…)","photo":"Zdjęcie","actions":"Działania korygujące / Zalecenia","internal":"Internal use only."},
+    "fr": {"title":"CFE Safety Flash","what":"Quoi :","incident":"Incident","accident":"Accident","near":"Presqu’accident","subject":"Sujet :","facts":"Les faits:","explanations":"Explications:","support":"Support d’information (Photos / docs…..) :","photo":"Photo:","actions":"Action corrective/ Recommandations:","internal":"Internal use only."},
+    "nl": {"title":"CFE Safety Flash","what":"Wat :","incident":"Incident","accident":"Ongeval","near":"Bijna-ongeval","subject":"Onderwerp :","facts":"De feiten:","explanations":"Toelichting:","support":"Informatiemateriaal (foto’s / documenten…) :","photo":"Foto:","actions":"Corrigerende acties / Aanbevelingen:","internal":"Internal use only."},
+    "en": {"title":"CFE Safety Flash","what":"What:","incident":"Incident","accident":"Accident","near":"Near miss","subject":"Subject:","facts":"Facts:","explanations":"Explanations:","support":"Information support (Photos / documents…) :","photo":"Photo:","actions":"Corrective actions / Recommendations:","internal":"Internal use only."},
+    "pl": {"title":"CFE Safety Flash","what":"Co:","incident":"Incydent","accident":"Wypadek","near":"Zdarzenie potencjalnie wypadkowe","subject":"Temat:","facts":"Fakty:","explanations":"Wyjaśnienia:","support":"Materiały informacyjne (zdjęcia / dokumenty…) :","photo":"Zdjęcie:","actions":"Działania korygujące / Zalecenia:","internal":"Internal use only."},
 }
 
 
-def _p(text, size=10, bold=False, color=GREY, leading=None):
+def _para(text, size=10, bold=False, leading=None):
     return Paragraph(
         escape(str(text or "")).replace("\n", "<br/>"),
         ParagraphStyle("sf", fontName=FONT_BOLD if bold else FONT, fontSize=size,
-                       leading=leading or size * 1.25, textColor=color),
+                       leading=leading or size*1.22, textColor=BLACK),
     )
 
 
 def _fit_image(path: Path, max_w: float, max_h: float):
     img = Image(str(path))
-    scale = min(max_w / img.imageWidth, max_h / img.imageHeight)
-    img.drawWidth = img.imageWidth * scale
-    img.drawHeight = img.imageHeight * scale
+    scale = min(max_w/img.imageWidth, max_h/img.imageHeight)
+    img.drawWidth, img.drawHeight = img.imageWidth*scale, img.imageHeight*scale
     return img
 
 
 def render_safety_flash_pdf(data: dict, language: str = "fr") -> bytes:
-    lang = language if language in TEXT else "fr"
-    tr = TEXT[lang]
+    tr = TEXT.get(language, TEXT["fr"])
     out = BytesIO()
     c = canvas.Canvas(out, pagesize=A4)
     w, h = A4
+    assets = Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images"
+    vma = assets / "vma_logo.jpg"
+    zero = assets / "Go_for_zero.jpg"
 
-    logo_candidates = [
-        Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images" / "vma_logo.jpg",
-        Path.cwd() / "frontend" / "src" / "assets" / "images" / "vma_logo.jpg",
-    ]
-    logo_path = next((p for p in logo_candidates if p.exists()), None)
+    def header():
+        if vma.exists():
+            im=_fit_image(vma,47*mm,14*mm); im.drawOn(c,4*mm,h-20*mm)
+        if zero.exists():
+            im=_fit_image(zero,29*mm,18*mm); im.drawOn(c,w-33*mm,h-21*mm)
+        c.setFillColor(CFE_ORANGE); c.setFont(FONT,29)
+        c.drawCentredString(w/2,h-18*mm,tr["title"])
+        c.setLineWidth(1.1); c.line(w/2-39*mm,h-21*mm,w/2+39*mm,h-21*mm)
+        c.setFillColor(BLACK); c.setFont(FONT,6.5); c.drawString(2*mm,5*mm,tr["internal"])
 
-    def header(page_no: int):
-        if logo_path:
-            img = _fit_image(logo_path, 42*mm, 16*mm)
-            img.drawOn(c, 18*mm, h-25*mm)
-        c.setFont(FONT_BOLD, 20)
-        c.setFillColor(ORANGE)
-        c.drawRightString(w-18*mm, h-18*mm, tr["title"])
-        c.setStrokeColor(ORANGE)
-        c.setLineWidth(2)
-        c.line(18*mm, h-30*mm, w-18*mm, h-30*mm)
-        c.setFillColor(GREY)
-        c.setFont(FONT, 7)
-        c.drawString(18*mm, 10*mm, tr["internal"])
-        c.drawRightString(w-18*mm, 10*mm, str(page_no))
+    def orange_label(x,y,label,size=9):
+        c.setFillColor(CFE_ORANGE); c.setFont(FONT_BOLD,size); c.drawString(x,y,label)
+        width=c.stringWidth(label,FONT_BOLD,size); c.setLineWidth(.35); c.line(x,y-.7*mm,x+width,y-.7*mm)
 
-    def section(label, value, y, height, accent=ORANGE):
-        c.setFillColor(accent)
-        c.rect(18*mm, y+height-9*mm, 174*mm, 9*mm, fill=1, stroke=0)
-        c.setFillColor(WHITE)
-        c.setFont(FONT_BOLD, 10)
-        c.drawString(22*mm, y+height-6.2*mm, label)
-        body = _p(value, size=10, color=GREY, leading=13)
-        body.wrapOn(c, 166*mm, height-14*mm)
-        body.drawOn(c, 22*mm, y+5*mm)
+    def bordered_box(x,y,bw,bh):
+        c.setStrokeColor(CFE_BLUE); c.setLineWidth(.45); c.rect(x,y,bw,bh,fill=0,stroke=1)
 
-    # PAGE 1
-    header(1)
-    y = h - 45*mm
-    event_type = (data.get("event_type") or "").upper()
-    options = [("INCIDENT",tr["incident"]),("ACCIDENT",tr["accident"]),("NEAR_MISS",tr["near"])]
-    c.setFont(FONT_BOLD, 11); c.setFillColor(GREY); c.drawString(18*mm,y,tr["what"]+":")
-    x=45*mm
-    for code,label in options:
-        c.setStrokeColor(GREY); c.rect(x,y-3*mm,4*mm,4*mm,fill=0,stroke=1)
-        if event_type==code:
-            c.setFillColor(ORANGE); c.rect(x+.7*mm,y-2.3*mm,2.6*mm,2.6*mm,fill=1,stroke=0)
-        c.setFillColor(GREY); c.setFont(FONT,9); c.drawString(x+6*mm,y-1.5*mm,label)
-        x += 45*mm
+    def text_in_box(text,x,y,bw,bh,top=5*mm,size=9.5):
+        p=_para(text,size=size,leading=size*1.25); _,ph=p.wrap(bw-5*mm,bh-top-3*mm)
+        p.drawOn(c,x+2.5*mm,y+bh-top-ph)
 
-    section(tr["subject"], data.get("subject"), h-86*mm, 25*mm)
-    section(tr["facts"], data.get("facts"), h-164*mm, 68*mm)
-    section(tr["explanations"], data.get("explanations"), 25*mm, h-199*mm)
+    # PAGE 1 — arrangement CFE
+    header()
+    top=h-37*mm
+    left_x=4*mm; what_w=32*mm; gap=3*mm; subj_x=left_x+what_w+gap; right=4*mm
+    row_h=19*mm
+    bordered_box(left_x,top-row_h,what_w,row_h)
+    bordered_box(subj_x,top-row_h,w-subj_x-right,row_h)
+    orange_label(left_x+2*mm,top-5.5*mm,tr["what"],8.5)
+    event=(data.get("event_type") or "").upper()
+    labels=[("INCIDENT",tr["incident"]),("ACCIDENT",tr["accident"]),("NEAR_MISS",tr["near"])]
+    yy=top-5.5*mm
+    for code,label in labels:
+        if code=="NEAR_MISS" and event!="NEAR_MISS": continue
+        if code==event:
+            tw=c.stringWidth(label,FONT_BOLD,8.5); c.setFillColor(YELLOW); c.rect(left_x+13*mm,yy-2.5*mm,tw+1.5*mm,4.2*mm,fill=1,stroke=0)
+        c.setFillColor(BLACK); c.setFont(FONT_BOLD if code==event else FONT,8.5); c.drawString(left_x+13.5*mm,yy,label)
+        yy-=6*mm
+    orange_label(subj_x+2*mm,top-5.5*mm,tr["subject"],8.5)
+    p=_para(data.get("subject"),9.5,bold=True); p.wrapOn(c,w-subj_x-right-19*mm,8*mm); p.drawOn(c,subj_x+15*mm,top-8.2*mm)
+
+    facts_y=top-row_h-4*mm-31*mm; facts_h=31*mm
+    bordered_box(left_x,facts_y,w-left_x-right,facts_h)
+    orange_label(left_x+2*mm,facts_y+facts_h-5.5*mm,tr["facts"],8.5)
+    text_in_box(data.get("facts"),left_x,facts_y,w-left_x-right,facts_h,8*mm,9.3)
+
+    exp_y=50*mm; exp_h=facts_y-7*mm-exp_y
+    bordered_box(left_x,exp_y,w-left_x-right,exp_h)
+    orange_label(left_x+2*mm,exp_y+exp_h-5.5*mm,tr["explanations"],8.5)
+    text_in_box(data.get("explanations"),left_x,exp_y,w-left_x-right,exp_h,9*mm,9.2)
     c.showPage()
 
-    # PAGE 2
-    header(2)
-    c.setFillColor(ORANGE); c.rect(18*mm,h-50*mm,174*mm,9*mm,fill=1,stroke=0)
-    c.setFillColor(WHITE); c.setFont(FONT_BOLD,10); c.drawString(22*mm,h-47*mm,tr["support"])
-    photos=data.get("photos") or []
-    photo_y=h-137*mm
-    if photos:
-        slots=[(20*mm,photo_y),(107*mm,photo_y)]
-        for photo,(px,py) in zip(photos[:2],slots):
-            # EventPhoto storage is storage/event_photos/<event_id>/<stored filename>.
-            # Preview intentionally carries only id; resolve by common extensions if needed.
-            event_dir=STORAGE_ROOT/str(data.get("event_id"))
-            candidates=[]
-            if event_dir.exists():
-                candidates=sorted(event_dir.iterdir())
-            # sort order in preview corresponds to stored order; safest available mapping for renderer
-            idx=photos.index(photo)
-            if idx < len(candidates):
-                try:
-                    img=_fit_image(candidates[idx],80*mm,68*mm)
-                    img.drawOn(c,px+(80*mm-img.drawWidth)/2,py+(68*mm-img.drawHeight)/2)
-                except Exception:
-                    pass
-    else:
-        c.setStrokeColor(colors.HexColor("#D5D8DB")); c.rect(20*mm,photo_y,170*mm,68*mm,fill=0,stroke=1)
-        c.setFillColor(GREY); c.setFont(FONT,9); c.drawCentredString(w/2,photo_y+32*mm,tr["photo"])
+    # PAGE 2 — actions first, then support/photos
+    header()
+    actions_top=h-35*mm; actions_h=45*mm; x=7*mm; bw=w-14*mm
+    bordered_box(x,actions_top-actions_h,bw,actions_h)
+    orange_label(x+2*mm,actions_top-5.5*mm,tr["actions"],8.5)
+    text_in_box(data.get("recommendations"),x,actions_top-actions_h,bw,actions_h,9*mm,9.2)
 
-    section(tr["actions"], data.get("recommendations"), 25*mm, 92*mm)
+    support_top=actions_top-actions_h-6*mm
+    support_y=17*mm; support_h=support_top-support_y
+    bordered_box(4*mm,support_y,w-8*mm,support_h)
+    orange_label(6*mm,support_top-5.5*mm,tr["support"],8.5)
+    orange_label(11*mm,support_top-23*mm,tr["photo"],8.5)
+
+    photos=data.get("photos") or []
+    event_dir=STORAGE_ROOT/str(data.get("event_id"))
+    for idx,photo in enumerate(photos[:4]):
+        filename=photo.get("filename")
+        path=event_dir/filename if filename else None
+        if not path or not path.exists(): continue
+        col=idx%4; slot_w=43*mm; px=14*mm+col*45*mm
+        try:
+            im=_fit_image(path,slot_w,65*mm)
+            im.drawOn(c,px+(slot_w-im.drawWidth)/2,support_y+5*mm+(65*mm-im.drawHeight)/2)
+        except Exception:
+            pass
     c.save()
     return out.getvalue()
