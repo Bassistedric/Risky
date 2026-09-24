@@ -1,0 +1,37 @@
+{
+    "navigation": {
+        "overview": "Overview",
+        "safety": "Safety",
+        "management": "Management",
+        "system": "System",
+        "accidents": "Accidents & incidents",
+        "riskAnalysis": "Risk assessments",
+        "personnel": "Personnel",
+        "equipment": "Equipment",
+        "environment": "Environment",
+        "quality": "Quality",
+        "documents": "Documents",
+        "actionPlans": "Action plans",
+        "forms": "Forms",
+        "administration": "Administration",
+        "competencies": "Competencies & authorizations",
+        "equipmentSafety": "Equipment safety",
+        "field": "Field",
+        "qualitySmi": "Quality & IMS"
+    },
+    "topbar": {
+        "accidentRegister": "Accident & incident register",
+        "newEvent": "New event",
+        "eventFile": "Event file",
+        "causeTree": "Cause tree",
+        "homeDescription": "Access the different Risky QHSE modules.",
+        "dashboardDescription": "QHSE indicators, trends, alerts and overall monitoring.",
+        "accidentRegisterDescription": "Monitoring and access to reported events.",
+        "newEventDescription": "Create a new event file.",
+        "eventFileDescription": "Detailed review and analysis of the event.",
+        "causeTreeDescription": "Structured analysis of facts and their causal relationships.",
+        "genericDescription": "Integrated management of prevention, quality and environment.",
+        "heepo": "HEEPO Analysis",
+        "heepoDescription": "Structured analysis of contributing factors."
+    }
+}

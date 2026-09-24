@@ -1,0 +1,265 @@
+/* ============================================================
+   ÉLÉMENTS PARTAGÉS DU DOSSIER ACCIDENT
+   ============================================================ */
+
+.accident-dossier__section {
+  padding: 20px 24px;
+  background: #f7f9fb;
+  border: 1px solid #c9d4df;
+  border-radius: 14px;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.045);
+}
+
+.accident-dossier__section h2 {
+  margin: 0 0 18px;
+  color: #0f2742;
+  font-size: 18px;
+}
+
+.accident-dossier__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.accident-dossier__section-header h2 {
+  margin-bottom: 5px;
+}
+
+.accident-dossier__section-header p {
+  margin: 0;
+  color: #5f7388;
+  font-size: 13px;
+}
+
+/* Conteneur interne utilisé par faits / classification / futurs modules */
+.accident-dossier__facts {
+  margin: 20px -8px -8px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #d4dee8;
+  border-radius: 10px;
+}
+
+.accident-dossier__facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+}
+
+.accident-dossier__facts-grid > div {
+  padding: 14px 16px;
+  background: #f7f9fb;
+  border: 1px solid #d8e1ea;
+  border-radius: 9px;
+}
+
+.accident-dossier__facts-grid span {
+  display: block;
+  margin-bottom: 7px;
+  color: #597189;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.accident-dossier__facts-grid p {
+  margin: 0;
+  color: #24364b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.accident-dossier__facts-wide {
+  grid-column: 1 / -1;
+}
+
+.accident-dossier__facts-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 24px;
+  background: #f8fafc;
+  border: 1px dashed #b7c6d5;
+  border-radius: 9px;
+  color: #5f7388;
+  text-align: center;
+}
+
+.accident-dossier__facts-empty p {
+  margin: 0;
+}
+
+.accident-dossier__facts-empty .risky-button {
+  min-width: 130px;
+  min-height: 40px;
+  padding: 9px 20px;
+  background: #1f6fae;
+  border: 1px solid #1f6fae;
+  border-radius: 7px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(31, 111, 174, 0.16);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.accident-dossier__facts-empty .risky-button:hover {
+  background: #185f97;
+  border-color: #185f97;
+  box-shadow: 0 4px 9px rgba(31, 111, 174, 0.22);
+  transform: translateY(-1px);
+}
+
+.accident-dossier__facts-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accident-dossier__facts-grid > label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.accident-dossier__facts-grid > label span {
+  margin: 0;
+  color: #4f657b;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.accident-dossier__facts-grid input,
+.accident-dossier__facts-grid select,
+.accident-dossier__facts-grid textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 11px;
+  background: #ffffff;
+  border: 1px solid #bfcbd7;
+  border-radius: 7px;
+  color: #24364b;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.accident-dossier__facts-grid input,
+.accident-dossier__facts-grid select {
+  min-height: 40px;
+}
+
+.accident-dossier__facts-grid select {
+  cursor: pointer;
+}
+
+.accident-dossier__facts-grid textarea {
+  min-height: 80px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.accident-dossier__facts-grid input:hover,
+.accident-dossier__facts-grid select:hover,
+.accident-dossier__facts-grid textarea:hover {
+  border-color: #91a8bd;
+}
+
+.accident-dossier__facts-grid input:focus,
+.accident-dossier__facts-grid select:focus,
+.accident-dossier__facts-grid textarea:focus {
+  background: #ffffff;
+  border-color: #478bc9;
+  box-shadow: 0 0 0 3px rgba(71, 139, 201, 0.12);
+}
+
+.accident-dossier__facts-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid #d8e1ea;
+}
+
+.accident-dossier__facts-actions button {
+  min-height: 38px;
+  padding: 8px 16px;
+  border: 1px solid #b8c6d4;
+  border-radius: 7px;
+  background: #edf2f6;
+  color: #334a60;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.accident-dossier__facts-actions button:hover {
+  background: #e2e9ef;
+  border-color: #9eafbf;
+}
+
+.accident-dossier__facts-actions .risky-button {
+  background: #1f6fae;
+  border-color: #1f6fae;
+  color: #ffffff;
+}
+
+.accident-dossier__facts-actions .risky-button:hover {
+  background: #185f97;
+  border-color: #185f97;
+}
+
+.accident-dossier__facts-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.accident-dossier__facts-error {
+  margin: 0;
+  padding: 11px 13px;
+  background: #fff1f0;
+  border: 1px solid #f1c5c1;
+  border-radius: 7px;
+  color: #b42318;
+  font-size: 13px;
+}
+
+.accident-dossier__edit-button {
+  min-width: 110px;
+  padding: 9px 18px;
+  background: #1f6fae;
+  border: 1px solid #1f6fae;
+  border-radius: 7px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.accident-dossier__edit-button:hover {
+  background: #185d94;
+  border-color: #185d94;
+}
+
+@media (max-width: 800px) {
+  .accident-dossier__facts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .accident-dossier__facts-wide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .accident-dossier__section-header {
+    align-items: flex-start;
+  }
+}

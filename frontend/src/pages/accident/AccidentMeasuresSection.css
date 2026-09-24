@@ -1,0 +1,548 @@
+/* ============================================================
+   MESURES ET ACTIONS — SECTION
+   ============================================================ */
+
+.accident-measures {
+    overflow: hidden;
+
+    border: 1px solid #d7e0e8;
+    border-radius: 10px;
+
+    background: #f8fafc;
+}
+
+
+/* ============================================================
+   EN-TÊTE REPLIABLE
+   ============================================================ */
+
+.accident-measures__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 14px 16px;
+
+    border: 0;
+    background: transparent;
+
+    color: #172033;
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.accident-measures__header:hover {
+    background: #f2f6f9;
+}
+
+.accident-measures__chevron {
+    width: 16px;
+
+    color: #667085;
+    font-size: 14px;
+    text-align: center;
+}
+
+.accident-measures__title {
+    font-weight: 700;
+}
+
+.accident-measures__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 24px;
+    height: 22px;
+    padding: 0 7px;
+
+    border: 1px solid #d5dde5;
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    color: #536174;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   CONTENU
+   ============================================================ */
+
+.accident-measures__body {
+    padding: 0 16px 16px;
+}
+
+.accident-measures__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-bottom: 14px;
+}
+
+.accident-measures__toolbar p {
+    margin: 0;
+
+    color: #667085;
+    font-size: 13px;
+}
+
+.accident-measures__toolbar .risky-button {
+    flex-shrink: 0;
+}
+
+
+/* ============================================================
+   TABLEAU
+   ============================================================ */
+
+.accident-measures__table-wrap {
+    overflow-x: auto;
+
+    border: 1px solid #dce3ea;
+    border-radius: 8px;
+
+    background: #ffffff;
+}
+
+.accident-measures__table {
+    width: 100%;
+    min-width: 850px;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
+}
+
+.accident-measures__table th {
+    padding: 10px 12px;
+
+    border-bottom: 1px solid #dce3ea;
+
+    background: #f5f7f9;
+
+    color: #475467;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.accident-measures__table td {
+    padding: 11px 12px;
+
+    border-bottom: 1px solid #edf0f3;
+
+    color: #344054;
+    vertical-align: middle;
+}
+
+.accident-measures__table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.accident-measures__table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.accident-measures__table td:first-child {
+    min-width: 230px;
+
+    color: #172033;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   MESSAGES
+   ============================================================ */
+
+.accident-measures__message {
+    margin: 8px 0 0;
+    padding: 14px;
+
+    border: 1px dashed #d5dde5;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #667085;
+    font-size: 13px;
+    text-align: center;
+}
+
+.accident-measures__error {
+    margin: 8px 0 0;
+    padding: 12px 14px;
+
+    border: 1px solid #efc5c5;
+    border-radius: 8px;
+
+    background: #fff7f7;
+
+    color: #a83232;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 800px) {
+    .accident-measures__toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .accident-measures__toolbar .risky-button {
+        align-self: flex-start;
+    }
+}
+
+/* ============================================================
+   FORMULAIRE ACTION
+   ============================================================ */
+
+.accident-action-form {
+    margin: 0 0 16px;
+    padding: 16px;
+
+    border: 1px solid #cbd7e2;
+    border-radius: 9px;
+
+    background: #f8fafc;
+}
+
+.accident-action-form__heading {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #e7ebef;
+
+    color: #172033;
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   GRILLE
+   ============================================================ */
+
+.accident-action-form__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+
+    margin-top: 14px;
+}
+
+.accident-action-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.accident-action-form__field--full {
+    width: 100%;
+}
+
+.accident-action-form__field label {
+    color: #475467;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.accident-action-form__field input,
+.accident-action-form__field select,
+.accident-action-form__field textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 9px 10px;
+
+    border: 1px solid #cfd8e1;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #172033;
+
+    font: inherit;
+    font-size: 13px;
+}
+
+.accident-action-form__field textarea {
+    resize: vertical;
+    line-height: 1.4;
+}
+
+.accident-action-form__field input:focus,
+.accident-action-form__field select:focus,
+.accident-action-form__field textarea:focus {
+    outline: none;
+    border-color: #7ca5cf;
+    box-shadow: 0 0 0 2px rgba(70, 120, 170, 0.10);
+}
+
+
+/* ============================================================
+   AVANCEMENT LOCAL
+   ============================================================ */
+
+.accident-action-form__progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 38px;
+}
+
+.accident-action-form__progress input[type="range"] {
+    flex: 1;
+    padding: 0;
+
+    box-shadow: none;
+}
+
+.accident-action-form__progress strong {
+    min-width: 42px;
+
+    color: #344054;
+    font-size: 13px;
+    text-align: right;
+}
+
+
+/* ============================================================
+   INFORMATIONS COMPLÉMENTAIRES
+   ============================================================ */
+
+.accident-action-form__details {
+    margin-top: 16px;
+    padding-top: 12px;
+
+    border-top: 1px solid #e7ebef;
+}
+
+.accident-action-form__details summary {
+    width: fit-content;
+
+    color: #536174;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.accident-action-form__details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+
+    margin-top: 12px;
+}
+
+
+/* ============================================================
+   ERREUR
+   ============================================================ */
+
+.accident-action-form__error {
+    margin: 14px 0 0;
+    padding: 10px 12px;
+
+    border: 1px solid #efc5c5;
+    border-radius: 7px;
+
+    background: #fff7f7;
+
+    color: #a83232;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   ACTIONS DU FORMULAIRE
+   ============================================================ */
+
+.accident-action-form__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 16px;
+}
+
+.accident-action-form__actions button {
+    padding: 9px 16px;
+
+    border-radius: 7px;
+
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.accident-action-form__cancel {
+    border: 1px solid #e4a5a5;
+    background: #fbeaea;
+    color: #8f2424;
+}
+
+.accident-action-form__cancel:hover:not(:disabled) {
+    background: #f5d2d2;
+    border-color: #cf7777;
+}
+
+.accident-action-form__save {
+    border: 1px solid #9ac9aa;
+    background: #e7f7ed;
+    color: #2f6f49;
+}
+
+.accident-action-form__save:hover:not(:disabled) {
+    background: #d7efdf;
+    border-color: #7eb991;
+}
+
+.accident-action-form__actions button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1100px) {
+    .accident-action-form__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .accident-action-form__grid,
+    .accident-action-form__details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   PRIORITÉS
+   ============================================================ */
+
+.accident-priority {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 4px 8px;
+
+    border: 1px solid;
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.accident-priority__dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+
+/* ============================================================
+   PRIORITÉ BASSE
+   ============================================================ */
+
+.accident-priority--low {
+    border-color: #b7dfc7;
+    background: #edf8f1;
+    color: #28764a;
+}
+
+
+/* ============================================================
+   PRIORITÉ MOYENNE
+   ============================================================ */
+
+.accident-priority--medium {
+    border-color: #efd49a;
+    background: #fff7df;
+    color: #93651b;
+}
+
+
+/* ============================================================
+   PRIORITÉ HAUTE
+   ============================================================ */
+
+.accident-priority--high {
+    border-color: #edb6b6;
+    background: #fcecec;
+    color: #a63737;
+}
+
+
+/* ============================================================
+   PRIORITÉ — FORMULAIRE
+   ============================================================ */
+
+.accident-action-form__priority {
+    font-weight: 600;
+}
+
+.accident-action-form__priority--low {
+    border-color: #b7dfc7 !important;
+    background-color: #f4fbf6 !important;
+    color: #28764a !important;
+}
+
+.accident-action-form__priority--medium {
+    border-color: #efd49a !important;
+    background-color: #fffaf0 !important;
+    color: #805719 !important;
+}
+
+.accident-action-form__priority--high {
+    border-color: #edb6b6 !important;
+    background-color: #fff5f5 !important;
+    color: #a63737 !important;
+}
+/* ============================================================
+   PRIORITÉ — OPTIONS DU MENU
+   ============================================================ */
+
+.accident-action-form__priority option {
+    background: #ffffff;
+    color: #172033;
+    font-weight: 400;
+}
+
+/* ========================================================
+   LIGNE ACTION MODIFIABLE
+   ======================================================== */
+
+.accident-measures__row {
+    cursor: pointer;
+}
+
+.accident-measures__row:hover {
+    background: #f8fafc;
+}

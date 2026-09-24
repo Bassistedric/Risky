@@ -1,0 +1,338 @@
+{
+  "source": "SPF_EMPLOI_CODE_BET",
+  "source_version": "2026",
+  "criteria": [
+    {
+      "criterion_group": "DEVIATION_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "10",
+      "code_to": "19",
+      "label": "Problème électrique, explosion, feu",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "DEVIATION_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "20",
+      "code_to": "29",
+      "label": "Débordement, renversement, fuite, écoulement, vaporisation, dégagement",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "DEVIATION_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "30",
+      "code_to": "39",
+      "label": "Rupture, bris, éclatement, glissade, chute ou effondrement de l'agent matériel",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "DEVIATION_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "40",
+      "code_to": "44",
+      "label": "Perte de contrôle de machine, moyen de transport, équipement de manutention, outil ou objet",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "DEVIATION_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "51",
+      "code_to": null,
+      "label": "Chute de hauteur de personnes",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "DEVIATION_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "63",
+      "code_to": null,
+      "label": "Être attrapé ou entraîné par un objet ou par son élan",
+      "requires_multiple_lost_days": false
+    },
+
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "02.00",
+      "code_to": "02.99",
+      "label": "Échafaudages ou constructions en hauteur",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "03.01",
+      "code_to": null,
+      "label": "Fouilles, tranchées, puits, souterrains, galeries ou milieux sous-marins",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "03.02",
+      "code_to": null,
+      "label": "Fouilles, tranchées, puits, souterrains, galeries ou milieux sous-marins",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "03.03",
+      "code_to": null,
+      "label": "Fouilles, tranchées, puits, souterrains, galeries ou milieux sous-marins",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "04.00",
+      "code_to": "04.99",
+      "label": "Installations",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "05.00",
+      "code_to": "05.99",
+      "label": "Machines ou appareils",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "07.00",
+      "code_to": "07.99",
+      "label": "Machines ou appareils",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "09.00",
+      "code_to": "10.99",
+      "label": "Machines ou appareils",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "11.00",
+      "code_to": "11.99",
+      "label": "Dispositifs de convoyage, transport et stockage",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "14.10",
+      "code_to": null,
+      "label": "Dispositifs de convoyage, transport et stockage",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "14.11",
+      "code_to": null,
+      "label": "Dispositifs de convoyage, transport et stockage",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "12.00",
+      "code_to": "12.99",
+      "label": "Véhicules terrestres",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "15.00",
+      "code_to": "15.99",
+      "label": "Substances chimiques, explosives, radioactives ou biologiques",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "19.02",
+      "code_to": null,
+      "label": "Substances chimiques, explosives, radioactives ou biologiques",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "19.03",
+      "code_to": null,
+      "label": "Substances chimiques, explosives, radioactives ou biologiques",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "16.00",
+      "code_to": "16.99",
+      "label": "Dispositifs et équipements de sécurité",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "17.05",
+      "code_to": null,
+      "label": "Armes",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "18.03",
+      "code_to": null,
+      "label": "Animaux, micro-organismes ou virus",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "18.04",
+      "code_to": null,
+      "label": "Animaux, micro-organismes ou virus",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "MATERIAL_AGENT_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "18.05",
+      "code_to": null,
+      "label": "Animaux, micro-organismes ou virus",
+      "requires_multiple_lost_days": false
+    },
+
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "013",
+      "code_to": null,
+      "label": "Plaies avec pertes de substance",
+      "requires_multiple_lost_days": true
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "020",
+      "code_to": "029",
+      "label": "Fractures osseuses",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "040",
+      "code_to": null,
+      "label": "Amputations traumatiques",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "041",
+      "code_to": null,
+      "label": "Amputations",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "053",
+      "code_to": null,
+      "label": "Commotions et traumatismes internes pouvant mettre la survie en cause sans traitement",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "054",
+      "code_to": null,
+      "label": "Effets nocifs de l'électricité",
+      "requires_multiple_lost_days": true
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+        "match_type": "EXACT",
+        "code_from": "060",
+        "code_to": null,
+        "label": "Brûlures, brûlures par exposition à un liquide bouillant et gelures",
+        "requires_multiple_lost_days": true
+    },
+
+    {
+        "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+        "match_type": "EXACT",
+        "code_from": "061",
+        "code_to": null,
+        "label": "Brûlures thermiques",
+        "requires_multiple_lost_days": true
+    },
+    {
+        "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+        "match_type": "EXACT",
+        "code_from": "062",
+        "code_to": null,
+        "label": "Brûlures chimiques",
+        "requires_multiple_lost_days": false
+    },
+    {
+        "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+        "match_type": "EXACT",
+        "code_from": "063",
+        "code_to": null,
+        "label": "Gelures",
+        "requires_multiple_lost_days": false
+    },
+    {
+        "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+        "match_type": "EXACT",
+        "code_from": "069",
+        "code_to": null,
+        "label": "Autres types de brûlures, brûlures par exposition à un liquide bouillant et gelures",
+        "requires_multiple_lost_days": true
+    },
+
+    {
+        "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+        "match_type": "EXACT",
+        "code_from": "071",
+        "code_to": null,
+        "label": "Intoxications aiguës",
+        "requires_multiple_lost_days": false
+    },
+    {
+        "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+        "match_type": "EXACT",
+        "code_from": "079",
+        "code_to": null,
+        "label": "Intoxications aiguës",
+        "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "RANGE",
+      "code_from": "081",
+      "code_to": "089",
+      "label": "Asphyxies et noyades",
+      "requires_multiple_lost_days": false
+    },
+    {
+      "criterion_group": "INJURY_TEMPORARY_SERIOUS",
+      "match_type": "EXACT",
+      "code_from": "102",
+      "code_to": null,
+      "label": "Effets des radiations non thermiques",
+      "requires_multiple_lost_days": true
+    }
+  ]
+}

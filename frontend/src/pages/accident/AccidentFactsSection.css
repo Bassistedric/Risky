@@ -1,0 +1,57 @@
+/* ============================================================
+   RELATION DES FAITS - OUVERTURE / FERMETURE
+   ============================================================ */
+
+.accident-dossier__section--clickable {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.accident-dossier__section--clickable .accident-dossier__section-header {
+  margin: -20px -24px;
+  padding: 20px 24px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-radius 0.15s ease;
+}
+
+.accident-dossier__section--clickable .accident-dossier__section-header:hover {
+  background: #e1ebf4;
+}
+
+.accident-dossier__section--open .accident-dossier__section-header {
+  margin-bottom: 0;
+  border-radius: 14px 14px 0 0;
+}
+
+.accident-dossier__section--open {
+  cursor: default;
+}
+
+.accident-dossier__expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  margin-left: 20px;
+  color: #1f557f;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1;
+  transition: color 0.15s ease, transform 0.2s ease;
+}
+
+.accident-dossier__section-header:hover .accident-dossier__expand {
+  color: #2f80ed;
+}
+
+.accident-dossier__expand--open {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 700px) {
+  .accident-dossier__expand {
+    margin-left: auto;
+  }
+}

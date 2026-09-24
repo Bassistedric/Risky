@@ -1,0 +1,336 @@
+/* ========================================================
+   SECTION PHOTOS
+   ======================================================== */
+
+.accident-photos {
+    margin-top: 16px;
+    border: 1px solid #dbe3ea;
+    border-radius: 10px;
+    background: #f8fafc;
+    overflow: hidden;
+}
+
+
+/* ========================================================
+   EN-TÊTE PLIABLE
+   ======================================================== */
+
+.accident-photos__header {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 16px;
+
+    border: 0;
+    background: transparent;
+
+    color: #1f2937;
+    cursor: pointer;
+    text-align: left;
+}
+
+.accident-photos__header:hover {
+    background: #f1f5f9;
+}
+
+.accident-photos__chevron {
+    width: 18px;
+    flex-shrink: 0;
+
+    color: #64748b;
+    font-size: 17px;
+}
+
+.accident-photos__title {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.accident-photos__summary {
+    margin-left: auto;
+
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ========================================================
+   CONTENU
+   ======================================================== */
+
+.accident-photos__content {
+    padding: 0 16px 16px;
+}
+
+.accident-photos__error,
+.accident-photo-uploader__error,
+.accident-photo-card__error {
+    margin-top: 10px;
+    padding: 8px 10px;
+
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+
+    background: #fef2f2;
+    color: #991b1b;
+
+    font-size: 12px;
+}
+
+
+/* ========================================================
+   ZONE D'AJOUT
+   ======================================================== */
+
+.accident-photo-uploader__dropzone {
+    padding: 22px;
+
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+    text-align: center;
+
+    transition:
+        border-color 0.15s ease,
+        background 0.15s ease;
+}
+
+.accident-photo-uploader__dropzone:focus {
+    outline: 2px solid #94a3b8;
+    outline-offset: 2px;
+}
+
+.accident-photo-uploader__dropzone--dragging {
+    border-color: #64748b;
+    background: #f8fafc;
+}
+
+.accident-photo-uploader__dropzone--disabled {
+    opacity: 0.65;
+}
+
+.accident-photo-uploader__main {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.accident-photo-uploader__hint {
+    margin-top: 5px;
+
+    color: #64748b;
+    font-size: 12px;
+}
+
+.accident-photo-uploader__browse {
+    margin-top: 14px;
+    padding: 7px 14px;
+
+    border: 1px solid #2563eb;
+    border-radius: 6px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accident-photo-uploader__browse:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+.accident-photo-uploader__browse:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* ========================================================
+   GRILLE PHOTOS
+   ======================================================== */
+
+.accident-photos__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+
+    margin-top: 16px;
+}
+
+
+/* ========================================================
+   CARTE PHOTO
+   ======================================================== */
+
+.accident-photo-card {
+    min-width: 0;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.accident-photo-card__preview {
+    display: block;
+    height: 190px;
+
+    background: #e2e8f0;
+    overflow: hidden;
+}
+
+.accident-photo-card__image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: contain;
+
+    background: #f8fafc;
+}
+
+.accident-photo-card__body {
+    padding: 10px;
+}
+
+.accident-photo-card__caption {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 7px 9px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+
+    background: #ffffff;
+    color: #1f2937;
+
+    font-size: 13px;
+}
+
+.accident-photo-card__caption:focus {
+    outline: none;
+    border-color: #94a3b8;
+}
+
+.accident-photo-card__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 8px;
+}
+
+.accident-photo-card__filename {
+    min-width: 0;
+    flex: 1;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #64748b;
+    font-size: 11px;
+}
+
+.accident-photo-card__delete {
+    padding: 5px 8px;
+
+    border: 1px solid #fecaca;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #b91c1c;
+
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accident-photo-card__delete:hover:not(:disabled) {
+    background: #fef2f2;
+}
+
+.accident-photo-card__delete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.accident-photo-card__saving {
+    margin-top: 6px;
+
+    color: #64748b;
+    font-size: 11px;
+}
+
+
+/* ========================================================
+   RESPONSIVE
+   ======================================================== */
+
+@media (max-width: 800px) {
+    .accident-photos__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================================
+   CONFIRMATION DE SUPPRESSION
+   ======================================================== */
+
+.accident-photo-card__delete-confirm {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #b91c1c;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.accident-photo-card__delete-cancel,
+.accident-photo-card__delete-confirm-button {
+    padding: 5px 8px;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accident-photo-card__delete-cancel {
+    border: 1px solid #cbd5e1;
+
+    background: #ffffff;
+    color: #475569;
+}
+
+.accident-photo-card__delete-cancel:hover:not(:disabled) {
+    background: #f8fafc;
+}
+
+.accident-photo-card__delete-confirm-button {
+    border: 1px solid #dc2626;
+
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.accident-photo-card__delete-confirm-button:hover:not(:disabled) {
+    background: #b91c1c;
+}
+
+.accident-photo-card__delete-cancel:disabled,
+.accident-photo-card__delete-confirm-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

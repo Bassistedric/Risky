@@ -1,0 +1,225 @@
+/* ============================================================
+   CRÉATION D'UN ÉVÉNEMENT
+   ============================================================ */
+
+.accident-create {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accident-create__header,
+.accident-create__section {
+  padding: 22px 24px;
+  background: #f8fafc;
+  border: 1px solid #dfe5ec;
+  border-radius: 14px;
+}
+
+.accident-create__header {
+  background: #ffffff;
+}
+
+.accident-create__header h1,
+.accident-create__section h2 {
+  margin: 0;
+  color: #0f2742;
+}
+
+.accident-create__header p {
+  margin: 7px 0 0;
+  color: #66778c;
+  font-size: 13px;
+}
+
+.accident-create__section h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.accident-create__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accident-create__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 24px;
+}
+
+.accident-create__grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.accident-create__grid label > span,
+.accident-create__consequences label > span {
+  color: #53657a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.accident-create__grid input,
+.accident-create__grid select,
+.accident-create__consequences input[type="number"] {
+  min-height: 40px;
+  padding: 8px 11px;
+  border: 1px solid #d5dde7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #24364b;
+  font-family: inherit;
+}
+
+.accident-create__wide {
+  grid-column: 1 / -1;
+}
+
+.accident-create__consequences {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+}
+
+.accident-create__consequences label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.accident-create__consequences
+input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+}
+
+.accident-create__error {
+  padding: 12px 14px;
+  border: 1px solid #fecdca;
+  border-radius: 8px;
+  background: #fef3f2;
+  color: #b42318;
+  font-size: 13px;
+}
+
+.accident-create__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+@media (max-width: 800px) {
+  .accident-create__grid,
+  .accident-create__consequences {
+    grid-template-columns: 1fr;
+  }
+
+  .accident-create__wide {
+    grid-column: auto;
+  }
+}
+
+.accident-create > .accident-dossier-back {
+  align-self: flex-start;
+  width: auto;
+}
+
+/* ============================================================
+   SOUS-SECTIONS DES CONSÉQUENCES
+   ============================================================ */
+
+.accident-create__subsection {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: #ffffff;
+  border: 1px solid #e1e7ee;
+  border-radius: 10px;
+}
+
+.accident-create__subsection:first-of-type {
+  margin-top: 0;
+}
+
+.accident-create__subsection h3 {
+  margin: 0 0 14px;
+  color: #24364b;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   CHECKBOX
+   ============================================================ */
+
+.accident-create__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.accident-create__check input[type="checkbox"],
+.accident-create__consequences input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+}
+
+.accident-create__check span {
+  color: #33475b;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   DÉTAILS CONDITIONNELS
+   ============================================================ */
+
+.accident-create__details {
+  margin-top: 16px;
+}
+
+.accident-create__details textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 11px;
+
+  border: 1px solid #d5dde7;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #24364b;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  resize: vertical;
+}
+
+/* ============================================================
+   CHAMPS DE FORMULAIRE
+   ============================================================ */
+
+.accident-create__grid input,
+.accident-create__grid select,
+.accident-create__grid textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.accident-create__grid select,
+.accident-create__grid input {
+  min-height: 40px;
+}
+
+/* ============================================================
+   BOUTON RETOUR COMPACT
+   ============================================================ */
+
+.accident-create > .accident-dossier-back {
+  align-self: flex-start;
+  width: auto;
+}

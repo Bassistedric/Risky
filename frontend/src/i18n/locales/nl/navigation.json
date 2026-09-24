@@ -1,0 +1,37 @@
+{
+    "navigation": {
+        "overview": "Overzicht",
+        "safety": "Veiligheid",
+        "management": "Beheer",
+        "system": "Systeem",
+        "accidents": "Ongevallen & incidenten",
+        "riskAnalysis": "Risicoanalyses",
+        "personnel": "Personeel",
+        "equipment": "Arbeidsmiddelen",
+        "environment": "Milieu",
+        "quality": "Kwaliteit",
+        "documents": "Documenten",
+        "actionPlans": "Actieplannen",
+        "forms": "Formulieren",
+        "administration": "Administratie",
+        "competencies": "Competenties & bevoegdheden",
+        "equipmentSafety": "Veiligheid arbeidsmiddelen",
+        "field": "Terrein",
+        "qualitySmi": "Kwaliteit & IMS"
+    },
+    "topbar": {
+        "accidentRegister": "Register van ongevallen & incidenten",
+        "newEvent": "Nieuwe gebeurtenis",
+        "eventFile": "Gebeurtenisdossier",
+        "causeTree": "Oorzakenboom",
+        "homeDescription": "Ga naar de verschillende modules van Risky QHSE.",
+        "dashboardDescription": "Indicatoren, trends, waarschuwingen en globale QHSE-opvolging.",
+        "accidentRegisterDescription": "Opvolging van en toegang tot gemelde gebeurtenissen.",
+        "newEventDescription": "Een nieuw gebeurtenisdossier aanmaken.",
+        "eventFileDescription": "Gedetailleerde raadpleging en analyse van de gebeurtenis.",
+        "causeTreeDescription": "Gestructureerde analyse van feiten en hun causale relaties.",
+        "genericDescription": "Geïntegreerd beheer van preventie, kwaliteit en milieu.",
+        "heepo": "MUOPO-analyse",
+        "heepoDescription": "Gestructureerde analyse van bijdragende factoren."
+    }
+}

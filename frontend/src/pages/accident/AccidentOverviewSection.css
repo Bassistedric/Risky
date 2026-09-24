@@ -1,0 +1,83 @@
+/* ============================================================
+   SYNTHÈSE + CONSÉQUENCES
+   ============================================================ */
+
+.accident-dossier__top-edit-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.accident-dossier__top-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 20px;
+}
+
+.accident-dossier__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 28px;
+}
+
+.accident-dossier__grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.accident-dossier__grid span {
+  color: #6d8094;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.accident-dossier__grid strong {
+  color: #24364b;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.accident-dossier__consequences {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.accident-dossier__consequences > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 42px;
+  padding: 9px 0;
+  border-bottom: 1px solid #dbe3eb;
+}
+
+.accident-dossier__consequences > div:last-child {
+  border-bottom: none;
+}
+
+.accident-dossier__consequences span {
+  color: #5f7388;
+  font-size: 13px;
+}
+
+.accident-dossier__consequences strong {
+  color: #24364b;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+@media (max-width: 1100px) {
+  .accident-dossier__top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .accident-dossier__grid {
+    grid-template-columns: 1fr;
+  }
+}

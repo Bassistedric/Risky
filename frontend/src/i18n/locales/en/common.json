@@ -1,0 +1,66 @@
+{
+    "common": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "save": "Save",
+        "cancel": "Cancel",
+        "back": "Back",
+        "allTrades": "All trades",
+        "loadingRisky": "Loading Risky...",
+        "expandMenu": "Expand menu",
+        "collapseMenu": "Collapse menu",
+        "notifications": "Notifications",
+        "moduleInPreparation": "Module in preparation",
+        "sectionComingSoon": "This section will be progressively integrated into Risky QHSE.",
+        "riskyQhse": "Risky QHSE"
+    },
+    "profile": {
+        "myProfile": "My profile",
+        "changeScope": "Change scope",
+        "logout": "Sign out",
+        "profile": "Profile",
+        "user": "User",
+        "allEntities": "All entities",
+        "assignedScope": "Assigned scope"
+    },
+    "dashboard": {
+        "placeholder": "QHSE indicators and key figures will be integrated here."
+    },
+    "home": {
+        "description": "Access the different Risky QHSE modules.",
+        "modules": {
+            "riskAnalysis": {
+                "title": "Risk assessment",
+                "description": "Kinney assessments, RePSS and specialized methods."
+            },
+            "accidents": {
+                "title": "Accidents & incidents",
+                "description": "Register, event files and analyses."
+            },
+            "actionPlans": {
+                "title": "Action plans",
+                "description": "Global, annual, CPPT, SIPP and ISO plans."
+            },
+            "personnel": {
+                "title": "Personnel",
+                "description": "Employee records and QHSE data."
+            },
+            "competencies": {
+                "title": "Competencies & authorizations",
+                "description": "Competencies, training, BA4/BA5 and certificates."
+            },
+            "equipment": {
+                "title": "Equipment safety",
+                "description": "Machines, inspections and three green lights."
+            },
+            "field": {
+                "title": "Field",
+                "description": "FMRA, STOP, Toolbox and ILT inspections."
+            },
+            "quality": {
+                "title": "Quality & IMS",
+                "description": "Indicators, processes and management review."
+            }
+        }
+    }
+}

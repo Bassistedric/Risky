@@ -1,0 +1,141 @@
+/* ========================================================
+   DOCUMENTS & RAPPORTS
+   ======================================================== */
+
+.accident-reports {
+    margin-top: 24px;
+    padding: 22px;
+    border: 1px solid #dbe3e8;
+    border-radius: 14px;
+    background: #f8fafc;
+}
+
+.accident-reports__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.accident-reports__header h2 {
+    margin: 0;
+    color: #17384a;
+    font-size: 1.2rem;
+}
+
+.accident-reports__header p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+
+/* ========================================================
+   CARTES DOCUMENT
+   ======================================================== */
+
+.accident-reports__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.accident-reports__card {
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+    padding: 18px;
+    border: 1px solid #dbe3e8;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.accident-reports__card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.accident-reports__eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: #c66a2b;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.accident-reports__card h3 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 1rem;
+}
+
+.accident-reports__badge {
+    flex: 0 0 auto;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: #eef2f4;
+    color: #64748b;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.accident-reports__description {
+    flex: 1;
+    margin: 14px 0 18px;
+    color: #64748b;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+
+/* ========================================================
+   ACTIONS
+   ======================================================== */
+
+.accident-reports__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.accident-reports__button {
+    min-height: 36px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accident-reports__button--primary {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.accident-reports__button--secondary {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+}
+
+.accident-reports__button:hover {
+    filter: brightness(0.97);
+}
+
+
+/* ========================================================
+   RESPONSIVE
+   ======================================================== */
+
+@media (max-width: 850px) {
+    .accident-reports__grid {
+        grid-template-columns: 1fr;
+    }
+}

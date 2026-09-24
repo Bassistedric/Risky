@@ -1,0 +1,129 @@
+/* ============================================================
+   ANALYSE - CARTES
+   ============================================================ */
+
+.accident-dossier__analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.accident-dossier__analysis-grid button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  min-height: 105px;
+  padding: 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #24364b;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.accident-dossier__analysis-grid button:hover {
+  box-shadow: 0 5px 14px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.accident-dossier__analysis-grid strong {
+  color: #0f2742;
+  font-size: 14px;
+}
+
+.accident-dossier__analysis-grid span {
+  color: #536b80;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.accident-dossier__analysis-card--classification {
+  background: #f0f0ee;
+  border-color: #d5d5d0 !important;
+}
+
+.accident-dossier__analysis-card--classification:hover {
+  background: #e8e8e4;
+  border-color: #c3c3bc !important;
+}
+
+.accident-dossier__analysis-card--heepo {
+  background: #fff1e2;
+  border-color: #efcfad !important;
+}
+
+.accident-dossier__analysis-card--heepo:hover {
+  background: #ffe7cc;
+  border-color: #e4b982 !important;
+}
+
+.accident-dossier__analysis-card--just-culture {
+  background: #e4f0fb;
+  border-color: #b8d4ea !important;
+}
+
+.accident-dossier__analysis-card--just-culture:hover {
+  background: #d6e9f8;
+  border-color: #9dc4e0 !important;
+}
+
+.accident-dossier__analysis-card--cause-tree {
+  background: #e6f4ea;
+  border-color: #bcdcc7 !important;
+}
+
+.accident-dossier__analysis-card--cause-tree:hover {
+  background: #d8ecdf;
+  border-color: #9fcbae !important;
+}
+
+@media (max-width: 1100px) {
+  .accident-dossier__analysis-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .accident-dossier__analysis-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.accident-dossier__analysis-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+
+.accident-dossier__analysis-status {
+    flex-shrink: 0;
+    padding: 4px 9px;
+    border: 1px solid;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.accident-dossier__analysis-status--todo {
+    color: #64748b;
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.accident-dossier__analysis-status--in_progress {
+    color: #9a5b13;
+    background: #fff7ed;
+    border-color: #fed7aa;
+}
+
+.accident-dossier__analysis-status--validated {
+    color: #166534;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}

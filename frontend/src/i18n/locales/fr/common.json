@@ -1,0 +1,66 @@
+{
+    "common": {
+        "home": "Accueil",
+        "dashboard": "Tableau de bord",
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "back": "Retour",
+        "allTrades": "Tous les métiers",
+        "loadingRisky": "Chargement de Risky...",
+        "expandMenu": "Déplier le menu",
+        "collapseMenu": "Replier le menu",
+        "notifications": "Notifications",
+        "moduleInPreparation": "Module en préparation",
+        "sectionComingSoon": "Cette section sera intégrée progressivement dans Risky QHSE.",
+        "riskyQhse": "Risky QHSE"
+    },
+    "profile": {
+        "myProfile": "Mon profil",
+        "changeScope": "Changer de périmètre",
+        "logout": "Se déconnecter",
+        "profile": "Profil",
+        "user": "Utilisateur",
+        "allEntities": "Toutes les entités",
+        "assignedScope": "Périmètre attribué"
+    },
+    "dashboard": {
+        "placeholder": "Les indicateurs et chiffres clés QHSE seront intégrés ici."
+    },
+    "home": {
+        "description": "Accédez aux différents modules de Risky QHSE.",
+        "modules": {
+            "riskAnalysis": {
+                "title": "Analyse de risques",
+                "description": "Analyses Kinney, RePSS et méthodes spécialisées."
+            },
+            "accidents": {
+                "title": "Accidents & incidents",
+                "description": "Registre, dossiers événements et analyses."
+            },
+            "actionPlans": {
+                "title": "Plans d'action",
+                "description": "Plans global, annuel, CPPT, SIPP et ISO."
+            },
+            "personnel": {
+                "title": "Personnel",
+                "description": "Fiches collaborateurs et données QHSE."
+            },
+            "competencies": {
+                "title": "Compétences & habilitations",
+                "description": "Compétences, formations, BA4/BA5 et attestations."
+            },
+            "equipment": {
+                "title": "Sécurité équipements",
+                "description": "Machines, contrôles et trois feux verts."
+            },
+            "field": {
+                "title": "Terrain",
+                "description": "FMRA, STOP, Toolbox et inspections ILT."
+            },
+            "quality": {
+                "title": "Qualité & SMI",
+                "description": "Indicateurs, processus et revue de direction."
+            }
+        }
+    }
+}

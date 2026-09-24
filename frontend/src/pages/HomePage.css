@@ -1,0 +1,152 @@
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.home-page {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   EN-TÊTE
+   ========================================================= */
+
+.home-header {
+  margin-bottom: 24px;
+  padding: 22px 24px;
+  background: #ffffff;
+  border: 1px solid #dde4eb;
+  border-radius: 12px;
+}
+
+.home-header h1 {
+  margin: 0 0 5px;
+  color: #20364d;
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.home-header p {
+  margin: 0;
+  color: #708090;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   GRILLE DES MODULES
+   ========================================================= */
+
+.home-modules {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CARTE MODULE
+   ========================================================= */
+
+.home-module-card {
+  min-height: 135px;
+  display: grid;
+  grid-template-columns: 48px 1fr 20px;
+  align-items: center;
+  gap: 16px;
+
+  padding: 20px;
+
+  border: 1px solid #dce4ec;
+  border-radius: 12px;
+  background: #ffffff;
+
+  text-align: left;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.home-module-card:hover {
+  transform: translateY(-2px);
+  border-color: #b8c8d8;
+  box-shadow: 0 8px 22px rgba(30, 50, 70, 0.08);
+}
+
+
+/* =========================================================
+   REPÈRE DU MODULE
+   ========================================================= */
+
+.home-module-card__symbol {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #eef3f7;
+  color: #315f8d;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTENU
+   ========================================================= */
+
+.home-module-card__content h2 {
+  margin: 0 0 7px;
+  color: #24364b;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.home-module-card__content p {
+  margin: 0;
+  color: #71808f;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   FLÈCHE
+   ========================================================= */
+
+.home-module-card__arrow {
+  color: #9aa8b5;
+  font-size: 25px;
+  font-weight: 300;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .home-modules {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .home-modules {
+    grid-template-columns: 1fr;
+  }
+}

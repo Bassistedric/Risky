@@ -1,0 +1,840 @@
+/* ============================================================
+   PAGE HEEPO
+   ============================================================ */
+
+.heepo-page {
+    padding: 22px;
+    min-height: 100%;
+    background: #eef3f8;
+    color: #10243e;
+}
+
+.heepo-page__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 16px;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: #244b73;
+    font: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.heepo-page__back:hover {
+    text-decoration: underline;
+}
+
+
+/* ============================================================
+   EN-TÊTE
+   ============================================================ */
+
+.heepo-page__header {
+    padding: 22px 28px;
+    margin-bottom: 18px;
+
+    background: #ffffff;
+    border: 1px solid #d4dfeb;
+    border-radius: 14px;
+}
+
+.heepo-page__eyebrow {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #2475b8;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.heepo-page__header h1 {
+    margin: 0;
+    font-size: 25px;
+    line-height: 1.2;
+}
+
+.heepo-page__header p {
+    margin: 7px 0 0;
+    color: #60738a;
+}
+
+
+/* ============================================================
+   GRILLE PRINCIPALE HEEPO
+
+   H | E
+   En| P
+   OOOOO
+   ============================================================ */
+
+.heepo-page__families {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+}
+
+.heepo-family {
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1px solid #d4dfeb;
+    border-radius: 13px;
+}
+
+
+/* ============================================================
+   EN-TÊTE DES FAMILLES
+   ============================================================ */
+
+.heepo-family__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    min-height: 58px;
+    padding: 10px 14px;
+
+    border-bottom: 1px solid #dce5ee;
+}
+
+.heepo-family__header > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.heepo-family__header h2 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.heepo-family__code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 8px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.heepo-family__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+
+/* ============================================================
+   COULEURS HEEPO
+   ============================================================ */
+
+/* HOMME */
+
+.heepo-family--human .heepo-family__header {
+    background: #fff1f4;
+}
+
+.heepo-family--human .heepo-family__code {
+    background: #b91546;
+    color: #ffffff;
+}
+
+.heepo-family--human .heepo-factor__code {
+    color: #b91546;
+}
+
+.heepo-family--human .heepo-factor--selected {
+    border-color: #d987a1;
+    background: #fff3f6;
+}
+
+
+/* ÉQUIPEMENT */
+
+.heepo-family--equipment .heepo-family__header {
+    background: #eef6fd;
+}
+
+.heepo-family--equipment .heepo-family__code {
+    background: #176cb3;
+    color: #ffffff;
+}
+
+.heepo-family--equipment .heepo-factor__code {
+    color: #176cb3;
+}
+
+.heepo-family--equipment .heepo-factor--selected {
+    border-color: #8bbbe0;
+    background: #f0f7fd;
+}
+
+
+/* ENVIRONNEMENT */
+
+.heepo-family--environment .heepo-family__header {
+    background: #eef9f2;
+}
+
+.heepo-family--environment .heepo-family__code {
+    background: #16834a;
+    color: #ffffff;
+}
+
+.heepo-family--environment .heepo-factor__code {
+    color: #16834a;
+}
+
+.heepo-family--environment .heepo-factor--selected {
+    border-color: #8bc9a8;
+    background: #f1faf5;
+}
+
+
+/* PRODUIT */
+
+.heepo-family--product .heepo-family__header {
+    background: #fff5e9;
+}
+
+.heepo-family--product .heepo-family__code {
+    background: #dc6a16;
+    color: #ffffff;
+}
+
+.heepo-family--product .heepo-factor__code {
+    color: #c85c10;
+}
+
+.heepo-family--product .heepo-factor--selected {
+    border-color: #e5b17f;
+    background: #fff7ee;
+}
+
+
+/* ORGANISATION */
+
+.heepo-family--organization .heepo-family__header {
+    background: #f5effb;
+}
+
+.heepo-family--organization .heepo-family__code {
+    background: #7830a3;
+    color: #ffffff;
+}
+
+.heepo-family--organization .heepo-factor__code {
+    color: #7830a3;
+}
+
+.heepo-family--organization .heepo-factor--selected {
+    border-color: #b996d0;
+    background: #f8f3fb;
+}
+
+
+/* ============================================================
+   N.A.
+   ============================================================ */
+
+.heepo-na {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    border: 1px solid #d6dee7;
+    border-radius: 7px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    color: #536477;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.heepo-na input {
+    margin: 0;
+}
+
+
+/* ============================================================
+   FACTEURS
+
+   Beaucoup plus compacts que la première version.
+   ============================================================ */
+
+.heepo-family__factors {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 0;
+
+    padding: 8px 12px 12px;
+}
+
+/* Organisation dispose de toute la largeur :
+   on peut donc passer à 3 colonnes. */
+
+.heepo-family--organization .heepo-family__factors {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.heepo-factor {
+    min-width: 0;
+
+    padding: 7px 9px;
+
+    border: 1px solid transparent;
+    border-radius: 7px;
+
+    background: transparent;
+
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
+}
+
+.heepo-factor:hover {
+    background: #f7f9fb;
+    border-color: #e0e7ee;
+}
+
+.heepo-factor > label {
+    display: grid;
+
+    grid-template-columns:
+        18px
+        42px
+        minmax(0, 1fr);
+
+    align-items: start;
+    gap: 7px;
+
+    cursor: pointer;
+}
+
+.heepo-factor input[type="checkbox"] {
+    margin: 2px 0 0;
+}
+
+.heepo-factor__code {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.heepo-factor__label {
+    min-width: 0;
+
+    color: #283b50;
+
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+
+/* ============================================================
+   CHAMP "AUTRES"
+   ============================================================ */
+
+.heepo-factor__other {
+    width: calc(100% - 25px);
+
+    margin:
+        7px
+        0
+        2px
+        25px;
+
+    padding: 7px 9px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cbd8e5;
+    border-radius: 6px;
+
+    font: inherit;
+    font-size: 12px;
+}
+
+.heepo-factor__other:focus {
+    outline: 2px solid #b9d8f1;
+    border-color: #5798ca;
+}
+
+
+/* ============================================================
+   MESSAGES
+   ============================================================ */
+
+.heepo-page__error {
+    margin-bottom: 14px;
+    padding: 11px 14px;
+
+    border: 1px solid #efc4c7;
+    border-radius: 8px;
+
+    background: #fbeaec;
+    color: #96343b;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.heepo-page__saved {
+    color: #31704a;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* ============================================================
+   SYNTHÈSE HEEPO
+   ============================================================ */
+
+.heepo-summary {
+    overflow: hidden;
+
+    align-self: stretch;
+
+    background: #ffffff;
+    border: 1px solid #d4dfeb;
+    border-radius: 13px;
+}
+
+.heepo-summary__header {
+    display: flex;
+    align-items: center;
+
+    min-height: 58px;
+    padding: 10px 16px;
+
+    background: #f3f6f9;
+    border-bottom: 1px solid #dce5ee;
+}
+
+.heepo-summary__header > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.heepo-summary__header strong {
+    color: #10243e;
+    font-size: 16px;
+}
+
+.heepo-summary__header span {
+    color: #6a7b8e;
+    font-size: 12px;
+}
+
+
+/* CONTENU */
+
+.heepo-summary__content {
+    display: flex;
+    flex-direction: column;
+
+    padding: 8px 14px 12px;
+}
+
+.heepo-summary__family {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 10px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+.heepo-summary__family:last-child {
+    border-bottom: 0;
+}
+
+
+/* PASTILLE FAMILLE */
+
+.heepo-summary__family-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    background: #e8edf2;
+    color: #33485e;
+}
+
+
+/* On reprend les couleurs HEEPO */
+
+.heepo-summary__family-code.heepo-family--human {
+    background: #b91546;
+    color: #ffffff;
+}
+
+.heepo-summary__family-code.heepo-family--equipment {
+    background: #176cb3;
+    color: #ffffff;
+}
+
+.heepo-summary__family-code.heepo-family--environment {
+    background: #16834a;
+    color: #ffffff;
+}
+
+.heepo-summary__family-code.heepo-family--product {
+    background: #dc6a16;
+    color: #ffffff;
+}
+
+.heepo-summary__family-code.heepo-family--organization {
+    background: #7830a3;
+    color: #ffffff;
+}
+
+
+/* TEXTE */
+
+.heepo-summary__family-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.heepo-summary__family-content > strong {
+    color: #253a50;
+    font-size: 13px;
+}
+
+.heepo-summary__items {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.heepo-summary__item {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 5px;
+
+    color: #4d6074;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.heepo-summary__item b {
+    color: #173c62;
+}
+
+.heepo-summary__empty {
+    color: #8a98a7;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.heepo-summary__na {
+    width: fit-content;
+
+    padding: 2px 7px;
+
+    border-radius: 999px;
+
+    background: #eef1f4;
+    color: #687583;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+.heepo-page__actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 16px;
+    padding: 12px 0;
+
+    background: #eef3f8;
+}
+
+.heepo-page__cancel,
+.heepo-page__save {
+    min-width: 120px;
+    padding: 9px 17px;
+
+    border-radius: 8px;
+
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+
+/* ANNULER — ROUGE RISKY */
+
+.heepo-page__cancel {
+    border: 1px solid #efb5b8;
+    background: #fcebec;
+    color: #a83232;
+}
+
+.heepo-page__cancel:hover:not(:disabled) {
+    border-color: #df9297;
+    background: #f8dfe1;
+}
+
+
+/* ENREGISTRER — VERT RISKY */
+
+.heepo-page__save {
+    border: 1px solid #a9d5b8;
+    background: #e8f6ed;
+    color: #2f7048;
+}
+
+.heepo-page__save:hover:not(:disabled) {
+    border-color: #88c39c;
+    background: #d9f0e1;
+}
+
+
+/* ÉTAT DÉSACTIVÉ */
+
+.heepo-page__cancel:disabled,
+.heepo-page__save:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .heepo-page__families {
+        grid-template-columns: 1fr;
+    }
+
+    .heepo-family--organization {
+        grid-column: auto;
+    }
+
+    .heepo-family--organization .heepo-family__factors {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+
+    .heepo-page {
+        padding: 14px;
+    }
+
+    .heepo-family__factors,
+    .heepo-family--organization .heepo-family__factors {
+        grid-template-columns: 1fr;
+    }
+
+    .heepo-family__header {
+        align-items: flex-start;
+    }
+}
+
+/* ============================================================
+   MODALE RÉINITIALISATION HEEPO
+   ============================================================ */
+
+.heepo-reset-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+.heepo-reset-modal__backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(15, 31, 49, 0.48);
+}
+
+.heepo-reset-modal__dialog {
+    position: relative;
+    z-index: 1;
+
+    width: min(520px, 100%);
+
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1px solid #d6e0e9;
+    border-radius: 14px;
+
+    box-shadow:
+        0 18px 50px rgba(20, 39, 58, 0.18);
+
+    animation: heepo-reset-modal-in 0.15s ease-out;
+}
+
+.heepo-reset-modal__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    margin: 24px 24px 0;
+
+    border-radius: 50%;
+
+    background: #fcebec;
+    color: #a83232;
+
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.heepo-reset-modal__content {
+    padding: 16px 24px 22px;
+}
+
+.heepo-reset-modal__content h2 {
+    margin: 0 0 10px;
+
+    color: #10243e;
+    font-size: 20px;
+}
+
+.heepo-reset-modal__content p {
+    margin: 0;
+
+    color: #53677b;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.heepo-reset-modal__warning {
+    margin-top: 16px;
+    padding: 10px 12px;
+
+    border: 1px solid #efd5a9;
+    border-radius: 8px;
+
+    background: #fff8e9;
+    color: #80591d;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.heepo-reset-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 16px 24px;
+
+    background: #f5f7fa;
+    border-top: 1px solid #e1e7ed;
+}
+
+.heepo-reset-modal__actions button {
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.heepo-reset-modal__keep {
+    border: 1px solid #a9d5b8;
+    background: #e8f6ed;
+    color: #2f7048;
+}
+
+.heepo-reset-modal__keep:hover {
+    border-color: #88c39c;
+    background: #d9f0e1;
+}
+
+
+.heepo-reset-modal__confirm {
+    border: 1px solid #df9297;
+    background: #fcebec;
+    color: #a83232;
+}
+
+.heepo-reset-modal__confirm:hover {
+    background: #f8dfe1;
+}
+
+@keyframes heepo-reset-modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

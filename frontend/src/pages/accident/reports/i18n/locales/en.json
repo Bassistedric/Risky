@@ -1,0 +1,127 @@
+{
+    "title": "Documents & reports",
+    "subtitle": "Generation and management of documents related to the event.",
+    "common": {
+        "notGenerated": "Not generated",
+        "draft": "Draft",
+        "yes": "Yes",
+        "no": "No",
+        "notProvided": "Not provided",
+        "notApplicable": "Not applicable",
+        "day": "day",
+        "days": "days"
+    },
+    "analysisReport": {
+        "type": "RISKY report",
+        "title": "Analysis report",
+        "description": "Full report generated from the data, analyses and actions in the case file.",
+        "preview": "Preview"
+    },
+    "safetyFlash": {
+        "type": "CFE communication",
+        "title": "Safety Flash",
+        "description": "Summary communication based on the official CFE template.",
+        "prepare": "Prepare"
+    },
+    "preview": {
+        "loading": "Loading preview…",
+        "unavailable": "Report unavailable.",
+        "unknownError": "Unknown error.",
+        "back": "Back to case file",
+        "title": "Report preview",
+        "generatePdf": "Generate PDF",
+        "generatePdfPending": "PDF generation will be added in the next step.",
+        "sections": {
+            "summary": "Event summary",
+            "facts": "Statement of facts",
+            "classification": "Classification",
+            "photos": "Photographic documentation",
+            "heepo": "HEEPO analysis",
+            "causeTree": "Cause tree",
+            "justCulture": "Just Culture",
+            "actions": "Measures & actions"
+        },
+        "causeTree": {
+            "finalFact": "Final fact",
+            "terminalCause": "Terminal cause",
+            "cause": "Cause",
+            "unlinked": "Unlinked elements"
+        },
+        
+        "summary": {
+            "title": "Summary",
+            "type": "Type",
+            "date": "Date",
+            "person": "Person",
+            "category": "Category",
+            "organization": "Organisation",
+            "location": "Location",
+            "projectManager": "Project Manager",
+            "siteSupervisor": "Site supervisor",
+            "materialDamage": "Material damage",
+            "environmentalDamage": "Environmental damage",
+            "analysisType": "Analysis type",
+            "description": "Event description / title"
+        },
+        "consequences": {
+            "title": "Consequences",
+            "lostTime": "Lost time",
+            "modifiedDuty": "Modified duty",
+            "permanentInjury": "Permanent disability",
+            "fatal": "Fatality",
+            "materialDamageCost": "Material damage cost (€)"
+        },
+        "facts": {
+            "client": "Client",
+            "witnesses": "Witnesses",
+            "usualPosition": "Usual position",
+            "activityBefore": "What was the injured person doing before the event?",
+            "description": "Event description",
+            "directCause": "Direct cause",
+            "thirdParty": "Third party involved",
+            "policeReport": "Police report",
+            "thirdPartyDetails": "Third-party information"
+        },
+        "classification": {
+            "deviation": "Deviation",
+            "materialAgent": "Material agent",
+            "injuryNature": "Nature of injury",
+            "injuryLocation": "Injury location"
+        },
+        "justCulture": {
+            "conclusion": "Conclusion",
+            "recommendation": "Recommendation"
+        },
+        "actions": {
+            "responsible": "Responsible",
+            "dueDate": "Due date",
+            "progress": "Progress"
+        }
+    },
+    "values": {
+        "eventType": {
+            "ACCIDENT": "Accident",
+            "INCIDENT": "Incident",
+            "NEAR_MISS": "Near miss"
+        },
+        "analysisType": {
+            "ADVANCED": "Advanced",
+            "NORMAL": "Normal"
+        },
+        "personCategory": {
+            "WORKER": "Worker",
+            "EMPLOYEE": "Employee",
+            "TEMPORARY": "Temporary worker",
+            "SUBCONTRACTOR": "Subcontractor",
+            "OTHER": "Other"
+        },
+        "actionType": {
+            "CORRECTIVE": "Corrective",
+            "PREVENTIVE": "Preventive"
+        },
+        "scope": {
+            "LOCAL": "Local",
+            "GLOBAL": "Global"
+        }
+    }
+}

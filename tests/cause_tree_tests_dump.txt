@@ -1,0 +1,759 @@
+
+===== test_cause_tree.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    create_event_cause_fact,
+    create_event_cause_relation,
+)
+
+
+db = SessionLocal()
+
+try:
+    # Fait 1 existe déjà en base :
+    # "Le sol était humide"
+
+    fact_b = create_event_cause_fact(
+        db=db,
+        event_id=2,
+        description="Perte d'adhérence",
+        sort_order=2,
+    )
+
+    fact_c = create_event_cause_fact(
+        db=db,
+        event_id=2,
+        description="Chute du travailleur",
+        sort_order=3,
+    )
+
+    relation_1 = create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=1,
+        effect_fact_id=fact_b.id,
+    )
+
+    relation_2 = create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=fact_b.id,
+        effect_fact_id=fact_c.id,
+    )
+
+    print(
+        "CHAIN:",
+        1,
+        "->",
+        fact_b.id,
+        "->",
+        fact_c.id,
+    )
+
+    print(
+        "RELATIONS:",
+        relation_1.id,
+        relation_2.id,
+    )
+
+    try:
+        create_event_cause_relation(
+            db=db,
+            event_id=2,
+            cause_fact_id=fact_c.id,
+            effect_fact_id=1,
+        )
+
+        print("ERROR: boucle acceptée")
+
+    except ValueError as exc:
+        print("LOOP REFUSED:", exc)
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_auto_demotion.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    create_event_cause_fact,
+    create_event_cause_relation,
+    delete_event_cause_relation,
+)
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # 1. Créer une cause temporaire
+    # ---------------------------------------------------------
+    cause = create_event_cause_fact(
+        db=db,
+        event_id=2,
+        description="Cause temporaire multi-relation",
+        sort_order=20,
+    )
+
+    print(
+        "AFTER CREATE:",
+        cause.fact_type,
+    )
+
+    # ---------------------------------------------------------
+    # 2. Créer deux relations sortantes
+    # ---------------------------------------------------------
+    relation_1 = create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=cause.id,
+        effect_fact_id=1,
+    )
+
+    relation_2 = create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=cause.id,
+        effect_fact_id=2,
+    )
+
+    print(
+        "AFTER TWO RELATIONS:",
+        cause.fact_type,
+    )
+
+    # ---------------------------------------------------------
+    # 3. Supprimer seulement la première relation
+    # ---------------------------------------------------------
+    delete_event_cause_relation(
+        db=db,
+        event_id=2,
+        relation_id=relation_1.id,
+    )
+
+    print(
+        "AFTER FIRST DELETE:",
+        cause.fact_type,
+    )
+
+    # ---------------------------------------------------------
+    # 4. Supprimer la dernière relation
+    # ---------------------------------------------------------
+    delete_event_cause_relation(
+        db=db,
+        event_id=2,
+        relation_id=relation_2.id,
+    )
+
+    print(
+        "AFTER LAST DELETE:",
+        cause.fact_type,
+    )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_auto_status.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    create_event_cause_fact,
+    create_event_cause_relation,
+)
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # 1. Créer un nouvel élément sans relation
+    # ---------------------------------------------------------
+    new_fact = create_event_cause_fact(
+        db=db,
+        event_id=2,
+        description="Pression de chantier temporaire",
+        sort_order=10,
+    )
+
+    print(
+        "AFTER CREATE:",
+        new_fact.id,
+        new_fact.fact_type,
+    )
+
+    # ---------------------------------------------------------
+    # 2. Le relier comme cause au fait 2
+    # ---------------------------------------------------------
+    create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=new_fact.id,
+        effect_fact_id=2,
+    )
+
+    print(
+        "AFTER RELATION:",
+        new_fact.id,
+        new_fact.fact_type,
+    )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_close_branch_guard.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    close_event_cause_branch,
+)
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # 1. Le fait 3 est une CAUSE sans cause en amont.
+    #    Il doit pouvoir terminer sa branche.
+    # ---------------------------------------------------------
+    fact_3, _ = close_event_cause_branch(
+        db=db,
+        event_id=2,
+        fact_id=3,
+    )
+
+    print(
+        "CAUSE:",
+        fact_3.id,
+        fact_3.fact_type,
+        "terminal =",
+        fact_3.is_terminal,
+    )
+
+    assert fact_3.fact_type == "CAUSE"
+    assert fact_3.is_terminal is True
+
+    # ---------------------------------------------------------
+    # 2. Le fait 2 est FINAL.
+    #    Il ne peut jamais être terminal.
+    # ---------------------------------------------------------
+    try:
+        close_event_cause_branch(
+            db=db,
+            event_id=2,
+            fact_id=2,
+        )
+
+        raise AssertionError(
+            "Le fait FINAL aurait dû être refusé."
+        )
+
+    except ValueError as exc:
+        print(
+            "FINAL REFUSE:",
+            str(exc),
+        )
+
+        assert (
+            "Seule une cause peut terminer"
+            in str(exc)
+        )
+
+    print(
+        "OK: seule une CAUSE peut terminer une branche."
+    )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_delete_fact_status.py =====
+from backend.database import SessionLocal
+from backend import models
+from backend.services.cause_tree import (
+    delete_event_cause_fact,
+)
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # Situation réelle avant test :
+    #
+    # 3 ─► 1 ─► 2
+    #
+    # 3 = Pression de chantier
+    # 1 = Le sol était humide
+    # 2 = Fait FINAL
+    #
+    # Si on supprime le fait 1 :
+    #
+    # - la relation 3 ─► 1 disparaît
+    # - la relation 1 ─► 2 disparaît
+    # - le fait 3 n'a plus aucune relation sortante
+    # - il doit donc redevenir CIRCUMSTANCE
+    # ---------------------------------------------------------
+
+    fact_3_before = db.get(
+        models.EventCauseFact,
+        3,
+    )
+
+    print(
+        "AVANT:",
+        fact_3_before.id,
+        fact_3_before.fact_type,
+    )
+
+    deleted_fact, deleted_relation_ids = (
+        delete_event_cause_fact(
+            db=db,
+            event_id=2,
+            fact_id=1,
+        )
+    )
+
+    fact_3_after = db.get(
+        models.EventCauseFact,
+        3,
+    )
+
+    print(
+        "FAIT SUPPRIME:",
+        deleted_fact["id"],
+    )
+
+    print(
+        "RELATIONS SUPPRIMEES:",
+        deleted_relation_ids,
+    )
+
+    print(
+        "APRES:",
+        fact_3_after.id,
+        fact_3_after.fact_type,
+    )
+
+    assert fact_3_before.id == 3
+    assert fact_3_after.fact_type == "CIRCUMSTANCE"
+
+    print(
+        "OK: la dernière relation sortante a disparu, "
+        "le fait 3 est redevenu CIRCUMSTANCE."
+    )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_final_fact.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    set_event_cause_final_fact,
+)
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # 1. Désigner le fait 2 comme fait final
+    # ---------------------------------------------------------
+    final_fact, before = set_event_cause_final_fact(
+        db=db,
+        event_id=2,
+        fact_id=2,
+    )
+
+    print(
+        "FIRST FINAL:",
+        final_fact.id,
+        final_fact.fact_type,
+    )
+
+    # ---------------------------------------------------------
+    # 2. Tenter de désigner le fait 1 comme second fait final
+    # ---------------------------------------------------------
+    try:
+        set_event_cause_final_fact(
+            db=db,
+            event_id=2,
+            fact_id=1,
+        )
+
+        print("ERROR: second final accepted")
+
+    except ValueError as exc:
+        print(
+            "SECOND FINAL REFUSED:",
+            str(exc),
+        )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_final_outgoing_guard.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    set_event_cause_final_fact,
+)
+from backend import models
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # 1. Retirer temporairement le statut FINAL du fait 2
+    # ---------------------------------------------------------
+    fact_2 = db.get(
+        models.EventCauseFact,
+        2,
+    )
+
+    fact_2.fact_type = "CAUSE"
+    db.flush()
+
+    # ---------------------------------------------------------
+    # 2. Tenter de rendre le fait 1 FINAL
+    #    alors qu'il est déjà cause du fait 2
+    # ---------------------------------------------------------
+    try:
+        set_event_cause_final_fact(
+            db=db,
+            event_id=2,
+            fact_id=1,
+        )
+
+        print(
+            "ERROR: outgoing relation guard failed"
+        )
+
+    except ValueError as exc:
+        print(
+            "FINAL REFUSED:",
+            str(exc),
+        )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_guided_create.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    create_event_cause_fact_guided,
+)
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # Créer "Pression de chantier"
+    # et le rattacher au fait final 2
+    # ---------------------------------------------------------
+    fact, relations = create_event_cause_fact_guided(
+        db=db,
+        event_id=2,
+        description="Pression de chantier",
+        sort_order=10,
+        effect_fact_ids=[2],
+    )
+
+    print(
+        "FACT:",
+        fact.id,
+        fact.description,
+        fact.fact_type,
+    )
+
+    print(
+        "RELATIONS:",
+        len(relations),
+    )
+
+    for relation in relations:
+        print(
+            "RELATION:",
+            relation.cause_fact_id,
+            "->",
+            relation.effect_fact_id,
+        )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_guided_multi.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    create_event_cause_fact_guided,
+)
+
+
+db = SessionLocal()
+
+try:
+    fact, relations = create_event_cause_fact_guided(
+        db=db,
+        event_id=2,
+        description="Cause multiple temporaire",
+        sort_order=10,
+        effect_fact_ids=[1, 2],
+    )
+
+    print(
+        "FACT:",
+        fact.id,
+        fact.fact_type,
+    )
+
+    print(
+        "RELATIONS:",
+        len(relations),
+    )
+
+    for relation in relations:
+        print(
+            "RELATION:",
+            relation.cause_fact_id,
+            "->",
+            relation.effect_fact_id,
+        )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_levels.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    calculate_event_cause_levels,
+)
+
+
+db = SessionLocal()
+
+try:
+    levels = calculate_event_cause_levels(
+        db=db,
+        event_id=2,
+    )
+
+    print("NIVEAUX:", levels)
+
+    assert levels[2] == 0
+    assert levels[1] == 1
+    assert levels[3] == 2
+
+    print(
+        "OK: les niveaux sont correctement "
+        "calculés depuis le fait FINAL."
+    )
+
+finally:
+    db.close()
+    
+
+===== test_cause_tree_levels_dag.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    create_event_cause_fact,
+    create_event_cause_relation,
+    calculate_event_cause_levels,
+)
+
+
+db = SessionLocal()
+
+try:
+    # ---------------------------------------------------------
+    # Créer deux faits temporaires
+    # ---------------------------------------------------------
+    fact_a = create_event_cause_fact(
+        db=db,
+        event_id=2,
+        description="Cause A temporaire",
+        fact_type="CIRCUMSTANCE",
+        sort_order=100,
+    )
+
+    fact_b = create_event_cause_fact(
+        db=db,
+        event_id=2,
+        description="Cause B temporaire",
+        fact_type="CIRCUMSTANCE",
+        sort_order=101,
+    )
+
+    # ---------------------------------------------------------
+    # Construire :
+    #
+    # A ───────► FINAL (2)
+    # │
+    # └──► B ──► FINAL (2)
+    #
+    # A est donc accessible par deux chemins.
+    # ---------------------------------------------------------
+    create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=fact_a.id,
+        effect_fact_id=2,
+    )
+
+    create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=fact_a.id,
+        effect_fact_id=fact_b.id,
+    )
+
+    create_event_cause_relation(
+        db=db,
+        event_id=2,
+        cause_fact_id=fact_b.id,
+        effect_fact_id=2,
+    )
+
+    # ---------------------------------------------------------
+    # Calculer les niveaux
+    # ---------------------------------------------------------
+    levels = calculate_event_cause_levels(
+        db=db,
+        event_id=2,
+    )
+
+    print(
+        "A:",
+        fact_a.id,
+        "niveau =",
+        levels[fact_a.id],
+    )
+
+    print(
+        "B:",
+        fact_b.id,
+        "niveau =",
+        levels[fact_b.id],
+    )
+
+    print(
+        "FINAL:",
+        2,
+        "niveau =",
+        levels[2],
+    )
+
+    # ---------------------------------------------------------
+    # Vérifications
+    # ---------------------------------------------------------
+    assert levels[2] == 0
+    assert levels[fact_b.id] == 1
+
+    # A possède un chemin de longueur 1
+    # et un autre de longueur 2.
+    # On doit retenir la distance minimale.
+    assert levels[fact_a.id] == 1
+
+    print(
+        "OK: la distance minimale au FINAL "
+        "est correctement calculée."
+    )
+
+finally:
+    db.rollback()
+    db.close()
+
+===== test_cause_tree_terminal_reset.py =====
+from backend.database import SessionLocal
+from backend.services.cause_tree import (
+    close_event_cause_branch,
+    create_event_cause_fact,
+    create_event_cause_relation,
+)
+
+
+def test_terminal_fact_resets_when_new_upstream_cause_is_added():
+    db = SessionLocal()
+
+    try:
+        # -----------------------------------------------------
+        # 1. Créer un effet temporaire
+        # -----------------------------------------------------
+        effect = create_event_cause_fact(
+            db=db,
+            event_id=2,
+            description="Effet temporaire",
+            sort_order=0,
+        )
+
+        # -----------------------------------------------------
+        # 2. Créer une cause temporaire
+        # -----------------------------------------------------
+        terminal_cause = create_event_cause_fact(
+            db=db,
+            event_id=2,
+            description="Cause terminale temporaire",
+            sort_order=0,
+        )
+
+        # -----------------------------------------------------
+        # 3. Relier la cause à l'effet
+        #
+        # La relation transforme automatiquement
+        # terminal_cause en CAUSE.
+        # -----------------------------------------------------
+        create_event_cause_relation(
+            db=db,
+            event_id=2,
+            cause_fact_id=terminal_cause.id,
+            effect_fact_id=effect.id,
+        )
+
+        assert terminal_cause.fact_type == "CAUSE"
+        assert terminal_cause.is_terminal is False
+
+        # -----------------------------------------------------
+        # 4. Terminer explicitement cette branche
+        #
+        # terminal_cause n'a aucune cause en amont :
+        # la fermeture doit donc être autorisée.
+        # -----------------------------------------------------
+        closed_fact, _ = close_event_cause_branch(
+            db=db,
+            event_id=2,
+            fact_id=terminal_cause.id,
+        )
+
+        assert closed_fact.is_terminal is True
+
+        # -----------------------------------------------------
+        # 5. Ajouter ensuite une nouvelle cause en amont
+        # -----------------------------------------------------
+        upstream_cause = create_event_cause_fact(
+            db=db,
+            event_id=2,
+            description="Nouvelle cause en amont",
+            sort_order=0,
+        )
+
+        create_event_cause_relation(
+            db=db,
+            event_id=2,
+            cause_fact_id=upstream_cause.id,
+            effect_fact_id=terminal_cause.id,
+        )
+
+        # -----------------------------------------------------
+        # 6. La branche n'est plus terminale :
+        # l'ajout d'une cause en amont doit automatiquement
+        # réinitialiser is_terminal.
+        # -----------------------------------------------------
+        assert terminal_cause.is_terminal is False
+
+    finally:
+        db.rollback()
+        db.close()

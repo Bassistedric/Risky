@@ -1,0 +1,37 @@
+{
+    "navigation": {
+        "overview": "Vue générale",
+        "safety": "Sécurité",
+        "management": "Gestion",
+        "system": "Système",
+        "accidents": "Accidents & incidents",
+        "riskAnalysis": "Analyses de risques",
+        "personnel": "Personnel",
+        "equipment": "Équipements",
+        "environment": "Environnement",
+        "quality": "Qualité",
+        "documents": "Documents",
+        "actionPlans": "Plan d'actions",
+        "forms": "Formulaires",
+        "administration": "Administration",
+        "competencies": "Compétences & habilitations",
+        "equipmentSafety": "Sécurité équipements",
+        "field": "Terrain",
+        "qualitySmi": "Qualité & SMI"
+    },
+    "topbar": {
+        "accidentRegister": "Registre des accidents & incidents",
+        "newEvent": "Nouvel événement",
+        "eventFile": "Dossier événement",
+        "causeTree": "Arbre des causes",
+        "homeDescription": "Accédez aux différents modules de Risky QHSE.",
+        "dashboardDescription": "Indicateurs, tendances, alertes et suivi global QHSE.",
+        "accidentRegisterDescription": "Suivi et accès aux événements déclarés.",
+        "newEventDescription": "Création d’un nouveau dossier événement.",
+        "eventFileDescription": "Consultation et analyse détaillée de l’événement.",
+        "causeTreeDescription": "Analyse structurée des faits et de leurs relations causales.",
+        "genericDescription": "Gestion intégrée de la prévention, de la qualité et de l’environnement.",
+        "heepo": "Analyse HEEPO",
+        "heepoDescription": "Analyse structurée des facteurs contributifs."
+    }
+}

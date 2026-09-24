@@ -1,0 +1,114 @@
+/* ============================================================
+   SÉLECTEUR RÉFÉRENTIEL FEDRIS
+   ============================================================ */
+
+.accident-dossier__fedris {
+  position: relative;
+  grid-column: 1 / -1;
+}
+
+.accident-dossier__fedris-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #334e68;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.accident-dossier__fedris-current {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 15px;
+  background: #ffffff;
+  border: 1px solid #bfcbd7;
+  border-radius: 7px;
+  color: #102a43;
+  text-align: left;
+  cursor: pointer;
+}
+
+.accident-dossier__fedris-current:hover {
+  border-color: #478bc9;
+}
+
+.accident-dossier__fedris-panel {
+  margin-top: 6px;
+  padding: 10px;
+  background: #f8fafc;
+  border: 1px solid #c9d4df;
+  border-radius: 9px;
+}
+
+.accident-dossier__fedris-search {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #bfcbd7;
+  border-radius: 7px;
+}
+
+.accident-dossier__fedris-search:focus {
+  outline: none;
+  border-color: #478bc9;
+}
+
+.accident-dossier__fedris-list {
+  max-height: 330px;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #d7e0e8;
+  border-radius: 7px;
+}
+
+.accident-dossier__fedris-option {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 85px 1fr;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #ffffff;
+  border: 0;
+  border-bottom: 1px solid #edf1f5;
+  color: #102a43;
+  text-align: left;
+  cursor: pointer;
+}
+
+.accident-dossier__fedris-option:last-child { border-bottom: 0; }
+.accident-dossier__fedris-option:hover { background: #edf5fb; }
+.accident-dossier__fedris-option strong { color: #245f91; }
+.accident-dossier__fedris-option--selected { background: #e4f0fa; }
+
+.accident-dossier__fedris-option--empty {
+  display: block;
+  color: #627d98;
+  font-style: italic;
+}
+
+.accident-dossier__fedris-no-result {
+  padding: 18px;
+  color: #627d98;
+  text-align: center;
+}
+
+.accident-dossier__fedris-option--category {
+  background: #fff7d6;
+  border-top: 1px solid #e7d79a;
+  border-bottom: 1px solid #e7d79a;
+  font-weight: 600;
+}
+
+.accident-dossier__fedris-option--category strong {
+  color: #725b12;
+  font-size: 14px;
+}
+
+.accident-dossier__fedris-option--category:hover {
+  background: #ffefb5;
+}

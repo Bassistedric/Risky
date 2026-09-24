@@ -1,0 +1,484 @@
+{
+  "tree": {
+    "code": "JUST_CULTURE_REASON_FR",
+    "name": "Arbre décisionnel Just Culture",
+    "version": "1.0",
+    "language": "FR",
+    "root_node_code": "ID 3",
+    "description": "Arbre d'aide à l'analyse comportementale d'un événement. Il permet de suivre un raisonnement structuré conduisant à une conclusion comportementale et à une recommandation de traitement. La recommandation constitue une aide à la décision et ne remplace pas l'appréciation managériale, RH ou juridique.",
+    "source_title": "Managing the Risks of Organizational Accidents",
+    "source_author": "James Reason",
+    "source_organization": null,
+    "source_reference": "Reason, J. (1997), Managing the Risks of Organizational Accidents, Ashgate, notamment le Culpability Decision Tree. Arbre enrichi sur la base des développements Just Culture relatifs aux différents types de violations, notamment GAIN Working Group E, A Roadmap to a Just Culture.",
+    "source_url": null,
+    "active": true
+  },
+  "nodes": [
+    {
+      "code": "ID 3",
+      "text": "Les actions étaient-elles intentionnelles ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 4",
+      "text": "Les résultats étaient-ils ceux attendus ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 5",
+      "text": "SABOTAGE ou ACTE MALVEILLANT",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "SABOTAGE_ACTE_MALVEILLANT",
+      "conclusion_label": "Sabotage ou acte malveillant",
+      "recommendation_code": "LICENCIEMENT",
+      "recommendation_label": "Licenciement",
+      "active": true
+    },
+    {
+      "code": "ID 10",
+      "text": "Violation délibérée des procédures d'exploitation sûres ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 12",
+      "text": "Les procédures étaient-elles :\n- disponibles ;\n- applicables ;\n- compréhensibles ;\n- correctes ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 13",
+      "text": "Violation téméraire",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 14",
+      "text": "Violation induite par le système",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 15",
+      "text": "Réussit le test de substitution / d'équivalence ?\n« Aurais-je fait la même chose dans ces circonstances ? »",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 16",
+      "text": "Lacunes dans la formation, la sélection ou inexpérience ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 17",
+      "text": "Négligence",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "NEGLIGENCE",
+      "conclusion_label": "Négligence",
+      "recommendation_code": "ACCOMPAGNEMENT",
+      "recommendation_label": "Accompagnement",
+      "active": true
+    },
+    {
+      "code": "ID 18",
+      "text": "Infraction / erreur induite par le système",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 19",
+      "text": "Antécédents d'actes dangereux / de non-respect des procédures ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 20",
+      "text": "Erreur sans blâme mais une formation corrective ou un accompagnement est requis.",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 21",
+      "text": "Erreur sans blâme",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 71",
+      "text": "La personne a-t-elle choisi l'action, l'événement ou le comportement pour son intérêt personnel ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 69",
+      "text": "La personne pensait-elle que l'action alternative serait bénéfique pour l'entreprise ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 74",
+      "text": "La personne ignorait-elle qu'elle ne respectait pas les procédures existantes ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 75",
+      "text": "La règle est-elle bien connue, mais la coutume et la pratique locales consistent-elles à l'ignorer ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 76",
+      "text": "Gain personnel : « C'était plus facile pour moi de procéder ainsi. »",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "GAIN_PERSONNEL",
+      "conclusion_label": "Gain personnel",
+      "recommendation_code": "DERNIER_AVERTISSEMENT_ECRIT",
+      "recommendation_label": "Dernier avertissement écrit",
+      "active": true
+    },
+    {
+      "code": "ID 78",
+      "text": "Gain pour l'entreprise : « J'ai pensé qu'il était préférable pour l'entreprise de procéder de cette manière. »",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "GAIN_ENTREPRISE",
+      "conclusion_label": "Gain pour l'entreprise",
+      "recommendation_code": "PREMIER_AVERTISSEMENT_ECRIT",
+      "recommendation_label": "Premier avertissement écrit",
+      "active": true
+    },
+    {
+      "code": "ID 97",
+      "text": "Violation de routine : « Mais tout le monde le fait comme ça ici. »",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "VIOLATION_ROUTINE",
+      "conclusion_label": "Violation de routine",
+      "recommendation_code": "PREMIER_AVERTISSEMENT_ECRIT",
+      "recommendation_label": "Premier avertissement écrit",
+      "active": true
+    },
+    {
+      "code": "ID 400",
+      "text": "Violation intentionnelle et irrégulière",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "VIOLATION_INTENTIONNELLE_IRREGULIERE",
+      "conclusion_label": "Violation intentionnelle et irrégulière",
+      "recommendation_code": "PREMIER_AVERTISSEMENT_ECRIT",
+      "recommendation_label": "Premier avertissement écrit",
+      "active": true
+    },
+    {
+      "code": "ID 105",
+      "text": "Basé sur la connaissance : « Je n'étais pas au courant / je n'ai pas compris la règle. »",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "BASE_CONNAISSANCE",
+      "conclusion_label": "Erreur basée sur la connaissance",
+      "recommendation_code": "ACCOMPAGNEMENT",
+      "recommendation_label": "Accompagnement",
+      "active": true
+    },
+    {
+      "code": "ID 147",
+      "text": "La personne pense-t-elle qu'elle agissait de manière appropriée ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 162",
+      "text": "Erreur : « Je ne m'attendais pas à ce que cela arrive. »",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "ERREUR",
+      "conclusion_label": "Erreur",
+      "recommendation_code": "ACCOMPAGNEMENT",
+      "recommendation_label": "Accompagnement",
+      "active": true
+    },
+    {
+      "code": "ID 163",
+      "text": "Erreur d'inattention : « Je ne me suis pas rendu compte de ce qui s'était passé. »",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "ERREUR_INATTENTION",
+      "conclusion_label": "Erreur d'inattention",
+      "recommendation_code": "ACCOMPAGNEMENT",
+      "recommendation_label": "Accompagnement",
+      "active": true
+    },
+    {
+      "code": "ID 336",
+      "text": "L'exécution de cette tâche conformément à la procédure établie présente-t-elle une difficulté importante ou n'est-elle pas sûre ?",
+      "node_type": "QUESTION",
+      "conclusion_code": null,
+      "conclusion_label": null,
+      "recommendation_code": null,
+      "recommendation_label": null,
+      "active": true
+    },
+    {
+      "code": "ID 337",
+      "text": "Violation exceptionnelle : il est en fait plus sûr d'ignorer la règle que de la suivre.",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "VIOLATION_EXCEPTIONNELLE",
+      "conclusion_label": "Violation exceptionnelle",
+      "recommendation_code": "AVERTISSEMENT_VERBAL",
+      "recommendation_label": "Avertissement verbal",
+      "active": true
+    },
+    {
+      "code": "ID 345",
+      "text": "Violation liée à la situation : « Je ne peux pas accomplir la tâche si je suis les règles, mais je l'ai quand même faite. »",
+      "node_type": "CONCLUSION",
+      "conclusion_code": "VIOLATION_SITUATIONNELLE",
+      "conclusion_label": "Violation liée à la situation",
+      "recommendation_code": "AVERTISSEMENT_VERBAL",
+      "recommendation_label": "Avertissement verbal",
+      "active": true
+    }
+  ],
+  "transitions": [
+    {
+      "source": "ID 3",
+      "answer": "OUI",
+      "target": "ID 4",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 3",
+      "answer": "NON",
+      "target": "ID 10",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 4",
+      "answer": "OUI",
+      "target": "ID 5",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 4",
+      "answer": "NON",
+      "target": "ID 10",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 10",
+      "answer": "OUI",
+      "target": "ID 12",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 10",
+      "answer": "NON",
+      "target": "ID 15",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 12",
+      "answer": "OUI",
+      "target": "ID 13",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 12",
+      "answer": "NON",
+      "target": "ID 14",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 13",
+      "answer": "OUI",
+      "target": "ID 71",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 14",
+      "answer": "OUI",
+      "target": "ID 336",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 15",
+      "answer": "OUI",
+      "target": "ID 19",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 15",
+      "answer": "NON",
+      "target": "ID 16",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 16",
+      "answer": "OUI",
+      "target": "ID 18",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 16",
+      "answer": "NON",
+      "target": "ID 17",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 18",
+      "answer": "OUI",
+      "target": "ID 74",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 19",
+      "answer": "OUI",
+      "target": "ID 20",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 19",
+      "answer": "NON",
+      "target": "ID 21",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 20",
+      "answer": "OUI",
+      "target": "ID 147",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 21",
+      "answer": "OUI",
+      "target": "ID 163",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 71",
+      "answer": "OUI",
+      "target": "ID 76",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 71",
+      "answer": "NON",
+      "target": "ID 69",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 69",
+      "answer": "OUI",
+      "target": "ID 78",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 69",
+      "answer": "NON",
+      "target": "ID 75",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 74",
+      "answer": "OUI",
+      "target": "ID 105",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 75",
+      "answer": "OUI",
+      "target": "ID 97",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 75",
+      "answer": "NON",
+      "target": "ID 400",
+      "sort_order": 2
+    },
+    {
+      "source": "ID 147",
+      "answer": "OUI",
+      "target": "ID 162",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 336",
+      "answer": "OUI",
+      "target": "ID 345",
+      "sort_order": 1
+    },
+    {
+      "source": "ID 336",
+      "answer": "NON",
+      "target": "ID 337",
+      "sort_order": 2
+    }
+  ]
+}

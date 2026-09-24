@@ -1,0 +1,49 @@
+.language-selector {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.language-selector__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 28px;
+    padding: 4px 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    opacity: 0.68;
+    transition:
+        opacity 0.15s ease,
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+.language-selector__button:hover {
+    opacity: 1;
+    background: #f3f7fb;
+    border-color: #c9d7e4;
+    transform: translateY(-1px);
+}
+
+.language-selector__button--active {
+    opacity: 1;
+    background: #eef5fb;
+    border-color: #8fb6d7;
+    box-shadow: 0 0 0 2px rgba(71, 139, 201, 0.08);
+}
+
+.language-selector__button img {
+    display: block;
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(15, 39, 66, 0.12);
+}

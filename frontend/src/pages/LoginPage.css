@@ -1,0 +1,395 @@
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #12345a 0%,
+      #0b223d 38%,
+      #06182c 72%,
+      #041426 100%
+    );
+}
+
+
+/* =========================================================
+   CARTE
+   ========================================================= */
+
+.login-card {
+  width: 100%;
+  max-width: 760px;
+
+  padding: 58px 72px 30px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(75, 135, 194, 0.42);
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18, 47, 79, 0.96),
+      rgba(8, 30, 53, 0.97)
+    );
+
+  box-shadow:
+    0 26px 65px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   IDENTITÉ RISKY
+   ========================================================= */
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+
+  margin-bottom: 54px;
+}
+
+.login-brand__icon {
+  width: 88px;
+  height: 88px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #388cff,
+      #1871ed
+    );
+
+  color: #ffffff;
+
+  font-size: 48px;
+  font-weight: 700;
+
+  box-shadow:
+    0 10px 24px rgba(16, 104, 221, 0.24);
+}
+
+.login-brand__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-brand__text strong {
+  color: #ffffff;
+
+  font-size: 44px;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.login-brand__text span {
+  margin-top: 11px;
+
+  color: #719bd0;
+
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 12px;
+}
+
+
+/* =========================================================
+   TITRE
+   ========================================================= */
+
+.login-heading {
+  margin-bottom: 38px;
+}
+
+.login-heading h1 {
+  margin: 0 0 16px;
+
+  color: #ffffff;
+
+  font-size: 31px;
+  font-weight: 600;
+}
+
+.login-heading p {
+  margin: 0;
+
+  color: #9eb4cb;
+
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULAIRE
+   ========================================================= */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-bottom: 10px;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   CHAMP
+   ========================================================= */
+
+.login-input-wrapper {
+  position: relative;
+}
+
+.login-form input {
+  width: 100%;
+  min-height: 58px;
+
+  padding: 0 58px 0 18px;
+  box-sizing: border-box;
+
+  border: 1px solid #315f91;
+  border-radius: 10px;
+
+  background: rgba(4, 25, 46, 0.42);
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 17px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.login-form input::placeholder {
+  color: #688199;
+}
+
+.login-form input:focus {
+  border-color: #378aff;
+
+  box-shadow:
+    0 0 0 3px rgba(55, 138, 255, 0.12);
+}
+
+
+/* =========================================================
+   ICÔNE UTILISATEUR
+   ========================================================= */
+
+.login-input-icon {
+  position: absolute;
+
+  top: 50%;
+  right: 18px;
+
+  width: 23px;
+  height: 23px;
+
+  transform: translateY(-50%);
+
+  fill: #5d8bc4;
+  stroke: #5d8bc4;
+  stroke-width: 1.5;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   BOUTON
+   ========================================================= */
+
+.login-form button {
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  margin-top: 30px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2b83f5,
+      #2589ff
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(26, 112, 224, 0.22);
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.login-form button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.07);
+}
+
+.login-form button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.login-button-arrow {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+
+/* =========================================================
+   ERREUR
+   ========================================================= */
+
+.login-error {
+  margin-top: 12px;
+
+  padding: 10px 12px;
+
+  border: 1px solid rgba(235, 105, 105, 0.5);
+  border-radius: 8px;
+
+  background: rgba(150, 35, 35, 0.18);
+
+  color: #ffb6b6;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   PIED DE CARTE
+   ========================================================= */
+
+.login-footer {
+  min-height: 90px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-top: 38px;
+}
+
+
+/* =========================================================
+   VERSION
+   ========================================================= */
+
+.login-version {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  padding-bottom: 5px;
+
+  color: #557aa4;
+
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+
+/* =========================================================
+   LOGO BY CCO
+   ========================================================= */
+
+.login-bycco-logo {
+  width: 54px;
+  height: 54px;
+
+  object-fit: contain;
+
+  border-radius: 5px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .login-page {
+    padding: 20px;
+  }
+
+  .login-card {
+    padding:
+      38px
+      28px
+      24px;
+  }
+
+  .login-brand {
+    margin-bottom: 40px;
+  }
+
+  .login-brand__icon {
+    width: 68px;
+    height: 68px;
+
+    border-radius: 18px;
+
+    font-size: 36px;
+  }
+
+  .login-brand__text strong {
+    font-size: 34px;
+  }
+
+  .login-brand__text span {
+    font-size: 13px;
+    letter-spacing: 8px;
+  }
+
+  .login-footer {
+    margin-top: 30px;
+  }
+}

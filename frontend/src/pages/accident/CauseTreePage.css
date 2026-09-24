@@ -1,0 +1,679 @@
+/* ============================================================
+   ARBRE DES CAUSES — PAGE
+   ============================================================ */
+
+.cause-tree-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* ============================================================
+   RETOUR
+   ============================================================ */
+
+.cause-tree-page__back {
+    align-self: flex-start;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 4px 0;
+
+    background: transparent;
+    border: 0;
+
+    color: #17324d;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.cause-tree-page__back:hover {
+    color: #1f6fae;
+}
+
+
+/* ============================================================
+   CARTE DE SYNTHÈSE
+   ============================================================ */
+
+.cause-tree-page__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.8fr);
+
+    gap: 34px;
+
+    padding: 28px 32px;
+
+    background: #ffffff;
+
+    border: 1px solid #c9d4df;
+    border-radius: 14px;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.045);
+}
+
+.cause-tree-page__summary-main {
+    display: flex;
+    align-items: center;
+
+    gap: 24px;
+}
+
+.cause-tree-page__summary-main h2 {
+    margin: 0 0 8px;
+
+    color: #0f2742;
+
+    font-size: 26px;
+}
+
+.cause-tree-page__summary-main p {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #597189;
+
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   ICÔNE ARBRE
+   ============================================================ */
+
+.cause-tree-page__summary-icon {
+    position: relative;
+
+    flex: 0 0 auto;
+
+    width: 78px;
+    height: 78px;
+
+    background: #edf5fb;
+
+    border-radius: 50%;
+}
+
+.cause-tree-page__summary-icon::before,
+.cause-tree-page__summary-icon::after,
+.cause-tree-page__summary-icon span {
+    position: absolute;
+
+    content: '';
+
+    border: 2px solid #1f6fae;
+}
+
+.cause-tree-page__summary-icon::before {
+    top: 17px;
+    left: 31px;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 2px;
+}
+
+.cause-tree-page__summary-icon::after {
+    top: 33px;
+    left: 38px;
+
+    width: 2px;
+    height: 16px;
+
+    border: 0;
+
+    background: #1f6fae;
+}
+
+.cause-tree-page__summary-icon span:nth-child(1) {
+    top: 47px;
+    left: 20px;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 2px;
+}
+
+.cause-tree-page__summary-icon span:nth-child(2) {
+    top: 47px;
+    right: 20px;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 2px;
+}
+
+.cause-tree-page__summary-icon span:nth-child(3) {
+    top: 42px;
+    left: 27px;
+
+    width: 25px;
+    height: 2px;
+
+    border: 0;
+
+    background: #1f6fae;
+}
+
+
+/* ============================================================
+   MÉTADONNÉES
+   ============================================================ */
+
+.cause-tree-page__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    gap: 13px;
+
+    padding-left: 34px;
+
+    border-left: 1px solid #d8e1ea;
+}
+
+.cause-tree-page__meta > div {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.cause-tree-page__meta span {
+    color: #667d93;
+
+    font-size: 13px;
+}
+
+.cause-tree-page__meta strong {
+    color: #19324b;
+
+    font-size: 14px;
+}
+
+.cause-tree-page__status {
+    justify-self: start;
+
+    padding: 5px 11px;
+
+    border-radius: 7px;
+}
+
+.cause-tree-page__status--empty {
+    background: #e7edf3;
+    color: #334a60;
+}
+
+.cause-tree-page__status--started {
+    background: #e6f4ea;
+    color: #23643d;
+}
+
+
+/* ============================================================
+   ESPACE DE TRAVAIL
+   ============================================================ */
+
+.cause-tree-page__workspace {
+    padding: 28px 24px 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #c9d4df;
+    border-radius: 14px;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.045);
+}
+
+.cause-tree-page__workspace--tree {
+    padding-top: 22px;
+}
+
+
+/* ============================================================
+   ÉTAT VIDE
+   ============================================================ */
+
+.cause-tree-page__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 760px;
+
+    margin: 0 auto 24px;
+
+    text-align: center;
+}
+
+.cause-tree-page__empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 70px;
+    height: 70px;
+
+    margin-bottom: 8px;
+
+    background: #eef4f8;
+
+    border-radius: 50%;
+
+    color: #466985;
+
+    font-size: 34px;
+}
+
+.cause-tree-page__empty h2 {
+    margin: 0 0 7px;
+
+    color: #0f2742;
+
+    font-size: 22px;
+}
+
+.cause-tree-page__empty p {
+    margin: 0;
+
+    color: #61788f;
+
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   DÉMARRER
+   ============================================================ */
+
+.cause-tree-page__start {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 24px;
+}
+
+
+/* ============================================================
+   FORMULAIRE FAIT FINAL
+   ============================================================ */
+
+.cause-tree-page__final-form {
+    padding: 20px 22px;
+
+    background: #f2f7fb;
+
+    border: 1px solid #d5e1ec;
+    border-radius: 10px;
+}
+
+.cause-tree-page__final-form label {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.cause-tree-page__final-form label > span {
+    color: #29445e;
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.cause-tree-page__final-form label b {
+    color: #c43d32;
+}
+
+.cause-tree-page__final-form input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    min-height: 48px;
+
+    padding: 11px 13px;
+
+    background: #ffffff;
+
+    border: 1px solid #bfcbd7;
+    border-radius: 8px;
+
+    color: #24364b;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+}
+
+.cause-tree-page__final-form input:focus {
+    border-color: #478bc9;
+
+    box-shadow:
+        0 0 0 3px rgba(71, 139, 201, 0.12);
+}
+
+.cause-tree-page__final-form input::placeholder {
+    color: #91a2b3;
+}
+
+.cause-tree-page__form-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-top: 16px;
+}
+
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+.cause-tree-page__actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.cause-tree-page__primary,
+.cause-tree-page__cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 42px;
+
+    padding: 9px 18px;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.cause-tree-page__primary {
+    background: #1f6fae;
+    border: 1px solid #1f6fae;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 2px 5px rgba(31, 111, 174, 0.16);
+}
+
+.cause-tree-page__primary:hover:not(:disabled) {
+    background: #185f97;
+    border-color: #185f97;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 9px rgba(31, 111, 174, 0.22);
+}
+
+.cause-tree-page__cancel {
+    background: #fdeaea;
+    border: 1px solid #efb1ad;
+
+    color: #a92f27;
+}
+
+.cause-tree-page__cancel:hover:not(:disabled) {
+    background: #f8d5d3;
+    border-color: #df8e88;
+
+    color: #8e251f;
+}
+
+.cause-tree-page__primary:disabled,
+.cause-tree-page__cancel:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ============================================================
+   AIDE
+   ============================================================ */
+
+.cause-tree-page__hint {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    max-width: 390px;
+}
+
+.cause-tree-page__hint > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 20px;
+    height: 20px;
+
+    border: 2px solid #2f80ed;
+    border-radius: 50%;
+
+    color: #2f80ed;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.cause-tree-page__hint p {
+    margin: 0;
+
+    color: #60758a;
+
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   BON À SAVOIR
+   ============================================================ */
+
+.cause-tree-page__knowledge {
+    display: flex;
+    align-items: baseline;
+
+    gap: 12px;
+
+    margin-top: 20px;
+    padding: 18px 6px 2px;
+
+    border-top: 1px solid #dce4ec;
+}
+
+.cause-tree-page__knowledge strong {
+    flex: 0 0 auto;
+
+    color: #1f6fae;
+
+    font-size: 13px;
+}
+
+.cause-tree-page__knowledge span {
+    color: #667d93;
+
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   ARBRE EXISTANT
+   ============================================================ */
+
+.cause-tree-page__tree-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+.cause-tree-page__tree-header h2 {
+    margin: 0 0 5px;
+
+    color: #0f2742;
+
+    font-size: 20px;
+}
+
+.cause-tree-page__tree-header p {
+    margin: 0;
+
+    color: #667d93;
+
+    font-size: 13px;
+}
+
+.cause-tree-page__tree-count {
+    flex: 0 0 auto;
+
+    padding: 5px 10px;
+
+    background: #edf3f8;
+
+    border-radius: 999px;
+
+    color: #4f657b;
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+
+/* ============================================================
+   CHARGEMENT / ERREUR
+   ============================================================ */
+
+.cause-tree-page__loading {
+    padding: 30px;
+
+    color: #667d93;
+
+    text-align: center;
+}
+
+.cause-tree-page__error {
+    padding: 12px 14px;
+
+    background: #fff1f0;
+
+    border: 1px solid #f1c5c1;
+    border-radius: 8px;
+
+    color: #b42318;
+
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1000px) {
+
+    .cause-tree-page__summary {
+        grid-template-columns: 1fr;
+    }
+
+    .cause-tree-page__meta {
+        padding-top: 20px;
+        padding-left: 0;
+
+        border-top: 1px solid #d8e1ea;
+        border-left: 0;
+    }
+}
+
+
+@media (max-width: 720px) {
+
+    .cause-tree-page__summary {
+        padding: 22px 20px;
+    }
+
+    .cause-tree-page__summary-main {
+        align-items: flex-start;
+    }
+
+    .cause-tree-page__summary-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .cause-tree-page__meta > div {
+        grid-template-columns: 120px 1fr;
+    }
+
+    .cause-tree-page__workspace {
+        padding: 22px 16px 18px;
+    }
+
+    .cause-tree-page__form-bottom {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .cause-tree-page__actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .cause-tree-page__primary,
+    .cause-tree-page__cancel {
+        width: 100%;
+    }
+
+    .cause-tree-page__knowledge {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 5px;
+    }
+}

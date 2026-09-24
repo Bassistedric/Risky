@@ -1,0 +1,79 @@
+{
+    "page": {
+        "title": "Plan d’actions",
+        "description": "Pilotage transversal des actions QHSE."
+    },
+
+    "tabs": {
+        "overview": "Vue générale",
+        "accidents": "Accidents",
+        "paa": "PAA",
+        "pga": "PGA",
+        "cppt": "CPPT",
+        "quality": "Qualité / 9001"
+    },
+
+    "filters": {
+        "year": "Année",
+        "status": "Statut",
+        "responsible": "Responsable",
+        "search": "Rechercher",
+        "allStatuses": "Tous les statuts",
+        "allResponsible": "Tous les responsables",
+        "searchPlaceholder": "Rechercher une action..."
+    },
+
+    "columns": {
+        "action": "Action",
+        "origin": "Origine",
+        "scope": "Portée",
+        "responsible": "Responsable",
+        "dueDate": "Échéance",
+        "priority": "Priorité",
+        "status": "Statut",
+        "progress": "Avancement",
+        "reference": "Référence"
+    },
+
+    "status": {
+        "todo": "À réaliser",
+        "inProgress": "En cours",
+        "done": "Réalisée",
+        "toValidate": "À valider",
+        "closed": "Clôturée"
+    },
+
+    "priority": {
+        "low": "Basse",
+        "medium": "Moyenne",
+        "high": "Haute"
+    },
+
+    "progress": {
+        "qualityFollowUp": "Suivi 9001"
+    },
+
+    "scope": {
+        "local": "Locale / chantier",
+        "global": "Globale"
+    },
+
+    "origin": {
+        "accident": "Accident",
+        "incident": "Incident",
+        "nearMiss": "Presqu’accident",
+        "ilt": "ILT",
+        "stop": "STOP",
+        "cppt": "CPPT",
+        "paa": "PAA",
+        "pga": "PGA",
+        "quality": "Qualité",
+        "other": "Autre"
+    },
+
+    "messages": {
+        "loading": "Chargement des actions...",
+        "empty": "Aucune action à afficher.",
+        "loadError": "Impossible de charger les actions."
+    }
+}

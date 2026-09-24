@@ -1,0 +1,126 @@
+{
+    "title": "Documenten & rapporten",
+    "subtitle": "Generatie en beheer van documenten gekoppeld aan het evenement.",
+    "common": {
+        "notGenerated": "Niet gegenereerd",
+        "draft": "Concept",
+        "yes": "Ja",
+        "no": "Nee",
+        "notProvided": "Niet ingevuld",
+        "notApplicable": "Niet van toepassing",
+        "day": "dag",
+        "days": "dagen"
+    },
+    "analysisReport": {
+        "type": "RISKY-rapport",
+        "title": "Analyserapport",
+        "description": "Volledig rapport op basis van de gegevens, analyses en acties van het dossier.",
+        "preview": "Voorbeeld"
+    },
+    "safetyFlash": {
+        "type": "CFE-communicatie",
+        "title": "Safety Flash",
+        "description": "Beknopte communicatie op basis van het officiële CFE-model.",
+        "prepare": "Voorbereiden"
+    },
+    "preview": {
+        "loading": "Voorbeeld laden…",
+        "unavailable": "Rapport niet beschikbaar.",
+        "unknownError": "Onbekende fout.",
+        "back": "Terug naar dossier",
+        "title": "Rapportvoorbeeld",
+        "generatePdf": "PDF genereren",
+        "generatePdfPending": "PDF-generatie wordt in de volgende stap toegevoegd.",
+        "sections": {
+            "summary": "Samenvatting van het evenement",
+            "facts": "Feitenrelaas",
+            "classification": "Classificatie",
+            "photos": "Fotodocumentatie",
+            "heepo": "HEEPO-analyse",
+            "causeTree": "Oorzakenboom",
+            "justCulture": "Just Culture",
+            "actions": "Maatregelen & acties"
+        },
+        "causeTree": {
+            "finalFact": "Eindfeit",
+            "terminalCause": "Eindoorzaak",
+            "cause": "Oorzaak",
+            "unlinked": "Niet-gekoppelde elementen"
+        },
+        "summary": {
+            "title": "Samenvatting",
+            "type": "Type",
+            "date": "Datum",
+            "person": "Persoon",
+            "category": "Categorie",
+            "organization": "Organisatie",
+            "location": "Plaats",
+            "projectManager": "Project Manager",
+            "siteSupervisor": "Werfleider",
+            "materialDamage": "Materiële schade",
+            "environmentalDamage": "Milieuschade",
+            "analysisType": "Analysetype",
+            "description": "Beschrijving / titel van het evenement"
+        },
+        "consequences": {
+            "title": "Gevolgen",
+            "lostTime": "Arbeidsongeschiktheid",
+            "modifiedDuty": "Aangepast werk",
+            "permanentInjury": "Blijvende arbeidsongeschiktheid",
+            "fatal": "Overlijden",
+            "materialDamageCost": "Kost materiële schade (€)"
+        },
+        "facts": {
+            "client": "Klant",
+            "witnesses": "Getuigen",
+            "usualPosition": "Gebruikelijke functie",
+            "activityBefore": "Wat deed het slachtoffer vóór het evenement?",
+            "description": "Beschrijving van het evenement",
+            "directCause": "Directe oorzaak",
+            "thirdParty": "Derde betrokken",
+            "policeReport": "Proces-verbaal politie",
+            "thirdPartyDetails": "Informatie over de derde"
+        },
+        "classification": {
+            "deviation": "Afwijking",
+            "materialAgent": "Materieel agens",
+            "injuryNature": "Aard van het letsel",
+            "injuryLocation": "Plaats van het letsel"
+        },
+        "justCulture": {
+            "conclusion": "Conclusie",
+            "recommendation": "Aanbeveling"
+        },
+        "actions": {
+            "responsible": "Verantwoordelijke",
+            "dueDate": "Vervaldatum",
+            "progress": "Voortgang"
+        }
+    },
+    "values": {
+        "eventType": {
+            "ACCIDENT": "Arbeidsongeval",
+            "INCIDENT": "Incident",
+            "NEAR_MISS": "Bijna-ongeval"
+        },
+        "analysisType": {
+            "ADVANCED": "Uitgebreid",
+            "NORMAL": "Normaal"
+        },
+        "personCategory": {
+            "WORKER": "Arbeider",
+            "EMPLOYEE": "Bediende",
+            "TEMPORARY": "Uitzendkracht",
+            "SUBCONTRACTOR": "Onderaannemer",
+            "OTHER": "Andere"
+        },
+        "actionType": {
+            "CORRECTIVE": "Correctief",
+            "PREVENTIVE": "Preventief"
+        },
+        "scope": {
+            "LOCAL": "Lokaal",
+            "GLOBAL": "Globaal"
+        }
+    }
+}

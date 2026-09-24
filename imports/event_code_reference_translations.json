@@ -1,0 +1,2002 @@
+{
+  "DEVIATION": [
+    {
+      "code": "0",
+      "label_nl": "Geen informatie",
+      "label_en": "No information",
+      "label_pl": "Brak informacji"
+    },
+    {
+      "code": "10",
+      "label_nl": "Afwijkende gebeurtenis als gevolg van een elektrische storing, explosie, brand - niet gespecificeerd",
+      "label_en": "Deviation due to electrical problems, explosion, fire - Not specified",
+      "label_pl": "Odchylenie spowodowane problemem elektrycznym, wybuchem lub pożarem - nieokreślone"
+    },
+    {
+      "code": "11",
+      "label_nl": "Elektrische storing door een defect in de installatie - met indirect contact als gevolg",
+      "label_en": "Electrical problem due to equipment failure - leading to indirect contact",
+      "label_pl": "Problem elektryczny wskutek awarii instalacji - prowadzący do kontaktu pośredniego"
+    },
+    {
+      "code": "12",
+      "label_nl": "Elektrische storing - met direct contact als gevolg",
+      "label_en": "Electrical problem - leading to direct contact",
+      "label_pl": "Problem elektryczny - prowadzący do kontaktu bezpośredniego"
+    },
+    {
+      "code": "13",
+      "label_nl": "Explosie",
+      "label_en": "Explosion",
+      "label_pl": "Wybuch"
+    },
+    {
+      "code": "14",
+      "label_nl": "Brand, vuurzee",
+      "label_en": "Fire, flare up",
+      "label_pl": "Pożar, zapłon"
+    },
+    {
+      "code": "19",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 10, maar hierboven niet vermeld",
+      "label_en": "Other group 10 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 10, niewymienione powyżej"
+    },
+    {
+      "code": "20",
+      "label_nl": "Afwijkende gebeurtenis door overlopen, kantelen, lekken, leeglopen, verdampen, vrijkomen - niet gespecificeerd",
+      "label_en": "Deviation by overflow, overturn, leak, flow, vaporisation, emission - Not specified",
+      "label_pl": "Odchylenie wskutek przelania, przewrócenia, wycieku, wypływu, parowania lub uwolnienia - nieokreślone"
+    },
+    {
+      "code": "21",
+      "label_nl": "In vaste toestand - overlopen, kantelen",
+      "label_en": "Solid state - overflowing, overturning",
+      "label_pl": "Stan stały - przelanie, przewrócenie"
+    },
+    {
+      "code": "22",
+      "label_nl": "In vloeibare toestand - lekken, sijpelen, leeglopen, spatten, sproeien",
+      "label_en": "Liquid state - leaking, oozing, flowing, splashing, spraying",
+      "label_pl": "Stan ciekły - wyciek, sączenie, wypływ, rozprysk, rozpylanie"
+    },
+    {
+      "code": "23",
+      "label_nl": "In gasvormige toestand - verdampen, aërosolvorming, gasvorming",
+      "label_en": "Gaseous state - vaporisation, aerosol formation, gas formation",
+      "label_pl": "Stan gazowy - parowanie, tworzenie aerozolu, powstawanie gazu"
+    },
+    {
+      "code": "24",
+      "label_nl": "In poedervorm - rookontwikkeling, stof, deeltjes",
+      "label_en": "Pulverulent material - smoke generation, dust/particles in suspension/emission",
+      "label_pl": "Materiał pylący - powstawanie dymu, emisja pyłu lub cząstek"
+    },
+    {
+      "code": "29",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 20, maar hierboven niet vermeld",
+      "label_en": "Other group 20 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 20, niewymienione powyżej"
+    },
+    {
+      "code": "30",
+      "label_nl": "Breken, barsten, glijden, vallen, instorten van het betrokken voorwerp - niet gespecificeerd",
+      "label_en": "Breakage, bursting, splitting, slipping, fall, collapse of Material Agent - Not specified",
+      "label_pl": "Pęknięcie, rozerwanie, rozpad, poślizg, upadek lub zawalenie czynnika materialnego - nieokreślone"
+    },
+    {
+      "code": "31",
+      "label_nl": "Breken van materiaal, op de voegen of verbindingen",
+      "label_en": "Breakage of material - at joint, at seams",
+      "label_pl": "Pęknięcie materiału na złączu lub połączeniu"
+    },
+    {
+      "code": "32",
+      "label_nl": "Breken, barsten, waarbij scherven/spanen ontstaan (hout, glas, metaal, steen, kunststof, overige)",
+      "label_en": "Breakage, bursting - causing splinters (wood, glass, metal, stone, plastic, others)",
+      "label_pl": "Pęknięcie lub rozerwanie powodujące odłamki (drewno, szkło, metal, kamień, tworzywo sztuczne, inne)"
+    },
+    {
+      "code": "33",
+      "label_nl": "Glijden, vallen, instorten van het betrokken voorwerp - hoger gelegen (op het slachtoffer vallend)",
+      "label_en": "Slip, fall, collapse of Material Agent - from above (falling on the victim)",
+      "label_pl": "Poślizg, upadek lub zawalenie czynnika materialnego - z góry (spadającego na poszkodowanego)"
+    },
+    {
+      "code": "34",
+      "label_nl": "Glijden, vallen, instorten van het betrokken voorwerp - lager gelegen (het slachtoffer meeslepend)",
+      "label_en": "Slip, fall, collapse of Material Agent - from below (dragging the victim down)",
+      "label_pl": "Poślizg, upadek lub zawalenie czynnika materialnego - z dołu (pociągającego poszkodowanego)"
+    },
+    {
+      "code": "35",
+      "label_nl": "Glijden, vallen, instorten van het betrokken voorwerp - op gelijke hoogte gelegen",
+      "label_en": "Slip, fall, collapse of Material Agent - on the same level",
+      "label_pl": "Poślizg, upadek lub zawalenie czynnika materialnego - na tym samym poziomie"
+    },
+    {
+      "code": "39",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 30, maar hierboven niet vermeld",
+      "label_en": "Other group 30 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 30, niewymienione powyżej"
+    },
+    {
+      "code": "40",
+      "label_nl": "Verlies van controle (geheel of gedeeltelijk) over een machine, vervoer- of transportmiddel, handgereedschap, voorwerp, dier - niet gespecificeerd",
+      "label_en": "Loss of control (total or partial) of machine, means of transport or handling equipment, hand-held tool, object, animal - Not specified",
+      "label_pl": "Całkowita lub częściowa utrata kontroli nad maszyną, środkiem transportu lub urządzeniem transportowym, narzędziem ręcznym, przedmiotem lub zwierzęciem - nieokreślone"
+    },
+    {
+      "code": "41",
+      "label_nl": "Verlies van controle (geheel of gedeeltelijk) over een machine (inclusief onbedoeld starten) en over het door de machine bewerkte materiaal",
+      "label_en": "Loss of control (total or partial) - of machine (including unwanted start-up) or of the material being worked by the machine",
+      "label_pl": "Całkowita lub częściowa utrata kontroli nad maszyną (w tym niezamierzone uruchomienie) lub materiałem obrabianym przez maszynę"
+    },
+    {
+      "code": "42",
+      "label_nl": "Verlies van controle (geheel of gedeeltelijk) over een vervoer- of transportmiddel of transportwerktuig (gemotoriseerd of niet)",
+      "label_en": "Loss of control (total or partial) - of means of transport or handling equipment (motorised or not)",
+      "label_pl": "Całkowita lub częściowa utrata kontroli nad środkiem transportu lub urządzeniem transportowym (z napędem lub bez)"
+    },
+    {
+      "code": "43",
+      "label_nl": "Verlies van controle (geheel of gedeeltelijk) over handgereedschap (gemotoriseerd of niet) en over het door het gereedschap bewerkte materiaal",
+      "label_en": "Loss of control (total or partial) - of hand-held tool (motorised or not) or of the material being worked by the tool",
+      "label_pl": "Całkowita lub częściowa utrata kontroli nad narzędziem ręcznym (z napędem lub bez) lub materiałem obrabianym tym narzędziem"
+    },
+    {
+      "code": "44",
+      "label_nl": "Verlies van controle (geheel of gedeeltelijk) over een voorwerp (gedragen, verplaatst, behandeld enz.)",
+      "label_en": "Loss of control (total or partial) - of object (being carried, moved, handled, etc.)",
+      "label_pl": "Całkowita lub częściowa utrata kontroli nad przedmiotem (niesionym, przemieszczanym, manipulowanym itp.)"
+    },
+    {
+      "code": "45",
+      "label_nl": "Verlies van controle (geheel of gedeeltelijk) over een dier",
+      "label_en": "Loss of control (total or partial) - of animal",
+      "label_pl": "Całkowita lub częściowa utrata kontroli nad zwierzęciem"
+    },
+    {
+      "code": "49",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 40, maar hierboven niet vermeld",
+      "label_en": "Other group 40 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 40, niewymienione powyżej"
+    },
+    {
+      "code": "50",
+      "label_nl": "Uitglijden of struikelen met val, val van persoon - niet gespecificeerd",
+      "label_en": "Slipping - Stumbling and falling - Fall of persons - Not specified",
+      "label_pl": "Poślizgnięcie lub potknięcie z upadkiem, upadek osoby - nieokreślone"
+    },
+    {
+      "code": "51",
+      "label_nl": "Val van persoon - van hoogte",
+      "label_en": "Fall of person - to a lower level",
+      "label_pl": "Upadek osoby z wysokości"
+    },
+    {
+      "code": "52",
+      "label_nl": "Uitglijden of struikelen met val, val van persoon - op gelijke hoogte",
+      "label_en": "Slipping - Stumbling and falling - Fall of person - on the same level",
+      "label_pl": "Poślizgnięcie lub potknięcie z upadkiem, upadek osoby na tym samym poziomie"
+    },
+    {
+      "code": "59",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 50, maar hierboven niet vermeld",
+      "label_en": "Other group 50 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 50, niewymienione powyżej"
+    },
+    {
+      "code": "60",
+      "label_nl": "Beweging van het lichaam zonder fysieke belasting (meestal leidend tot uitwendig letsel) - niet gespecificeerd",
+      "label_en": "Body movement without any physical stress (generally leading to an external injury) - Not specified",
+      "label_pl": "Ruch ciała bez obciążenia fizycznego (zwykle prowadzący do urazu zewnętrznego) - nieokreślone"
+    },
+    {
+      "code": "61",
+      "label_nl": "Lopen op een scherp voorwerp",
+      "label_en": "Walking on a sharp object",
+      "label_pl": "Nadepnięcie na ostry przedmiot"
+    },
+    {
+      "code": "62",
+      "label_nl": "Knielen, gaan zitten, ergens tegen leunen",
+      "label_en": "Kneeling on, sitting on, leaning against",
+      "label_pl": "Klękanie, siadanie, opieranie się"
+    },
+    {
+      "code": "63",
+      "label_nl": "Gegrepen of meegesleurd worden door iets of door de eigen beweging",
+      "label_en": "Being caught or carried away, by something or by momentum",
+      "label_pl": "Pochwycenie lub porwanie przez coś albo przez własny pęd"
+    },
+    {
+      "code": "64",
+      "label_nl": "Ongecoördineerde bewegingen, onverwachte of ongepaste handelingen",
+      "label_en": "Uncoordinated movements, spurious or untimely actions",
+      "label_pl": "Nieskoordynowane ruchy, nagłe lub nieodpowiednie gesty"
+    },
+    {
+      "code": "69",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 60, maar hierboven niet vermeld",
+      "label_en": "Other group 60 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 60, niewymienione powyżej"
+    },
+    {
+      "code": "70",
+      "label_nl": "Beweging van het lichaam onder of met fysieke belasting (meestal leidend tot inwendig letsel) - niet gespecificeerd",
+      "label_en": "Body movement under or with physical stress (generally leading to an internal injury) - Not specified",
+      "label_pl": "Ruch ciała pod obciążeniem lub z obciążeniem fizycznym (zwykle prowadzący do urazu wewnętrznego) - nieokreślone"
+    },
+    {
+      "code": "71",
+      "label_nl": "Optillen, dragen, opstaan",
+      "label_en": "Lifting, carrying, standing up",
+      "label_pl": "Podnoszenie, przenoszenie, wstawanie"
+    },
+    {
+      "code": "72",
+      "label_nl": "Duwen, trekken",
+      "label_en": "Pushing, pulling",
+      "label_pl": "Pchanie, ciągnięcie"
+    },
+    {
+      "code": "73",
+      "label_nl": "Neerzetten, bukken",
+      "label_en": "Putting down, bending down",
+      "label_pl": "Odkładanie, schylanie się"
+    },
+    {
+      "code": "74",
+      "label_nl": "Draaien, roteren, zich omdraaien",
+      "label_en": "Twisting, turning",
+      "label_pl": "Skręcanie, obracanie się"
+    },
+    {
+      "code": "75",
+      "label_nl": "Verkeerd stappen, misstap, uitglijden - zonder val",
+      "label_en": "Treading badly, twisting leg or ankle, slipping without falling",
+      "label_pl": "Nieprawidłowe stąpnięcie, potknięcie, poślizg - bez upadku"
+    },
+    {
+      "code": "79",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 70, maar hierboven niet vermeld",
+      "label_en": "Other group 70 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 70, niewymienione powyżej"
+    },
+    {
+      "code": "80",
+      "label_nl": "Schrik, angst, geweld, agressie, bedreiging, aanwezigheid - niet gespecificeerd",
+      "label_en": "Shock, fright, violence, aggression, threat, presence - Not specified",
+      "label_pl": "Zaskoczenie, strach, przemoc, agresja, groźba, obecność - nieokreślone"
+    },
+    {
+      "code": "81",
+      "label_nl": "Schrik, angst",
+      "label_en": "Shock, fright",
+      "label_pl": "Zaskoczenie, strach"
+    },
+    {
+      "code": "82",
+      "label_nl": "Geweld, agressie, bedreiging tussen personeelsleden van de onderneming onder het gezag van de werkgever",
+      "label_en": "Violence, aggression, threat - between company employees subjected to the employer's authority",
+      "label_pl": "Przemoc, agresja lub groźba między pracownikami przedsiębiorstwa podlegającymi władzy pracodawcy"
+    },
+    {
+      "code": "83",
+      "label_nl": "Geweld, agressie, bedreiging door personen van buiten de onderneming tegenover slachtoffers tijdens de uitoefening van hun functie (bankoverval, buschauffeurs enz.)",
+      "label_en": "Violence, aggression, threat - from people external to the company towards victims performing their duties (bank hold-up, bus drivers, etc.)",
+      "label_pl": "Przemoc, agresja lub groźba ze strony osób spoza przedsiębiorstwa wobec poszkodowanych podczas wykonywania obowiązków (napad na bank, kierowcy autobusów itp.)"
+    },
+    {
+      "code": "84",
+      "label_nl": "Agressie, duw - door een dier",
+      "label_en": "Aggression, jostle - by animal",
+      "label_pl": "Agresja, potrącenie - przez zwierzę"
+    },
+    {
+      "code": "85",
+      "label_nl": "Aanwezigheid van het slachtoffer of een derde die op zichzelf een gevaar vormt voor zichzelf en eventueel voor anderen",
+      "label_en": "Presence of the victim or of a third person in itself creating a danger for oneself and possibly others",
+      "label_pl": "Obecność poszkodowanego lub osoby trzeciej sama w sobie stwarzająca zagrożenie dla tej osoby i ewentualnie dla innych"
+    },
+    {
+      "code": "89",
+      "label_nl": "Overige afwijkende gebeurtenissen, behorend tot groep 80, maar hierboven niet vermeld",
+      "label_en": "Other group 80 type Deviations not listed above",
+      "label_pl": "Inne znane odchylenie z grupy 80, niewymienione powyżej"
+    },
+    {
+      "code": "99",
+      "label_nl": "Andere afwijkende gebeurtenis die niet in deze classificatie is opgenomen.",
+      "label_en": "Other Deviations not listed above in this classification.",
+      "label_pl": "Inne odchylenie niewymienione w tej klasyfikacji."
+    }
+  ],
+  "MATERIAL_AGENT": [
+    {
+      "code": "00.01",
+      "label_nl": "Geen betrokken voorwerp",
+      "label_en": "No material agent",
+      "label_pl": "Brak czynnika materialnego"
+    },
+    {
+      "code": "00.02",
+      "label_nl": "Geen informatie",
+      "label_en": "No information",
+      "label_pl": "Brak informacji"
+    },
+    {
+      "code": "00.99",
+      "label_nl": "Overige bekende situatie van groep 00 maar hierboven niet vermeld",
+      "label_en": "Other known situation in group 00 but not listed above",
+      "label_pl": "Inna znana sytuacja z grupy 00 niewymieniona powyżej"
+    },
+    {
+      "code": "01.00",
+      "label_nl": "Gebouwen, constructies, oppervlakken – op gelijk niveau (binnen of buiten, vast ou mobiel, tijdelijk ou non) – niet gespecificeerd",
+      "label_en": "Buildings, structures, surfaces – at ground level (indoor or outdoor, fixed ou mobile, temporary ou non) – Not specified",
+      "label_pl": "Budynki, konstrukcje, powierzchnie – na jednym poziomie (wewnątrz lub na zewnątrz, stałe ou mobilne, tymczasowe ou non) – nieokreślone"
+    },
+    {
+      "code": "01.01",
+      "label_nl": "Onderdelen van gebouwen en constructies - portes, murs, cloisons … et obstacles par destination (fenêtres, baies vitrées, …)",
+      "label_en": "Building and structural components - portes, murs, cloisons … et obstacles par destination (fenêtres, baies vitrées, …)",
+      "label_pl": "Elementy budynków i konstrukcji - portes, murs, cloisons … et obstacles par destination (fenêtres, baies vitrées, …)"
+    },
+    {
+      "code": "01.03",
+      "label_nl": "Oppervlakken of loopruimten op gelijkvloers niveau - drijvend",
+      "label_en": "Surfaces or circulation areas at ground level - floating",
+      "label_pl": "Powierzchnie lub ciągi komunikacyjne na jednym poziomie - pływające"
+    },
+    {
+      "code": "01.99",
+      "label_nl": "Autres bâtiments, constructions, surfaces op gelijk niveau connus du groupe 01 maar hierboven niet vermeld",
+      "label_en": "Autres bâtiments, constructions, surfaces at ground level connus du groupe 01 but not listed above",
+      "label_pl": "Autres bâtiments, constructions, surfaces na jednym poziomie connus du groupe 01 niewymienione powyżej"
+    },
+    {
+      "code": "02.00",
+      "label_nl": "Gebouwen, constructies, oppervlakken – op hoogte (binnen of buiten) - niet gespecificeerd",
+      "label_en": "Buildings, structures, surfaces – above ground level (indoor or outdoor) - Not specified",
+      "label_pl": "Budynki, konstrukcje, powierzchnie – na wysokości (wewnątrz lub na zewnątrz) - nieokreślone"
+    },
+    {
+      "code": "02.01",
+      "label_nl": "Delen van gebouwen op hoogte - vast (toitures, terrasses, ouvertures, escaliers, quais)",
+      "label_en": "Parts of building above ground level - fixed (toitures, terrasses, ouvertures, escaliers, quais)",
+      "label_pl": "Części budynku na wysokości - stałe (toitures, terrasses, ouvertures, escaliers, quais)"
+    },
+    {
+      "code": "02.02",
+      "label_nl": "Constructies en oppervlakken op hoogte - vast (inclusief les passerelles, échelles vast, pylônes)",
+      "label_en": "Structures and surfaces above ground level - fixed (including les passerelles, échelles fixed, pylônes)",
+      "label_pl": "Konstrukcje i powierzchnie na wysokości - stałe (w tym les passerelles, échelles stałe, pylônes)"
+    },
+    {
+      "code": "02.03",
+      "label_nl": "Constructies en oppervlakken op hoogte - mobiel (inclusief échafaudages, échelles mobiel, nacelle, plate-forme élévatrice)",
+      "label_en": "Structures and surfaces above ground level - mobile (including échafaudages, échelles mobile, nacelle, plate-forme élévatrice)",
+      "label_pl": "Konstrukcje i powierzchnie na wysokości - mobilne (w tym échafaudages, échelles mobilne, nacelle, plate-forme élévatrice)"
+    },
+    {
+      "code": "02.04",
+      "label_nl": "Constructies en oppervlakken op hoogte - tijdelijk (inclusief les échafaudages tijdelijk, harnais, balançoires)",
+      "label_en": "Structures and surfaces above ground level - temporary (including les échafaudages temporary, harnais, balançoires)",
+      "label_pl": "Konstrukcje i powierzchnie na wysokości - tymczasowe (w tym les échafaudages tymczasowe, harnais, balançoires)"
+    },
+    {
+      "code": "02.05",
+      "label_nl": "Constructies en oppervlakken op hoogte - drijvend (inclusief les plates-formes de forage, les échafaudages sur barges)",
+      "label_en": "Structures and surfaces above ground level - floating (including les plates-formes de forage, les échafaudages sur barges)",
+      "label_pl": "Konstrukcje i powierzchnie na wysokości - pływające (w tym les plates-formes de forage, les échafaudages sur barges)"
+    },
+    {
+      "code": "02.99",
+      "label_nl": "Autres bâtiments, constructions, surfaces op hoogte connus du groupe 02 maar hierboven niet vermeld",
+      "label_en": "Autres bâtiments, constructions, surfaces above ground level connus du groupe 02 but not listed above",
+      "label_pl": "Autres bâtiments, constructions, surfaces na wysokości connus du groupe 02 niewymienione powyżej"
+    },
+    {
+      "code": "03.00",
+      "label_nl": "Gebouwen, constructies, oppervlakken – onder het maaiveld (binnen of buiten) - niet gespecificeerd",
+      "label_en": "Buildings, structures, surfaces – below ground level (indoor or outdoor) - Not specified",
+      "label_pl": "Budynki, konstrukcje, powierzchnie – poniżej poziomu gruntu (wewnątrz lub na zewnątrz) - nieokreślone"
+    },
+    {
+      "code": "03.01",
+      "label_nl": "Uitgravingen, sleuven, putten, kuilen, taluds, garageputten",
+      "label_en": "Excavations, trenches, wells, pits, escarpments, garage pits",
+      "label_pl": "Wykopy, rowy, studnie, doły, skarpy, kanały garażowe"
+    },
+    {
+      "code": "03.02",
+      "label_nl": "Ondergrondse ruimten, tunnels",
+      "label_en": "Underground areas, tunnels",
+      "label_pl": "Przestrzenie podziemne, tunele"
+    },
+    {
+      "code": "03.03",
+      "label_nl": "Onderwateromgevingen",
+      "label_en": "Underwater environments",
+      "label_pl": "Środowisko podwodne"
+    },
+    {
+      "code": "03.99",
+      "label_nl": "Autres bâtiments, constructions, surfaces onder het maaiveld connus du groupe 03 maar hierboven niet vermeld",
+      "label_en": "Autres bâtiments, constructions, surfaces below ground level connus du groupe 03 but not listed above",
+      "label_pl": "Autres bâtiments, constructions, surfaces poniżej poziomu gruntu connus du groupe 03 niewymienione powyżej"
+    },
+    {
+      "code": "04.00",
+      "label_nl": "Systemen voor toevoer en verdeling van materialen, leidingnetten - niet gespecificeerd",
+      "label_en": "Systems for the supply and distribution of materials, pipe networks - Not specified",
+      "label_pl": "Systemy doprowadzania i dystrybucji materiałów, rurociągi - nieokreślone"
+    },
+    {
+      "code": "04.01",
+      "label_nl": "Systemen voor toevoer en verdeling van materialen, leidingnetten - vast - pour gaz, air, liquides, solides - inclusief les trémies",
+      "label_en": "Systems for the supply and distribution of materials, pipe networks - fixed - pour gas, air, liquids, solids - including les trémies",
+      "label_pl": "Systemy doprowadzania i dystrybucji materiałów, rurociągi - stałe - pour gaz, air, liquides, solides - w tym les trémies"
+    },
+    {
+      "code": "04.02",
+      "label_nl": "Systemen voor toevoer en verdeling van materialen, leidingnetten - mobiel",
+      "label_en": "Systems for the supply and distribution of materials, pipe networks - mobile",
+      "label_pl": "Systemy doprowadzania i dystrybucji materiałów, rurociągi - mobilne"
+    },
+    {
+      "code": "04.03",
+      "label_nl": "Riolen, afwateringssystemen",
+      "label_en": "Sewers, drainage systems",
+      "label_pl": "Kanały ściekowe, systemy odwadniające"
+    },
+    {
+      "code": "04.99",
+      "label_nl": "Autres dispositifs de distribution de matières, d'alimentation, canalisations connus du groupe 04 maar hierboven niet vermeld",
+      "label_en": "Autres dispositifs de distribution de matières, d'alimentation, canalisations connus du groupe 04 but not listed above",
+      "label_pl": "Autres dispositifs de distribution de matières, d'alimentation, canalisations connus du groupe 04 niewymienione powyżej"
+    },
+    {
+      "code": "05.00",
+      "label_nl": "Motoren, systemen voor energieoverdracht en -opslag - niet gespecificeerd",
+      "label_en": "Motors, energy transmission and storage systems - Not specified",
+      "label_pl": "Silniki, systemy przesyłu i magazynowania energii - nieokreślone"
+    },
+    {
+      "code": "05.01",
+      "label_nl": "Motoren, energiegeneratoren (thermique, électrique, rayonnement) inclusief les compresseurs, les pompes",
+      "label_en": "Motors, energy generators (thermal, electrical, radiation) including les compresseurs, les pompes",
+      "label_pl": "Silniki, generatory energii (thermique, électrique, rayonnement) w tym les compresseurs, les pompes"
+    },
+    {
+      "code": "05.02",
+      "label_nl": "Systemen voor energieoverdracht en -opslag (mécanique, pneumatique, hydraulique, électrique inclusief batteries et accumulateurs)",
+      "label_en": "Energy transmission and storage systems (mechanical, pneumatic, hydraulic, electrical including batteries et accumulateurs)",
+      "label_pl": "Systemy przesyłu i magazynowania energii (mécanique, pneumatique, hydraulique, électrique w tym batteries et accumulateurs)"
+    },
+    {
+      "code": "05.99",
+      "label_nl": "Autres moteurs, dispositifs de transmission et de stockage d'énergie connus du groupe 05 maar hierboven niet vermeld",
+      "label_en": "Autres moteurs, dispositifs de transmission et de stockage d'énergie connus du groupe 05 but not listed above",
+      "label_pl": "Autres moteurs, dispositifs de transmission et de stockage d'énergie connus du groupe 05 niewymienione powyżej"
+    },
+    {
+      "code": "06.00",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - niet gespecificeerd",
+      "label_en": "Hand-held non-motorised tools - Not specified",
+      "label_pl": "Narzędzia ręczne bez napędu - nieokreślone"
+    },
+    {
+      "code": "06.01",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor zagen",
+      "label_en": "Hand-held non-motorised tools - for sawing",
+      "label_pl": "Narzędzia ręczne bez napędu - do piłowania"
+    },
+    {
+      "code": "06.02",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor snijden, scheiden (inclusief ciseaux, cisailles, sécateurs)",
+      "label_en": "Hand-held non-motorised tools - for cutting, separating (including ciseaux, cisailles, sécateurs)",
+      "label_pl": "Narzędzia ręczne bez napędu - do cięcia i rozdzielania (w tym ciseaux, cisailles, sécateurs)"
+    },
+    {
+      "code": "06.03",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor snoeien, uithakken, beitelen, afsnijden, maaien",
+      "label_en": "Hand-held non-motorised tools - for trimming, mortising, chiselling, paring, mowing",
+      "label_pl": "Narzędzia ręczne bez napędu - do przycinania, dłutowania, obróbki i koszenia"
+    },
+    {
+      "code": "06.04",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor schrapen, polijsten, schuren",
+      "label_en": "Hand-held non-motorised tools - for scraping, polishing, sanding",
+      "label_pl": "Narzędzia ręczne bez napędu - do skrobania, polerowania i szlifowania"
+    },
+    {
+      "code": "06.05",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor boren, draaien, schroeven",
+      "label_en": "Hand-held non-motorised tools - for drilling, turning, screwing",
+      "label_pl": "Narzędzia ręczne bez napędu - do wiercenia, obracania i wkręcania"
+    },
+    {
+      "code": "06.06",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor spijkeren, klinken, nieten",
+      "label_en": "Hand-held non-motorised tools - for nailing, riveting, stapling",
+      "label_pl": "Narzędzia ręczne bez napędu - do wbijania gwoździ, nitowania i zszywania"
+    },
+    {
+      "code": "06.07",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor naaien, breien",
+      "label_en": "Hand-held non-motorised tools - for sewing, knitting",
+      "label_pl": "Narzędzia ręczne bez napędu - do szycia i dziania"
+    },
+    {
+      "code": "06.08",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor lassen, lijmen",
+      "label_en": "Hand-held non-motorised tools - for welding, gluing",
+      "label_pl": "Narzędzia ręczne bez napędu - do spawania i klejenia"
+    },
+    {
+      "code": "06.09",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor materiaalwinning en grondbewerking (inclusief les outils agricoles)",
+      "label_en": "Hand-held non-motorised tools - for material extraction and soil working (including les outils agricoles)",
+      "label_pl": "Narzędzia ręczne bez napędu - do wydobywania materiałów i prac ziemnych (w tym les outils agricoles)"
+    },
+    {
+      "code": "06.10",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor boenen, smeren, wassen, reinigen",
+      "label_en": "Hand-held non-motorised tools - for waxing, lubricating, washing, cleaning",
+      "label_pl": "Narzędzia ręczne bez napędu - do woskowania, smarowania, mycia i czyszczenia"
+    },
+    {
+      "code": "06.11",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor schilderen",
+      "label_en": "Hand-held non-motorised tools - for painting",
+      "label_pl": "Narzędzia ręczne bez napędu - do malowania"
+    },
+    {
+      "code": "06.12",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor vasthouden, grijpen",
+      "label_en": "Hand-held non-motorised tools - for holding, gripping",
+      "label_pl": "Narzędzia ręczne bez napędu - do podtrzymywania i chwytania"
+    },
+    {
+      "code": "06.13",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor keukenwerk (behalve messen)",
+      "label_en": "Hand-held non-motorised tools - for kitchen work (except knives)",
+      "label_pl": "Narzędzia ręczne bez napędu - do prac kuchennych (z wyjątkiem noży)"
+    },
+    {
+      "code": "06.14",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor medisch en chirurgisch werk - puntig, snijdend",
+      "label_en": "Hand-held non-motorised tools - for medical and surgical work - pointed, cutting",
+      "label_pl": "Narzędzia ręczne bez napędu - do prac medycznych i chirurgicznych - kłujące i tnące"
+    },
+    {
+      "code": "06.15",
+      "label_nl": "Niet-gemotoriseerd handgereedschap - voor medisch en chirurgisch werk - niet-snijdend, overige",
+      "label_en": "Hand-held non-motorised tools - for medical and surgical work - non-cutting, other",
+      "label_pl": "Narzędzia ręczne bez napędu - do prac medycznych i chirurgicznych - nietnące, inne"
+    },
+    {
+      "code": "06.99",
+      "label_nl": "Autres outils à main non motorisés connus du groupe 06 maar hierboven niet vermeld",
+      "label_en": "Autres outils à main non motorisés connus du groupe 06 but not listed above",
+      "label_pl": "Autres outils à main non motorisés connus du groupe 06 niewymienione powyżej"
+    },
+    {
+      "code": "07.00",
+      "label_nl": "Gemotoriseerd handgereedschap - niet gespecificeerd",
+      "label_en": "Hand-held or hand-guided powered tools - Not specified",
+      "label_pl": "Narzędzia ręczne z napędem - nieokreślone"
+    },
+    {
+      "code": "07.01",
+      "label_nl": "Gemotoriseerd handgereedschap - voor zagen",
+      "label_en": "Hand-held powered tools - for sawing",
+      "label_pl": "Narzędzia ręczne z napędem - do piłowania"
+    },
+    {
+      "code": "07.02",
+      "label_nl": "Gemotoriseerd handgereedschap - voor snijden, scheiden (inclusief ciseaux, cisailles, sécateurs)",
+      "label_en": "Hand-held powered tools - for cutting, separating (including ciseaux, cisailles, sécateurs)",
+      "label_pl": "Narzędzia ręczne z napędem - do cięcia i rozdzielania (w tym ciseaux, cisailles, sécateurs)"
+    },
+    {
+      "code": "07.03",
+      "label_nl": "Gemotoriseerd handgereedschap - pour tailler, mortaiser, ciseler (taille haies voir 09.02), rogner, tondre",
+      "label_en": "Hand-held powered tools - pour tailler, mortaiser, ciseler (taille haies voir 09.02), rogner, tondre",
+      "label_pl": "Narzędzia ręczne z napędem - pour tailler, mortaiser, ciseler (taille haies voir 09.02), rogner, tondre"
+    },
+    {
+      "code": "07.04",
+      "label_nl": "Gemotoriseerd handgereedschap - voor schrapen, polijsten, schuren (inclusief tronçonneuse à disque)",
+      "label_en": "Hand-held powered tools - for scraping, polishing, sanding (including tronçonneuse à disque)",
+      "label_pl": "Narzędzia ręczne z napędem - do skrobania, polerowania i szlifowania (w tym tronçonneuse à disque)"
+    },
+    {
+      "code": "07.05",
+      "label_nl": "Gemotoriseerd handgereedschap - voor boren, draaien, schroeven",
+      "label_en": "Hand-held powered tools - for drilling, turning, screwing",
+      "label_pl": "Narzędzia ręczne z napędem - do wiercenia, obracania i wkręcania"
+    },
+    {
+      "code": "07.06",
+      "label_nl": "Gemotoriseerd handgereedschap - voor spijkeren, klinken, nieten",
+      "label_en": "Hand-held powered tools - for nailing, riveting, stapling",
+      "label_pl": "Narzędzia ręczne z napędem - do wbijania gwoździ, nitowania i zszywania"
+    },
+    {
+      "code": "07.07",
+      "label_nl": "Gemotoriseerd handgereedschap - voor naaien, breien",
+      "label_en": "Hand-held powered tools - for sewing, knitting",
+      "label_pl": "Narzędzia ręczne z napędem - do szycia i dziania"
+    },
+    {
+      "code": "07.08",
+      "label_nl": "Gemotoriseerd handgereedschap - voor lassen, lijmen",
+      "label_en": "Hand-held powered tools - for welding, gluing",
+      "label_pl": "Narzędzia ręczne z napędem - do spawania i klejenia"
+    },
+    {
+      "code": "07.09",
+      "label_nl": "Gemotoriseerd handgereedschap - voor materiaalwinning en grondbewerking (inclusief les outils agricoles, les brise-béton)",
+      "label_en": "Hand-held powered tools - for material extraction and soil working (including les outils agricoles, les brise-béton)",
+      "label_pl": "Narzędzia ręczne z napędem - do wydobywania materiałów i prac ziemnych (w tym les outils agricoles, les brise-béton)"
+    },
+    {
+      "code": "07.10",
+      "label_nl": "Gemotoriseerd handgereedschap - voor boenen, smeren, wassen, reinigen (inclusief aspirateur nettoyeur haute pression)",
+      "label_en": "Hand-held powered tools - for waxing, lubricating, washing, cleaning (including aspirateur nettoyeur haute pression)",
+      "label_pl": "Narzędzia ręczne z napędem - do woskowania, smarowania, mycia i czyszczenia (w tym aspirateur nettoyeur haute pression)"
+    },
+    {
+      "code": "07.11",
+      "label_nl": "Gemotoriseerd handgereedschap - voor schilderen",
+      "label_en": "Hand-held powered tools - for painting",
+      "label_pl": "Narzędzia ręczne z napędem - do malowania"
+    },
+    {
+      "code": "07.12",
+      "label_nl": "Gemotoriseerd handgereedschap - voor vasthouden, grijpen",
+      "label_en": "Hand-held powered tools - for holding, gripping",
+      "label_pl": "Narzędzia ręczne z napędem - do podtrzymywania i chwytania"
+    },
+    {
+      "code": "07.13",
+      "label_nl": "Gemotoriseerd handgereedschap - voor keukenwerk (behalve messen)",
+      "label_en": "Hand-held powered tools - for kitchen work (except knives)",
+      "label_pl": "Narzędzia ręczne z napędem - do prac kuchennych (z wyjątkiem noży)"
+    },
+    {
+      "code": "07.14",
+      "label_nl": "Gemotoriseerd handgereedschap - voor verwarmen (inclusief séchoir, décapeur thermique, fer à repasser)",
+      "label_en": "Hand-held powered tools - for heating (including séchoir, décapeur thermique, fer à repasser)",
+      "label_pl": "Narzędzia ręczne z napędem - do ogrzewania (w tym séchoir, décapeur thermique, fer à repasser)"
+    },
+    {
+      "code": "07.15",
+      "label_nl": "Gemotoriseerd handgereedschap - voor medisch en chirurgisch werk - puntig, snijdend",
+      "label_en": "Hand-held powered tools - for medical and surgical work - pointed, cutting",
+      "label_pl": "Narzędzia ręczne z napędem - do prac medycznych i chirurgicznych - kłujące i tnące"
+    },
+    {
+      "code": "07.16",
+      "label_nl": "Gemotoriseerd handgereedschap - voor medisch en chirurgisch werk - niet-snijdend, overige",
+      "label_en": "Hand-held powered tools - for medical and surgical work - non-cutting, other",
+      "label_pl": "Narzędzia ręczne z napędem - do prac medycznych i chirurgicznych - nietnące, inne"
+    },
+    {
+      "code": "07.17",
+      "label_nl": "Pneumatische pistolen (gereedschap niet nader gespecificeerd)",
+      "label_en": "Pneumatic guns (tool not specified)",
+      "label_pl": "Pistolety pneumatyczne (narzędzie nieokreślone)"
+    },
+    {
+      "code": "07.99",
+      "label_nl": "Autres outils mécaniques tenus ou guidés à main connus du groupe 07 maar hierboven niet vermeld",
+      "label_en": "Autres outils mécaniques tenus ou guidés à main connus du groupe 07 but not listed above",
+      "label_pl": "Autres outils mécaniques tenus ou guidés à main connus du groupe 07 niewymienione powyżej"
+    },
+    {
+      "code": "08.00",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd – niet gespecificeerd",
+      "label_en": "Hand-held tools - power source unspecified – Not specified",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony – nieokreślone"
+    },
+    {
+      "code": "08.01",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor zagen",
+      "label_en": "Hand-held tools - power source unspecified - for sawing",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do piłowania"
+    },
+    {
+      "code": "08.02",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor snijden, scheiden (inclusief ciseaux, cisailles, sécateurs)",
+      "label_en": "Hand-held tools - power source unspecified - for cutting, separating (including ciseaux, cisailles, sécateurs)",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do cięcia i rozdzielania (w tym ciseaux, cisailles, sécateurs)"
+    },
+    {
+      "code": "08.03",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor snoeien, uithakken, beitelen, afsnijden, maaien",
+      "label_en": "Hand-held tools - power source unspecified - for trimming, mortising, chiselling, paring, mowing",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do przycinania, dłutowania, obróbki i koszenia"
+    },
+    {
+      "code": "08.04",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor schrapen, polijsten, schuren",
+      "label_en": "Hand-held tools - power source unspecified - for scraping, polishing, sanding",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do skrobania, polerowania i szlifowania"
+    },
+    {
+      "code": "08.05",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor boren, draaien, schroeven",
+      "label_en": "Hand-held tools - power source unspecified - for drilling, turning, screwing",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do wiercenia, obracania i wkręcania"
+    },
+    {
+      "code": "08.06",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor spijkeren, klinken, nieten",
+      "label_en": "Hand-held tools - power source unspecified - for nailing, riveting, stapling",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do wbijania gwoździ, nitowania i zszywania"
+    },
+    {
+      "code": "08.07",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor naaien, breien",
+      "label_en": "Hand-held tools - power source unspecified - for sewing, knitting",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do szycia i dziania"
+    },
+    {
+      "code": "08.08",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor lassen, lijmen",
+      "label_en": "Hand-held tools - power source unspecified - for welding, gluing",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do spawania i klejenia"
+    },
+    {
+      "code": "08.09",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor materiaalwinning en grondbewerking (inclusief les outils agricoles)",
+      "label_en": "Hand-held tools - power source unspecified - for material extraction and soil working (including les outils agricoles)",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do wydobywania materiałów i prac ziemnych (w tym les outils agricoles)"
+    },
+    {
+      "code": "08.10",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor boenen, smeren, wassen, reinigen",
+      "label_en": "Hand-held tools - power source unspecified - for waxing, lubricating, washing, cleaning",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do woskowania, smarowania, mycia i czyszczenia"
+    },
+    {
+      "code": "08.11",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor schilderen",
+      "label_en": "Hand-held tools - power source unspecified - for painting",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do malowania"
+    },
+    {
+      "code": "08.12",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor vasthouden, grijpen",
+      "label_en": "Hand-held tools - power source unspecified - for holding, gripping",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do podtrzymywania i chwytania"
+    },
+    {
+      "code": "08.13",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor keukenwerk (behalve messen)",
+      "label_en": "Hand-held tools - power source unspecified - for kitchen work (except knives)",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do prac kuchennych (z wyjątkiem noży)"
+    },
+    {
+      "code": "08.14",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor medisch en chirurgisch werk - puntig, snijdend",
+      "label_en": "Hand-held tools - power source unspecified - for medical and surgical work - pointed, cutting",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do prac medycznych i chirurgicznych - kłujące i tnące"
+    },
+    {
+      "code": "08.15",
+      "label_nl": "Handgereedschap - aandrijving niet gespecificeerd - voor medisch en chirurgisch werk – niet-snijdend, overige",
+      "label_en": "Hand-held tools - power source unspecified - for medical and surgical work – non-cutting, other",
+      "label_pl": "Narzędzia ręczne - napęd nieokreślony - do prac medycznych i chirurgicznych – nietnące, inne"
+    },
+    {
+      "code": "08.99",
+      "label_nl": "Autres outils à main sans précision sur la motorisation connus du groupe 08 maar hierboven niet vermeld",
+      "label_en": "Autres outils à main sans précision sur la motorisation connus du groupe 08 but not listed above",
+      "label_pl": "Autres outils à main sans précision sur la motorisation connus du groupe 08 niewymienione powyżej"
+    },
+    {
+      "code": "09.00",
+      "label_nl": "Machines en uitrusting - draagbaar of mobiel – niet gespecificeerd",
+      "label_en": "Machines and equipment - portable or mobile – Not specified",
+      "label_pl": "Maszyny i urządzenia przenośne lub mobilne – nieokreślone"
+    },
+    {
+      "code": "09.01",
+      "label_nl": "Draagbare of mobiele machines d'extraction et de travail du sol - mines, carrières et engins de bâtiment, travaux publics",
+      "label_en": "Portable or mobile machines d'extraction et de travail du sol - mines, carrières et engins de bâtiment, travaux publics",
+      "label_pl": "Maszyny przenośne lub mobilne d'extraction et de travail du sol - mines, carrières et engins de bâtiment, travaux publics"
+    },
+    {
+      "code": "09.02",
+      "label_nl": "Draagbare of mobiele machines - de travail du sol, agriculture",
+      "label_en": "Portable or mobile machines - de travail du sol, agriculture",
+      "label_pl": "Maszyny przenośne lub mobilne - de travail du sol, agriculture"
+    },
+    {
+      "code": "09.03",
+      "label_nl": "Draagbare of mobiele machines (hors travail du sol) - de chantier de construction",
+      "label_en": "Portable or mobile machines (hors travail du sol) - de chantier de construction",
+      "label_pl": "Maszyny przenośne lub mobilne (hors travail du sol) - de chantier de construction"
+    },
+    {
+      "code": "09.04",
+      "label_nl": "Machines mobiel de nettoyage des sols",
+      "label_en": "Machines mobile de nettoyage des sols",
+      "label_pl": "Machines mobilne de nettoyage des sols"
+    },
+    {
+      "code": "09.99",
+      "label_nl": "Autres machines et équipement portables ou mobiel connus du groupe 09 maar hierboven niet vermeld",
+      "label_en": "Autres machines et équipement portables ou mobile connus du groupe 09 but not listed above",
+      "label_pl": "Autres machines et équipement portables ou mobilne connus du groupe 09 niewymienione powyżej"
+    },
+    {
+      "code": "10.00",
+      "label_nl": "Machines en uitrusting - vast – niet gespecificeerd",
+      "label_en": "Machines and equipment - fixed – Not specified",
+      "label_pl": "Maszyny i urządzenia stacjonarne – nieokreślone"
+    },
+    {
+      "code": "10.01",
+      "label_nl": "Vaste machines d'extraction et de travail du sol",
+      "label_en": "Fixed machines d'extraction et de travail du sol",
+      "label_pl": "Maszyny stacjonarne d'extraction et de travail du sol"
+    },
+    {
+      "code": "10.02",
+      "label_nl": "Machines voor materiaalvoorbereiding, concasser, pulvériser, filtrer, séparer, mélanger, malaxer",
+      "label_en": "Machines for preparing materials, concasser, pulvériser, filtrer, séparer, mélanger, malaxer",
+      "label_pl": "Maszyny do przygotowania materiałów, concasser, pulvériser, filtrer, séparer, mélanger, malaxer"
+    },
+    {
+      "code": "10.03",
+      "label_nl": "Machines voor materiaalbewerking - procédés chimiques (réacteurs, fermenteurs)",
+      "label_en": "Machines for processing materials - procédés chimiques (réacteurs, fermenteurs)",
+      "label_pl": "Maszyny do przetwarzania materiałów - procédés chimiques (réacteurs, fermenteurs)"
+    },
+    {
+      "code": "10.04",
+      "label_nl": "Machines voor materiaalbewerking - procédés à chaud (four, séchoirs, étuves)",
+      "label_en": "Machines for processing materials - procédés à chaud (four, séchoirs, étuves)",
+      "label_pl": "Maszyny do przetwarzania materiałów - procédés à chaud (four, séchoirs, étuves)"
+    },
+    {
+      "code": "10.05",
+      "label_nl": "Machines voor materiaalbewerking - procédés à froid (production de froid)",
+      "label_en": "Machines for processing materials - procédés à froid (production de froid)",
+      "label_pl": "Maszyny do przetwarzania materiałów - procédés à froid (production de froid)"
+    },
+    {
+      "code": "10.06",
+      "label_nl": "Machines voor materiaalbewerking - autres procédés",
+      "label_en": "Machines for processing materials - autres procédés",
+      "label_pl": "Maszyny do przetwarzania materiałów - autres procédés"
+    },
+    {
+      "code": "10.07",
+      "label_nl": "Vormmachines - par pressage, écrasement",
+      "label_en": "Forming machines - par pressage, écrasement",
+      "label_pl": "Maszyny formujące - par pressage, écrasement"
+    },
+    {
+      "code": "10.08",
+      "label_nl": "Vormmachines - par calandrage, laminage, machines à cylindres (inclusief machine de papeterie)",
+      "label_en": "Forming machines - par calandrage, laminage, machines à cylindres (including machine de papeterie)",
+      "label_pl": "Maszyny formujące - par calandrage, laminage, machines à cylindres (w tym machine de papeterie)"
+    },
+    {
+      "code": "10.09",
+      "label_nl": "Vormmachines - par injection, extrusion, soufflage, filage, moulage, fusion, coulée",
+      "label_en": "Forming machines - par injection, extrusion, soufflage, filage, moulage, fusion, coulée",
+      "label_pl": "Maszyny formujące - par injection, extrusion, soufflage, filage, moulage, fusion, coulée"
+    },
+    {
+      "code": "10.10",
+      "label_nl": "Bewerkingsmachines - pour raboter, fraiser, surfacer, meuler, polir, tourner, percer",
+      "label_en": "Machine tools - pour raboter, fraiser, surfacer, meuler, polir, tourner, percer",
+      "label_pl": "Obrabiarki - pour raboter, fraiser, surfacer, meuler, polir, tourner, percer"
+    },
+    {
+      "code": "10.11",
+      "label_nl": "Bewerkingsmachines - voor zagen",
+      "label_en": "Machine tools - for sawing",
+      "label_pl": "Obrabiarki - do piłowania"
+    },
+    {
+      "code": "10.12",
+      "label_nl": "Bewerkingsmachines - pour couper, fendre, rogner (inclusief presse à découper, cisaille, massicot, oxycoupage)",
+      "label_en": "Machine tools - pour couper, fendre, rogner (including presse à découper, cisaille, massicot, oxycoupage)",
+      "label_pl": "Obrabiarki - pour couper, fendre, rogner (w tym presse à découper, cisaille, massicot, oxycoupage)"
+    },
+    {
+      "code": "10.13",
+      "label_nl": "Machines voor oppervlaktebehandeling - nettoyer, laver, sécher, peindre, imprimer",
+      "label_en": "Machines for surface treatment - nettoyer, laver, sécher, peindre, imprimer",
+      "label_pl": "Maszyny do obróbki powierzchni - nettoyer, laver, sécher, peindre, imprimer"
+    },
+    {
+      "code": "10.14",
+      "label_nl": "Machines voor oppervlaktebehandeling - galvanisation, traitement électrolytique des surfaces",
+      "label_en": "Machines for surface treatment - galvanisation, traitement électrolytique des surfaces",
+      "label_pl": "Maszyny do obróbki powierzchni - galvanisation, traitement électrolytique des surfaces"
+    },
+    {
+      "code": "10.15",
+      "label_nl": "Assemblagemachines (souder, coller, clouer, visser, riveter, filer, câbler, coudre, agrafer)",
+      "label_en": "Assembling machines (souder, coller, clouer, visser, riveter, filer, câbler, coudre, agrafer)",
+      "label_pl": "Maszyny montażowe (souder, coller, clouer, visser, riveter, filer, câbler, coudre, agrafer)"
+    },
+    {
+      "code": "10.16",
+      "label_nl": "Verpakkingsmachines (remplir, étiqueter, fermer...)",
+      "label_en": "Packing and wrapping machines (remplir, étiqueter, fermer...)",
+      "label_pl": "Maszyny do pakowania (remplir, étiqueter, fermer...)"
+    },
+    {
+      "code": "10.17",
+      "label_nl": "Autres machines d'industries spécifiques (machines diverses de contrôle, d'essais)",
+      "label_en": "Autres machines d'industries spécifiques (machines diverses de contrôle, d'essais)",
+      "label_pl": "Autres machines d'industries spécifiques (machines diverses de contrôle, d'essais)"
+    },
+    {
+      "code": "10.18",
+      "label_nl": "Machines spécifiques utilisées en agriculture ne se rattachant pas aux machines ci-dessus",
+      "label_en": "Machines spécifiques utilisées en agriculture ne se rattachant pas aux machines ci-dessus",
+      "label_pl": "Machines spécifiques utilisées en agriculture ne se rattachant pas aux machines ci-dessus"
+    },
+    {
+      "code": "10.99",
+      "label_nl": "Autres machines et équipements vast connus du groupe 10 maar hierboven niet vermeld",
+      "label_en": "Autres machines et équipements fixed connus du groupe 10 but not listed above",
+      "label_pl": "Autres machines et équipements stałe connus du groupe 10 niewymienione powyżej"
+    },
+    {
+      "code": "11.00",
+      "label_nl": "Transport-, verplaatsings- en opslagsystemen – niet gespecificeerd",
+      "label_en": "Conveying, transport and storage systems – Not specified",
+      "label_pl": "Systemy przenoszenia, transportu i magazynowania – nieokreślone"
+    },
+    {
+      "code": "11.01",
+      "label_nl": "Vaste transportbanden en systemen voor continue goederenbehandeling - à tapis, escaliers roulants, téléphériques, transporteurs, …",
+      "label_en": "Fixed conveyors, continuous handling equipment and systems - à tapis, escaliers roulants, téléphériques, transporteurs, …",
+      "label_pl": "Przenośniki stałe i systemy transportu ciągłego - à tapis, escaliers roulants, téléphériques, transporteurs, …"
+    },
+    {
+      "code": "11.02",
+      "label_nl": "Liften, hef- en nivelleerinrichtingen - monte-charge, élévateurs à godets, vérin, cric, …",
+      "label_en": "Elevators, lifts and levelling equipment - monte-charge, élévateurs à godets, vérin, cric, …",
+      "label_pl": "Podnośniki, windy i urządzenia do poziomowania - monte-charge, élévateurs à godets, vérin, cric, …"
+    },
+    {
+      "code": "11.03",
+      "label_nl": "Vaste, mobiele en voertuiggemonteerde kranen, rolbruggen en hefmiddelen met hangende last",
+      "label_en": "Fixed, mobile and vehicle-mounted cranes, overhead travelling cranes, suspended-load lifting equipment",
+      "label_pl": "Żurawie stałe, mobilne i montowane na pojazdach, suwnice i urządzenia dźwigowe z ładunkiem podwieszonym"
+    },
+    {
+      "code": "11.04",
+      "label_nl": "Mobiele transportmiddelen en transportwagens (chariots motorisés ou non) - brouette, transpalettes, …",
+      "label_en": "Mobile handling devices, handling trucks (chariots motorisés ou non) - brouette, transpalettes, …",
+      "label_pl": "Mobilne urządzenia transportowe i wózki manipulacyjne (chariots motorisés ou non) - brouette, transpalettes, …"
+    },
+    {
+      "code": "11.05",
+      "label_nl": "Hijs-, bevestigings-, grijp- en overige transportmiddelen (inclusief élingues, crochets, cordages...)",
+      "label_en": "Lifting, securing, gripping and miscellaneous handling equipment (including élingues, crochets, cordages...)",
+      "label_pl": "Osprzęt do podnoszenia, mocowania, chwytania i inne urządzenia transportowe (w tym élingues, crochets, cordages...)"
+    },
+    {
+      "code": "11.06",
+      "label_nl": "Opslagsystemen, verpakkingen en containers (silos, réservoirs) - vast - citernes, bassins, réservoirs, …",
+      "label_en": "Storage systems, packaging equipment and containers (silos, réservoirs) - fixed - citernes, bassins, réservoirs, …",
+      "label_pl": "Systemy magazynowania, opakowania i kontenery (silos, réservoirs) - stałe - citernes, bassins, réservoirs, …"
+    },
+    {
+      "code": "11.07",
+      "label_nl": "Opslagsystemen, verpakkingen en containers - mobiel",
+      "label_en": "Storage systems, packaging equipment and containers - mobile",
+      "label_pl": "Systemy magazynowania, opakowania i kontenery - mobilne"
+    },
+    {
+      "code": "11.08",
+      "label_nl": "Opslagaccessoires, rekken, palletstellingen, pallets",
+      "label_en": "Storage accessories, shelving, pallet racks, pallets",
+      "label_pl": "Akcesoria magazynowe, regały, regały paletowe, palety"
+    },
+    {
+      "code": "11.09",
+      "label_nl": "Diverse kleine en middelgrote mobiele verpakkingen (bennes, récipients divers, bouteilles, caisses, extincteurs...)",
+      "label_en": "Miscellaneous small and medium mobile packaging (bennes, récipients divers, bouteilles, caisses, extincteurs...)",
+      "label_pl": "Różne małe i średnie opakowania przenośne (bennes, récipients divers, bouteilles, caisses, extincteurs...)"
+    },
+    {
+      "code": "11.99",
+      "label_nl": "Autres dispositifs de convoyage, de transport et de stockage connus du groupe 11 maar hierboven niet vermeld",
+      "label_en": "Autres dispositifs de convoyage, de transport et de stockage connus du groupe 11 but not listed above",
+      "label_pl": "Autres dispositifs de convoyage, de transport et de stockage connus du groupe 11 niewymienione powyżej"
+    },
+    {
+      "code": "12.00",
+      "label_nl": "Landvoertuigen – niet gespecificeerd",
+      "label_en": "Land vehicles – Not specified",
+      "label_pl": "Pojazdy lądowe – nieokreślone"
+    },
+    {
+      "code": "12.01",
+      "label_nl": "Zware voertuigen: camions de goederen, bus et autocars (transport de passagiers)",
+      "label_en": "Heavy vehicles: camions de goods, bus et autocars (transport de passengers)",
+      "label_pl": "Pojazdy ciężkie: camions de ładunki, bus et autocars (transport de pasażerowie)"
+    },
+    {
+      "code": "12.02",
+      "label_nl": "Lichte voertuigen: goederen of passagiers",
+      "label_en": "Light vehicles: goods or passengers",
+      "label_pl": "Pojazdy lekkie: ładunki lub pasażerowie"
+    },
+    {
+      "code": "12.03",
+      "label_nl": "Twee- of driewielige voertuigen, motorisés ou non",
+      "label_en": "Two- or three-wheeled vehicles, motorisés ou non",
+      "label_pl": "Pojazdy dwu- lub trzykołowe, motorisés ou non"
+    },
+    {
+      "code": "12.04",
+      "label_nl": "Autres véhicules terrestres: skis, patins à roulettes, …",
+      "label_en": "Autres véhicules terrestres: skis, patins à roulettes, …",
+      "label_pl": "Autres véhicules terrestres: skis, patins à roulettes, …"
+    },
+    {
+      "code": "12.99",
+      "label_nl": "Autres véhicules terrestres connus du groupe 12 maar hierboven niet vermeld",
+      "label_en": "Autres véhicules terrestres connus du groupe 12 but not listed above",
+      "label_pl": "Autres véhicules terrestres connus du groupe 12 niewymienione powyżej"
+    },
+    {
+      "code": "13.00",
+      "label_nl": "Andere transportvoertuigen – niet gespecificeerd",
+      "label_en": "Other transport vehicles – Not specified",
+      "label_pl": "Inne środki transportu – nieokreślone"
+    },
+    {
+      "code": "13.01",
+      "label_nl": "Spoorvoertuigen, inclusief hangende monorails: goederen",
+      "label_en": "Rail vehicles including suspended monorails: goods",
+      "label_pl": "Pojazdy szynowe, w tym podwieszane kolejki jednoszynowe: ładunki"
+    },
+    {
+      "code": "13.02",
+      "label_nl": "Spoorvoertuigen, inclusief hangende monorails: passagiers",
+      "label_en": "Rail vehicles including suspended monorails: passengers",
+      "label_pl": "Pojazdy szynowe, w tym podwieszane kolejki jednoszynowe: pasażerowie"
+    },
+    {
+      "code": "13.03",
+      "label_nl": "Vaartuigen: goederen",
+      "label_en": "Water vehicles: goods",
+      "label_pl": "Jednostki pływające: ładunki"
+    },
+    {
+      "code": "13.04",
+      "label_nl": "Vaartuigen: passagiers",
+      "label_en": "Water vehicles: passengers",
+      "label_pl": "Jednostki pływające: pasażerowie"
+    },
+    {
+      "code": "13.05",
+      "label_nl": "Vaartuigen: visserij",
+      "label_en": "Water vehicles: fishing",
+      "label_pl": "Jednostki pływające: rybołówstwo"
+    },
+    {
+      "code": "13.06",
+      "label_nl": "Luchtvaartuigen: goederen",
+      "label_en": "Air vehicles: goods",
+      "label_pl": "Statki powietrzne: ładunki"
+    },
+    {
+      "code": "13.07",
+      "label_nl": "Luchtvaartuigen: passagiers",
+      "label_en": "Air vehicles: passengers",
+      "label_pl": "Statki powietrzne: pasażerowie"
+    },
+    {
+      "code": "13.99",
+      "label_nl": "Andere transportvoertuigen connus du groupe 13 maar hierboven niet vermeld",
+      "label_en": "Other transport vehicles connus du groupe 13 but not listed above",
+      "label_pl": "Inne środki transportu connus du groupe 13 niewymienione powyżej"
+    },
+    {
+      "code": "14.00",
+      "label_nl": "Materialen, voorwerpen, producten, machine- of voertuigonderdelen, brokstukken, stof – niet gespecificeerd",
+      "label_en": "Materials, objects, products, machine or vehicle components, debris, dust – Not specified",
+      "label_pl": "Materiały, przedmioty, produkty, części maszyn lub pojazdów, odłamki, pyły – nieokreślone"
+    },
+    {
+      "code": "14.01",
+      "label_nl": "Bouwmaterialen - gros et petits: agent préfabriqué, coffrage, poutrelle, brique, tuile, …",
+      "label_en": "Building materials - gros et petits: agent préfabriqué, coffrage, poutrelle, brique, tuile, …",
+      "label_pl": "Materiały budowlane - gros et petits: agent préfabriqué, coffrage, poutrelle, brique, tuile, …"
+    },
+    {
+      "code": "14.02",
+      "label_nl": "Constructie-, machine- of voertuigonderdelen: châssis, carter, manivelle, roue, …",
+      "label_en": "Structural, machine or vehicle components: châssis, carter, manivelle, roue, …",
+      "label_pl": "Elementy konstrukcyjne, części maszyn lub pojazdów: châssis, carter, manivelle, roue, …"
+    },
+    {
+      "code": "14.03",
+      "label_nl": "Werkstukken of onderdelen, machinegereedschap (inclusief les fragments et éclats en provenance de ces Agents matériels)",
+      "label_en": "Workpieces or components, machine tools (including les fragments et éclats en provenance de ces Agents matériels)",
+      "label_pl": "Obrabiane części lub elementy, narzędzia maszynowe (w tym les fragments et éclats en provenance de ces Agents matériels)"
+    },
+    {
+      "code": "14.04",
+      "label_nl": "Verbindingselementen: visserie, clou, boulon, …",
+      "label_en": "Joining components: visserie, clou, boulon, …",
+      "label_pl": "Elementy łączące: visserie, clou, boulon, …"
+    },
+    {
+      "code": "14.05",
+      "label_nl": "Deeltjes, stof, scherven, stukken, projecties, splinters en andere gebroken elementen",
+      "label_en": "Particles, dust, fragments, pieces, projections, splinters and other broken elements",
+      "label_pl": "Cząstki, pyły, odłamki, kawałki, odpryski, drzazgi i inne elementy rozbite"
+    },
+    {
+      "code": "14.06",
+      "label_nl": "Landbouwproducten (inclusief grains, paille, autres productions agricoles)",
+      "label_en": "Agricultural products (including grains, paille, autres productions agricoles)",
+      "label_pl": "Produkty rolnicze (w tym grains, paille, autres productions agricoles)"
+    },
+    {
+      "code": "14.07",
+      "label_nl": "Producten voor landbouw en veeteelt (inclusief engrais, aliments pour le bétail)",
+      "label_en": "Products for agriculture and livestock farming (including engrais, aliments pour le bétail)",
+      "label_pl": "Produkty dla rolnictwa i hodowli (w tym engrais, aliments pour le bétail)"
+    },
+    {
+      "code": "14.08",
+      "label_nl": "Opgeslagen producten - inclusief les objets et emballages disposés dans un stockage",
+      "label_en": "Stored products - including les objets et emballages disposés dans un stockage",
+      "label_pl": "Produkty składowane - w tym les objets et emballages disposés dans un stockage"
+    },
+    {
+      "code": "14.09",
+      "label_nl": "Opgeslagen producten - en rouleaux, bobines",
+      "label_en": "Stored products - en rouleaux, bobines",
+      "label_pl": "Produkty składowane - en rouleaux, bobines"
+    },
+    {
+      "code": "14.10",
+      "label_nl": "Lasten vervoerd op mechanische transport- of verplaatsingsmiddelen",
+      "label_en": "Loads transported on mechanical handling or transport equipment",
+      "label_pl": "Ładunki przewożone na mechanicznych urządzeniach transportowych"
+    },
+    {
+      "code": "14.11",
+      "label_nl": "Lasten hangend aan hefmiddelen of een kraan",
+      "label_en": "Loads suspended from lifting equipment or a crane",
+      "label_pl": "Ładunki podwieszone na urządzeniu dźwigowym lub żurawiu"
+    },
+    {
+      "code": "14.12",
+      "label_nl": "Handmatig behandelde lasten",
+      "label_en": "Loads handled manually",
+      "label_pl": "Ładunki przemieszczane ręcznie"
+    },
+    {
+      "code": "14.99",
+      "label_nl": "Autres matériaux, objets, produits, éléments de machines connus du groupe 14 maar hierboven niet vermeld",
+      "label_en": "Autres matériaux, objets, produits, éléments de machines connus du groupe 14 but not listed above",
+      "label_pl": "Autres matériaux, objets, produits, éléments de machines connus du groupe 14 niewymienione powyżej"
+    },
+    {
+      "code": "15.00",
+      "label_nl": "Chemische, explosieve, radioactieve en biologische stoffen – niet gespecificeerd",
+      "label_en": "Chemical, explosive, radioactive and biological substances – Not specified",
+      "label_pl": "Substancje chemiczne, wybuchowe, promieniotwórcze i biologiczne – nieokreślone"
+    },
+    {
+      "code": "15.01",
+      "label_nl": "Bijtende, corrosieve stoffen (vast, vloeibaar of gasvormig)",
+      "label_en": "Caustic, corrosive substances (solid, liquid or gaseous)",
+      "label_pl": "Substancje żrące i korozyjne (stałe, ciekłe lub gazowe)"
+    },
+    {
+      "code": "15.02",
+      "label_nl": "Schadelijke, toxische stoffen (vast, vloeibaar of gasvormig)",
+      "label_en": "Harmful, toxic substances (solid, liquid or gaseous)",
+      "label_pl": "Substancje szkodliwe i toksyczne (stałe, ciekłe lub gazowe)"
+    },
+    {
+      "code": "15.03",
+      "label_nl": "Ontvlambare stoffen (vast, vloeibaar of gasvormig)",
+      "label_en": "Flammable substances (solid, liquid or gaseous)",
+      "label_pl": "Substancje łatwopalne (stałe, ciekłe lub gazowe)"
+    },
+    {
+      "code": "15.04",
+      "label_nl": "Explosieve, reactieve stoffen (vast, vloeibaar of gasvormig)",
+      "label_en": "Explosive, reactive substances (solid, liquid or gaseous)",
+      "label_pl": "Substancje wybuchowe i reaktywne (stałe, ciekłe lub gazowe)"
+    },
+    {
+      "code": "15.05",
+      "label_nl": "Gassen, dampen zonder specifieke effecten (inertes pour la vie, asphyxiants)",
+      "label_en": "Gases, vapours without specific effects (inertes pour la vie, asphyxiants)",
+      "label_pl": "Gazy i pary bez szczególnego działania (inertes pour la vie, asphyxiants)"
+    },
+    {
+      "code": "15.06",
+      "label_nl": "Radioactieve stoffen",
+      "label_en": "Radioactive substances",
+      "label_pl": "Substancje promieniotwórcze"
+    },
+    {
+      "code": "15.07",
+      "label_nl": "Biologische stoffen",
+      "label_en": "Biological substances",
+      "label_pl": "Substancje biologiczne"
+    },
+    {
+      "code": "15.08",
+      "label_nl": "Stoffen en materialen zonder specifiek gevaar (eau, matières inertes...)",
+      "label_en": "Substances and materials without specific hazard (eau, matières inertes...)",
+      "label_pl": "Substancje i materiały bez szczególnego zagrożenia (eau, matières inertes...)"
+    },
+    {
+      "code": "15.99",
+      "label_nl": "Autres substances chimiques, explosives, radioactives, biologiques connues du groupe 15 mais non listées ci-dessus",
+      "label_en": "Autres substances chimiques, explosives, radioactives, biologiques connues du groupe 15 mais non listées ci-dessus",
+      "label_pl": "Autres substances chimiques, explosives, radioactives, biologiques connues du groupe 15 mais non listées ci-dessus"
+    },
+    {
+      "code": "16.00",
+      "label_nl": "Veiligheidsvoorzieningen en -uitrusting – niet gespecificeerd",
+      "label_en": "Safety devices and equipment – Not specified",
+      "label_pl": "Urządzenia i wyposażenie bezpieczeństwa – nieokreślone"
+    },
+    {
+      "code": "16.01",
+      "label_nl": "Veiligheidsvoorzieningen op machines",
+      "label_en": "Machine safety devices",
+      "label_pl": "Urządzenia bezpieczeństwa na maszynach"
+    },
+    {
+      "code": "16.02",
+      "label_nl": "Persoonlijke beschermingsmiddelen",
+      "label_en": "Personal protective equipment",
+      "label_pl": "Środki ochrony indywidualnej"
+    },
+    {
+      "code": "16.03",
+      "label_nl": "Nood- en reddingsmiddelen",
+      "label_en": "Emergency and rescue devices",
+      "label_pl": "Urządzenia ratunkowe i awaryjne"
+    },
+    {
+      "code": "16.99",
+      "label_nl": "Autres dispositifs et équipements de sécurité connus du groupe 16 maar hierboven niet vermeld",
+      "label_en": "Autres dispositifs et équipements de sécurité connus du groupe 16 but not listed above",
+      "label_pl": "Autres dispositifs et équipements de sécurité connus du groupe 16 niewymienione powyżej"
+    },
+    {
+      "code": "17.00",
+      "label_nl": "Kantoor- en persoonlijke uitrusting, sportmateriaal, wapens, huishoudelijke apparatuur – niet gespecificeerd",
+      "label_en": "Office and personal equipment, sports equipment, weapons, domestic appliances – Not specified",
+      "label_pl": "Wyposażenie biurowe i osobiste, sprzęt sportowy, broń, urządzenia gospodarstwa domowego – nieokreślone"
+    },
+    {
+      "code": "17.01",
+      "label_nl": "Meubilair",
+      "label_en": "Furniture",
+      "label_pl": "Meble"
+    },
+    {
+      "code": "17.02",
+      "label_nl": "Computer-, kantoor-, reprografie- en communicatieapparatuur",
+      "label_en": "Computer, office, reprographic and communication equipment",
+      "label_pl": "Sprzęt komputerowy, biurowy, reprograficzny i komunikacyjny"
+    },
+    {
+      "code": "17.03",
+      "label_nl": "Uitrusting voor onderwijs, schrijven en tekenen – inclusief: machine à écrire, timbrer, agrandisseur, horodateur, …",
+      "label_en": "Equipment for teaching, writing and drawing – including: machine à écrire, timbrer, agrandisseur, horodateur, …",
+      "label_pl": "Wyposażenie do nauczania, pisania i rysowania – w tym: machine à écrire, timbrer, agrandisseur, horodateur, …"
+    },
+    {
+      "code": "17.04",
+      "label_nl": "Voorwerpen en uitrusting voor sport en spel",
+      "label_en": "Objects and equipment for sports and games",
+      "label_pl": "Przedmioty i wyposażenie do sportu i gier"
+    },
+    {
+      "code": "17.05",
+      "label_nl": "Wapens",
+      "label_en": "Weapons",
+      "label_pl": "Broń"
+    },
+    {
+      "code": "17.06",
+      "label_nl": "Persoonlijke voorwerpen, kleding",
+      "label_en": "Personal objects, clothing",
+      "label_pl": "Przedmioty osobiste, odzież"
+    },
+    {
+      "code": "17.07",
+      "label_nl": "Muziekinstrumenten",
+      "label_en": "Musical instruments",
+      "label_pl": "Instrumenty muzyczne"
+    },
+    {
+      "code": "17.08",
+      "label_nl": "Huishoudelijke apparatuur, gebruiksvoorwerpen, objecten en linnengoed (professioneel gebruik)",
+      "label_en": "Domestic-type appliances, utensils, objects and linen (professional use)",
+      "label_pl": "Urządzenia, przybory, przedmioty i tekstylia typu domowego (użytek zawodowy)"
+    },
+    {
+      "code": "17.99",
+      "label_nl": "Autres équipements de bureau et personnels, matériel de sport, armes connus du groupe 17 maar hierboven niet vermeld",
+      "label_en": "Autres équipements de bureau et personnels, matériel de sport, armes connus du groupe 17 but not listed above",
+      "label_pl": "Autres équipements de bureau et personnels, matériel de sport, armes connus du groupe 17 niewymienione powyżej"
+    },
+    {
+      "code": "18.00",
+      "label_nl": "Levende organismen en mensen - niet gespecificeerd",
+      "label_en": "Living organisms and human beings - Not specified",
+      "label_pl": "Organizmy żywe i ludzie - nieokreślone"
+    },
+    {
+      "code": "18.01",
+      "label_nl": "Bomen, planten, gewassen",
+      "label_en": "Trees, plants, crops",
+      "label_pl": "Drzewa, rośliny, uprawy"
+    },
+    {
+      "code": "18.02",
+      "label_nl": "Huis- en landbouwdieren",
+      "label_en": "Domestic and farm animals",
+      "label_pl": "Zwierzęta domowe i hodowlane"
+    },
+    {
+      "code": "18.03",
+      "label_nl": "Wilde dieren, insecten, slangen",
+      "label_en": "Wild animals, insects, snakes",
+      "label_pl": "Dzikie zwierzęta, owady, węże"
+    },
+    {
+      "code": "18.04",
+      "label_nl": "Micro-organismen",
+      "label_en": "Micro-organisms",
+      "label_pl": "Mikroorganizmy"
+    },
+    {
+      "code": "18.05",
+      "label_nl": "Virale infectieuze agentia",
+      "label_en": "Viral infectious agents",
+      "label_pl": "Wirusowe czynniki zakaźne"
+    },
+    {
+      "code": "18.06",
+      "label_nl": "Mensen",
+      "label_en": "Humans",
+      "label_pl": "Ludzie"
+    },
+    {
+      "code": "18.99",
+      "label_nl": "Autres organismes vivants connus du groupe 18 maar hierboven niet vermeld",
+      "label_en": "Autres organismes vivants connus du groupe 18 but not listed above",
+      "label_pl": "Autres organismes vivants connus du groupe 18 niewymienione powyżej"
+    },
+    {
+      "code": "19.00",
+      "label_nl": "Los afval – niet gespecificeerd",
+      "label_en": "Bulk waste – Not specified",
+      "label_pl": "Odpady luzem – nieokreślone"
+    },
+    {
+      "code": "19.01",
+      "label_nl": "Los afval - de matières, produits, matériaux, objets",
+      "label_en": "Bulk waste - de matières, produits, matériaux, objets",
+      "label_pl": "Odpady luzem - de matières, produits, matériaux, objets"
+    },
+    {
+      "code": "19.02",
+      "label_nl": "Los afval - de substances chimiques",
+      "label_en": "Bulk waste - de substances chimiques",
+      "label_pl": "Odpady luzem - de substances chimiques"
+    },
+    {
+      "code": "19.03",
+      "label_nl": "Los afval - de substances biologiques, végétaux, animaux",
+      "label_en": "Bulk waste - de substances biologiques, végétaux, animaux",
+      "label_pl": "Odpady luzem - de substances biologiques, végétaux, animaux"
+    },
+    {
+      "code": "19.99",
+      "label_nl": "Autres déchets en vrac connus du groupe 19 maar hierboven niet vermeld",
+      "label_en": "Autres déchets en vrac connus du groupe 19 but not listed above",
+      "label_pl": "Autres déchets en vrac connus du groupe 19 niewymienione powyżej"
+    },
+    {
+      "code": "20.00",
+      "label_nl": "Fysische verschijnselen en natuurlijke elementen – niet gespecificeerd",
+      "label_en": "Physical phenomena and natural elements – Not specified",
+      "label_pl": "Zjawiska fizyczne i elementy naturalne – nieokreślone"
+    },
+    {
+      "code": "20.01",
+      "label_nl": "Fysische verschijnselen - bruit, radiation naturelle, lumière, arc lumineux, pressurisation, dépressurisation, pression",
+      "label_en": "Physical phenomena - bruit, radiation naturelle, lumière, arc lumineux, pressurisation, dépressurisation, pression",
+      "label_pl": "Zjawiska fizyczne - bruit, radiation naturelle, lumière, arc lumineux, pressurisation, dépressurisation, pression"
+    },
+    {
+      "code": "20.02",
+      "label_nl": "Natuurlijke en atmosferische elementen (inclusief étendues d'eau, boue, pluie, grêle, neige, verglas, coup de vent,...)",
+      "label_en": "Natural and atmospheric elements (including étendues d'eau, boue, pluie, grêle, neige, verglas, coup de vent,...)",
+      "label_pl": "Elementy naturalne i atmosferyczne (w tym étendues d'eau, boue, pluie, grêle, neige, verglas, coup de vent,...)"
+    },
+    {
+      "code": "20.03",
+      "label_nl": "Natuurrampen (inclusief inondation, volcanisme, tremblement de terre, raz de marée, feu, incendie, …)",
+      "label_en": "Natural disasters (including inondation, volcanisme, tremblement de terre, raz de marée, feu, incendie, …)",
+      "label_pl": "Katastrofy naturalne (w tym inondation, volcanisme, tremblement de terre, raz de marée, feu, incendie, …)"
+    },
+    {
+      "code": "20.99",
+      "label_nl": "Autres phénomènes physiques et éléments connus du groupe 20 maar hierboven niet vermeld",
+      "label_en": "Autres phénomènes physiques et éléments connus du groupe 20 but not listed above",
+      "label_pl": "Autres phénomènes physiques et éléments connus du groupe 20 niewymienione powyżej"
+    },
+    {
+      "code": "99.00",
+      "label_nl": "Overige betrokken voorwerpen die niet in deze classificatie zijn vermeld",
+      "label_en": "Other material agents not listed in this classification",
+      "label_pl": "Inne czynniki materialne niewymienione w tej klasyfikacji"
+    }
+  ],
+  "INJURY_NATURE": [
+    {
+      "code": "0",
+      "label_nl": "Onbekend of niet nader gespecificeerd letsel",
+      "label_en": "Type of injury unknown or unspecified",
+      "label_pl": "Nieznany lub nieokreślony rodzaj urazu"
+    },
+    {
+      "code": "10",
+      "label_nl": "Wonden en oppervlakkige letsels",
+      "label_en": "Wounds and superficial injuries",
+      "label_pl": "Rany i urazy powierzchowne"
+    },
+    {
+      "code": "11",
+      "label_nl": "Oppervlakkige letsels",
+      "label_en": "Superficial injuries",
+      "label_pl": "Urazy powierzchowne"
+    },
+    {
+      "code": "12",
+      "label_nl": "Open wonden",
+      "label_en": "Open wounds",
+      "label_pl": "Rany otwarte"
+    },
+    {
+      "code": "13",
+      "label_nl": "Wonden met weefselverlies",
+      "label_en": "Wounds with loss of tissue",
+      "label_pl": "Rany z ubytkiem tkanek"
+    },
+    {
+      "code": "19",
+      "label_nl": "Andere soorten wonden en oppervlakkige letsels",
+      "label_en": "Other types of wounds and superficial injuries",
+      "label_pl": "Inne rodzaje ran i urazów powierzchownych"
+    },
+    {
+      "code": "20",
+      "label_nl": "Botbreuken",
+      "label_en": "Bone fractures",
+      "label_pl": "Złamania kości"
+    },
+    {
+      "code": "22",
+      "label_nl": "Open botbreuken",
+      "label_en": "Open fractures",
+      "label_pl": "Złamania otwarte"
+    },
+    {
+      "code": "29",
+      "label_nl": "Andere soorten botbreuken",
+      "label_en": "Other types of bone fractures",
+      "label_pl": "Inne rodzaje złamań kości"
+    },
+    {
+      "code": "30",
+      "label_nl": "Ontwrichtingen, verstuikingen en verrekkingen",
+      "label_en": "Dislocations, sprains and strains",
+      "label_pl": "Zwichnięcia, skręcenia i nadwyrężenia"
+    },
+    {
+      "code": "31",
+      "label_nl": "Ontwrichtingen en subluxaties",
+      "label_en": "Dislocations and subluxations",
+      "label_pl": "Zwichnięcia i podwichnięcia"
+    },
+    {
+      "code": "32",
+      "label_nl": "Verstuikingen en verrekkingen",
+      "label_en": "Sprains and strains",
+      "label_pl": "Skręcenia i nadwyrężenia"
+    },
+    {
+      "code": "39",
+      "label_nl": "Andere soorten ontwrichtingen, verstuikingen en verrekkingen",
+      "label_en": "Other types of dislocations, sprains and strains",
+      "label_pl": "Inne rodzaje zwichnięć, skręceń i nadwyrężeń"
+    },
+    {
+      "code": "40",
+      "label_nl": "Traumatische amputaties (verlies van lichaamsdelen)",
+      "label_en": "Traumatic amputations (loss of body parts)",
+      "label_pl": "Amputacje urazowe (utrata części ciała)"
+    },
+    {
+      "code": "41",
+      "label_nl": "Amputaties",
+      "label_en": "Amputations",
+      "label_pl": "Amputacje"
+    },
+    {
+      "code": "50",
+      "label_nl": "Schuddingen en inwendige letsels",
+      "label_en": "Concussion and internal injuries",
+      "label_pl": "Wstrząśnienia i urazy wewnętrzne"
+    },
+    {
+      "code": "51",
+      "label_nl": "Schuddingen en intracraniële letsels",
+      "label_en": "Concussion and intracranial injuries",
+      "label_pl": "Wstrząśnienia i urazy wewnątrzczaszkowe"
+    },
+    {
+      "code": "52",
+      "label_nl": "Inwendige letsels",
+      "label_en": "Internal injuries",
+      "label_pl": "Urazy wewnętrzne"
+    },
+    {
+      "code": "53",
+      "label_nl": "Schuddingen en inwendige letsels die zonder behandeling levensbedreigend kunnen zijn",
+      "label_en": "Concussion and internal injuries which, without treatment, may be life-threatening",
+      "label_pl": "Wstrząśnienia i urazy wewnętrzne, które bez leczenia mogą zagrażać życiu"
+    },
+    {
+      "code": "54",
+      "label_nl": "Schadelijke effecten van elektriciteit",
+      "label_en": "Harmful effects of electricity",
+      "label_pl": "Szkodliwe skutki działania prądu elektrycznego"
+    },
+    {
+      "code": "59",
+      "label_nl": "Andere soorten schuddingen en inwendige letsels",
+      "label_en": "Other types of concussion and internal injuries",
+      "label_pl": "Inne rodzaje wstrząśnień i urazów wewnętrznych"
+    },
+    {
+      "code": "60",
+      "label_nl": "Verbrandingen, brandwonden door hete vloeistof en bevriezing",
+      "label_en": "Burns, scalds and frostbites",
+      "label_pl": "Oparzenia, oparzenia gorącym płynem i odmrożenia"
+    },
+    {
+      "code": "61",
+      "label_nl": "Brandwonden en verbrandingen (thermisch)",
+      "label_en": "Burns and scalds (thermal)",
+      "label_pl": "Oparzenia i oparzenia gorącym płynem (termiczne)"
+    },
+    {
+      "code": "62",
+      "label_nl": "Chemische brandwonden (corrosie)",
+      "label_en": "Chemical burns (corrosions)",
+      "label_pl": "Oparzenia chemiczne (działanie żrące)"
+    },
+    {
+      "code": "63",
+      "label_nl": "Bevriezing",
+      "label_en": "Frostbites",
+      "label_pl": "Odmrożenia"
+    },
+    {
+      "code": "69",
+      "label_nl": "Andere soorten verbrandingen, brandwonden door hete vloeistof en bevriezing",
+      "label_en": "Other types of burns, scalds and frostbites",
+      "label_pl": "Inne rodzaje oparzeń, oparzeń gorącym płynem i odmrożeń"
+    },
+    {
+      "code": "70",
+      "label_nl": "Vergiftigingen en infecties",
+      "label_en": "Poisonings and infections",
+      "label_pl": "Zatrucia i zakażenia"
+    },
+    {
+      "code": "71",
+      "label_nl": "Acute vergiftigingen",
+      "label_en": "Acute poisonings",
+      "label_pl": "Ostre zatrucia"
+    },
+    {
+      "code": "72",
+      "label_nl": "Acute infecties",
+      "label_en": "Acute infections",
+      "label_pl": "Ostre zakażenia"
+    },
+    {
+      "code": "79",
+      "label_nl": "Andere soorten vergiftigingen en infecties",
+      "label_en": "Other types of poisonings and infections",
+      "label_pl": "Inne rodzaje zatruć i zakażeń"
+    },
+    {
+      "code": "80",
+      "label_nl": "Verdrinking en verstikking",
+      "label_en": "Drowning and asphyxiation",
+      "label_pl": "Utonięcie i uduszenie"
+    },
+    {
+      "code": "81",
+      "label_nl": "Verstikking",
+      "label_en": "Asphyxiation",
+      "label_pl": "Uduszenie"
+    },
+    {
+      "code": "82",
+      "label_nl": "Verdrinking en niet-dodelijke onderdompeling",
+      "label_en": "Drowning and non-fatal submersions",
+      "label_pl": "Utonięcie i nieśmiertelne zanurzenie"
+    },
+    {
+      "code": "89",
+      "label_nl": "Andere soorten verdrinking en verstikking",
+      "label_en": "Other types of drowning and asphyxiation",
+      "label_pl": "Inne rodzaje utonięć i uduszeń"
+    },
+    {
+      "code": "90",
+      "label_nl": "Effecten van lawaai, trillingen en druk",
+      "label_en": "Effects of sound, vibration and pressure",
+      "label_pl": "Skutki hałasu, drgań i ciśnienia"
+    },
+    {
+      "code": "91",
+      "label_nl": "Acuut gehoorverlies",
+      "label_en": "Acute hearing losses",
+      "label_pl": "Ostra utrata słuchu"
+    },
+    {
+      "code": "92",
+      "label_nl": "Effecten van druk (barotrauma)",
+      "label_en": "Effects of pressure (barotrauma)",
+      "label_pl": "Skutki ciśnienia (barotrauma)"
+    },
+    {
+      "code": "99",
+      "label_nl": "Andere effecten van lawaai, trillingen en druk",
+      "label_en": "Other effects of sound, vibration and pressure",
+      "label_pl": "Inne skutki hałasu, drgań i ciśnienia"
+    },
+    {
+      "code": "100",
+      "label_nl": "Effecten van extreme temperaturen, licht en straling",
+      "label_en": "Effects of temperature extremes, light and radiation",
+      "label_pl": "Skutki skrajnych temperatur, światła i promieniowania"
+    },
+    {
+      "code": "101",
+      "label_nl": "Hitte en zonnesteek",
+      "label_en": "Heat and sunstroke",
+      "label_pl": "Skutki gorąca i udar słoneczny"
+    },
+    {
+      "code": "102",
+      "label_nl": "Effecten van straling (niet-thermisch)",
+      "label_en": "Effects of radiation (non-thermal)",
+      "label_pl": "Skutki promieniowania (nietermiczne)"
+    },
+    {
+      "code": "103",
+      "label_nl": "Effecten van koude",
+      "label_en": "Effects of reduced temperature",
+      "label_pl": "Skutki niskiej temperatury"
+    },
+    {
+      "code": "109",
+      "label_nl": "Andere effecten van extreme temperaturen, licht en straling",
+      "label_en": "Other effects of temperature extremes, light and radiation",
+      "label_pl": "Inne skutki skrajnych temperatur, światła i promieniowania"
+    },
+    {
+      "code": "110",
+      "label_nl": "Shock",
+      "label_en": "Shock",
+      "label_pl": "Wstrząs"
+    },
+    {
+      "code": "111",
+      "label_nl": "Shocks na agressie en bedreigingen",
+      "label_en": "Shocks after aggression and threats",
+      "label_pl": "Wstrząs po agresji lub groźbach"
+    },
+    {
+      "code": "112",
+      "label_nl": "Traumatische shocks",
+      "label_en": "Traumatic shocks",
+      "label_pl": "Wstrząs urazowy"
+    },
+    {
+      "code": "119",
+      "label_nl": "Andere soorten shocks",
+      "label_en": "Other types of shocks",
+      "label_pl": "Inne rodzaje wstrząsu"
+    },
+    {
+      "code": "120",
+      "label_nl": "Meervoudige letsels",
+      "label_en": "Multiple injuries",
+      "label_pl": "Urazy wielonarządowe"
+    },
+    {
+      "code": "999",
+      "label_nl": "Andere gespecificeerde letsels die niet onder andere rubrieken vallen",
+      "label_en": "Other specified injuries not included under other headings",
+      "label_pl": "Inne określone urazy niesklasyfikowane w innych pozycjach"
+    }
+  ],
+  "INJURY_LOCATION": [
+    {
+      "code": "0",
+      "label_nl": "Verwond deel van het lichaam niet gespecificeerd",
+      "label_en": "Part of body injured, not specified",
+      "label_pl": "Nieokreślona lokalizacja urazu"
+    },
+    {
+      "code": "10",
+      "label_nl": "Hoofd, niet nader gespecificeerd",
+      "label_en": "Head, not further specified",
+      "label_pl": "Głowa, bez dalszego określenia"
+    },
+    {
+      "code": "11",
+      "label_nl": "Hoofd (caput), hersenen, hersenzenuwen en hersenbloedvaten",
+      "label_en": "Head (caput), brain and cranial nerves and vessels",
+      "label_pl": "Głowa, mózg, nerwy czaszkowe i naczynia mózgowe"
+    },
+    {
+      "code": "12",
+      "label_nl": "Aangezicht",
+      "label_en": "Facial area",
+      "label_pl": "Twarz"
+    },
+    {
+      "code": "13",
+      "label_nl": "Oog/ogen",
+      "label_en": "Eye(s)",
+      "label_pl": "Oko / oczy"
+    },
+    {
+      "code": "14",
+      "label_nl": "Oor (oren)",
+      "label_en": "Ear(s)",
+      "label_pl": "Ucho / uszy"
+    },
+    {
+      "code": "15",
+      "label_nl": "Tanden",
+      "label_en": "Teeth",
+      "label_pl": "Uzębienie"
+    },
+    {
+      "code": "19",
+      "label_nl": "Hoofd, andere hierboven niet genoemde delen",
+      "label_en": "Head, other parts not mentioned above",
+      "label_pl": "Inne części głowy"
+    },
+    {
+      "code": "20",
+      "label_nl": "Hals, inclusief ruggengraat en halswervels",
+      "label_en": "Neck, inclusive spine and vertebrae in the neck",
+      "label_pl": "Szyja, w tym kręgosłup i kręgi szyjne"
+    },
+    {
+      "code": "21",
+      "label_nl": "Hals, inclusief ruggengraat en halswervels",
+      "label_en": "Neck, inclusive spine and vertebrae in the neck",
+      "label_pl": "Szyja, w tym kręgosłup i kręgi szyjne"
+    },
+    {
+      "code": "29",
+      "label_nl": "Hals, andere hierboven niet genoemde delen",
+      "label_en": "Neck, other parts not mentioned above",
+      "label_pl": "Inne części szyi"
+    },
+    {
+      "code": "30",
+      "label_nl": "Rug, inclusief ruggengraat en rugwervels",
+      "label_en": "Back, including spine and vertebrae in the back",
+      "label_pl": "Plecy, w tym kręgosłup i kręgi grzbietowe"
+    },
+    {
+      "code": "31",
+      "label_nl": "Rug, inclusief ruggengraat en rugwervels",
+      "label_en": "Back, including spine and vertebrae in the back",
+      "label_pl": "Plecy, w tym kręgosłup i kręgi grzbietowe"
+    },
+    {
+      "code": "39",
+      "label_nl": "Rug, andere hierboven niet genoemde delen",
+      "label_en": "Back, other parts not mentioned above",
+      "label_pl": "Inne części pleców"
+    },
+    {
+      "code": "40",
+      "label_nl": "Romp en organen, niet nader gespecificeerd",
+      "label_en": "Torso and organs, not further specified",
+      "label_pl": "Tułów i narządy, bez dalszego określenia"
+    },
+    {
+      "code": "41",
+      "label_nl": "Borstkas, ribben met schouderbladen en gewrichten",
+      "label_en": "Rib cage, ribs including joints and shoulder blades",
+      "label_pl": "Klatka piersiowa, żebra, w tym łopatki i stawy"
+    },
+    {
+      "code": "42",
+      "label_nl": "Borststreek met organen",
+      "label_en": "Chest area including organs",
+      "label_pl": "Klatka piersiowa, w tym narządy"
+    },
+    {
+      "code": "43",
+      "label_nl": "Bekken en buik met organen",
+      "label_en": "Pelvic and abdominal area including organs",
+      "label_pl": "Brzuch i miednica, w tym narządy"
+    },
+    {
+      "code": "48",
+      "label_nl": "Romp, diverse plaatsen gewond",
+      "label_en": "Torso, multiple sites affected",
+      "label_pl": "Tułów, urazy w wielu miejscach"
+    },
+    {
+      "code": "49",
+      "label_nl": "Romp, andere hierboven niet genoemde delen",
+      "label_en": "Torso, other parts not mentioned above",
+      "label_pl": "Inne części tułowia"
+    },
+    {
+      "code": "50",
+      "label_nl": "Bovenste ledematen, niet nader gespecificeerd",
+      "label_en": "Upper extremities, not further specified",
+      "label_pl": "Kończyny górne, bez dalszego określenia"
+    },
+    {
+      "code": "51",
+      "label_nl": "Schouder en schoudergewrichten",
+      "label_en": "Shoulder and shoulder joints",
+      "label_pl": "Bark i stawy barkowe"
+    },
+    {
+      "code": "52",
+      "label_nl": "Arm, inclusief elleboog",
+      "label_en": "Arm, including elbow",
+      "label_pl": "Ramię, w tym łokieć"
+    },
+    {
+      "code": "53",
+      "label_nl": "Hand",
+      "label_en": "Hand",
+      "label_pl": "Dłoń"
+    },
+    {
+      "code": "54",
+      "label_nl": "Vinger(s)",
+      "label_en": "Finger(s)",
+      "label_pl": "Palec / palce ręki"
+    },
+    {
+      "code": "55",
+      "label_nl": "Pols",
+      "label_en": "Wrist",
+      "label_pl": "Nadgarstek"
+    },
+    {
+      "code": "58",
+      "label_nl": "Bovenste ledematen, diverse plaatsen gewond",
+      "label_en": "Upper extremities, multiple sites affected",
+      "label_pl": "Kończyny górne, urazy w wielu miejscach"
+    },
+    {
+      "code": "59",
+      "label_nl": "Bovenste ledematen, andere hierboven niet genoemde delen",
+      "label_en": "Upper extremities, other parts not mentioned above",
+      "label_pl": "Inne części kończyn górnych"
+    },
+    {
+      "code": "60",
+      "label_nl": "Onderste ledematen, niet nader gespecificeerd",
+      "label_en": "Lower extremities, not further specified",
+      "label_pl": "Kończyny dolne, bez dalszego określenia"
+    },
+    {
+      "code": "61",
+      "label_nl": "Heup en heupgewricht",
+      "label_en": "Hip and hip joint",
+      "label_pl": "Biodro i staw biodrowy"
+    },
+    {
+      "code": "62",
+      "label_nl": "Been, inclusief knie",
+      "label_en": "Leg, including knee",
+      "label_pl": "Noga, w tym kolano"
+    },
+    {
+      "code": "63",
+      "label_nl": "Enkel",
+      "label_en": "Ankle",
+      "label_pl": "Kostka"
+    },
+    {
+      "code": "64",
+      "label_nl": "Voet",
+      "label_en": "Foot",
+      "label_pl": "Stopa"
+    },
+    {
+      "code": "65",
+      "label_nl": "Teen/tenen",
+      "label_en": "Toe(s)",
+      "label_pl": "Palec / palce stopy"
+    },
+    {
+      "code": "68",
+      "label_nl": "Onderste ledematen, diverse plaatsen gewond",
+      "label_en": "Lower extremities, multiple sites affected",
+      "label_pl": "Kończyny dolne, urazy w wielu miejscach"
+    },
+    {
+      "code": "69",
+      "label_nl": "Onderste ledematen, andere hierboven niet genoemde delen",
+      "label_en": "Lower extremities, other parts not mentioned above",
+      "label_pl": "Inne części kończyn dolnych"
+    },
+    {
+      "code": "70",
+      "label_nl": "Gehele lichaam en diverse plaatsen, niet nader gespecificeerd",
+      "label_en": "Whole body and multiple sites, not further specified",
+      "label_pl": "Całe ciało i wiele miejsc, bez dalszego określenia"
+    },
+    {
+      "code": "71",
+      "label_nl": "Gehele lichaam (systemische gevolgen)",
+      "label_en": "Whole body (systemic effects)",
+      "label_pl": "Całe ciało (skutki ogólnoustrojowe)"
+    },
+    {
+      "code": "78",
+      "label_nl": "Diverse plaatsen van het lichaam gewond",
+      "label_en": "Multiple sites of the body affected",
+      "label_pl": "Urazy w wielu miejscach ciała"
+    },
+    {
+      "code": "99",
+      "label_nl": "Andere hierboven niet genoemde delen van het lichaam verwond",
+      "label_en": "Other parts of body injured, not mentioned above",
+      "label_pl": "Inne niewymienione części ciała"
+    }
+  ]
+}

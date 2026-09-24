@@ -1,0 +1,66 @@
+{
+    "common": {
+        "home": "Start",
+        "dashboard": "Dashboard",
+        "save": "Opslaan",
+        "cancel": "Annuleren",
+        "back": "Terug",
+        "allTrades": "Alle disciplines",
+        "loadingRisky": "Risky laden...",
+        "expandMenu": "Menu uitklappen",
+        "collapseMenu": "Menu inklappen",
+        "notifications": "Meldingen",
+        "moduleInPreparation": "Module in voorbereiding",
+        "sectionComingSoon": "Deze sectie wordt geleidelijk geïntegreerd in Risky QHSE.",
+        "riskyQhse": "Risky QHSE"
+    },
+    "profile": {
+        "myProfile": "Mijn profiel",
+        "changeScope": "Werkgebied wijzigen",
+        "logout": "Afmelden",
+        "profile": "Profiel",
+        "user": "Gebruiker",
+        "allEntities": "Alle entiteiten",
+        "assignedScope": "Toegewezen werkgebied"
+    },
+    "dashboard": {
+        "placeholder": "De QHSE-indicatoren en kerncijfers worden hier geïntegreerd."
+    },
+    "home": {
+        "description": "Ga naar de verschillende modules van Risky QHSE.",
+        "modules": {
+            "riskAnalysis": {
+                "title": "Risicoanalyse",
+                "description": "Kinney-analyses, RePSS en gespecialiseerde methoden."
+            },
+            "accidents": {
+                "title": "Ongevallen & incidenten",
+                "description": "Register, gebeurtenisdossiers en analyses."
+            },
+            "actionPlans": {
+                "title": "Actieplannen",
+                "description": "Globaal plan, jaarplan, CPBW, IDPB en ISO."
+            },
+            "personnel": {
+                "title": "Personeel",
+                "description": "Medewerkersfiches en QHSE-gegevens."
+            },
+            "competencies": {
+                "title": "Competenties & bevoegdheden",
+                "description": "Competenties, opleidingen, BA4/BA5 en attesten."
+            },
+            "equipment": {
+                "title": "Veiligheid arbeidsmiddelen",
+                "description": "Machines, controles en drie groene lichten."
+            },
+            "field": {
+                "title": "Terrein",
+                "description": "FMRA, STOP, Toolbox en ILT-inspecties."
+            },
+            "quality": {
+                "title": "Kwaliteit & IMS",
+                "description": "Indicatoren, processen en directiebeoordeling."
+            }
+        }
+    }
+}

@@ -1,0 +1,127 @@
+{
+    "title": "Dokumenty i raporty",
+    "subtitle": "Generowanie i zarządzanie dokumentami związanymi ze zdarzeniem.",
+    "common": {
+        "notGenerated": "Nie wygenerowano",
+        "draft": "Wersja robocza",
+        "yes": "Tak",
+        "no": "Nie",
+        "notProvided": "Nie podano",
+        "notApplicable": "Nie dotyczy",
+        "day": "dzień",
+        "days": "dni"
+    },
+    "analysisReport": {
+        "type": "Raport RISKY",
+        "title": "Raport z analizy",
+        "description": "Pełny raport wygenerowany na podstawie danych, analiz i działań zawartych w dokumentacji zdarzenia.",
+        "preview": "Podgląd"
+    },
+    "safetyFlash": {
+        "type": "Komunikat CFE",
+        "title": "Safety Flash",
+        "description": "Skrócony komunikat oparty na oficjalnym wzorze CFE.",
+        "prepare": "Przygotuj"
+    },
+    "preview": {
+        "loading": "Ładowanie podglądu…",
+        "unavailable": "Raport jest niedostępny.",
+        "unknownError": "Nieznany błąd.",
+        "back": "Powrót do dokumentacji",
+        "title": "Podgląd raportu",
+        "generatePdf": "Generuj PDF",
+        "generatePdfPending": "Generowanie PDF zostanie dodane w następnym etapie.",
+        "sections": {
+            "summary": "Podsumowanie zdarzenia",
+            "facts": "Opis faktów",
+            "classification": "Klasyfikacja",
+            "photos": "Dokumentacja fotograficzna",
+            "heepo": "Analiza HEEPO",
+            "causeTree": "Drzewo przyczyn",
+            "justCulture": "Just Culture",
+            "actions": "Środki i działania"
+        },
+        "causeTree": {
+            "finalFact": "Fakt końcowy",
+            "terminalCause": "Przyczyna końcowa",
+            "cause": "Przyczyna",
+            "unlinked": "Elementy niepowiązane"
+        },
+        
+        "summary": {
+            "title": "Podsumowanie",
+            "type": "Typ",
+            "date": "Data",
+            "person": "Osoba",
+            "category": "Kategoria",
+            "organization": "Organizacja",
+            "location": "Miejsce",
+            "projectManager": "Project Manager",
+            "siteSupervisor": "Kierownik budowy",
+            "materialDamage": "Szkody materialne",
+            "environmentalDamage": "Szkody środowiskowe",
+            "analysisType": "Typ analizy",
+            "description": "Opis / tytuł zdarzenia"
+        },
+        "consequences": {
+            "title": "Konsekwencje",
+            "lostTime": "Niezdolność do pracy",
+            "modifiedDuty": "Praca dostosowana",
+            "permanentInjury": "Trwały uszczerbek na zdrowiu",
+            "fatal": "Zgon",
+            "materialDamageCost": "Koszt szkód materialnych (€)"
+        },
+        "facts": {
+            "client": "Klient",
+            "witnesses": "Świadkowie",
+            "usualPosition": "Zwykłe stanowisko pracy",
+            "activityBefore": "Co robiła poszkodowana osoba przed zdarzeniem?",
+            "description": "Opis zdarzenia",
+            "directCause": "Bezpośrednia przyczyna",
+            "thirdParty": "Udział osoby trzeciej",
+            "policeReport": "Protokół policyjny",
+            "thirdPartyDetails": "Informacje dotyczące osoby trzeciej"
+        },
+        "classification": {
+            "deviation": "Odchylenie",
+            "materialAgent": "Czynnik materialny",
+            "injuryNature": "Rodzaj urazu",
+            "injuryLocation": "Umiejscowienie urazu"
+        },
+        "justCulture": {
+            "conclusion": "Wniosek",
+            "recommendation": "Zalecenie"
+        },
+        "actions": {
+            "responsible": "Osoba odpowiedzialna",
+            "dueDate": "Termin",
+            "progress": "Postęp"
+        }
+    },
+    "values": {
+        "eventType": {
+            "ACCIDENT": "Wypadek",
+            "INCIDENT": "Incydent",
+            "NEAR_MISS": "Zdarzenie potencjalnie wypadkowe"
+        },
+        "analysisType": {
+            "ADVANCED": "Rozszerzona",
+            "NORMAL": "Standardowa"
+        },
+        "personCategory": {
+            "WORKER": "Pracownik fizyczny",
+            "EMPLOYEE": "Pracownik",
+            "TEMPORARY": "Pracownik tymczasowy",
+            "SUBCONTRACTOR": "Podwykonawca",
+            "OTHER": "Inna"
+        },
+        "actionType": {
+            "CORRECTIVE": "Korygujące",
+            "PREVENTIVE": "Zapobiegawcze"
+        },
+        "scope": {
+            "LOCAL": "Lokalny",
+            "GLOBAL": "Globalny"
+        }
+    }
+}

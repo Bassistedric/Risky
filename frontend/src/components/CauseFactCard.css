@@ -1,0 +1,112 @@
+/* ============================================================
+   FACT CARD — BASE
+   ============================================================ */
+
+.cause-fact-card {
+  width: clamp(220px, 24vw, 320px);
+  min-height: 90px;
+
+  padding: 16px 18px;
+  margin: 12px auto;
+
+  background: #ffffff;
+
+  border: 2px solid #d5d9df;
+  border-radius: 10px;
+
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.cause-fact-card__description {
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #20242a;
+
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.cause-fact-card__type {
+  margin-top: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cause-fact-card__level {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 12px;
+  color: #6b7280;
+}
+
+
+/* ============================================================
+   FACT STATE
+   ============================================================ */
+
+.cause-fact-card--terminal {
+  border-style: dashed;
+  border-width: 3px;
+  border-color: #6f8192;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(111, 129, 146, 0.08);
+
+  position: relative;
+}
+
+.cause-fact-card--terminal .cause-fact-card__type {
+  color: #405466;
+  font-weight: 700;
+}
+
+.cause-fact-card--circumstance {
+  opacity: 0.7;
+}
+
+
+/* ============================================================
+   FACT LEVEL COLORS
+   ============================================================ */
+
+.cause-fact-card--final {
+  background: #fbe5e7;
+  border-color: #f3ccd0;
+}
+
+.cause-fact-card--level-1 {
+  background: #fff1df;
+  border-color: #f1d5ad;
+}
+
+.cause-fact-card--level-2 {
+  background: #fff8dc;
+  border-color: #ede2b1;
+}
+
+.cause-fact-card--level-deep {
+  background: #e7f7ed;
+  border-color: #c8e9d6;
+}
+
+.cause-fact-card--unlinked {
+  background: #f3f5f7;
+  border-color: #dbe2ea;
+}
+/* ============================================================
+   BRANCHE TERMINÉE — PRIORITÉ VISUELLE
+   ============================================================ */
+
+.cause-fact-card.cause-fact-card--terminal {
+  border: 3px dashed #60758a;
+}
+
+.cause-fact-card.cause-fact-card--terminal .cause-fact-card__type {
+  color: #405466;
+  font-weight: 700;
+}

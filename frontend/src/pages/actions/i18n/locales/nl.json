@@ -1,0 +1,79 @@
+{
+    "page": {
+        "title": "Actieplan",
+        "description": "Overkoepelende opvolging van QHSE-acties."
+    },
+
+    "tabs": {
+        "overview": "Algemeen overzicht",
+        "accidents": "Ongevallen",
+        "paa": "JAP",
+        "pga": "GAP",
+        "cppt": "CPBW",
+        "quality": "Kwaliteit / 9001"
+    },
+
+    "filters": {
+        "year": "Jaar",
+        "status": "Status",
+        "responsible": "Verantwoordelijke",
+        "search": "Zoeken",
+        "allStatuses": "Alle statussen",
+        "allResponsible": "Alle verantwoordelijken",
+        "searchPlaceholder": "Een actie zoeken..."
+    },
+
+    "columns": {
+        "action": "Actie",
+        "origin": "Oorsprong",
+        "scope": "Reikwijdte",
+        "responsible": "Verantwoordelijke",
+        "dueDate": "Vervaldatum",
+        "priority": "Prioriteit",
+        "status": "Status",
+        "progress": "Voortgang",
+        "reference": "Referentie"
+    },
+
+    "status": {
+        "todo": "Uit te voeren",
+        "inProgress": "Bezig",
+        "done": "Uitgevoerd",
+        "toValidate": "Te valideren",
+        "closed": "Afgesloten"
+    },
+
+    "progress": {
+        "qualityFollowUp": "Opvolging 9001"
+    },
+
+    "priority": {
+        "low": "Laag",
+        "medium": "Gemiddeld",
+        "high": "Hoog"
+    },
+
+    "scope": {
+        "local": "Lokaal / werf",
+        "global": "Globaal"
+    },
+
+    "origin": {
+        "accident": "Ongeval",
+        "incident": "Incident",
+        "nearMiss": "Bijna-ongeval",
+        "ilt": "ILT",
+        "stop": "STOP",
+        "cppt": "CPBW",
+        "paa": "JAP",
+        "pga": "GAP",
+        "quality": "Kwaliteit",
+        "other": "Andere"
+    },
+
+    "messages": {
+        "loading": "Acties laden...",
+        "empty": "Geen acties om weer te geven.",
+        "loadError": "De acties konden niet worden geladen."
+    }
+}

@@ -1,0 +1,44 @@
+/* ============================================================
+   ACCIDENT GRAVE / TRÈS GRAVE
+   ============================================================ */
+
+.accident-dossier__serious {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: #fff3cd;
+  border: 1px solid #e4c66a;
+  border-left: 5px solid #d39e00;
+  border-radius: 10px;
+  color: #5f4a00;
+}
+
+.accident-dossier__serious--very {
+  background: #fde8e8;
+  border-color: #e3a2a2;
+  border-left-color: #c0392b;
+  color: #7d1f1f;
+}
+
+.accident-dossier__serious-title {
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.accident-dossier__serious-criteria {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.accident-dossier__serious-criteria > strong { margin-bottom: 2px; }
+
+.accident-dossier__serious-criterion {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.accident-dossier__serious-criterion strong { flex-shrink: 0; }
+.accident-dossier__serious-criterion span { font-weight: 400; }

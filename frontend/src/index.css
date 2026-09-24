@@ -1,0 +1,352 @@
+/* ============================================================
+   RISKY DESIGN SYSTEM
+   Global tokens and base styles
+   ============================================================ */
+
+
+:root {
+  /* ----------------------------------------------------------
+     RISKY — CORE BRAND
+     Référence : démonstration GitHub validée
+     ---------------------------------------------------------- */
+
+  --risky-bg: #f5f7fb;
+  --risky-surface: #ffffff;
+  --risky-surface-alt: #f8faff;
+
+  --risky-text: #152238;
+  --risky-text-secondary: #334155;
+  --risky-text-muted: #8391a4;
+  --risky-text-soft: #9ba6b5;
+
+  --risky-border: #e4e9f0;
+  --risky-border-strong: #dbe2ea;
+
+  /* ----------------------------------------------------------
+     SIDEBAR
+     ---------------------------------------------------------- */
+
+  --risky-sidebar: #0d1b2e;
+  --risky-sidebar-active: #172b46;
+  --risky-sidebar-border: #263950;
+
+  --risky-sidebar-text: #dbe5f3;
+  --risky-sidebar-muted: #7f92aa;
+  --risky-sidebar-group: #6f839d;
+
+  /* ----------------------------------------------------------
+     FUNCTIONAL ACCENTS
+     ---------------------------------------------------------- */
+
+  --risky-blue: #2e73e8;
+  --risky-blue-focus: #4f82d8;
+  --risky-blue-soft: #eef4ff;
+
+  --risky-green: #69d69a;
+  --risky-green-dark: #23844c;
+  --risky-green-soft: #e7f7ed;
+
+  --risky-orange: #f5a543;
+  --risky-orange-dark: #b86a00;
+  --risky-orange-soft: #fff1df;
+
+  --risky-red: #e31d34;
+  --risky-red-dark: #c33;
+  --risky-red-soft: #ffe7e7;
+
+  /* ----------------------------------------------------------
+     SEMANTIC STATUS
+     ---------------------------------------------------------- */
+
+  --risky-success: var(--risky-green-dark);
+  --risky-success-soft: var(--risky-green-soft);
+
+  --risky-warning: var(--risky-orange-dark);
+  --risky-warning-soft: var(--risky-orange-soft);
+
+  --risky-danger: var(--risky-red);
+  --risky-danger-soft: var(--risky-red-soft);
+
+  --risky-info: var(--risky-blue);
+  --risky-info-soft: var(--risky-blue-soft);
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY
+     ---------------------------------------------------------- */
+
+  --risky-font:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  --risky-font-size-xs: 0.75rem;
+  --risky-font-size-sm: 0.875rem;
+  --risky-font-size-md: 1rem;
+  --risky-font-size-lg: 1.125rem;
+  --risky-font-size-xl: 1.35rem;
+  --risky-font-size-2xl: 1.75rem;
+
+  /* ----------------------------------------------------------
+     SPACING
+     ---------------------------------------------------------- */
+
+  --risky-space-1: 4px;
+  --risky-space-2: 8px;
+  --risky-space-3: 12px;
+  --risky-space-4: 16px;
+  --risky-space-5: 20px;
+  --risky-space-6: 24px;
+  --risky-space-8: 32px;
+  --risky-space-10: 40px;
+
+  /* ----------------------------------------------------------
+     SHAPE
+     ---------------------------------------------------------- */
+
+  --risky-radius-sm: 8px;
+  --risky-radius-md: 10px;
+  --risky-radius-lg: 14px;
+
+  /* ----------------------------------------------------------
+     SHADOWS
+     ---------------------------------------------------------- */
+
+  --risky-shadow-sm:
+    0 4px 16px rgb(21 34 56 / 4%);
+
+  --risky-shadow-md:
+    0 6px 20px rgb(21 34 56 / 8%);
+
+  --risky-shadow-lg:
+    0 12px 30px rgb(21 34 56 / 10%);
+
+  /* ----------------------------------------------------------
+     TRANSITIONS
+     ---------------------------------------------------------- */
+
+  --risky-transition: 160ms ease;
+
+  /* ----------------------------------------------------------
+     LEGACY ALIASES
+     Temporaire : permet aux composants déjà créés
+     de fonctionner pendant la migration du Design System.
+     ---------------------------------------------------------- */
+
+  --risky-primary: var(--risky-blue);
+  --risky-primary-hover: #2566d4;
+  --risky-primary-soft: var(--risky-blue-soft);
+
+  --risky-accent: var(--risky-green);
+  --risky-accent-hover: var(--risky-green-dark);
+  --risky-accent-soft: var(--risky-green-soft);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+html {
+  background: var(--risky-bg);
+}
+
+body {
+  font-family: var(--risky-font);
+
+  background: var(--risky-bg);
+  color: var(--risky-text);
+
+  font-size: var(--risky-font-size-md);
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: var(--risky-space-2);
+
+  font-size: var(--risky-font-size-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin-bottom: var(--risky-space-3);
+
+  font-size: var(--risky-font-size-xl);
+  font-weight: 650;
+}
+
+h3 {
+  margin-bottom: var(--risky-space-2);
+
+  font-size: var(--risky-font-size-lg);
+  font-weight: 650;
+}
+
+p {
+  margin-bottom: var(--risky-space-4);
+}
+
+strong {
+  font-weight: 650;
+}
+
+
+/* ============================================================
+   FORM CONTROLS
+   ============================================================ */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  background: var(--risky-surface);
+  color: var(--risky-text);
+
+  border: 1px solid var(--risky-border-strong);
+  border-radius: var(--risky-radius-sm);
+
+  outline: none;
+
+  transition:
+    border-color var(--risky-transition),
+    box-shadow var(--risky-transition);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--risky-primary);
+
+  box-shadow:
+    0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--risky-primary) 15%,
+      transparent
+    );
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--risky-text-soft);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* ============================================================
+   BUTTONS — BASE
+   ============================================================ */
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--risky-space-2);
+
+  min-height: 40px;
+
+  padding:
+    9px
+    16px;
+
+  background: transparent;
+  color: inherit;
+
+  border: 1px solid transparent;
+  border-radius: var(--risky-radius-sm);
+
+  font: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: none;
+
+  transition:
+    background var(--risky-transition),
+    color var(--risky-transition),
+    border-color var(--risky-transition),
+    box-shadow var(--risky-transition),
+    transform var(--risky-transition);
+}
+
+button:hover:not(:disabled) {
+  box-shadow: var(--risky-shadow-sm);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+
+/* ============================================================
+   LINKS
+   ============================================================ */
+
+a {
+  color: var(--risky-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+
+::selection {
+  background: var(--risky-primary-soft);
+  color: var(--risky-text);
+}

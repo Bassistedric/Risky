@@ -1,0 +1,326 @@
+/* ========================================================
+   PAGE
+   ======================================================== */
+
+.action-plan {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* ========================================================
+   EN-TÊTE
+   ======================================================== */
+
+.action-plan__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.action-plan__header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.action-plan__header p {
+    margin: 6px 0 0;
+    color: #64748b;
+}
+
+
+/* ========================================================
+   ONGLETS
+   ======================================================== */
+
+.action-plan__tabs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px;
+    overflow-x: auto;
+
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+}
+
+.action-plan__tab {
+    flex: 0 0 auto;
+    padding: 10px 18px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+
+    color: #475569;
+    font: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.action-plan__tab:hover {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #1f2937;
+}
+
+.action-plan__tab--active {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    color: #0f172a;
+    font-weight: 700;
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.10),
+        0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+
+/* ========================================================
+   CONTENU
+   ======================================================== */
+
+.action-plan__content {
+    min-height: 280px;
+    padding: 20px;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+
+/* ========================================================
+   ÉTAT VIDE
+   ======================================================== */
+
+.action-plan__empty {
+    min-height: 220px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    color: #64748b;
+}
+
+.action-plan__empty strong {
+    color: #334155;
+    font-size: 1rem;
+}
+
+
+/* ========================================================
+   TABLEAU DES ACTIONS
+   ======================================================== */
+
+.action-table__wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.action-table {
+    width: 100%;
+    min-width: 1000px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    font-size: 0.92rem;
+    color: #334155;
+}
+
+.action-table th,
+.action-table td {
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.action-table th {
+    background: #f8fafc;
+
+    color: #475569;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+
+    white-space: nowrap;
+}
+
+.action-table th:first-child {
+    border-left: 1px solid #e2e8f0;
+    border-radius: 8px 0 0 8px;
+}
+
+.action-table th:last-child {
+    border-right: 1px solid #e2e8f0;
+    border-radius: 0 8px 8px 0;
+}
+
+.action-table td {
+    border-bottom: 1px solid #edf2f7;
+}
+
+.action-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.action-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.action-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+/* ========================================================
+   COLONNES DU TABLEAU
+   ======================================================== */
+
+.action-table__action {
+    width: 100%;
+}
+
+.action-table__description {
+    min-width: 300px;
+
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.action-table__reference {
+    min-width: 130px;
+    white-space: nowrap;
+}
+
+.action-table td.action-table__reference {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.action-table__origin,
+.action-table__scope,
+.action-table__responsible,
+.action-table__due-date,
+.action-table__priority,
+.action-table__status,
+.action-table__progress {
+    width: 1%;
+    white-space: nowrap;
+}
+
+
+/* ========================================================
+   BADGES COMMUNS
+   ======================================================== */
+
+.action-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 26px;
+    padding: 4px 9px;
+
+    border: 1px solid transparent;
+    border-radius: 999px;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* ========================================================
+   PRIORITÉS
+   ======================================================== */
+
+.action-priority-badge--low {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+.action-priority-badge--medium {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+.action-priority-badge--high {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #b91c1c;
+}
+
+
+/* ========================================================
+   STATUTS
+   ======================================================== */
+
+.action-status-badge--todo {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+.action-status-badge--in_progress {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    color: #1d4ed8;
+}
+
+.action-status-badge--done {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    color: #15803d;
+}
+
+.action-status-badge--to_validate {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+.action-status-badge--closed {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #166534;
+}
+
+
+/* ========================================================
+   ÉTAT VIDE DU TABLEAU
+   ======================================================== */
+
+.action-table__empty {
+    min-height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #64748b;
+}

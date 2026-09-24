@@ -1,0 +1,79 @@
+{
+    "page": {
+        "title": "Action plan",
+        "description": "Cross-functional monitoring of QHSE actions."
+    },
+
+    "tabs": {
+        "overview": "Overview",
+        "accidents": "Accidents",
+        "paa": "Annual action plan",
+        "pga": "Global prevention plan",
+        "cppt": "Committee",
+        "quality": "Quality / 9001"
+    },
+
+    "filters": {
+        "year": "Year",
+        "status": "Status",
+        "responsible": "Responsible",
+        "search": "Search",
+        "allStatuses": "All statuses",
+        "allResponsible": "All responsible persons",
+        "searchPlaceholder": "Search for an action..."
+    },
+
+    "columns": {
+        "action": "Action",
+        "origin": "Origin",
+        "scope": "Scope",
+        "responsible": "Responsible",
+        "dueDate": "Due date",
+        "priority": "Priority",
+        "status": "Status",
+        "progress": "Progress",
+        "reference": "Reference"
+    },
+
+    "status": {
+        "todo": "To do",
+        "inProgress": "In progress",
+        "done": "Completed",
+        "toValidate": "To validate",
+        "closed": "Closed"
+    },
+
+    "progress": {
+        "qualityFollowUp": "9001 follow-up"
+    },
+
+    "priority": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+    },
+
+    "scope": {
+        "local": "Local / site",
+        "global": "Global"
+    },
+
+    "origin": {
+        "accident": "Accident",
+        "incident": "Incident",
+        "nearMiss": "Near miss",
+        "ilt": "ILT",
+        "stop": "STOP",
+        "cppt": "Committee",
+        "paa": "Annual action plan",
+        "pga": "Global prevention plan",
+        "quality": "Quality",
+        "other": "Other"
+    },
+
+    "messages": {
+        "loading": "Loading actions...",
+        "empty": "No actions to display.",
+        "loadError": "Unable to load actions."
+    }
+}

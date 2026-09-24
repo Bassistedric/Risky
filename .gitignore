@@ -1,0 +1,58 @@
+﻿# ========================================================
+# RISKY - Git ignore
+# ========================================================
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Node / Vite
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+.vite/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Runtime / uploaded files
+storage/
+
+# Logs
+*.log
+
+# Backups / archives
+*.zip
+*.7z
+*.rar
+*.bak
+
+# Temporary development copies
+RISKY_backend_accident_refactor/
+RISKY_backend_before_accident_refactor_*/
+
+# Accidental files
+AS
+INTEGER
+
+# Python coverage
+.coverage
+htmlcov/

@@ -1,0 +1,127 @@
+{
+    "title": "Documents & rapports",
+    "subtitle": "Génération et gestion des documents liés à l'événement.",
+    "common": {
+        "notGenerated": "Non généré",
+        "draft": "Brouillon",
+        "yes": "Oui",
+        "no": "Non",
+        "notProvided": "Non renseigné",
+        "notApplicable": "Sans objet",
+        "day": "jour",
+        "days": "jours"
+    },
+    "analysisReport": {
+        "type": "Rapport RISKY",
+        "title": "Rapport d'analyse",
+        "description": "Rapport complet généré à partir des données, analyses et actions du dossier.",
+        "preview": "Aperçu"
+    },
+    "safetyFlash": {
+        "type": "Communication CFE",
+        "title": "Safety Flash",
+        "description": "Communication synthétique basée sur le modèle officiel CFE.",
+        "prepare": "Préparer"
+    },
+    "preview": {
+        "loading": "Chargement de l'aperçu…",
+        "unavailable": "Rapport indisponible.",
+        "unknownError": "Erreur inconnue.",
+        "back": "Retour au dossier",
+        "title": "Aperçu du rapport",
+        "generatePdf": "Générer le PDF",
+        "generatePdfPending": "La génération PDF sera ajoutée à l'étape suivante.",
+        "sections": {
+            "summary": "Synthèse de l'événement",
+            "facts": "Relation des faits",
+            "classification": "Classification",
+            "photos": "Documentation photographique",
+            "heepo": "Analyse HEEPO",
+            "causeTree": "Arbre des causes",
+            "justCulture": "Just Culture",
+            "actions": "Mesures & actions"
+        },
+        "causeTree": {
+            "finalFact": "Fait final",
+            "terminalCause": "Cause terminale",
+            "cause": "Cause",
+            "unlinked": "Éléments non rattachés"
+        },
+        
+        "summary": {
+            "title": "Synthèse",
+            "type": "Type",
+            "date": "Date",
+            "person": "Personne",
+            "category": "Catégorie",
+            "organization": "Organisation",
+            "location": "Lieu",
+            "projectManager": "Project Manager",
+            "siteSupervisor": "Chef de chantier",
+            "materialDamage": "Dégâts matériels",
+            "environmentalDamage": "Dégâts environnementaux",
+            "analysisType": "Type d'analyse",
+            "description": "Description / titre de l'événement"
+        },
+        "consequences": {
+            "title": "Conséquences",
+            "lostTime": "Arrêt de travail",
+            "modifiedDuty": "Travail adapté",
+            "permanentInjury": "Incapacité permanente",
+            "fatal": "Décès",
+            "materialDamageCost": "Coût dégâts matériels (€)"
+        },
+        "facts": {
+            "client": "Client",
+            "witnesses": "Témoins",
+            "usualPosition": "Poste habituel",
+            "activityBefore": "Que faisait la victime avant l'événement ?",
+            "description": "Description de l'événement",
+            "directCause": "Cause directe",
+            "thirdParty": "Tiers impliqué",
+            "policeReport": "PV de police",
+            "thirdPartyDetails": "Informations sur le tiers"
+        },
+        "classification": {
+            "deviation": "Déviation",
+            "materialAgent": "Agent matériel",
+            "injuryNature": "Nature de la lésion",
+            "injuryLocation": "Localisation"
+        },
+        "justCulture": {
+            "conclusion": "Conclusion",
+            "recommendation": "Recommandation"
+        },
+        "actions": {
+            "responsible": "Responsable",
+            "dueDate": "Échéance",
+            "progress": "Avancement"
+        }
+    },
+    "values": {
+        "eventType": {
+            "ACCIDENT": "Accident",
+            "INCIDENT": "Incident",
+            "NEAR_MISS": "Presqu'accident"
+        },
+        "analysisType": {
+            "ADVANCED": "Approfondie",
+            "NORMAL": "Normale"
+        },
+        "personCategory": {
+            "WORKER": "Ouvrier",
+            "EMPLOYEE": "Employé",
+            "TEMPORARY": "Intérimaire",
+            "SUBCONTRACTOR": "Sous-traitant",
+            "OTHER": "Autre"
+        },
+        "actionType": {
+            "CORRECTIVE": "Corrective",
+            "PREVENTIVE": "Préventive"
+        },
+        "scope": {
+            "LOCAL": "Locale",
+            "GLOBAL": "Globale"
+        }
+    }
+}
