@@ -4,10 +4,12 @@ import { rt } from './i18n/reportI18n'
 
 type AccidentReportsSectionProps = {
     onOpenAnalysisReport: () => void
+    onOpenSafetyFlash: () => void
 }
 
 function AccidentReportsSection({
     onOpenAnalysisReport,
+    onOpenSafetyFlash,
 }: AccidentReportsSectionProps) {
 
     return (
@@ -85,6 +87,7 @@ function AccidentReportsSection({
                         <button
                             type="button"
                             className="accident-reports__button accident-reports__button--secondary"
+                            onClick={onOpenSafetyFlash}
                         >
                             {rt('safetyFlash.prepare')}
                         </button>
