@@ -6,6 +6,7 @@ import {
 import './AccidentReportPreview.css'
 
 import {
+    downloadAnalysisReportPdf,
     getAnalysisReportPreview,
 } from './reportApi'
 
@@ -140,6 +141,11 @@ function AccidentReportPreview({
         error,
         setError,
     ] = useState<string | null>(null)
+
+    const [
+        isGeneratingPdf,
+        setIsGeneratingPdf,
+    ] = useState(false)
 
 
     function getHeepoFactorLabel(
@@ -436,7 +442,10 @@ function AccidentReportPreview({
                     onClick={async () => {
                         try {
                             setIsGeneratingPdf(true)
-                            await downloadAnalysisReportPdf(eventId, reportLanguage)
+                            await downloadAnalysisReportPdf(
+                                eventId,
+                                getReportLanguage(),
+                            )
                         } catch {
                             setError(rt('preview.pdfGenerationError'))
                         } finally {
