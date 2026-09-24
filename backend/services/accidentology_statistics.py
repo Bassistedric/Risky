@@ -174,9 +174,26 @@ def build_accidentology_summary(
         and action.due_date is not None
         and action.due_date < datetime.now().date()
     )
-    completion = (
-        done_count * 100 / len(actions)
-        if actions else 0
+
+    # Les actions LOCAL ont un avancement chiffré dans RISKY.
+    # Les actions GLOBAL sont pilotées dans le suivi 9001 :
+    # elles ne doivent donc pas être assimilées à 0 %.
+    local_actions = [
+        action for action in actions
+        if action.scope == "LOCAL"
+    ]
+    global_actions = [
+        action for action in actions
+        if action.scope == "GLOBAL"
+    ]
+    local_progress_values = [
+        action.progress_percent
+        for action in local_actions
+        if action.progress_percent is not None
+    ]
+    local_progress = (
+        sum(local_progress_values) / len(local_progress_values)
+        if local_progress_values else None
     )
 
     return {
@@ -223,7 +240,9 @@ def build_accidentology_summary(
         "actions": {
             "total": len(actions),
             "done": done_count,
-            "completion_percent": completion,
+            "completion_percent": local_progress,
+            "local_count": len(local_actions),
+            "global_9001_count": len(global_actions),
             "overdue": overdue_count,
             "statuses": [
                 {"status": status, "count": count}
