@@ -439,3 +439,4 @@
         grid-template-columns: 1fr;
     }
 }
+.report-preview__not-applicable{padding:18px;border:1px dashed #cfd7dc;border-radius:10px;background:#f7f9fa;color:#6d7880;font-style:italic;text-align:center}
