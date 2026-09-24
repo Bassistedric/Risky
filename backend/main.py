@@ -6,6 +6,7 @@ from .routers import (
     competencies,
     authorizations,
     session,
+    safety_statistics,
 )
 
 from .routers.accident import (
@@ -66,6 +67,12 @@ app.include_router(event_reports.router)
 
 # Routes génériques événement en dernier
 app.include_router(events.router)
+
+# ========================================================
+# ROUTES STATISTIQUES SÉCURITÉ
+# ========================================================
+
+app.include_router(safety_statistics.router)
 
 app.include_router(personnel.router)
 app.include_router(competencies.router)

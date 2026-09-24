@@ -246,7 +246,8 @@ class SafetyWorkHours(Base):
             "organization_id",
             "year",
             "month",
-            name="uq_safety_work_hours_period",
+            "dimension_key",
+            name="uq_safety_work_hours_period_dimension",
         ),
     )
 
@@ -271,6 +272,22 @@ class SafetyWorkHours(Base):
         nullable=False,
     )
 
+    workforce_category: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+    )
+
+    trade_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("trade_references.id"),
+        nullable=True,
+        index=True,
+    )
+
+    dimension_key: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
     worked_hours: Mapped[float] = mapped_column(
         Float,
         nullable=False,
@@ -290,6 +307,7 @@ class SafetyWorkHours(Base):
     )
 
     organization: Mapped["Organization"] = relationship()
+    trade: Mapped[Optional["TradeReference"]] = relationship()
 
 
 # ============================================================
@@ -332,6 +350,54 @@ class SafetyTarget(Base):
         Float,
         nullable=True,
     )
+
+    source: Mapped[Optional[str]] = mapped_column(
+        String(250),
+        nullable=True,
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        nullable=False,
+        default=datetime.now,
+        onupdate=datetime.now,
+    )
+
+    organization: Mapped["Organization"] = relationship()
+
+# ============================================================
+# INVALIDITÉS PERMANENTES — STATISTIQUES ANNUELLES
+# ============================================================
+
+class SafetyPermanentDisability(Base):
+    __tablename__ = "safety_permanent_disabilities"
+
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+    )
+
+    organization_id: Mapped[int] = mapped_column(
+        ForeignKey("organizations.id"),
+        nullable=False,
+        index=True,
+    )
+
+    year: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        index=True,
+    )
+
+    disability_percent: Mapped[float] = mapped_column(
+        Float,
+        nullable=False,
+    )
+
+    conventional_days: Mapped[float] = mapped_column(
+    Float,
+    nullable=False,
+    default=0,
+)
 
     source: Mapped[Optional[str]] = mapped_column(
         String(250),
