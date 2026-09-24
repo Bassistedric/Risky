@@ -72,6 +72,9 @@
       "TO_VALIDATE": "Te valideren",
       "DONE": "Uitgevoerd",
       "CLOSED": "Afgesloten"
-    }
+    },
+    "localActions": "lokale acties",
+    "global9001": "acties opgevolgd in 9001",
+    "localProgress": "Gemiddelde voortgang van lokale acties"
   }
 }
