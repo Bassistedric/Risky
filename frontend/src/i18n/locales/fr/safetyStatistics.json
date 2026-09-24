@@ -72,6 +72,9 @@
       "TO_VALIDATE": "À valider",
       "DONE": "Réalisée",
       "CLOSED": "Clôturée"
-    }
+    },
+    "localActions": "actions locales",
+    "global9001": "actions suivies en 9001",
+    "localProgress": "Avancement moyen des actions locales"
   }
 }
