@@ -108,6 +108,7 @@
             "sitePressure": "Worksite pressure",
             "thirdOrganizationOther": "Other third-party organizational cause"
         },
-        "noCauseSelected": "No cause selected"
+        "noCauseSelected": "No cause selected",
+        "analysisType": "Raport szczegółowy"
     }
 }
