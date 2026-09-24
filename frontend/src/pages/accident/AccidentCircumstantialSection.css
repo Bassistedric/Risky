@@ -30,3 +30,7 @@
 .accident-circumstantial__pill{display:inline-flex;align-items:center;padding:7px 10px;border:1px solid #cfc3b3;border-radius:999px;background:#eee6d9;color:#493e34;font-size:13px;font-weight:700}
 .accident-circumstantial__empty{color:#7b8185;font-size:13px;font-style:italic}
 @media(max-width:900px){.accident-circumstantial__category-grid{grid-template-columns:1fr}}
+
+.accident-circumstantial__category .accident-circumstantial__check{display:grid;grid-template-columns:minmax(0,1fr) 20px;align-items:center;gap:12px;margin:7px 0;width:100%;font-size:13px}
+.accident-circumstantial__category .accident-circumstantial__check span{grid-column:1;grid-row:1;white-space:nowrap;line-height:1.35}
+.accident-circumstantial__category .accident-circumstantial__check input{grid-column:2;grid-row:1;justify-self:center;margin:0;width:14px;height:14px}
