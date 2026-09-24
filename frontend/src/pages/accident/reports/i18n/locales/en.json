@@ -142,6 +142,23 @@
                 "sitePressure": "Worksite pressure",
                 "thirdOrganizationOther": "Other third-party organisational cause"
             }
+        },
+        "circumstantialDetails": {
+            "title": "Additional information for the detailed report",
+            "victimAddress": "Victim address",
+            "birthDate": "Date of birth",
+            "companySeniority": "Company seniority",
+            "jobSeniority": "Job seniority",
+            "employer": "Employer",
+            "employerAddress": "Employer address",
+            "insurer": "Occupational accident insurer",
+            "policyNumber": "Policy number",
+            "preventionAdvisor": "Prevention advisor",
+            "sippManager": "Internal prevention service manager",
+            "sepp": "External prevention service",
+            "seppContact": "External service contact details",
+            "contributors": "Persons involved in preparing the report",
+            "recipients": "Report recipients"
         }
     },
     "values": {
