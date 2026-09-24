@@ -1,1 +1,12 @@
-{}
+{
+  "dossier": {
+    "editTitle": {
+      "button": "Edytuj tytuł",
+      "save": "Zapisz",
+      "cancel": "Anuluj",
+      "required": "Tytuł nie może być pusty.",
+      "sessionRequired": "Aby zmienić tytuł, wymagane jest uwierzytelnienie.",
+      "updateError": "Nie można zmienić tytułu dokumentacji."
+    }
+  }
+}
