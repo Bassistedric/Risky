@@ -73,11 +73,11 @@ def build_accidentology_summary(
     event_count = len(events)
     normal_event_ids = {
         event.id for event in events
-        if event.analysis_type == "NORMAL"
+        if (event.analysis_type or "").upper() in {"NORMAL", "NORMALE"}
     }
     advanced_event_ids = {
         event.id for event in events
-        if event.analysis_type == "ADVANCED"
+        if (event.analysis_type or "").upper() in {"ADVANCED", "APPROFONDIE", "APPROFONDI"}
     }
 
     heepo_rows = (
