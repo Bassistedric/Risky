@@ -43,5 +43,35 @@
     "none": "No disability entered.",
     "disabilitySaved": "Disability saved.",
     "error": "The operation failed."
+  },
+  "accidentology": {
+    "title": "Accident analysis",
+    "subtitle": "Structured analysis of events over the selected period",
+    "loadError": "Unable to load accident analysis.",
+    "coverage": {
+      "heepo": "HEEPO completed",
+      "classification": "Classifications completed",
+      "just_culture": "Just Culture concluded",
+      "actions": "Actions"
+    },
+    "encoded": "entered",
+    "heepoFamilies": "HEEPO — families",
+    "heepoFactors": "HEEPO — main factors",
+    "classification": "Fedris classification",
+    "deviation": "Deviation",
+    "material_agent": "Material agent",
+    "injury_nature": "Nature of injury",
+    "injury_location": "Injury location",
+    "justCulture": "Just Culture conclusions",
+    "actions": "Action tracking",
+    "actionsEncoded": "actions entered",
+    "overdue": "overdue action(s)",
+    "actionStatus": {
+      "TODO": "To do",
+      "IN_PROGRESS": "In progress",
+      "TO_VALIDATE": "To validate",
+      "DONE": "Done",
+      "CLOSED": "Closed"
+    }
   }
 }
