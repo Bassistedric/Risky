@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './SafetyDashboardPage.css'
+import SafetyStatisticsDataPanel from './SafetyStatisticsDataPanel'
 
 const API='http://127.0.0.1:8000'
 type M={month:number;worked_hours:number;accidents_with_lost_time:number;accidents_without_lost_time:number;lost_days:number;incidents:number;near_misses:number;tf:number|null;tg:number|null;tf_ytd:number|null;tg_ytd:number|null}
@@ -14,7 +15,7 @@ export default function SafetyDashboardPage(){
  const [year,setYear]=useState(currentYear),[month,setMonth]=useState(now.getMonth()+1)
  const [trade,setTrade]=useState(''),[metric,setMetric]=useState<Metric>('tf')
  const [trades,setTrades]=useState<Trade[]>([]),[data,setData]=useState<S|null>(null)
- const [loading,setLoading]=useState(true),[error,setError]=useState('')
+ const [loading,setLoading]=useState(true),[error,setError]=useState(''),[refreshKey,setRefreshKey]=useState(0)
  const org=2 // VMA Sud; sera relié ensuite au sélecteur global RISKY.
 
  useEffect(()=>{fetch(`${API}/safety-statistics/trades`).then(r=>r.ok?r.json():[]).then(setTrades).catch(()=>{})},[])
@@ -23,7 +24,7 @@ export default function SafetyDashboardPage(){
   if(trade)q.set('trade_code',trade)
   fetch(`${API}/safety-statistics/summary?${q}`).then(r=>{if(!r.ok)throw Error(t('safetyStatistics.loadError'));return r.json()})
    .then(setData).catch(e=>{setData(null);setError(e.message)}).finally(()=>setLoading(false))
- },[year,month,trade,t])
+ },[year,month,trade,t,refreshKey])
 
  const locale=i18n.language==='fr'?'fr-BE':i18n.language==='nl'?'nl-BE':i18n.language==='pl'?'pl-PL':'en-GB'
  const n=(v:number|null|undefined,d=2)=>v==null?'—':new Intl.NumberFormat(locale,{minimumFractionDigits:d,maximumFractionDigits:d}).format(v)
@@ -63,6 +64,7 @@ export default function SafetyDashboardPage(){
     <div className="safety-dashboard__panel-head"><div><h3>{t('safetyStatistics.indicatorEvolution')}</h3><p>{t('safetyStatistics.ytdEvolution')}</p></div><div className="safety-dashboard__tabs">{(['tf','tg','accidents'] as Metric[]).map(k=><button type="button" key={k} className={metric===k?'active':''} onClick={()=>setMetric(k)}>{k==='tf'?'TF':k==='tg'?'TG':t('safetyStatistics.accidents')}</button>)}</div></div>
     <div className="safety-chart"><svg viewBox="0 0 950 300" role="img">{[60,107.5,155,202.5,250].map(y=><line key={y} x1="50" y1={y} x2="900" y2={y} className="grid"/>)}{ty!=null&&<line x1="50" y1={ty} x2="900" y2={ty} className="target"/>}{line&&<polyline points={line} className="line"/>}{xy.map((p,i)=>p&&<g key={p.m}><circle cx={p.x} cy={p.y} r="5"/><text x={p.x} y={p.y-12} textAnchor="middle">{n(p.v,metric==='accidents'?0:2)}</text><text x={p.x} y="280" textAnchor="middle">{mn(p.m)}</text></g>)}</svg></div>
    </section>
+   <SafetyStatisticsDataPanel organizationId={org} year={year} onChanged={()=>setRefreshKey(v=>v+1)}/>
    <section className="safety-dashboard__panel"><h3>{t('safetyStatistics.monthlyDetail')}</h3><div className="safety-dashboard__table-wrap"><table><thead><tr><th>{t('safetyStatistics.month')}</th><th>{t('safetyStatistics.hours')}</th><th title={t('safetyStatistics.lostTimeAccidents')}>ATI</th><th title={t('safetyStatistics.noLostTimeAccidents')}>ATSI</th><th>{t('safetyStatistics.lostDays')}</th><th>TF</th><th>TG</th><th>TF YTD</th><th>TG YTD</th></tr></thead><tbody>{data.monthly.map(r=><tr key={r.month}><td>{mn(r.month)}</td><td>{ni(r.worked_hours)}</td><td>{r.accidents_with_lost_time}</td><td>{r.accidents_without_lost_time}</td><td>{r.lost_days}</td><td>{n(r.tf)}</td><td>{n(r.tg)}</td><td>{n(r.tf_ytd)}</td><td>{n(r.tg_ytd)}</td></tr>)}</tbody></table></div></section>
   </>}
  </section>
