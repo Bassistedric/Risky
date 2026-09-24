@@ -12,6 +12,9 @@ from ..services.safety_statistics import (
     build_statistics_summary,
     build_work_hours_dimension_key,
 )
+from ..services.accidentology_statistics import (
+    build_accidentology_summary,
+)
 from ..services.safety_hours_import import (
     parse_rh_work_hours,
 )
@@ -55,6 +58,37 @@ def get_statistics_summary(
 
     finally:
         db.close()
+
+# ============================================================
+# ANALYSE ACCIDENTOLOGIQUE
+# ============================================================
+
+@router.get("/accidentology")
+def get_accidentology_statistics(
+    organization_id: int,
+    year: int,
+    month_to: int = 12,
+    trade_code: str | None = None,
+):
+    db = SessionLocal()
+
+    try:
+        try:
+            return build_accidentology_summary(
+                db,
+                organization_id=organization_id,
+                year=year,
+                month_to=month_to,
+                trade_code=trade_code,
+            )
+        except ValueError as exc:
+            raise HTTPException(
+                status_code=400,
+                detail=str(exc),
+            ) from exc
+    finally:
+        db.close()
+
 
 # ============================================================
 # RÉFÉRENTIEL MÉTIERS
