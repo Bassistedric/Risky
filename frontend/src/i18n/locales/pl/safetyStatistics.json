@@ -75,6 +75,7 @@
     },
     "localActions": "działania lokalne",
     "global9001": "działania monitorowane w 9001",
-    "localProgress": "Średni postęp działań lokalnych"
+    "localProgress": "Średni postęp działań lokalnych",
+    "other": "Pozostałe"
   }
 }
