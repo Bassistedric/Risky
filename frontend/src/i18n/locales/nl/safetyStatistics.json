@@ -43,5 +43,35 @@
     "none": "Geen invaliditeit ingevoerd.",
     "disabilitySaved": "Invaliditeit opgeslagen.",
     "error": "De bewerking is mislukt."
+  },
+  "accidentology": {
+    "title": "Ongevallenanalyse",
+    "subtitle": "Gestructureerde analyse van gebeurtenissen in de geselecteerde periode",
+    "loadError": "De ongevallenanalyse kon niet worden geladen.",
+    "coverage": {
+      "heepo": "HEEPO voltooid",
+      "classification": "Classificaties voltooid",
+      "just_culture": "Just Culture afgerond",
+      "actions": "Acties"
+    },
+    "encoded": "ingevoerd",
+    "heepoFamilies": "HEEPO — families",
+    "heepoFactors": "HEEPO — belangrijkste factoren",
+    "classification": "Fedris-classificatie",
+    "deviation": "Afwijking",
+    "material_agent": "Materiële agens",
+    "injury_nature": "Aard van het letsel",
+    "injury_location": "Plaats van het letsel",
+    "justCulture": "Just Culture-conclusies",
+    "actions": "Opvolging acties",
+    "actionsEncoded": "acties ingevoerd",
+    "overdue": "actie(s) over tijd",
+    "actionStatus": {
+      "TODO": "Te doen",
+      "IN_PROGRESS": "Bezig",
+      "TO_VALIDATE": "Te valideren",
+      "DONE": "Uitgevoerd",
+      "CLOSED": "Afgesloten"
+    }
   }
 }
