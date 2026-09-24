@@ -81,7 +81,7 @@ function AccidentCircumstantialSection({ eventId, mode }: Props) {
   <div className="accident-circumstantial__head"><div>
    <span className="accident-circumstantial__eyebrow">{at('circumstantial.required')}</span>
    <h2>{at(mode==='details'?'circumstantial.detailsTitle':'circumstantial.causesTitle')}</h2>
-  </div>{!editing&&<button className="risky-button" type="button" onClick={()=>setEditing(true)}>{at('common.edit')}</button>}</div>
+  </div>{!editing&&<button className="risky-button risky-edit-button" type="button" onClick={()=>setEditing(true)}>{at('common.edit')}</button>}</div>
   {mode==='details'?<div className="accident-circumstantial__grid">
    {detailFields.map(key=><label key={key} className={key==='report_contributors'||key==='report_recipients'?'wide':''}>
     <span>{at('circumstantial.fields.'+key)}</span>
