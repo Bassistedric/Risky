@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import './SafetyFlashEditor.css'
-import { downloadSafetyFlashPdf, getSafetyFlashPreview } from './reportApi'
+import { API_BASE_URL, downloadSafetyFlashPdf, getSafetyFlashPreview } from './reportApi'
 import { getReportLanguage, rt } from './i18n/reportI18n'
-import { API_BASE_URL } from '../../../config/api'
 import vmaLogo from '../../../assets/images/vma_logo.jpg'
 import zeroLogo from '../../../assets/images/Go_for_zero.jpg'
 
