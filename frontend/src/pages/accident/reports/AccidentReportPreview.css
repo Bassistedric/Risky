@@ -458,3 +458,16 @@
 .report-preview__result-grid--dismissal>div{background:#fef2f2}
 .report-preview__result-grid--neutral{border-left-color:#64748b;background:#f8fafc}
 .report-preview__result-grid--neutral>div{background:#f8fafc}
+
+/* ========================================================
+   IMPRESSION / PDF
+   ======================================================== */
+@page{size:A4 portrait;margin:12mm}
+@media print{
+    body{background:#fff!important}
+    .app-sidebar,.sidebar,.report-preview__toolbar{display:none!important}
+    .report-preview{max-width:none;margin:0;padding:0}
+    .report-preview__section{break-inside:avoid;box-shadow:none;background:#fff;margin-bottom:10mm}
+    .report-preview__photo,.report-preview__classification>div,.report-preview__list-item,.report-preview__decision,.report-preview__action{break-inside:avoid}
+    .report-preview__photo a{height:220px}
+}
