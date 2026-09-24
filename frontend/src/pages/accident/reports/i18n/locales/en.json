@@ -106,7 +106,8 @@
         },
         "analysisType": {
             "ADVANCED": "Advanced",
-            "NORMAL": "Normal"
+            "NORMAL": "Normal",
+            "CIRCUMSTANTIAL": "Detailed report"
         },
         "personCategory": {
             "WORKER": "Worker",
