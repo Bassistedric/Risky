@@ -76,6 +76,10 @@
     "localActions": "działania lokalne",
     "global9001": "działania monitorowane w 9001",
     "localProgress": "Średni postęp działań lokalnych",
-    "other": "Pozostałe"
-  }
+    "other": "Pozostałe",
+    "externalWorkers": "Monitoring zewnętrzny",
+    "temporaryWorkers": "wypadek/wypadki pracowników tymczasowych",
+    "subcontractors": "wypadek/wypadki podwykonawców"
+  },
+  "modifiedDutyDays": "Dni pracy dostosowanej"
 }
