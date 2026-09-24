@@ -479,7 +479,14 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     story += [Spacer(1, 5 * mm)]
     # Logo VMA corporate — commun à toutes les entités.
     logo_candidates = [
+        # Source Vite actuelle : frontend/src/assets/images/vma_logo.jpg
+        Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images" / "vma_logo.jpg",
+        Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images" / "vma_logo.jpeg",
+        Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images" / "vma_logo.png",
+        # Fallbacks pour un futur packaging backend autonome.
+        Path(__file__).resolve().parents[3] / "assets" / "vma_logo.jpg",
         Path(__file__).resolve().parents[3] / "assets" / "vma_logo.png",
+        Path(__file__).resolve().parents[3] / "frontend" / "public" / "vma_logo.jpg",
         Path(__file__).resolve().parents[3] / "frontend" / "public" / "vma_logo.png",
     ]
     logo_path = next((p for p in logo_candidates if p.exists()), None)
