@@ -1458,6 +1458,7 @@ class EventCircumstantialReport(Base):
     primary_personal_protection: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     primary_environmental_factors: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     primary_other: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    cause_selections_json: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     primary_details: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     secondary_organization: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
