@@ -23,5 +23,25 @@
   "accidents": "Accidents",
   "monthlyDetail": "Détail mensuel",
   "month": "Mois",
-  "hours": "Heures"
+  "hours": "Heures",
+  "data": {
+    "title": "Données statistiques",
+    "rhTitle": "Import des heures RH",
+    "rhHelp": "Importer le fichier mensuel RH Excel. Un aperçu est affiché avant l'enregistrement.",
+    "preview": "Aperçu",
+    "apply": "Valider l'import",
+    "throughMonth": "jusqu'au mois {{month}}",
+    "records": "enregistrements",
+    "importDone": "Import terminé : {{count}} enregistrements.",
+    "targetsTitle": "Objectifs CFE",
+    "targetsHelp": "Limites annuelles utilisées pour le suivi TF et TG.",
+    "save": "Enregistrer",
+    "targetsSaved": "Objectifs CFE enregistrés.",
+    "disabilityTitle": "Invalidité permanente",
+    "disabilityHelp": "Encoder les taux communiqués par AXA. Le JGC reste à 0 tant que le barème officiel n'est pas configuré.",
+    "add": "Ajouter",
+    "none": "Aucune invalidité encodée.",
+    "disabilitySaved": "Invalidité enregistrée.",
+    "error": "L'opération a échoué."
+  }
 }
