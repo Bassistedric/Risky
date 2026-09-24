@@ -476,6 +476,20 @@ function AccidentReportPreview({
                     </h2>
                 </div>
 
+                <div className="report-preview__text-card">
+                    <span>
+                        {rt(
+                            'preview.summary.description',
+                        )}
+                    </span>
+
+                    <p>
+                        {valueOrDash(
+                            event.description,
+                        )}
+                    </p>
+                </div>
+
                 <div className="report-preview__summary-layout">
 
                     {/* =============================================
@@ -640,10 +654,12 @@ function AccidentReportPreview({
                                 </span>
 
                                 <strong>
-                                    {translatedValue(
-                                        'analysisType',
-                                        event.analysis_type,
-                                    )}
+                                    {circumstantial_report
+                                        ? rt('circumstantial.analysisType')
+                                        : translatedValue(
+                                            'analysisType',
+                                            event.analysis_type,
+                                        )}
                                 </strong>
                             </div>
                         </div>
@@ -752,19 +768,7 @@ function AccidentReportPreview({
                     </div>
                 </div>
 
-                <div className="report-preview__text-card">
-                    <span>
-                        {rt(
-                            'preview.summary.description',
-                        )}
-                    </span>
 
-                    <p>
-                        {valueOrDash(
-                            event.description,
-                        )}
-                    </p>
-                </div>
             </section>
 
 
