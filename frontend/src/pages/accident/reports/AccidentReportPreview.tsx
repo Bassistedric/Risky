@@ -396,6 +396,7 @@ function AccidentReportPreview({
         event,
         facts,
         classification,
+        circumstantial_report,
         photos,
         heepo,
         cause_tree,
@@ -919,6 +920,52 @@ function AccidentReportPreview({
 
 
             {/* =================================================
+                ACCIDENT GRAVE — DONNÉES COMPLÉMENTAIRES
+            ================================================= */}
+
+            {sections.circumstantial_details && circumstantial_report && (
+                <section className="report-preview__section report-preview__section--circumstantial">
+                    <div className="report-preview__section-title">
+                        <span>03</span>
+                        <h2>Données complémentaires du rapport circonstancié</h2>
+                    </div>
+                    <div className="report-preview__circumstantial-grid">
+                        {[
+                            ['Adresse de la victime', circumstantial_report.victim_address],
+                            ['Date de naissance', circumstantial_report.victim_birth_date],
+                            ['Ancienneté dans l’entreprise', circumstantial_report.victim_company_seniority],
+                            ['Ancienneté dans la fonction', circumstantial_report.victim_job_seniority],
+                            ['Employeur', circumstantial_report.employer_name],
+                            ['Adresse de l’employeur', circumstantial_report.employer_address],
+                            ['Assureur accidents du travail', circumstantial_report.insurer_name],
+                            ['N° de police', circumstantial_report.insurance_policy_number],
+                            ['Conseiller en prévention', circumstantial_report.prevention_advisor],
+                            ['Responsable SIPP', circumstantial_report.sipp_manager],
+                            ['SEPP', circumstantial_report.sepp_name],
+                            ['Coordonnées SEPP', circumstantial_report.sepp_contact],
+                        ].map(([label, value]) => (
+                            <div className="report-preview__circumstantial-card" key={label}>
+                                <span>{label}</span>
+                                <strong>{valueOrNotProvided(value)}</strong>
+                            </div>
+                        ))}
+                    </div>
+                    {circumstantial_report.report_contributors && (
+                        <div className="report-preview__text-card">
+                            <span>Personnes ayant participé à l’élaboration</span>
+                            <p>{circumstantial_report.report_contributors}</p>
+                        </div>
+                    )}
+                    {circumstantial_report.report_recipients && (
+                        <div className="report-preview__text-card">
+                            <span>Destinataires du rapport</span>
+                            <p>{circumstantial_report.report_recipients}</p>
+                        </div>
+                    )}
+                </section>
+            )}
+
+            {/* =================================================
                 DOCUMENTATION PHOTOGRAPHIQUE
             ================================================= */}
 
@@ -926,7 +973,7 @@ function AccidentReportPreview({
                 photos.length > 0 && (
                     <section className="report-preview__section">
                         <div className="report-preview__section-title">
-                            <span>03</span>
+                            <span>04</span>
 
                             <h2>
                                 {rt(
@@ -987,7 +1034,7 @@ function AccidentReportPreview({
                 classification && (
                     <section className="report-preview__section">
                         <div className="report-preview__section-title">
-                            <span>04</span>
+                            <span>05</span>
 
                             <h2>
                                 {rt(
@@ -1074,13 +1121,53 @@ function AccidentReportPreview({
 
 
             {/* =================================================
+                ACCIDENT GRAVE — CAUSES COMPLÉMENTAIRES
+            ================================================= */}
+
+            {sections.circumstantial_causes && circumstantial_report && (() => {
+                let selected: string[] = []
+                try {
+                    selected = JSON.parse(circumstantial_report.cause_selections_json || '[]')
+                } catch {
+                    selected = []
+                }
+                const groups = [
+                    { title: 'Causes primaires · matérielles', codes: ['product','machine','tool','orderCleanliness','transport','materialOther','collectiveAbsent','collectiveMissing','collectiveDisabled','collectiveOther','ppeMisuse','ppeAbsent','ppeUnsuitable','ppeOther','lighting','noise','temperature','environmentOther'], details: circumstantial_report.primary_details },
+                    { title: 'Causes secondaires · organisationnelles', codes: ['riskAnalysis','instructions','sippOperation','organizationOther','followupControl','trainingGap','communicationOther','distraction','intentionalNegligence','fatigue','incompetence','haste','humanOther'], details: circumstantial_report.secondary_details },
+                    { title: 'Causes tertiaires · tiers', codes: ['designManufacturing','noncompliantEquipment','badAdvice','instructionsNotFollowed','sitePressure','thirdOrganizationOther'], details: circumstantial_report.tertiary_details },
+                ]
+                return (
+                    <section className="report-preview__section report-preview__section--circumstantial">
+                        <div className="report-preview__section-title">
+                            <span>06</span>
+                            <h2>Analyse complémentaire des causes</h2>
+                        </div>
+                        <div className="report-preview__circumstantial-causes">
+                            {groups.map(group => (
+                                <div className="report-preview__circumstantial-cause" key={group.title}>
+                                    <h3>{group.title}</h3>
+                                    <div className="report-preview__circumstantial-pills">
+                                        {group.codes.filter(code => selected.includes(code)).map(code => (
+                                            <span key={code}>✓ {rt('circumstantial.options.' + code)}</span>
+                                        ))}
+                                        {!group.codes.some(code => selected.includes(code)) && <em>Aucune cause sélectionnée</em>}
+                                    </div>
+                                    {group.details && <p>{group.details}</p>}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )
+            })()}
+
+            {/* =================================================
                 HEEPO
             ================================================= */}
 
             {sections.heepo && (
                 <section className="report-preview__section">
                     <div className="report-preview__section-title">
-                        <span>05</span>
+                        <span>07</span>
 
                         <h2>
                             {rt(
@@ -1128,7 +1215,7 @@ function AccidentReportPreview({
 
             <section className="report-preview__section">
                 <div className="report-preview__section-title">
-                    <span>06</span>
+                    <span>08</span>
                     <h2>{rt('preview.sections.justCulture')}</h2>
                 </div>
 
@@ -1172,7 +1259,7 @@ function AccidentReportPreview({
                 cause_tree && (
                     <section className="report-preview__section">
                         <div className="report-preview__section-title">
-                            <span>07</span>
+                            <span>09</span>
 
                             <h2>
                                 {rt(
@@ -1200,7 +1287,7 @@ function AccidentReportPreview({
             {sections.actions && (
                 <section className="report-preview__section">
                     <div className="report-preview__section-title">
-                        <span>08</span>
+                        <span>10</span>
 
                         <h2>
                             {rt(
