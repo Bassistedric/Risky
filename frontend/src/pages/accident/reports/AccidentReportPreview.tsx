@@ -1097,99 +1097,42 @@ function AccidentReportPreview({
                 JUST CULTURE
             ================================================= */}
 
-            {sections.just_culture &&
-                just_culture && (
-                    <section className="report-preview__section">
-                        <div className="report-preview__section-title">
-                            <span>06</span>
+            <section className="report-preview__section">
+                <div className="report-preview__section-title">
+                    <span>06</span>
+                    <h2>{rt('preview.sections.justCulture')}</h2>
+                </div>
 
-                            <h2>
-                                {rt(
-                                    'preview.sections.justCulture',
-                                )}
-                            </h2>
-                        </div>
-
+                {just_culture ? (
+                    <>
                         <div className="report-preview__decision-path">
-                            {just_culture.history.map(
-                                (step) => (
-                                    <div
-                                        key={
-                                            step.step_order
-                                        }
-                                        className="report-preview__decision"
-                                    >
-                                        <span>
-                                            {
-                                                step.step_order
-                                            }
-                                        </span>
-
-                                        <div>
-                                            <p>
-                                                {getLocalizedReportText(
-                                                    step.question_text,
-                                                    step.question_text_fr,
-                                                    step.question_text_nl,
-                                                    step.question_text_en,
-                                                    step.question_text_pl,
-                                                )}
-                                            </p>
-
-                                            <strong>
-                                                {getLocalizedReportText(
-                                                    step.answer_label,
-                                                    step.answer_label_fr,
-                                                    step.answer_label_nl,
-                                                    step.answer_label_en,
-                                                    step.answer_label_pl,
-                                                )}
-                                            </strong>
-                                        </div>
+                            {just_culture.history.map((step) => (
+                                <div key={step.step_order} className="report-preview__decision">
+                                    <span>{step.step_order}</span>
+                                    <div>
+                                        <p>{getLocalizedReportText(step.question_text, step.question_text_fr, step.question_text_nl, step.question_text_en, step.question_text_pl)}</p>
+                                        <strong>{getLocalizedReportText(step.answer_label, step.answer_label_fr, step.answer_label_nl, step.answer_label_en, step.answer_label_pl)}</strong>
                                     </div>
-                                ),
-                            )}
+                                </div>
+                            ))}
                         </div>
-
                         <div className="report-preview__result-grid">
                             <div>
-                                <span>
-                                    {rt(
-                                        'preview.justCulture.conclusion',
-                                    )}
-                                </span>
-
-                                <strong>
-                                    {getLocalizedReportText(
-                                        just_culture.conclusion_label,
-                                        just_culture.conclusion_label_fr,
-                                        just_culture.conclusion_label_nl,
-                                        just_culture.conclusion_label_en,
-                                        just_culture.conclusion_label_pl,
-                                    )}
-                                </strong>
+                                <span>{rt('preview.justCulture.conclusion')}</span>
+                                <strong>{getLocalizedReportText(just_culture.conclusion_label, just_culture.conclusion_label_fr, just_culture.conclusion_label_nl, just_culture.conclusion_label_en, just_culture.conclusion_label_pl)}</strong>
                             </div>
-
                             <div>
-                                <span>
-                                    {rt(
-                                        'preview.justCulture.recommendation',
-                                    )}
-                                </span>
-
-                                <strong>
-                                    {getLocalizedReportText(
-                                        just_culture.recommendation_label,
-                                        just_culture.recommendation_label_fr,
-                                        just_culture.recommendation_label_nl,
-                                        just_culture.recommendation_label_en,
-                                        just_culture.recommendation_label_pl,
-                                    )}
-                                </strong>
+                                <span>{rt('preview.justCulture.recommendation')}</span>
+                                <strong>{getLocalizedReportText(just_culture.recommendation_label, just_culture.recommendation_label_fr, just_culture.recommendation_label_nl, just_culture.recommendation_label_en, just_culture.recommendation_label_pl)}</strong>
                             </div>
                         </div>
-                    </section>
+                    </>
+                ) : (
+                    <div className="report-preview__not-applicable">
+                        {rt('common.notApplicable')}
+                    </div>
                 )}
+            </section>
 
 
             {/* =================================================
