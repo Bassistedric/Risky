@@ -92,6 +92,26 @@ def build_accident_report_preview(
             if event.organization
             else None
         ),
+        # Pour la couverture : lorsqu'un événement est rattaché à un nœud métier
+        # (HVAC / REF / ELEC...), distinguer l'entité juridique du métier.
+        "entity_name": (
+            event.organization.parent.name
+            if event.organization
+            and event.organization.entity_type == "TRADE"
+            and event.organization.parent
+            else (
+                event.organization.name
+                if event.organization
+                and event.organization.entity_type == "ENTITY"
+                else None
+            )
+        ),
+        "trade_name": (
+            event.organization.name
+            if event.organization
+            and event.organization.entity_type == "TRADE"
+            else None
+        ),
 
         "project_manager": event.project_manager,
         "site_supervisor": event.site_supervisor,
