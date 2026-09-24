@@ -11,6 +11,8 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     BaseDocTemplate, Frame, Image, KeepTogether, PageBreak, PageTemplate,
     Paragraph, Spacer, Table, TableStyle, Flowable, CondPageBreak,
@@ -33,6 +35,20 @@ YELLOW = colors.HexColor("#FFF8D9")
 ORANGE_LIGHT = colors.HexColor("#FFF0E4")
 RED = colors.HexColor("#FDECEC")
 
+# Police Unicode : Helvetica Type1 ne contient pas les caractères polonais (ł, ę, ś, ź...).
+# Arial est disponible sur les postes Windows VMA ; DejaVu sert de fallback portable.
+_FONT_CANDIDATES = [
+    (Path("C:/Windows/Fonts/arial.ttf"), Path("C:/Windows/Fonts/arialbd.ttf")),
+    (Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"), Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")),
+]
+RISKY_FONT, RISKY_FONT_BOLD = "Helvetica", "Helvetica-Bold"
+for _regular, _bold in _FONT_CANDIDATES:
+    if _regular.exists() and _bold.exists():
+        pdfmetrics.registerFont(TTFont("RiskySans", str(_regular)))
+        pdfmetrics.registerFont(TTFont("RiskySans-Bold", str(_bold)))
+        RISKY_FONT, RISKY_FONT_BOLD = "RiskySans", "RiskySans-Bold"
+        break
+
 I18N = {
     "fr": {
         "report": "RAPPORT D’ANALYSE D’ÉVÉNEMENT", "contents": "Table des matières",
@@ -50,7 +66,8 @@ I18N = {
         "direct_cause": "Cause directe", "deviation": "Déviation", "agent": "Agent matériel",
         "injury": "Nature de la lésion", "injury_location": "Localisation de la lésion",
         "conclusion": "Conclusion", "recommendation": "Recommandation", "action": "Action",
-        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement", "signatures": "Avis & signatures", "name_function": "Initiales", "victim_sign": "Victime", "hierarchy_sign": "Ligne hiérarchique", "date": "Date", "signature": "Signature", "employer_sign": "Employeur / représentant", "prevention_sign": "Conseiller en prévention / SIPP", "cause": "CAUSE", "terminal_cause": "CAUSE TERMINALE", "final_fact": "FAIT FINAL",
+        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement", "signatures": "Avis & signatures", "name_function": "Initiales", "victim_sign": "Victime", "hierarchy_sign": "Ligne hiérarchique", "date": "Date", "signature": "Signature", "employer_sign": "Employeur / représentant", "prevention_sign": "Conseiller en prévention / SIPP", "cause": "CAUSE", "terminal_cause": "CAUSE TERMINALE", "final_fact": "FAIT FINAL",,
+        "circ_victim_address":"Adresse de la victime","circ_birth_date":"Date de naissance","circ_company_seniority":"Ancienneté dans l’entreprise","circ_job_seniority":"Ancienneté dans la fonction","circ_employer":"Employeur","circ_employer_address":"Adresse de l’employeur","circ_insurer":"Assureur accidents du travail","circ_policy":"N° de police","circ_advisor":"Conseiller en prévention","circ_sipp_manager":"Responsable SIPP","circ_sepp":"SEPP","circ_sepp_contact":"Coordonnées SEPP","circ_contributors":"Personnes ayant participé à l’élaboration","circ_recipients":"Destinataires du rapport","primary_causes":"Causes primaires · matérielles","secondary_causes":"Causes secondaires · organisationnelles","tertiary_causes":"Causes tertiaires · tiers"
     },
     "nl": {
         "report": "ANALYSERAPPORT VAN EEN GEBEURTENIS", "contents": "Inhoudsopgave",
@@ -68,7 +85,8 @@ I18N = {
         "deviation": "Afwijking", "agent": "Materiële agens", "injury": "Aard van het letsel",
         "injury_location": "Plaats van het letsel", "conclusion": "Conclusie",
         "recommendation": "Aanbeveling", "action": "Actie", "responsible": "Verantwoordelijke",
-        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang", "signatures": "Advies & handtekeningen", "name_function": "Initialen", "victim_sign": "Slachtoffer", "hierarchy_sign": "Hiërarchische lijn", "date": "Datum", "signature": "Handtekening", "employer_sign": "Werkgever / vertegenwoordiger", "prevention_sign": "Preventieadviseur / IDPBW", "cause": "OORZAAK", "terminal_cause": "EINDOORZAAK", "final_fact": "EINDGEBEURTENIS",
+        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang", "signatures": "Advies & handtekeningen", "name_function": "Initialen", "victim_sign": "Slachtoffer", "hierarchy_sign": "Hiërarchische lijn", "date": "Datum", "signature": "Handtekening", "employer_sign": "Werkgever / vertegenwoordiger", "prevention_sign": "Preventieadviseur / IDPBW", "cause": "OORZAAK", "terminal_cause": "EINDOORZAAK", "final_fact": "EINDGEBEURTENIS",,
+        "circ_victim_address":"Adres van het slachtoffer","circ_birth_date":"Geboortedatum","circ_company_seniority":"Anciënniteit in de onderneming","circ_job_seniority":"Anciënniteit in de functie","circ_employer":"Werkgever","circ_employer_address":"Adres van de werkgever","circ_insurer":"Arbeidsongevallenverzekeraar","circ_policy":"Polisnummer","circ_advisor":"Preventieadviseur","circ_sipp_manager":"Verantwoordelijke IDPBW","circ_sepp":"EDPBW","circ_sepp_contact":"Contactgegevens EDPBW","circ_contributors":"Personen die aan het verslag hebben meegewerkt","circ_recipients":"Bestemmelingen van het verslag","primary_causes":"Primaire oorzaken · materieel","secondary_causes":"Secundaire oorzaken · organisatorisch","tertiary_causes":"Tertiaire oorzaken · derden"
     },
     "en": {
         "report": "EVENT ANALYSIS REPORT", "contents": "Table of contents",
@@ -85,7 +103,8 @@ I18N = {
         "description": "Event description", "direct_cause": "Direct cause", "deviation": "Deviation",
         "agent": "Material agent", "injury": "Nature of injury", "injury_location": "Injury location",
         "conclusion": "Conclusion", "recommendation": "Recommendation", "action": "Action",
-        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress", "signatures": "Opinion & signatures", "name_function": "Initials", "victim_sign": "Victim", "hierarchy_sign": "Line management", "date": "Date", "signature": "Signature", "employer_sign": "Employer / representative", "prevention_sign": "Prevention advisor / internal service", "cause": "CAUSE", "terminal_cause": "TERMINAL CAUSE", "final_fact": "FINAL FACT",
+        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress", "signatures": "Opinion & signatures", "name_function": "Initials", "victim_sign": "Victim", "hierarchy_sign": "Line management", "date": "Date", "signature": "Signature", "employer_sign": "Employer / representative", "prevention_sign": "Prevention advisor / internal service", "cause": "CAUSE", "terminal_cause": "TERMINAL CAUSE", "final_fact": "FINAL FACT",,
+        "circ_victim_address":"Victim’s address","circ_birth_date":"Date of birth","circ_company_seniority":"Company seniority","circ_job_seniority":"Seniority in the function","circ_employer":"Employer","circ_employer_address":"Employer’s address","circ_insurer":"Occupational accident insurer","circ_policy":"Policy number","circ_advisor":"Prevention advisor","circ_sipp_manager":"Internal prevention service manager","circ_sepp":"External prevention service","circ_sepp_contact":"External service contact details","circ_contributors":"Persons involved in preparing the report","circ_recipients":"Report recipients","primary_causes":"Primary causes · material","secondary_causes":"Secondary causes · organisational","tertiary_causes":"Tertiary causes · third parties"
     },
     "pl": {
         "report": "RAPORT Z ANALIZY ZDARZENIA", "contents": "Spis treści",
@@ -103,7 +122,8 @@ I18N = {
         "deviation": "Odchylenie", "agent": "Czynnik materialny", "injury": "Rodzaj urazu",
         "injury_location": "Umiejscowienie urazu", "conclusion": "Wniosek",
         "recommendation": "Zalecenie", "action": "Działanie", "responsible": "Odpowiedzialny",
-        "due": "Termin", "priority": "Priorytet", "progress": "Postęp", "signatures": "Opinia i podpisy", "name_function": "Inicjały", "victim_sign": "Poszkodowany", "hierarchy_sign": "Linia hierarchiczna", "date": "Data", "signature": "Podpis", "employer_sign": "Pracodawca / przedstawiciel", "prevention_sign": "Doradca ds. prewencji / służba wewnętrzna", "cause": "PRZYCZYNA", "terminal_cause": "PRZYCZYNA KOŃCOWA", "final_fact": "ZDARZENIE KOŃCOWE",
+        "due": "Termin", "priority": "Priorytet", "progress": "Postęp", "signatures": "Opinia i podpisy", "name_function": "Inicjały", "victim_sign": "Poszkodowany", "hierarchy_sign": "Linia hierarchiczna", "date": "Data", "signature": "Podpis", "employer_sign": "Pracodawca / przedstawiciel", "prevention_sign": "Doradca ds. prewencji / służba wewnętrzna", "cause": "PRZYCZYNA", "terminal_cause": "PRZYCZYNA KOŃCOWA", "final_fact": "ZDARZENIE KOŃCOWE",,
+        "circ_victim_address":"Adres poszkodowanego","circ_birth_date":"Data urodzenia","circ_company_seniority":"Staż pracy w przedsiębiorstwie","circ_job_seniority":"Staż na stanowisku","circ_employer":"Pracodawca","circ_employer_address":"Adres pracodawcy","circ_insurer":"Ubezpieczyciel wypadków przy pracy","circ_policy":"Numer polisy","circ_advisor":"Doradca ds. prewencji","circ_sipp_manager":"Kierownik wewnętrznej służby prewencji","circ_sepp":"Zewnętrzna służba prewencji","circ_sepp_contact":"Dane kontaktowe zewnętrznej służby","circ_contributors":"Osoby uczestniczące w opracowaniu raportu","circ_recipients":"Odbiorcy raportu","primary_causes":"Przyczyny pierwotne · materialne","secondary_causes":"Przyczyny wtórne · organizacyjne","tertiary_causes":"Przyczyny trzeciorzędne · strony trzecie"
     },
 }
 
@@ -134,10 +154,10 @@ class RiskyDocTemplate(BaseDocTemplate):
             # Pied de couverture fixe : hors du flux Platypus.
             canvas.setStrokeColor(MID)
             canvas.line(18 * mm, 18 * mm, A4[0] - 18 * mm, 18 * mm)
-            canvas.setFont("Helvetica", 7.2)
+            canvas.setFont(RISKY_FONT, 7.2)
             canvas.setFillColor(MUTED)
             canvas.drawString(18 * mm, 11 * mm, self.cover_generated_label)
-            canvas.setFont("Helvetica-Bold", 15)
+            canvas.setFont(RISKY_FONT_BOLD, 15)
             canvas.setFillColor(ORANGE)
             canvas.drawRightString(A4[0] - 18 * mm, 10.5 * mm, "R")
         elif doc.page > 2:
@@ -145,12 +165,12 @@ class RiskyDocTemplate(BaseDocTemplate):
             canvas.rect(0, A4[1] - 8 * mm, A4[0], 8 * mm, fill=1, stroke=0)
             canvas.setFillColor(ORANGE)
             canvas.rect(0, A4[1] - 8 * mm, 34 * mm, 8 * mm, fill=1, stroke=0)
-            canvas.setFont("Helvetica-Bold", 7.5)
+            canvas.setFont(RISKY_FONT_BOLD, 7.5)
             canvas.setFillColor(colors.white)
             canvas.drawString(38 * mm, A4[1] - 5.4 * mm, f"RISKY QHSE  ·  {self.event_number}")
             canvas.setStrokeColor(MID)
             canvas.line(18 * mm, 14 * mm, A4[0] - 18 * mm, 14 * mm)
-            canvas.setFont("Helvetica", 7.5)
+            canvas.setFont(RISKY_FONT, 7.5)
             canvas.setFillColor(MUTED)
             canvas.drawString(18 * mm, 9 * mm, self.report_title[:70])
             canvas.drawRightString(A4[0] - 18 * mm, 9 * mm, f"Page {doc.page}")
@@ -163,164 +183,7 @@ class RiskyDocTemplate(BaseDocTemplate):
 
 
 
-CIRC_CAUSE_LABELS = {
-    "fr": {
-        "product": "Produits",
-        "machine": "Machines",
-        "tool": "Outils",
-        "orderCleanliness": "Ordre et propreté",
-        "transport": "Moyens de transport",
-        "materialOther": "Autres facteurs matériels",
-        "collectiveAbsent": "EPC absent",
-        "collectiveMissing": "EPC manquant ou enlevé",
-        "collectiveDisabled": "EPC court-circuité",
-        "collectiveOther": "Autre défaut d’EPC",
-        "ppeMisuse": "Mauvais emploi de l’EPI",
-        "ppeAbsent": "EPI absent",
-        "ppeUnsuitable": "EPI pas adapté",
-        "ppeOther": "Autre défaut d’EPI",
-        "lighting": "Éclairage",
-        "noise": "Bruit",
-        "temperature": "Température",
-        "environmentOther": "Autre facteur environnemental",
-        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
-        "instructions": "Instructions manquantes ou incomplètes",
-        "sippOperation": "Fonctionnement du SIPP",
-        "organizationOther": "Autre cause organisationnelle",
-        "followupControl": "Contrôle lacunaire du suivi des instructions",
-        "trainingGap": "Manque de formation",
-        "communicationOther": "Autre cause de communication",
-        "distraction": "Distraction",
-        "intentionalNegligence": "Négligence intentionnelle",
-        "fatigue": "Fatigue",
-        "incompetence": "Incompétence",
-        "haste": "Précipitation",
-        "humanOther": "Autre facteur humain",
-        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
-        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
-        "badAdvice": "Mauvais avis",
-        "instructionsNotFollowed": "Non-suivi des instructions",
-        "sitePressure": "Pression de chantier",
-        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
-    },
-    "pl": {
-        "product": "Produits",
-        "machine": "Machines",
-        "tool": "Outils",
-        "orderCleanliness": "Ordre et propreté",
-        "transport": "Moyens de transport",
-        "materialOther": "Autres facteurs matériels",
-        "collectiveAbsent": "EPC absent",
-        "collectiveMissing": "EPC manquant ou enlevé",
-        "collectiveDisabled": "EPC court-circuité",
-        "collectiveOther": "Autre défaut d’EPC",
-        "ppeMisuse": "Mauvais emploi de l’EPI",
-        "ppeAbsent": "EPI absent",
-        "ppeUnsuitable": "EPI pas adapté",
-        "ppeOther": "Autre défaut d’EPI",
-        "lighting": "Éclairage",
-        "noise": "Bruit",
-        "temperature": "Température",
-        "environmentOther": "Autre facteur environnemental",
-        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
-        "instructions": "Instructions manquantes ou incomplètes",
-        "sippOperation": "Fonctionnement du SIPP",
-        "organizationOther": "Autre cause organisationnelle",
-        "followupControl": "Contrôle lacunaire du suivi des instructions",
-        "trainingGap": "Manque de formation",
-        "communicationOther": "Autre cause de communication",
-        "distraction": "Distraction",
-        "intentionalNegligence": "Négligence intentionnelle",
-        "fatigue": "Fatigue",
-        "incompetence": "Incompétence",
-        "haste": "Précipitation",
-        "humanOther": "Autre facteur humain",
-        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
-        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
-        "badAdvice": "Mauvais avis",
-        "instructionsNotFollowed": "Non-suivi des instructions",
-        "sitePressure": "Pression de chantier",
-        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
-    },
-    "en": {
-        "product": "Produits",
-        "machine": "Machines",
-        "tool": "Outils",
-        "orderCleanliness": "Ordre et propreté",
-        "transport": "Moyens de transport",
-        "materialOther": "Autres facteurs matériels",
-        "collectiveAbsent": "EPC absent",
-        "collectiveMissing": "EPC manquant ou enlevé",
-        "collectiveDisabled": "EPC court-circuité",
-        "collectiveOther": "Autre défaut d’EPC",
-        "ppeMisuse": "Mauvais emploi de l’EPI",
-        "ppeAbsent": "EPI absent",
-        "ppeUnsuitable": "EPI pas adapté",
-        "ppeOther": "Autre défaut d’EPI",
-        "lighting": "Éclairage",
-        "noise": "Bruit",
-        "temperature": "Température",
-        "environmentOther": "Autre facteur environnemental",
-        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
-        "instructions": "Instructions manquantes ou incomplètes",
-        "sippOperation": "Fonctionnement du SIPP",
-        "organizationOther": "Autre cause organisationnelle",
-        "followupControl": "Contrôle lacunaire du suivi des instructions",
-        "trainingGap": "Manque de formation",
-        "communicationOther": "Autre cause de communication",
-        "distraction": "Distraction",
-        "intentionalNegligence": "Négligence intentionnelle",
-        "fatigue": "Fatigue",
-        "incompetence": "Incompétence",
-        "haste": "Précipitation",
-        "humanOther": "Autre facteur humain",
-        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
-        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
-        "badAdvice": "Mauvais avis",
-        "instructionsNotFollowed": "Non-suivi des instructions",
-        "sitePressure": "Pression de chantier",
-        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
-    },
-    "nl": {
-        "product": "Produits",
-        "machine": "Machines",
-        "tool": "Outils",
-        "orderCleanliness": "Ordre et propreté",
-        "transport": "Moyens de transport",
-        "materialOther": "Autres facteurs matériels",
-        "collectiveAbsent": "EPC absent",
-        "collectiveMissing": "EPC manquant ou enlevé",
-        "collectiveDisabled": "EPC court-circuité",
-        "collectiveOther": "Autre défaut d’EPC",
-        "ppeMisuse": "Mauvais emploi de l’EPI",
-        "ppeAbsent": "EPI absent",
-        "ppeUnsuitable": "EPI pas adapté",
-        "ppeOther": "Autre défaut d’EPI",
-        "lighting": "Éclairage",
-        "noise": "Bruit",
-        "temperature": "Température",
-        "environmentOther": "Autre facteur environnemental",
-        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
-        "instructions": "Instructions manquantes ou incomplètes",
-        "sippOperation": "Fonctionnement du SIPP",
-        "organizationOther": "Autre cause organisationnelle",
-        "followupControl": "Contrôle lacunaire du suivi des instructions",
-        "trainingGap": "Manque de formation",
-        "communicationOther": "Autre cause de communication",
-        "distraction": "Distraction",
-        "intentionalNegligence": "Négligence intentionnelle",
-        "fatigue": "Fatigue",
-        "incompetence": "Incompétence",
-        "haste": "Précipitation",
-        "humanOther": "Autre facteur humain",
-        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
-        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
-        "badAdvice": "Mauvais avis",
-        "instructionsNotFollowed": "Non-suivi des instructions",
-        "sitePressure": "Pression de chantier",
-        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
-    }
-}
+CIRC_CAUSE_LABELS = {\n    "fr": {\n        "product": "Produits",\n        "machine": "Machines",\n        "tool": "Outils",\n        "orderCleanliness": "Ordre et propreté",\n        "transport": "Moyens de transport",\n        "materialOther": "Autres facteurs matériels",\n        "collectiveAbsent": "EPC absent",\n        "collectiveMissing": "EPC manquant ou enlevé",\n        "collectiveDisabled": "EPC court-circuité",\n        "collectiveOther": "Autre défaut d’EPC",\n        "ppeMisuse": "Mauvais emploi de l’EPI",\n        "ppeAbsent": "EPI absent",\n        "ppeUnsuitable": "EPI pas adapté",\n        "ppeOther": "Autre défaut d’EPI",\n        "lighting": "Éclairage",\n        "noise": "Bruit",\n        "temperature": "Température",\n        "environmentOther": "Autre facteur environnemental",\n        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",\n        "instructions": "Instructions manquantes ou incomplètes",\n        "sippOperation": "Fonctionnement du SIPP",\n        "organizationOther": "Autre cause organisationnelle",\n        "followupControl": "Contrôle lacunaire du suivi des instructions",\n        "trainingGap": "Manque de formation",\n        "communicationOther": "Autre cause de communication",\n        "distraction": "Distraction",\n        "intentionalNegligence": "Négligence intentionnelle",\n        "fatigue": "Fatigue",\n        "incompetence": "Incompétence",\n        "haste": "Précipitation",\n        "humanOther": "Autre facteur humain",\n        "designManufacturing": "Faute de conception ou de fabrication d’une machine",\n        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",\n        "badAdvice": "Mauvais avis",\n        "instructionsNotFollowed": "Non-suivi des instructions",\n        "sitePressure": "Pression de chantier",\n        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers",\n    },\n    "nl": {\n        "product": "Producten",\n        "machine": "Machines",\n        "tool": "Gereedschappen",\n        "orderCleanliness": "Orde en netheid",\n        "transport": "Transportmiddelen",\n        "materialOther": "Andere materiële factoren",\n        "collectiveAbsent": "Collectieve bescherming afwezig",\n        "collectiveMissing": "Collectieve bescherming ontbreekt of verwijderd",\n        "collectiveDisabled": "Collectieve bescherming buiten werking gesteld",\n        "collectiveOther": "Ander gebrek aan collectieve bescherming",\n        "ppeMisuse": "Verkeerd gebruik van PBM",\n        "ppeAbsent": "PBM afwezig",\n        "ppeUnsuitable": "PBM niet geschikt",\n        "ppeOther": "Ander gebrek aan PBM",\n        "lighting": "Verlichting",\n        "noise": "Lawaai",\n        "temperature": "Temperatuur",\n        "environmentOther": "Andere omgevingsfactor",\n        "riskAnalysis": "Risicoanalyse niet uitgevoerd of onvolledig",\n        "instructions": "Ontbrekende of onvolledige instructies",\n        "sippOperation": "Werking van de IDPBW",\n        "organizationOther": "Andere organisatorische oorzaak",\n        "followupControl": "Onvoldoende controle op naleving van instructies",\n        "trainingGap": "Gebrek aan opleiding",\n        "communicationOther": "Andere communicatieoorzaak",\n        "distraction": "Afleiding",\n        "intentionalNegligence": "Opzettelijke nalatigheid",\n        "fatigue": "Vermoeidheid",\n        "incompetence": "Onbekwaamheid",\n        "haste": "Haast",\n        "humanOther": "Andere menselijke factor",\n        "designManufacturing": "Ontwerp- of fabricagefout van een machine",\n        "noncompliantEquipment": "Gebruik van niet-conforme arbeidsmiddelen",\n        "badAdvice": "Slecht advies",\n        "instructionsNotFollowed": "Instructies niet opgevolgd",\n        "sitePressure": "Werfdruk",\n        "thirdOrganizationOther": "Andere organisatorische oorzaak bij een derde",\n    },\n    "en": {\n        "product": "Products",\n        "machine": "Machines",\n        "tool": "Tools",\n        "orderCleanliness": "Order and cleanliness",\n        "transport": "Means of transport",\n        "materialOther": "Other material factors",\n        "collectiveAbsent": "Collective protection absent",\n        "collectiveMissing": "Collective protection missing or removed",\n        "collectiveDisabled": "Collective protection bypassed",\n        "collectiveOther": "Other collective-protection defect",\n        "ppeMisuse": "Misuse of PPE",\n        "ppeAbsent": "PPE absent",\n        "ppeUnsuitable": "PPE unsuitable",\n        "ppeOther": "Other PPE defect",\n        "lighting": "Lighting",\n        "noise": "Noise",\n        "temperature": "Temperature",\n        "environmentOther": "Other environmental factor",\n        "riskAnalysis": "Risk analysis not performed or incomplete",\n        "instructions": "Missing or incomplete instructions",\n        "sippOperation": "Operation of the internal prevention service",\n        "organizationOther": "Other organisational cause",\n        "followupControl": "Insufficient monitoring of instruction compliance",\n        "trainingGap": "Lack of training",\n        "communicationOther": "Other communication cause",\n        "distraction": "Distraction",\n        "intentionalNegligence": "Intentional negligence",\n        "fatigue": "Fatigue",\n        "incompetence": "Incompetence",\n        "haste": "Haste",\n        "humanOther": "Other human factor",\n        "designManufacturing": "Machine design or manufacturing defect",\n        "noncompliantEquipment": "Use of non-compliant work equipment",\n        "badAdvice": "Bad advice",\n        "instructionsNotFollowed": "Instructions not followed",\n        "sitePressure": "Worksite pressure",\n        "thirdOrganizationOther": "Other organisational cause involving a third party",\n    },\n    "pl": {\n        "product": "Produkty",\n        "machine": "Maszyny",\n        "tool": "Narzędzia",\n        "orderCleanliness": "Porządek i czystość",\n        "transport": "Środki transportu",\n        "materialOther": "Inne czynniki materialne",\n        "collectiveAbsent": "Brak ochrony zbiorowej",\n        "collectiveMissing": "Brakująca lub usunięta ochrona zbiorowa",\n        "collectiveDisabled": "Obejście zabezpieczenia zbiorowego",\n        "collectiveOther": "Inna wada ochrony zbiorowej",\n        "ppeMisuse": "Niewłaściwe użycie ŚOI",\n        "ppeAbsent": "Brak ŚOI",\n        "ppeUnsuitable": "Nieodpowiednie ŚOI",\n        "ppeOther": "Inna wada ŚOI",\n        "lighting": "Oświetlenie",\n        "noise": "Hałas",\n        "temperature": "Temperatura",\n        "environmentOther": "Inny czynnik środowiskowy",\n        "riskAnalysis": "Brak lub niepełna analiza ryzyka",\n        "instructions": "Brakujące lub niepełne instrukcje",\n        "sippOperation": "Funkcjonowanie wewnętrznej służby prewencji",\n        "organizationOther": "Inna przyczyna organizacyjna",\n        "followupControl": "Niewystarczająca kontrola przestrzegania instrukcji",\n        "trainingGap": "Brak szkolenia",\n        "communicationOther": "Inna przyczyna komunikacyjna",\n        "distraction": "Rozproszenie uwagi",\n        "intentionalNegligence": "Umyślne zaniedbanie",\n        "fatigue": "Zmęczenie",\n        "incompetence": "Brak kompetencji",\n        "haste": "Pośpiech",\n        "humanOther": "Inny czynnik ludzki",\n        "designManufacturing": "Błąd konstrukcyjny lub produkcyjny maszyny",\n        "noncompliantEquipment": "Użycie niezgodnego sprzętu roboczego",\n        "badAdvice": "Błędna porada",\n        "instructionsNotFollowed": "Nieprzestrzeganie instrukcji",\n        "sitePressure": "Presja na budowie",\n        "thirdOrganizationOther": "Inna przyczyna organizacyjna po stronie osoby trzeciej",\n    },\n}
 
 
 class NumberCircle(Flowable):
@@ -340,7 +203,7 @@ class NumberCircle(Flowable):
         self.canv.setStrokeColor(colors.HexColor("#17384A"))
         self.canv.circle(r, r, r, fill=1, stroke=0)
         self.canv.setFillColor(colors.white)
-        self.canv.setFont("Helvetica-Bold", 8)
+        self.canv.setFont(RISKY_FONT_BOLD, 8)
         self.canv.drawCentredString(r, r - 2.6, self.number)
         self.canv.restoreState()
 
@@ -424,8 +287,8 @@ class CauseTreeFlowable(Flowable):
             canvas.line(x2, y2, x2-size*math.cos(angle-.55), y2-size*math.sin(angle-.55))
             canvas.line(x2, y2, x2-size*math.cos(angle+.55), y2-size*math.sin(angle+.55))
 
-        desc_style = ParagraphStyle("CauseTreeDescription", fontName="Helvetica", fontSize=7.6, leading=9.2, textColor=TEXT)
-        type_style = ParagraphStyle("CauseTreeType", fontName="Helvetica-Bold", fontSize=6.2, leading=7, textColor=colors.HexColor("#456078"))
+        desc_style = ParagraphStyle("CauseTreeDescription", fontName=RISKY_FONT, fontSize=7.6, leading=9.2, textColor=TEXT)
+        type_style = ParagraphStyle("CauseTreeType", fontName=RISKY_FONT_BOLD, fontSize=6.2, leading=7, textColor=colors.HexColor("#456078"))
         for fact in linked:
             pos = positions.get(fact["id"])
             if not pos:
@@ -478,10 +341,10 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     )
     doc.cover_generated_label = f"{tr['version']} 1.0  •  {tr['generated']}: {__import__('datetime').date.today().isoformat()}"
     styles = getSampleStyleSheet()
-    body = ParagraphStyle("BodyRisky", parent=styles["BodyText"], fontName="Helvetica", fontSize=9, leading=13, textColor=TEXT)
+    body = ParagraphStyle("BodyRisky", parent=styles["BodyText"], fontName=RISKY_FONT, fontSize=9, leading=13, textColor=TEXT)
     small = ParagraphStyle("SmallRisky", parent=body, fontSize=7.5, leading=10, textColor=MUTED)
-    section = ParagraphStyle("SectionRisky", parent=styles["Heading1"], fontName="Helvetica-Bold", fontSize=16, leading=20, textColor=NAVY, spaceBefore=4 * mm, spaceAfter=5 * mm)
-    subsection = ParagraphStyle("SubRisky", parent=styles["Heading2"], fontName="Helvetica-Bold", fontSize=10, textColor=NAVY, spaceBefore=3 * mm, spaceAfter=2 * mm)
+    section = ParagraphStyle("SectionRisky", parent=styles["Heading1"], fontName=RISKY_FONT_BOLD, fontSize=16, leading=20, textColor=NAVY, spaceBefore=4 * mm, spaceAfter=5 * mm)
+    subsection = ParagraphStyle("SubRisky", parent=styles["Heading2"], fontName=RISKY_FONT_BOLD, fontSize=10, textColor=NAVY, spaceBefore=3 * mm, spaceAfter=2 * mm)
 
     story = []
     content_w = doc.width
@@ -518,8 +381,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         "",
         [
             Paragraph(escape(tr["report"]), ParagraphStyle("CoverTitle", parent=section, fontSize=25, leading=30, spaceAfter=7 * mm)),
-            Paragraph(escape(data["event_number"]), ParagraphStyle("CoverNo", parent=body, fontName="Helvetica-Bold", fontSize=17, textColor=ORANGE, spaceAfter=4 * mm)),
-            Paragraph(escape(_s(event.get("description"))), ParagraphStyle("CoverEvent", parent=body, fontName="Helvetica-Bold", fontSize=20, leading=25, textColor=TEXT)),
+            Paragraph(escape(data["event_number"]), ParagraphStyle("CoverNo", parent=body, fontName=RISKY_FONT_BOLD, fontSize=17, textColor=ORANGE, spaceAfter=4 * mm)),
+            Paragraph(escape(_s(event.get("description"))), ParagraphStyle("CoverEvent", parent=body, fontName=RISKY_FONT_BOLD, fontSize=20, leading=25, textColor=TEXT)),
         ],
     ]], colWidths=[2.2 * mm, content_w - 2.2 * mm], hAlign="LEFT")
     cover_title_block.setStyle(TableStyle([
@@ -564,7 +427,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         [tr["location"], _s(event.get("location"))],
     ]
     cover_label = ParagraphStyle("CoverCardLabel", parent=small, fontSize=7.5, leading=9, textColor=MUTED)
-    cover_value = ParagraphStyle("CoverCardValue", parent=body, fontName="Helvetica-Bold", fontSize=10, leading=13, textColor=TEXT)
+    cover_value = ParagraphStyle("CoverCardValue", parent=body, fontName=RISKY_FONT_BOLD, fontSize=10, leading=13, textColor=TEXT)
     cover_cards = []
     for label, value in cover_rows:
         card = Table([
@@ -602,7 +465,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     story.append(Spacer(1, 5 * mm))
     toc = TableOfContents()
     toc.levelStyles = [ParagraphStyle(
-        "TOC0", fontName="Helvetica", fontSize=10.5, leading=19,
+        "TOC0", fontName=RISKY_FONT, fontSize=10.5, leading=19,
         leftIndent=0, firstLineIndent=0, textColor=NAVY,
     )]
     toc.dotsMinLevel = 0
@@ -612,7 +475,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         number = Paragraph(
             f"<b>{no:02d}</b>",
             ParagraphStyle(
-                f"SectionNumber{no}", parent=body, fontName="Helvetica-Bold",
+                f"SectionNumber{no}", parent=body, fontName=RISKY_FONT_BOLD,
                 fontSize=10, textColor=ORANGE, alignment=TA_CENTER,
             ),
         )
@@ -647,7 +510,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
 
         cells = []
         label_style = ParagraphStyle("CardLabel", parent=small, fontSize=7.2, leading=9, textColor=MUTED)
-        value_style = ParagraphStyle("CardValue", parent=body, fontName="Helvetica-Bold", fontSize=9.2, leading=12)
+        value_style = ParagraphStyle("CardValue", parent=body, fontName=RISKY_FONT_BOLD, fontSize=9.2, leading=12)
         for label, value in usable:
             card = Table(
                 [[Paragraph(escape(_s(label)), label_style)],
@@ -715,20 +578,20 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     if circ:
         heading(3, "circ_details")
         info_table([
-            ("Adresse de la victime", circ.get("victim_address")),
-            ("Date de naissance", circ.get("victim_birth_date")),
-            ("Ancienneté dans l’entreprise", circ.get("victim_company_seniority")),
-            ("Ancienneté dans la fonction", circ.get("victim_job_seniority")),
-            ("Employeur", circ.get("employer_name")),
-            ("Adresse de l’employeur", circ.get("employer_address")),
-            ("Assureur accidents du travail", circ.get("insurer_name")),
-            ("N° de police", circ.get("insurance_policy_number")),
-            ("Conseiller en prévention", circ.get("prevention_advisor")),
-            ("Responsable SIPP", circ.get("sipp_manager")),
-            ("SEPP", circ.get("sepp_name")),
-            ("Coordonnées SEPP", circ.get("sepp_contact")),
-            ("Personnes ayant participé à l’élaboration", circ.get("report_contributors")),
-            ("Destinataires du rapport", circ.get("report_recipients")),
+            (tr["circ_victim_address"], circ.get("victim_address")),
+            (tr["circ_birth_date"], circ.get("victim_birth_date")),
+            (tr["circ_company_seniority"], circ.get("victim_company_seniority")),
+            (tr["circ_job_seniority"], circ.get("victim_job_seniority")),
+            (tr["circ_employer"], circ.get("employer_name")),
+            (tr["circ_employer_address"], circ.get("employer_address")),
+            (tr["circ_insurer"], circ.get("insurer_name")),
+            (tr["circ_policy"], circ.get("insurance_policy_number")),
+            (tr["circ_advisor"], circ.get("prevention_advisor")),
+            (tr["circ_sipp_manager"], circ.get("sipp_manager")),
+            (tr["circ_sepp"], circ.get("sepp_name")),
+            (tr["circ_sepp_contact"], circ.get("sepp_contact")),
+            (tr["circ_contributors"], circ.get("report_contributors")),
+            (tr["circ_recipients"], circ.get("report_recipients")),
         ])
 
     # 04
@@ -797,9 +660,9 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         except (TypeError, ValueError, json.JSONDecodeError):
             selected = set()
         groups = [
-            ("Causes primaires · matérielles", ["product","machine","tool","orderCleanliness","transport","materialOther","collectiveAbsent","collectiveMissing","collectiveDisabled","collectiveOther","ppeMisuse","ppeAbsent","ppeUnsuitable","ppeOther","lighting","noise","temperature","environmentOther"], circ.get("primary_details")),
-            ("Causes secondaires · organisationnelles", ["riskAnalysis","instructions","sippOperation","organizationOther","followupControl","trainingGap","communicationOther","distraction","intentionalNegligence","fatigue","incompetence","haste","humanOther"], circ.get("secondary_details")),
-            ("Causes tertiaires · tiers", ["designManufacturing","noncompliantEquipment","badAdvice","instructionsNotFollowed","sitePressure","thirdOrganizationOther"], circ.get("tertiary_details")),
+            (tr["primary_causes"], ["product","machine","tool","orderCleanliness","transport","materialOther","collectiveAbsent","collectiveMissing","collectiveDisabled","collectiveOther","ppeMisuse","ppeAbsent","ppeUnsuitable","ppeOther","lighting","noise","temperature","environmentOther"], circ.get("primary_details")),
+            (tr["secondary_causes"], ["riskAnalysis","instructions","sippOperation","organizationOther","followupControl","trainingGap","communicationOther","distraction","intentionalNegligence","fatigue","incompetence","haste","humanOther"], circ.get("secondary_details")),
+            (tr["tertiary_causes"], ["designManufacturing","noncompliantEquipment","badAdvice","instructionsNotFollowed","sitePressure","thirdOrganizationOther"], circ.get("tertiary_details")),
         ]
         for title, codes, details in groups:
             chosen = [code for code in codes if code in selected]
@@ -822,7 +685,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         story.append(Paragraph(escape(tr["not_provided"]), body))
     else:
         family_style = ParagraphStyle("HeepoFamily", parent=small, fontSize=7.2, leading=9, textColor=MUTED)
-        code_style = ParagraphStyle("HeepoCode", parent=body, fontName="Helvetica-Bold", fontSize=9.5, textColor=ORANGE)
+        code_style = ParagraphStyle("HeepoCode", parent=body, fontName=RISKY_FONT_BOLD, fontSize=9.5, textColor=ORANGE)
         factor_style = ParagraphStyle("HeepoFactor", parent=body, fontSize=9.2, leading=12)
         for item in heepo:
             label = item.get("other_text") if item.get("factor_code") == "OTHER" else _localized(item, "factor_label", lang)
@@ -845,8 +708,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         story.append(Paragraph(escape(tr["not_applicable"]), body))
     else:
         history = jc.get("history") or []
-        step_style = ParagraphStyle("JcStep", parent=body, fontName="Helvetica-Bold", fontSize=8.5, textColor=colors.white, alignment=TA_CENTER)
-        answer_style = ParagraphStyle("JcAnswer", parent=body, fontName="Helvetica-Bold", fontSize=8.5, textColor=ORANGE)
+        step_style = ParagraphStyle("JcStep", parent=body, fontName=RISKY_FONT_BOLD, fontSize=8.5, textColor=colors.white, alignment=TA_CENTER)
+        answer_style = ParagraphStyle("JcAnswer", parent=body, fontName=RISKY_FONT_BOLD, fontSize=8.5, textColor=ORANGE)
         for step in history:
             question = _localized(step, "question_text", lang)
             answer = _localized(step, "answer_label", lang)
