@@ -106,7 +106,8 @@
         },
         "analysisType": {
             "ADVANCED": "Uitgebreid",
-            "NORMAL": "Normaal"
+            "NORMAL": "Normaal",
+            "CIRCUMSTANTIAL": "Omstandig verslag"
         },
         "personCategory": {
             "WORKER": "Arbeider",
