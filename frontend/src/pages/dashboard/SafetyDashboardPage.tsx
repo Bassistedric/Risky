@@ -6,7 +6,7 @@ import SafetyAccidentologyPanel from './SafetyAccidentologyPanel'
 
 const API='http://127.0.0.1:8000'
 type M={month:number;worked_hours:number;accidents_with_lost_time:number;accidents_without_lost_time:number;lost_days:number;incidents:number;near_misses:number;tf:number|null;tg:number|null;tf_ytd:number|null;tg_ytd:number|null}
-type S={scope:{organization_name:string;trade_code:string|null};period:{year:number;month_to:number;indicator_month_to?:number};totals:{worked_hours:number;accidents_with_lost_time:number;accidents_without_lost_time:number;lost_days:number;conventional_days:number;incidents:number;near_misses:number};indicators:{tf:number|null;tg:number|null;tgg:number|null};targets:{tf_target:number|null;tg_target:number|null};projection:{projected_hours:number|null;projected_tf:number|null;projected_tg:number|null};monthly:M[]}
+type S={scope:{organization_name:string;trade_code:string|null};period:{year:number;month_to:number;indicator_month_to?:number};totals:{worked_hours:number;accidents_with_lost_time:number;accidents_without_lost_time:number;lost_days:number;modified_duty_days:number;temporary_worker_accidents:number;subcontractor_accidents:number;conventional_days:number;incidents:number;near_misses:number};indicators:{tf:number|null;tg:number|null;tgg:number|null};targets:{tf_target:number|null;tg_target:number|null};projection:{projected_hours:number|null;projected_tf:number|null;projected_tg:number|null};monthly:M[]}
 type Trade={id:number;code:string;name:string}
 type Metric='tf'|'tg'|'accidents'
 
@@ -60,7 +60,7 @@ export default function SafetyDashboardPage(){
     <article><span>{t('safetyStatistics.workedHours')}</span><strong>{ni(data.totals.worked_hours)}</strong><small>YTD</small><em>{t('safetyStatistics.projectedHours')}: {ni(data.projection.projected_hours)}</em></article>
    </div>
    <div className="safety-dashboard__secondary">
-    {([['lostTimeAccidents',data.totals.accidents_with_lost_time],['noLostTimeAccidents',data.totals.accidents_without_lost_time],['lostDays',data.totals.lost_days],['incidents',data.totals.incidents],['nearMisses',data.totals.near_misses]] as const).map(([k,v])=><article key={k}><span>{t(`safetyStatistics.${k}`)}</span><strong>{v}</strong></article>)}
+    {([['lostTimeAccidents',data.totals.accidents_with_lost_time],['noLostTimeAccidents',data.totals.accidents_without_lost_time],['lostDays',data.totals.lost_days],['modifiedDutyDays',data.totals.modified_duty_days],['incidents',data.totals.incidents],['nearMisses',data.totals.near_misses]] as const).map(([k,v])=><article key={k}><span>{t(`safetyStatistics.${k}`)}</span><strong>{v}</strong></article>)}
    </div>
    <section className="safety-dashboard__panel">
     <div className="safety-dashboard__panel-head"><div><h3>{t('safetyStatistics.indicatorEvolution')}</h3><p>{t('safetyStatistics.ytdEvolution')}</p></div><div className="safety-dashboard__tabs">{(['tf','tg','accidents'] as Metric[]).map(k=><button type="button" key={k} className={metric===k?'active':''} onClick={()=>setMetric(k)}>{k==='tf'?'TF':k==='tg'?'TG':t('safetyStatistics.accidents')}</button>)}</div></div>
