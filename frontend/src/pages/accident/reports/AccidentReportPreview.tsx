@@ -420,7 +420,7 @@ function AccidentReportPreview({
             <div className="report-preview__toolbar">
                 <button
                     type="button"
-                    className="report-preview__back"
+                    className="report-preview__back risky-back-button"
                     onClick={onBack}
                 >
                     ← {rt('preview.back')}
