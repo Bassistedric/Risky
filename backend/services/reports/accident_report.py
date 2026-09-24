@@ -430,7 +430,7 @@ def build_accident_report_preview(
 
         just_culture_data = None
 
-    if event.analysis_type == "ADVANCED":
+    if (event.analysis_type or "").upper() in {"NORMAL", "NORMALE"}:
         try:
             (
                 analysis,
@@ -655,8 +655,7 @@ def build_accident_report_preview(
             }
 
         except ValueError:
-            # Analyse Advanced sans Just Culture
-            # encore démarrée.
+            # Analyse normale sans Just Culture encore démarrée.
             just_culture_data = None
 
     # ====================================================
@@ -736,10 +735,8 @@ def build_accident_report_preview(
             is not None
         ),
 
-        "just_culture": (
-            just_culture_data
-            is not None
-        ),
+        # La section reste publiée même lorsqu'elle est non applicable.
+        "just_culture": True,
 
         "actions": bool(
             actions_data
