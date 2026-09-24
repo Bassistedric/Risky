@@ -314,6 +314,28 @@ CIRC_CAUSE_LABELS = {
 }
 
 
+class NumberCircle(Flowable):
+    """Pastille ronde numérotée, identique à l'aperçu Just Culture."""
+    def __init__(self, number, diameter=9 * mm):
+        super().__init__()
+        self.number = str(number)
+        self.diameter = diameter
+
+    def wrap(self, availWidth, availHeight):
+        return self.diameter, self.diameter
+
+    def draw(self):
+        r = self.diameter / 2
+        self.canv.saveState()
+        self.canv.setFillColor(colors.HexColor("#17384A"))
+        self.canv.setStrokeColor(colors.HexColor("#17384A"))
+        self.canv.circle(r, r, r, fill=1, stroke=0)
+        self.canv.setFillColor(colors.white)
+        self.canv.setFont("Helvetica-Bold", 8)
+        self.canv.drawCentredString(r, r - 2.6, self.number)
+        self.canv.restoreState()
+
+
 class CauseTreeFlowable(Flowable):
     """Version PDF calquée sur CauseTreeReportDiagram.tsx."""
 
@@ -567,7 +589,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         grid.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
-            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
             ("TOPPADDING", (0, 0), (-1, -1), 0),
             ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
         ]))
@@ -740,12 +762,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         for step in history:
             question = _localized(step, "question_text", lang)
             answer = _localized(step, "answer_label", lang)
-            circle = Table([[Paragraph(str(step.get("step_order") or ""), step_style)]], colWidths=[9*mm], rowHeights=[9*mm])
-            circle.setStyle(TableStyle([
-                ("BACKGROUND",(0,0),(-1,-1),colors.HexColor("#17384A")),
-                ("VALIGN",(0,0),(-1,-1),"MIDDLE"), ("ALIGN",(0,0),(-1,-1),"CENTER"),
-                ("BOX",(0,0),(-1,-1),0,colors.HexColor("#17384A")),
-            ]))
+            circle = NumberCircle(step.get("step_order") or "")
             text_block = [Paragraph(escape(_s(question)), body), Paragraph(escape(_s(answer)), answer_style)]
             row = Table([[circle, text_block]], colWidths=[13*mm, 140*mm])
             row.setStyle(TableStyle([
@@ -822,7 +839,6 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
 
     # 11 — AVIS & SIGNATURES, UNIQUEMENT POUR UN CIRCONSTANCIÉ
     if circ:
-        story.append(PageBreak())
         heading(11, "signatures")
         sign_cards = []
         for role in (tr["victim_sign"], tr["hierarchy_sign"], tr["prevention_sign"], tr["employer_sign"]):
@@ -844,7 +860,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         sign_grid.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
-            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
         ]))
         story.append(sign_grid)
 
