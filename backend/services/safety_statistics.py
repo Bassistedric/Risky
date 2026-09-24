@@ -344,22 +344,23 @@ def build_work_hours_dimension_key(
     workforce_category: str,
     trade_code: Optional[str] = None,
 ) -> str:
+    """
+    Les heures RH officielles ne sont pas ventilées
+    par métier. La dimension statistique est donc
+    uniquement WORKER ou EMPLOYEE.
+
+    trade_code reste dans la signature pour conserver
+    la compatibilité avec d'anciens appels, mais il
+    n'entre plus dans la clé.
+    """
 
     category = workforce_category.upper()
 
-    if category == "EMPLOYEE":
-        return "EMPLOYEE"
-
-    if category == "WORKER":
-        if not trade_code:
-            raise ValueError(
-                "Un métier est obligatoire "
-                "pour les heures ouvriers"
-            )
-
-        return (
-            f"WORKER:{trade_code.upper()}"
-        )
+    if category in {
+        "WORKER",
+        "EMPLOYEE",
+    }:
+        return category
 
     raise ValueError(
         "Population invalide : "
@@ -413,14 +414,10 @@ def get_month_worked_hours(
             "Organisation introuvable"
         )
 
-    effective_trade_code = (
-        trade_code
-        or get_organization_trade_code(
-            db,
-            organization_id,
-        )
-    )
-
+    # Les heures RH sont officielles au niveau
+    # organisationnel et population (ouvriers/employés).
+    # Le métier reste une dimension d'analyse des événements
+    # mais ne modifie jamais le dénominateur TF/TG/TGG.
     scope_ids = resolve_hours_scope(
         db,
         organization_id,
@@ -439,31 +436,13 @@ def get_month_worked_hours(
 
     rows = db.scalars(query).all()
 
-    # Filtre métier :
-    # uniquement les ouvriers du métier demandé.
-    if effective_trade_code:
-        trade = get_trade_by_code(
-            db,
-            effective_trade_code,
-        )
-
-        if not trade:
-            return 0.0
-
-        return sum(
-            row.worked_hours
-            for row in rows
-            if (
-                row.workforce_category == "WORKER"
-                and row.trade_id == trade.id
-            )
-        )
-
-    # Sans filtre métier :
-    # ouvriers tous métiers + employés.
     return sum(
         row.worked_hours
         for row in rows
+        if row.dimension_key in {
+            "WORKER",
+            "EMPLOYEE",
+        }
     )
 
 
@@ -686,26 +665,11 @@ def build_statistics_summary(
             "Mois invalide"
         )
 
-    effective_trade_code = (
-        trade_code
-        or get_organization_trade_code(
-            db,
-            organization_id,
-        )
-    )
-
-    if effective_trade_code:
-        trade = get_trade_by_code(
-            db,
-            effective_trade_code,
-        )
-
-        if not trade:
-            raise ValueError(
-                "Métier introuvable"
-            )
-
-        effective_trade_code = trade.code
+    # TF/TG/TGG utilisent toujours l'ensemble des événements
+    # du périmètre organisationnel avec les heures RH officielles.
+    # Le métier sera appliqué séparément aux analyses
+    # accidentologiques (HEEPO, Fedris, causes, etc.).
+    effective_trade_code = None
 
     monthly: list[dict] = []
 
