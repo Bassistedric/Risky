@@ -125,15 +125,21 @@ class RiskyDocTemplate(BaseDocTemplate):
         self.addPageTemplates(PageTemplate(id="risky", frames=frame, onPage=self._page))
 
     def _page(self, canvas, doc):
-        if doc.page <= 2:
-            return
         canvas.saveState()
-        canvas.setStrokeColor(MID)
-        canvas.line(18 * mm, 14 * mm, A4[0] - 18 * mm, 14 * mm)
-        canvas.setFont("Helvetica", 7.5)
-        canvas.setFillColor(MUTED)
-        canvas.drawString(18 * mm, 9 * mm, f"RISKY QHSE  ·  {self.event_number}")
-        canvas.drawRightString(A4[0] - 18 * mm, 9 * mm, f"Page {doc.page}")
+        if doc.page > 2:
+            canvas.setFillColor(NAVY)
+            canvas.rect(0, A4[1] - 8 * mm, A4[0], 8 * mm, fill=1, stroke=0)
+            canvas.setFillColor(ORANGE)
+            canvas.rect(0, A4[1] - 8 * mm, 34 * mm, 8 * mm, fill=1, stroke=0)
+            canvas.setFont("Helvetica-Bold", 7.5)
+            canvas.setFillColor(colors.white)
+            canvas.drawString(38 * mm, A4[1] - 5.4 * mm, f"RISKY QHSE  ·  {self.event_number}")
+            canvas.setStrokeColor(MID)
+            canvas.line(18 * mm, 14 * mm, A4[0] - 18 * mm, 14 * mm)
+            canvas.setFont("Helvetica", 7.5)
+            canvas.setFillColor(MUTED)
+            canvas.drawString(18 * mm, 9 * mm, self.report_title[:70])
+            canvas.drawRightString(A4[0] - 18 * mm, 9 * mm, f"Page {doc.page}")
         canvas.restoreState()
 
     def afterFlowable(self, flowable):
@@ -171,7 +177,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     # ========================================================
     # COUVERTURE
     # ========================================================
-    story += [Spacer(1, 25 * mm)]
+    story += [Spacer(1, 12 * mm)]
     cover_bar = Table([["RISKY", "QHSE"]], colWidths=[105 * mm, 35 * mm], rowHeights=[16 * mm])
     cover_bar.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (0, 0), NAVY), ("BACKGROUND", (1, 0), (1, 0), ORANGE),
@@ -179,10 +185,13 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         ("FONTSIZE", (0, 0), (0, 0), 24), ("FONTSIZE", (1, 0), (1, 0), 12),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), ("LEFTPADDING", (0, 0), (-1, -1), 6 * mm),
     ]))
-    story += [cover_bar, Spacer(1, 18 * mm)]
-    story.append(Paragraph(escape(tr["report"]), ParagraphStyle("CoverTitle", parent=section, fontSize=22, leading=27, spaceAfter=8 * mm)))
-    story.append(Paragraph(escape(data["event_number"]), ParagraphStyle("CoverNo", parent=body, fontName="Helvetica-Bold", fontSize=15, textColor=ORANGE, spaceAfter=5 * mm)))
-    story.append(Paragraph(escape(_s(event.get("description"))), ParagraphStyle("CoverEvent", parent=body, fontName="Helvetica-Bold", fontSize=18, leading=23, textColor=TEXT, spaceAfter=15 * mm)))
+    story += [cover_bar, Spacer(1, 7 * mm)]
+    accent = Table([[""]], colWidths=[140 * mm], rowHeights=[2.2 * mm])
+    accent.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), ORANGE)]))
+    story += [accent, Spacer(1, 19 * mm)]
+    story.append(Paragraph(escape(tr["report"]), ParagraphStyle("CoverTitle", parent=section, fontSize=25, leading=30, spaceAfter=10 * mm)))
+    story.append(Paragraph(escape(data["event_number"]), ParagraphStyle("CoverNo", parent=body, fontName="Helvetica-Bold", fontSize=17, textColor=ORANGE, spaceAfter=6 * mm)))
+    story.append(Paragraph(escape(_s(event.get("description"))), ParagraphStyle("CoverEvent", parent=body, fontName="Helvetica-Bold", fontSize=20, leading=25, textColor=TEXT, spaceAfter=16 * mm)))
 
     cover_rows = [
         [tr["organization"], _s(event.get("organization_name"))],
@@ -213,7 +222,40 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     story += [toc, PageBreak()]
 
     def heading(no, key):
-        story.append(Paragraph(f"{no:02d}  {escape(tr[key])}", section))
+        number = Paragraph(
+            f"<b>{no:02d}</b>",
+            ParagraphStyle(
+                f"SectionNumber{no}",
+                parent=body,
+                fontName="Helvetica-Bold",
+                fontSize=16,
+                textColor=colors.white,
+                alignment=TA_CENTER,
+            ),
+        )
+        title = Paragraph(
+            f"<b>{escape(tr[key])}</b>",
+            ParagraphStyle(
+                f"SectionRisky{no}",
+                parent=section,
+                fontSize=15,
+                leading=18,
+                textColor=colors.white,
+                spaceBefore=0,
+                spaceAfter=0,
+            ),
+        )
+        banner = Table([[number, title]], colWidths=[20 * mm, 133 * mm], rowHeights=[13 * mm])
+        banner.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (0, 0), ORANGE),
+            ("BACKGROUND", (1, 0), (1, 0), NAVY),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (1, 0), (1, 0), 6 * mm),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 4 * mm),
+            ("TOPPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+        ]))
+        story.extend([banner, Spacer(1, 5 * mm)])
 
     def info_table(rows):
         usable = [(a, b) for a, b in rows if b not in (None, "")]
@@ -221,9 +263,12 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             story.append(Paragraph(escape(tr["not_provided"]), body)); return
         table = Table([[Paragraph(f"<b>{escape(_s(a))}</b>", body), Paragraph(escape(_s(b)), body)] for a, b in usable], colWidths=[48 * mm, 105 * mm])
         table.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (0, -1), LIGHT), ("BOX", (0, 0), (-1, -1), .4, MID),
-            ("INNERGRID", (0, 0), (-1, -1), .25, MID), ("VALIGN", (0, 0), (-1, -1), "TOP"),
-            ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+            ("BACKGROUND", (0, 0), (0, -1), NAVY), ("TEXTCOLOR", (0, 0), (0, -1), colors.white),
+            ("BACKGROUND", (1, 0), (1, -1), LIGHT), ("BOX", (0, 0), (-1, -1), .5, MID),
+            ("INNERGRID", (0, 0), (-1, -1), .25, colors.white),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+            ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
         ]))
         story.append(table)
 
@@ -355,11 +400,32 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     else:
         rows = [[Paragraph(f"<b>{escape(tr[k])}</b>", small) for k in ("action","responsible","due","priority","progress")]]
         for a in actions:
-            progress = f"{a.get('progress_percent')} %" if a.get("progress_percent") is not None else (a.get("process_code") or "—")
+            pct = a.get("progress_percent")
+            progress = f"{pct} %" if pct is not None else (a.get("process_code") or "—")
+            if isinstance(pct, (int, float)):
+                pct_safe = max(0, min(100, pct))
+                filled = max(0.1, 18 * mm * pct_safe / 100)
+                empty = max(0.1, 18 * mm - filled)
+                progress_cell = Table(
+                    [[Paragraph(f"<b>{escape(progress)}</b>", small)], ["", ""]],
+                    colWidths=[filled, empty],
+                    rowHeights=[5 * mm, 2.2 * mm],
+                )
+                progress_cell.setStyle(TableStyle([
+                    ("SPAN", (0, 0), (1, 0)),
+                    ("BACKGROUND", (0, 1), (0, 1), ORANGE if pct_safe < 100 else colors.HexColor("#2E8B57")),
+                    ("BACKGROUND", (1, 1), (1, 1), MID),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+                ]))
+            else:
+                progress_cell = Paragraph(escape(progress), small)
             rows.append([
                 Paragraph(escape(_s(a.get("description"))), small), Paragraph(escape(_s(a.get("responsible_text"))), small),
                 Paragraph(escape(_s(a.get("due_date"))), small), Paragraph(escape(_s(a.get("priority"))), small),
-                Paragraph(escape(progress), small),
+                progress_cell,
             ])
         table = Table(rows, colWidths=[65 * mm, 32 * mm, 22 * mm, 20 * mm, 20 * mm], repeatRows=1)
         table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,0),NAVY),("TEXTCOLOR",(0,0),(-1,0),colors.white),("BOX",(0,0),(-1,-1),.4,MID),("INNERGRID",(0,0),(-1,-1),.25,MID),("VALIGN",(0,0),(-1,-1),"TOP"),("PADDING",(0,0),(-1,-1),5)]))
