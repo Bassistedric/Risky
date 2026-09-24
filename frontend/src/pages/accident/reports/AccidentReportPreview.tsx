@@ -1136,25 +1136,25 @@ function AccidentReportPreview({
                     selected = []
                 }
                 const groups = [
-                    { title: 'Causes primaires · matérielles', codes: ['product','machine','tool','orderCleanliness','transport','materialOther','collectiveAbsent','collectiveMissing','collectiveDisabled','collectiveOther','ppeMisuse','ppeAbsent','ppeUnsuitable','ppeOther','lighting','noise','temperature','environmentOther'], details: circumstantial_report.primary_details },
-                    { title: 'Causes secondaires · organisationnelles', codes: ['riskAnalysis','instructions','sippOperation','organizationOther','followupControl','trainingGap','communicationOther','distraction','intentionalNegligence','fatigue','incompetence','haste','humanOther'], details: circumstantial_report.secondary_details },
-                    { title: 'Causes tertiaires · tiers', codes: ['designManufacturing','noncompliantEquipment','badAdvice','instructionsNotFollowed','sitePressure','thirdOrganizationOther'], details: circumstantial_report.tertiary_details },
+                    { titleKey: 'primary', codes: ['product','machine','tool','orderCleanliness','transport','materialOther','collectiveAbsent','collectiveMissing','collectiveDisabled','collectiveOther','ppeMisuse','ppeAbsent','ppeUnsuitable','ppeOther','lighting','noise','temperature','environmentOther'], details: circumstantial_report.primary_details },
+                    { titleKey: 'secondary', codes: ['riskAnalysis','instructions','sippOperation','organizationOther','followupControl','trainingGap','communicationOther','distraction','intentionalNegligence','fatigue','incompetence','haste','humanOther'], details: circumstantial_report.secondary_details },
+                    { titleKey: 'tertiary', codes: ['designManufacturing','noncompliantEquipment','badAdvice','instructionsNotFollowed','sitePressure','thirdOrganizationOther'], details: circumstantial_report.tertiary_details },
                 ]
                 return (
                     <section className="report-preview__section report-preview__section--circumstantial">
                         <div className="report-preview__section-title">
                             <span>06</span>
-                            <h2>Analyse complémentaire des causes</h2>
+                            <h2>{rt('preview.circumstantialCauses.section')}</h2>
                         </div>
                         <div className="report-preview__circumstantial-causes">
                             {groups.map(group => (
-                                <div className="report-preview__circumstantial-cause" key={group.title}>
-                                    <h3>{group.title}</h3>
+                                <div className="report-preview__circumstantial-cause" key={group.titleKey}>
+                                    <h3>{rt('preview.circumstantialCauses.' + group.titleKey)}</h3>
                                     <div className="report-preview__circumstantial-pills">
                                         {group.codes.filter(code => selected.includes(code)).map(code => (
-                                            <span key={code}>✓ {rt('circumstantial.options.' + code)}</span>
+                                            <span key={code}>✓ {rt('preview.circumstantialCauses.options.' + code)}</span>
                                         ))}
-                                        {!group.codes.some(code => selected.includes(code)) && <em>Aucune cause sélectionnée</em>}
+                                        {!group.codes.some(code => selected.includes(code)) && <em>{rt('preview.circumstantialCauses.none')}</em>}
                                     </div>
                                     {group.details && <p>{group.details}</p>}
                                 </div>
