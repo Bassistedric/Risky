@@ -295,6 +295,19 @@ function AccidentReportPreview({
         )
     }
 
+    function getRecommendationLevel(
+        recommendationCode: string | null | undefined,
+    ): string {
+        switch (recommendationCode) {
+            case 'ACCOMPAGNEMENT': return 'support'
+            case 'AVERTISSEMENT_VERBAL': return 'verbal'
+            case 'PREMIER_AVERTISSEMENT_ECRIT': return 'written-first'
+            case 'DERNIER_AVERTISSEMENT_ECRIT': return 'written-final'
+            case 'LICENCIEMENT': return 'dismissal'
+            default: return 'neutral'
+        }
+    }
+
     /* ========================================================
        CHARGEMENT
        ======================================================== */
@@ -1116,7 +1129,7 @@ function AccidentReportPreview({
                                 </div>
                             ))}
                         </div>
-                        <div className="report-preview__result-grid">
+                        <div className={`report-preview__result-grid report-preview__result-grid--${getRecommendationLevel(just_culture.recommendation_code)}`}>
                             <div>
                                 <span>{rt('preview.justCulture.conclusion')}</span>
                                 <strong>{getLocalizedReportText(just_culture.conclusion_label, just_culture.conclusion_label_fr, just_culture.conclusion_label_nl, just_culture.conclusion_label_en, just_culture.conclusion_label_pl)}</strong>
