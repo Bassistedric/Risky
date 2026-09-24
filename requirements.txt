@@ -1,2 +1,3 @@
 Pillow==12.3.0
 python-multipart
+openpyxl
