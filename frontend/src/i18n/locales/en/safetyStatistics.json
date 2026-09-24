@@ -75,6 +75,7 @@
     },
     "localActions": "local actions",
     "global9001": "actions tracked in 9001",
-    "localProgress": "Average progress of local actions"
+    "localProgress": "Average progress of local actions",
+    "other": "Other"
   }
 }
