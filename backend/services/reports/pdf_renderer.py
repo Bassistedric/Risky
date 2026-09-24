@@ -256,14 +256,40 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         for photo in photos:
             p = storage_root / photo.storage_path
             if p.exists():
-                img = Image(str(p), width=72 * mm, height=52 * mm, kind="proportional")
-                caption = Paragraph(escape(photo.caption or photo.original_filename), small)
-                cells.append(KeepTogether([img, Spacer(1, 2 * mm), caption]))
+                # Une liste/KeepTogether dans une cellule de Table peut être
+                # mesurée par ReportLab comme une hauteur quasi infinie.
+                # Une sous-table donne une hauteur déterministe et conserve
+                # image + légende ensemble.
+                img = Image(str(p))
+                img._restrictSize(68 * mm, 48 * mm)
+                caption = Paragraph(
+                    escape(photo.caption or photo.original_filename),
+                    small,
+                )
+                cell = Table(
+                    [[img], [caption]],
+                    colWidths=[70 * mm],
+                )
+                cell.setStyle(TableStyle([
+                    ("ALIGN", (0, 0), (-1, 0), "CENTER"),
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+                ]))
+                cells.append(cell)
         for i in range(0, len(cells), 2):
             row = cells[i:i+2]
-            if len(row) == 1: row.append("")
+            if len(row) == 1:
+                row.append("")
             table = Table([row], colWidths=[78 * mm, 78 * mm])
-            table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BOX", (0, 0), (-1, -1), .4, MID), ("INNERGRID", (0, 0), (-1, -1), .25, MID), ("PADDING", (0, 0), (-1, -1), 6)]))
+            table.setStyle(TableStyle([
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("BOX", (0, 0), (-1, -1), .4, MID),
+                ("INNERGRID", (0, 0), (-1, -1), .25, MID),
+                ("PADDING", (0, 0), (-1, -1), 6),
+            ]))
             story += [table, Spacer(1, 3 * mm)]
 
     # 04
