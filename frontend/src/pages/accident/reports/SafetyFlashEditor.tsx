@@ -27,7 +27,7 @@ export default function SafetyFlashEditor({ eventId, onBack }: Props) {
 
     return <div className="sf-editor">
         <div className="sf-editor__toolbar">
-            <button onClick={onBack}>← {rt('preview.back')}</button>
+            <button className="risky-back-button" onClick={onBack}>← {rt('preview.back')}</button>
             <strong>CFE Safety Flash</strong>
             <button className="sf-editor__generate" disabled={busy} onClick={async()=>{try{setBusy(true);await downloadSafetyFlashPdf(eventId,getReportLanguage(),draft)}finally{setBusy(false)}}}>{rt('preview.generatePdf')}</button>
         </div>
