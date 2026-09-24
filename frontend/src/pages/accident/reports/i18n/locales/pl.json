@@ -106,7 +106,8 @@
         },
         "analysisType": {
             "ADVANCED": "Rozszerzona",
-            "NORMAL": "Standardowa"
+            "NORMAL": "Standardowa",
+            "CIRCUMSTANTIAL": "Raport szczegółowy"
         },
         "personCategory": {
             "WORKER": "Pracownik fizyczny",
