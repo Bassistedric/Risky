@@ -145,12 +145,9 @@ class RiskyDocTemplate(BaseDocTemplate):
         canvas.restoreState()
 
     def afterFlowable(self, flowable):
-        if isinstance(flowable, Paragraph):
-            key = flowable.style.name
-            if key.startswith("Section"):
-                level = 0
-                text = flowable.getPlainText()
-                self.notify("TOCEntry", (level, text, self.page))
+        toc_title = getattr(flowable, "_risky_toc_title", None)
+        if toc_title:
+            self.notify("TOCEntry", (0, toc_title, self.page))
 
 
 
@@ -474,6 +471,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     subsection = ParagraphStyle("SubRisky", parent=styles["Heading2"], fontName="Helvetica-Bold", fontSize=10, textColor=NAVY, spaceBefore=3 * mm, spaceAfter=2 * mm)
 
     story = []
+    content_w = doc.width
 
     # ========================================================
     # COUVERTURE
@@ -537,7 +535,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
                 textColor=NAVY, spaceBefore=0, spaceAfter=0,
             ),
         )
-        banner = Table([[number, title]], colWidths=[12 * mm, 141 * mm], hAlign="LEFT")
+        banner = Table([[number, title]], colWidths=[12 * mm, content_w - 12 * mm], hAlign="LEFT")
         banner.setStyle(TableStyle([
             ("BACKGROUND", (0, 0), (-1, -1), LIGHT),
             ("LINEBELOW", (0, 0), (-1, -1), .6, MID),
@@ -548,6 +546,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             ("TOPPADDING", (0, 0), (-1, -1), 7),
             ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
         ]))
+        banner._risky_toc_title = f"{no:02d}  {tr[key]}"
         story.extend([banner, Spacer(1, 4 * mm)])
 
     def info_table(rows):
@@ -564,7 +563,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             card = Table(
                 [[Paragraph(escape(_s(label)), label_style)],
                  [Paragraph(escape(_s(value)), value_style)]],
-                colWidths=[72.5 * mm],
+                colWidths=[(content_w - 4 * mm) / 2],
             )
             card.setStyle(TableStyle([
                 ("BACKGROUND", (0, 0), (-1, -1), IVORY),
@@ -585,7 +584,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             if len(row) == 1:
                 row.append("")
             rows_out.append(row)
-        grid = Table(rows_out, colWidths=[76.5 * mm, 76.5 * mm], hAlign="LEFT")
+        grid = Table(rows_out, colWidths=[content_w / 2, content_w / 2], hAlign="LEFT")
         grid.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
@@ -741,7 +740,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             card = Table([[
                 Paragraph(escape(_s(item.get("factor_code"))), code_style),
                 [Paragraph(escape(_s(item.get("family"))), family_style), Paragraph(escape(_s(label)), factor_style)],
-            ]], colWidths=[16 * mm, 137 * mm])
+            ]], colWidths=[16 * mm, content_w - 16 * mm])
             card.setStyle(TableStyle([
                 ("BACKGROUND",(0,0),(-1,-1),colors.white), ("BOX",(0,0),(-1,-1),.55,MID),
                 ("VALIGN",(0,0),(-1,-1),"MIDDLE"), ("LEFTPADDING",(0,0),(-1,-1),8),
@@ -764,7 +763,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             answer = _localized(step, "answer_label", lang)
             circle = NumberCircle(step.get("step_order") or "")
             text_block = [Paragraph(escape(_s(question)), body), Paragraph(escape(_s(answer)), answer_style)]
-            row = Table([[circle, text_block]], colWidths=[13*mm, 140*mm])
+            row = Table([[circle, text_block]], colWidths=[13*mm, content_w - 13*mm], hAlign="LEFT")
             row.setStyle(TableStyle([
                 ("BACKGROUND",(0,0),(-1,-1),colors.white), ("BOX",(0,0),(-1,-1),.55,MID),
                 ("VALIGN",(0,0),(-1,-1),"MIDDLE"), ("LEFTPADDING",(0,0),(-1,-1),7),
@@ -780,7 +779,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
                 [Paragraph(escape(tr["conclusion"]), small), Paragraph(f"<b>{escape(_s(conclusion))}</b>", body)],
                 [Paragraph(escape(tr["recommendation"]), small), Paragraph(f"<b>{escape(_s(recommendation))}</b>", body)],
             ]
-        ], colWidths=[100*mm, 53*mm])
+        ], colWidths=[content_w * .66, content_w * .34], hAlign="LEFT")
         result_cards.setStyle(TableStyle([
             ("BACKGROUND",(0,0),(-1,-1),colors.white), ("BOX",(0,0),(-1,-1),.7,MID),
             ("INNERGRID",(0,0),(-1,-1),.4,MID), ("VALIGN",(0,0),(-1,-1),"TOP"),
@@ -795,7 +794,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     if not tree or not tree.get("facts"):
         story.append(Paragraph(escape(tr["not_provided"]), body))
     else:
-        story.append(CauseTreeFlowable(tree, tr))
+        story.append(CauseTreeFlowable(tree, tr, width=content_w))
         story.append(Spacer(1, 5 * mm))
 
     # 10
@@ -848,7 +847,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
                 [Paragraph(f"{escape(tr['date'])}: ____________________", small)],
                 [Spacer(1, 18 * mm)],
                 [Paragraph(escape(tr["signature"]), small)],
-            ], colWidths=[72.5 * mm], rowHeights=[None, None, None, 20 * mm, None])
+            ], colWidths=[(content_w - 4 * mm) / 2], rowHeights=[None, None, None, 20 * mm, None])
             card.setStyle(TableStyle([
                 ("BACKGROUND", (0, 0), (-1, -1), IVORY), ("BOX", (0, 0), (-1, -1), .6, BEIGE_BORDER),
                 ("LEFTPADDING", (0, 0), (-1, -1), 9), ("RIGHTPADDING", (0, 0), (-1, -1), 9),
@@ -856,7 +855,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
                 ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ]))
             sign_cards.append(card)
-        sign_grid = Table([sign_cards[:2], sign_cards[2:]], colWidths=[76.5 * mm, 76.5 * mm])
+        sign_grid = Table([sign_cards[:2], sign_cards[2:]], colWidths=[content_w / 2, content_w / 2], hAlign="LEFT")
         sign_grid.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
