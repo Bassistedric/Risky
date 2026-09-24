@@ -48,6 +48,7 @@ def get_statistics_summary(
                 year=year,
                 month_to=month_to,
                 trade_code=trade_code,
+                language=language,
             )
 
         except ValueError as exc:
@@ -69,6 +70,7 @@ def get_accidentology_statistics(
     year: int,
     month_to: int = 12,
     trade_code: str | None = None,
+    language: str = "fr",
 ):
     db = SessionLocal()
 
