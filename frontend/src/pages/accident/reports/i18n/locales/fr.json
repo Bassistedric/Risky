@@ -106,7 +106,8 @@
         },
         "analysisType": {
             "ADVANCED": "Approfondie",
-            "NORMAL": "Normale"
+            "NORMAL": "Normale",
+            "CIRCUMSTANTIAL": "Circonstancié"
         },
         "personCategory": {
             "WORKER": "Ouvrier",
