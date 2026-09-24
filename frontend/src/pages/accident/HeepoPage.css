@@ -9,28 +9,7 @@
     color: #10243e;
 }
 
-.heepo-page__back {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    margin-bottom: 16px;
-    padding: 0;
-
-    border: 0;
-    background: transparent;
-
-    color: #244b73;
-    font: inherit;
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-.heepo-page__back:hover {
-    text-decoration: underline;
-}
-
+.heepo-page__back{align-self:flex-start;margin-bottom:16px}
 
 /* ============================================================
    EN-TÊTE
