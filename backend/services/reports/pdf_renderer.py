@@ -22,7 +22,9 @@ from backend.services.event_photos import STORAGE_ROOT, get_event_photos
 
 NAVY = colors.HexColor("#17324D")
 ORANGE = colors.HexColor("#B85F2B")
-LIGHT = colors.HexColor("#F3F6F8")
+LIGHT = colors.HexColor("#EDF2F5")
+IVORY = colors.HexColor("#FAF8F4")
+BEIGE_BORDER = colors.HexColor("#DED7CA")
 MID = colors.HexColor("#D7E0E6")
 TEXT = colors.HexColor("#24313B")
 MUTED = colors.HexColor("#667782")
@@ -35,7 +37,7 @@ I18N = {
     "fr": {
         "report": "RAPPORT D’ANALYSE D’ÉVÉNEMENT", "contents": "Table des matières",
         "summary": "Synthèse & conséquences", "facts": "Relation des faits", "photos": "Photos",
-        "classification": "Classification Fedris", "heepo": "HEEPO", "jc": "Just Culture",
+        "classification": "Classification Fedris", "circ_details": "Données complémentaires du rapport circonstancié", "circ_causes": "Analyse complémentaire des causes", "heepo": "HEEPO", "jc": "Just Culture",
         "tree": "Arbre des causes", "actions": "Mesures & actions", "organization": "Organisation",
         "event_type": "Type d’événement", "event_date": "Date de l’événement", "location": "Lieu",
         "analysis": "Type d’analyse", "version": "Version", "generated": "Date de génération",
@@ -53,7 +55,7 @@ I18N = {
     "nl": {
         "report": "ANALYSERAPPORT VAN EEN GEBEURTENIS", "contents": "Inhoudsopgave",
         "summary": "Samenvatting & gevolgen", "facts": "Feitenrelaas", "photos": "Foto’s",
-        "classification": "Fedris-classificatie", "heepo": "MUOPO", "jc": "Just Culture",
+        "classification": "Fedris-classificatie", "circ_details": "Aanvullende gegevens van het omstandig verslag", "circ_causes": "Aanvullende oorzakenanalyse", "heepo": "MUOPO", "jc": "Just Culture",
         "tree": "Oorzakenboom", "actions": "Maatregelen & acties", "organization": "Organisatie",
         "event_type": "Type gebeurtenis", "event_date": "Datum gebeurtenis", "location": "Plaats",
         "analysis": "Type analyse", "version": "Versie", "generated": "Generatiedatum",
@@ -71,7 +73,7 @@ I18N = {
     "en": {
         "report": "EVENT ANALYSIS REPORT", "contents": "Table of contents",
         "summary": "Summary & consequences", "facts": "Statement of facts", "photos": "Photos",
-        "classification": "Fedris classification", "heepo": "HEEPO", "jc": "Just Culture",
+        "classification": "Fedris classification", "circ_details": "Additional information for the detailed report", "circ_causes": "Additional cause analysis", "heepo": "HEEPO", "jc": "Just Culture",
         "tree": "Cause tree", "actions": "Measures & actions", "organization": "Organization",
         "event_type": "Event type", "event_date": "Event date", "location": "Location",
         "analysis": "Analysis type", "version": "Version", "generated": "Generation date",
@@ -88,7 +90,7 @@ I18N = {
     "pl": {
         "report": "RAPORT Z ANALIZY ZDARZENIA", "contents": "Spis treści",
         "summary": "Podsumowanie i konsekwencje", "facts": "Relacja faktów", "photos": "Zdjęcia",
-        "classification": "Klasyfikacja Fedris", "heepo": "HEEPO", "jc": "Just Culture",
+        "classification": "Klasyfikacja Fedris", "circ_details": "Dane uzupełniające raportu szczegółowego", "circ_causes": "Uzupełniająca analiza przyczyn", "heepo": "HEEPO", "jc": "Just Culture",
         "tree": "Drzewo przyczyn", "actions": "Środki i działania", "organization": "Organizacja",
         "event_type": "Rodzaj zdarzenia", "event_date": "Data zdarzenia", "location": "Miejsce",
         "analysis": "Rodzaj analizy", "version": "Wersja", "generated": "Data wygenerowania",
@@ -202,7 +204,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     ]
     ct = Table([[Paragraph(f"<b>{escape(a)}</b>", body), Paragraph(escape(b), body)] for a, b in cover_rows], colWidths=[48 * mm, 92 * mm])
     ct.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (0, -1), LIGHT), ("BOX", (0, 0), (-1, -1), .5, MID),
+        ("BACKGROUND", (0, 0), (0, -1), LIGHT), ("BOX", (0, 0), (-1, -1), .5, BEIGE_BORDER),
         ("INNERGRID", (0, 0), (-1, -1), .35, MID), ("VALIGN", (0, 0), (-1, -1), "TOP"),
         ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
     ]))
@@ -263,9 +265,9 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             story.append(Paragraph(escape(tr["not_provided"]), body)); return
         table = Table([[Paragraph(f"<b>{escape(_s(a))}</b>", body), Paragraph(escape(_s(b)), body)] for a, b in usable], colWidths=[48 * mm, 105 * mm])
         table.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (0, -1), NAVY), ("TEXTCOLOR", (0, 0), (0, -1), colors.white),
-            ("BACKGROUND", (1, 0), (1, -1), LIGHT), ("BOX", (0, 0), (-1, -1), .5, MID),
-            ("INNERGRID", (0, 0), (-1, -1), .25, colors.white),
+            ("BACKGROUND", (0, 0), (0, -1), IVORY), ("TEXTCOLOR", (0, 0), (0, -1), MUTED),
+            ("BACKGROUND", (1, 0), (1, -1), IVORY), ("BOX", (0, 0), (-1, -1), .5, MID),
+            ("INNERGRID", (0, 0), (-1, -1), .25, BEIGE_BORDER),
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
             ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
@@ -290,8 +292,29 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         (tr["description"], facts.get("event_description")), (tr["direct_cause"], facts.get("direct_cause")),
     ])
 
-    # 03
-    heading(3, "photos")
+    # 03 — DONNÉES COMPLÉMENTAIRES DU CIRCONSTANCIÉ
+    circ = data.get("circumstantial_report")
+    if circ:
+        heading(3, "circ_details")
+        info_table([
+            ("Adresse de la victime", circ.get("victim_address")),
+            ("Date de naissance", circ.get("victim_birth_date")),
+            ("Ancienneté dans l’entreprise", circ.get("victim_company_seniority")),
+            ("Ancienneté dans la fonction", circ.get("victim_job_seniority")),
+            ("Employeur", circ.get("employer_name")),
+            ("Adresse de l’employeur", circ.get("employer_address")),
+            ("Assureur accidents du travail", circ.get("insurer_name")),
+            ("N° de police", circ.get("insurance_policy_number")),
+            ("Conseiller en prévention", circ.get("prevention_advisor")),
+            ("Responsable SIPP", circ.get("sipp_manager")),
+            ("SEPP", circ.get("sepp_name")),
+            ("Coordonnées SEPP", circ.get("sepp_contact")),
+            ("Personnes ayant participé à l’élaboration", circ.get("report_contributors")),
+            ("Destinataires du rapport", circ.get("report_recipients")),
+        ])
+
+    # 04
+    heading(4, "photos")
     photos = get_event_photos(db=db, event_id=data["event_id"])
     if not photos:
         story.append(Paragraph(escape(tr["not_provided"]), body))
@@ -337,8 +360,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             ]))
             story += [table, Spacer(1, 3 * mm)]
 
-    # 04
-    heading(4, "classification")
+    # 05
+    heading(5, "classification")
     cl = data.get("classification") or {}
     info_table([
         (tr["deviation"], _localized(cl, "deviation_label", lang)),
@@ -347,8 +370,34 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         (tr["injury_location"], _localized(cl, "injury_location_label", lang)),
     ])
 
-    # 05
-    heading(5, "heepo")
+    # 06 — ANALYSE COMPLÉMENTAIRE DES CAUSES
+    if circ:
+        import json
+        heading(6, "circ_causes")
+        try:
+            selected = set(json.loads(circ.get("cause_selections_json") or "[]"))
+        except (TypeError, ValueError, json.JSONDecodeError):
+            selected = set()
+        groups = [
+            ("Causes primaires · matérielles", ["product","machine","tool","orderCleanliness","transport","materialOther","collectiveAbsent","collectiveMissing","collectiveDisabled","collectiveOther","ppeMisuse","ppeAbsent","ppeUnsuitable","ppeOther","lighting","noise","temperature","environmentOther"], circ.get("primary_details")),
+            ("Causes secondaires · organisationnelles", ["riskAnalysis","instructions","sippOperation","organizationOther","followupControl","trainingGap","communicationOther","distraction","intentionalNegligence","fatigue","incompetence","haste","humanOther"], circ.get("secondary_details")),
+            ("Causes tertiaires · tiers", ["designManufacturing","noncompliantEquipment","badAdvice","instructionsNotFollowed","sitePressure","thirdOrganizationOther"], circ.get("tertiary_details")),
+        ]
+        for title, codes, details in groups:
+            chosen = [code for code in codes if code in selected]
+            content = " · ".join(chosen) if chosen else tr["not_provided"]
+            rows = [[Paragraph(f"<b>{escape(title)}</b>", body)], [Paragraph(escape(content), body)]]
+            if details:
+                rows.append([Paragraph(escape(_s(details)), small)])
+            card = Table(rows, colWidths=[153 * mm])
+            card.setStyle(TableStyle([
+                ("BACKGROUND",(0,0),(-1,-1),IVORY),("BOX",(0,0),(-1,-1),.5,BEIGE_BORDER),
+                ("PADDING",(0,0),(-1,-1),8),("VALIGN",(0,0),(-1,-1),"TOP")
+            ]))
+            story += [card, Spacer(1, 3 * mm)]
+
+    # 07
+    heading(7, "heepo")
     heepo = data.get("heepo") or []
     if not heepo:
         story.append(Paragraph(escape(tr["not_provided"]), body))
@@ -362,8 +411,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         table.setStyle(TableStyle([("BACKGROUND", (0,0), (-1,0), NAVY), ("TEXTCOLOR", (0,0), (-1,0), colors.white), ("BOX",(0,0),(-1,-1),.4,MID), ("INNERGRID",(0,0),(-1,-1),.25,MID), ("VALIGN",(0,0),(-1,-1),"TOP"), ("PADDING",(0,0),(-1,-1),6)]))
         story.append(table)
 
-    # 06
-    heading(6, "jc")
+    # 08
+    heading(8, "jc")
     jc = data.get("just_culture")
     if not jc:
         story.append(Paragraph(escape(tr["not_applicable"]), body))
@@ -379,8 +428,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,-1),bg),("BOX",(0,0),(-1,-1),.7,ORANGE),("INNERGRID",(0,0),(-1,-1),.3,MID),("PADDING",(0,0),(-1,-1),8),("VALIGN",(0,0),(-1,-1),"TOP")]))
         story.append(table)
 
-    # 07
-    heading(7, "tree")
+    # 09
+    heading(9, "tree")
     tree = data.get("cause_tree")
     if not tree or not tree.get("facts"):
         story.append(Paragraph(escape(tr["not_provided"]), body))
@@ -392,8 +441,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             prefix = " ← " + " ; ".join(filter(None, parents)) if parents else ""
             story.append(Paragraph("• " + escape(_s(fact.get("description")) + prefix), body))
 
-    # 08
-    heading(8, "actions")
+    # 10
+    heading(10, "actions")
     actions = data.get("actions") or []
     if not actions:
         story.append(Paragraph(escape(tr["not_provided"]), body))
