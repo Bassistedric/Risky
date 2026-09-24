@@ -931,38 +931,38 @@ function AccidentReportPreview({
                 <section className="report-preview__section report-preview__section--circumstantial">
                     <div className="report-preview__section-title">
                         <span>03</span>
-                        <h2>Données complémentaires du rapport circonstancié</h2>
+                        <h2>{rt('preview.circumstantialDetails.title')}</h2>
                     </div>
                     <div className="report-preview__circumstantial-grid">
                         {[
-                            ['Adresse de la victime', circumstantial_report.victim_address],
-                            ['Date de naissance', circumstantial_report.victim_birth_date],
-                            ['Ancienneté dans l’entreprise', circumstantial_report.victim_company_seniority],
-                            ['Ancienneté dans la fonction', circumstantial_report.victim_job_seniority],
-                            ['Employeur', circumstantial_report.employer_name],
-                            ['Adresse de l’employeur', circumstantial_report.employer_address],
-                            ['Assureur accidents du travail', circumstantial_report.insurer_name],
-                            ['N° de police', circumstantial_report.insurance_policy_number],
-                            ['Conseiller en prévention', circumstantial_report.prevention_advisor],
-                            ['Responsable SIPP', circumstantial_report.sipp_manager],
-                            ['SEPP', circumstantial_report.sepp_name],
-                            ['Coordonnées SEPP', circumstantial_report.sepp_contact],
+                            ['victimAddress', circumstantial_report.victim_address],
+                            ['birthDate', circumstantial_report.victim_birth_date],
+                            ['companySeniority', circumstantial_report.victim_company_seniority],
+                            ['jobSeniority', circumstantial_report.victim_job_seniority],
+                            ['employer', circumstantial_report.employer_name],
+                            ['employerAddress', circumstantial_report.employer_address],
+                            ['insurer', circumstantial_report.insurer_name],
+                            ['policyNumber', circumstantial_report.insurance_policy_number],
+                            ['preventionAdvisor', circumstantial_report.prevention_advisor],
+                            ['sippManager', circumstantial_report.sipp_manager],
+                            ['sepp', circumstantial_report.sepp_name],
+                            ['seppContact', circumstantial_report.sepp_contact],
                         ].map(([label, value]) => (
                             <div className="report-preview__circumstantial-card" key={label}>
-                                <span>{label}</span>
+                                <span>{rt('preview.circumstantialDetails.' + label)}</span>
                                 <strong>{valueOrNotProvided(value)}</strong>
                             </div>
                         ))}
                     </div>
                     {circumstantial_report.report_contributors && (
                         <div className="report-preview__text-card">
-                            <span>Personnes ayant participé à l’élaboration</span>
+                            <span>{rt('preview.circumstantialDetails.contributors')}</span>
                             <p>{circumstantial_report.report_contributors}</p>
                         </div>
                     )}
                     {circumstantial_report.report_recipients && (
                         <div className="report-preview__text-card">
-                            <span>Destinataires du rapport</span>
+                            <span>{rt('preview.circumstantialDetails.recipients')}</span>
                             <p>{circumstantial_report.report_recipients}</p>
                         </div>
                     )}
