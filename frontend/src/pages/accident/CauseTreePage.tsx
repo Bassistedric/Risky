@@ -397,7 +397,7 @@ function CauseTreePage({
                 ==================================================== */}
 
             <button
-                className="cause-tree-page__back"
+                className="cause-tree-page__back risky-back-button"
                 type="button"
                 onClick={onBack}
             >
