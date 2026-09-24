@@ -31,10 +31,12 @@ export default function SafetyDashboardPage(){
  const mn=(m:number)=>new Intl.DateTimeFormat(locale,{month:'short'}).format(new Date(2026,m-1,1))
  const points=useMemo(()=>data?.monthly.map(r=>({m:r.month,v:metric==='tf'?r.tf_ytd:metric==='tg'?r.tg_ytd:r.accidents_with_lost_time+r.accidents_without_lost_time}))??[],[data,metric])
  const max=Math.max(1,...points.flatMap(p=>p.v==null?[]:[p.v]))
- const xy=points.map((p,i)=>p.v==null?null:{...p,x:points.length<2?50:50+i/(points.length-1)*850,y:250-p.v/max*190})
- const line=xy.filter((p):p is NonNullable<typeof p>=>p!==null).map(p=>`${p.x},${p.y}`).join(' ')
  const target=metric==='tf'?data?.targets.tf_target:metric==='tg'?data?.targets.tg_target:null
- const ty=target!=null&&target<=max?250-target/max*190:null
+ const chartMax=Math.max(max,target??0,1)
+ const xy=points.map((p,i)=>p.v==null?null:{...p,x:points.length<2?50:50+i/(points.length-1)*850,y:250-p.v/chartMax*190})
+ const line=xy.filter((p):p is NonNullable<typeof p>=>p!==null).map(p=>`${p.x},${p.y}`).join(' ')
+ const ty=target!=null?250-target/chartMax*190:null
+ const status=(value:number|null|undefined,targetValue:number|null|undefined)=>value==null||targetValue==null?'':value<targetValue?'is-good':'is-limit'
 
  return <section className="safety-dashboard">
   <header className="safety-dashboard__header"><div><h2>{t('safetyStatistics.title')}</h2><p>{t('safetyStatistics.subtitle')}</p></div>
@@ -49,8 +51,8 @@ export default function SafetyDashboardPage(){
   {!loading&&!error&&data&&<>
    <div className="safety-dashboard__scope"><strong>{data.scope.organization_name}</strong><span>·</span><span>{data.scope.trade_code??t('safetyStatistics.allTrades')}</span><span>·</span><span>{data.period.year}</span></div>
    <div className="safety-dashboard__kpis">
-    <article><span>TF</span><strong>{n(data.indicators.tf)}</strong><small>{t('safetyStatistics.cfeTarget')}: {n(data.targets.tf_target)}</small><em>{t('safetyStatistics.projection')}: {n(data.projection.projected_tf)}</em></article>
-    <article><span>TG</span><strong>{n(data.indicators.tg)}</strong><small>{t('safetyStatistics.cfeTarget')}: {n(data.targets.tg_target)}</small><em>{t('safetyStatistics.projection')}: {n(data.projection.projected_tg)}</em></article>
+    <article><span>TF</span><strong className={status(data.indicators.tf,data.targets.tf_target)}>{n(data.indicators.tf)}</strong><small>{t('safetyStatistics.cfeTarget')}: {n(data.targets.tf_target)}</small><em><b className={status(data.projection.projected_tf,data.targets.tf_target)}>{t('safetyStatistics.projection')}: {n(data.projection.projected_tf)}</b></em></article>
+    <article><span>TG</span><strong className={status(data.indicators.tg,data.targets.tg_target)}>{n(data.indicators.tg)}</strong><small>{t('safetyStatistics.cfeTarget')}: {n(data.targets.tg_target)}</small><em><b className={status(data.projection.projected_tg,data.targets.tg_target)}>{t('safetyStatistics.projection')}: {n(data.projection.projected_tg)}</b></em></article>
     <article><span>TGG</span><strong>{n(data.indicators.tgg)}</strong><small>{t('safetyStatistics.conventionalDays')}: {ni(data.totals.conventional_days)}</small></article>
     <article><span>{t('safetyStatistics.workedHours')}</span><strong>{ni(data.totals.worked_hours)}</strong><small>YTD</small><em>{t('safetyStatistics.projectedHours')}: {ni(data.projection.projected_hours)}</em></article>
    </div>
