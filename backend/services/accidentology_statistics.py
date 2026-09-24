@@ -71,6 +71,14 @@ def build_accidentology_summary(
 
     event_ids = [event.id for event in events]
     event_count = len(events)
+    normal_event_ids = {
+        event.id for event in events
+        if event.analysis_type == "NORMAL"
+    }
+    advanced_event_ids = {
+        event.id for event in events
+        if event.analysis_type == "ADVANCED"
+    }
 
     heepo_rows = (
         list(
@@ -135,7 +143,7 @@ def build_accidentology_summary(
         list(
             db.scalars(
                 select(models.EventJustCultureAnalysis).where(
-                    models.EventJustCultureAnalysis.event_id.in_(event_ids),
+                    models.EventJustCultureAnalysis.event_id.in_(normal_event_ids),
                     models.EventJustCultureAnalysis.status == "COMPLETED",
                     models.EventJustCultureAnalysis.conclusion_code.is_not(None),
                 )
@@ -211,6 +219,8 @@ def build_accidentology_summary(
         },
         "coverage": {
             "events": event_count,
+            "normal_events": len(normal_event_ids),
+            "advanced_events": len(advanced_event_ids),
             "heepo": len(heepo_event_ids),
             "classification": len(classification_event_ids),
             "just_culture": len(just_culture),
