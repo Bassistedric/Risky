@@ -76,6 +76,10 @@
     "localActions": "lokale acties",
     "global9001": "acties opgevolgd in 9001",
     "localProgress": "Gemiddelde voortgang van lokale acties",
-    "other": "Overige"
-  }
+    "other": "Overige",
+    "externalWorkers": "Externe opvolging",
+    "temporaryWorkers": "ongeval(len) uitzendkracht(en)",
+    "subcontractors": "ongeval(len) onderaannemer(s)"
+  },
+  "modifiedDutyDays": "Dagen aangepast werk"
 }
