@@ -95,7 +95,8 @@
             "responsible": "Verantwoordelijke",
             "dueDate": "Vervaldatum",
             "progress": "Voortgang"
-        }
+        },
+        "pdfGenerationError": "De PDF kan niet worden gegenereerd."
     },
     "values": {
         "eventType": {
