@@ -471,3 +471,20 @@
     .report-preview__photo,.report-preview__classification>div,.report-preview__list-item,.report-preview__decision,.report-preview__action{break-inside:avoid}
     .report-preview__photo a{height:220px}
 }
+
+/* ========================================================
+   RAPPORT CIRCONSTANCIÉ — APERÇU
+   ======================================================== */
+.report-preview__section--circumstantial{border-color:#ded7ca}
+.report-preview__circumstantial-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.report-preview__circumstantial-card{padding:12px 14px;border:1px solid #e0d9ce;border-radius:8px;background:#faf8f4}
+.report-preview__circumstantial-card span{display:block;margin-bottom:4px;color:#75685b;font-size:11px;font-weight:700}
+.report-preview__circumstantial-card strong{color:#26333b;font-size:13px}
+.report-preview__circumstantial-causes{display:grid;gap:12px}
+.report-preview__circumstantial-cause{padding:14px 16px;border:1px solid #ded7ca;border-radius:9px;background:#faf8f4}
+.report-preview__circumstantial-cause h3{margin:0 0 10px;color:#4d443b;font-size:14px}
+.report-preview__circumstantial-pills{display:flex;flex-wrap:wrap;gap:7px}
+.report-preview__circumstantial-pills span{padding:6px 9px;border:1px solid #d2c6b6;border-radius:999px;background:#eee7dc;color:#493e34;font-size:12px;font-weight:700}
+.report-preview__circumstantial-pills em{color:#7b8185;font-size:12px}
+.report-preview__circumstantial-cause>p{margin:10px 0 0;color:#4b555b;font-size:12px;white-space:pre-wrap}
+@media(max-width:800px){.report-preview__circumstantial-grid{grid-template-columns:1fr}}
