@@ -14,6 +14,7 @@ class EventReportPreviewResponse(BaseModel):
     event: dict[str, Any]
     facts: dict[str, Any] | None
     classification: dict[str, Any] | None
+    circumstantial_report: dict[str, Any] | None = None
 
     heepo: list[dict[str, Any]]
     photos: list[dict[str, Any]]
