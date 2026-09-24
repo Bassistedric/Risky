@@ -440,3 +440,21 @@
     }
 }
 .report-preview__not-applicable{padding:18px;border:1px dashed #cfd7dc;border-radius:10px;background:#f7f9fa;color:#6d7880;font-style:italic;text-align:center}
+
+/* ========================================================
+   JUST CULTURE — COULEUR CONCLUSION / RECOMMANDATION
+   ======================================================== */
+.report-preview__result-grid{padding:0;border-left:5px solid #64748b;border-radius:10px}
+.report-preview__result-grid>div{border-radius:0;border-top:0;border-right:0;border-bottom:0}
+.report-preview__result-grid--support{border-left-color:#16a34a;background:#f0fdf4}
+.report-preview__result-grid--support>div{background:#f0fdf4}
+.report-preview__result-grid--verbal{border-left-color:#ca8a04;background:#fefce8}
+.report-preview__result-grid--verbal>div{background:#fefce8}
+.report-preview__result-grid--written-first{border-left-color:#f97316;background:#fff7ed}
+.report-preview__result-grid--written-first>div{background:#fff7ed}
+.report-preview__result-grid--written-final{border-left-color:#ea580c;background:#fff7ed}
+.report-preview__result-grid--written-final>div{background:#fff7ed}
+.report-preview__result-grid--dismissal{border-left-color:#dc2626;background:#fef2f2}
+.report-preview__result-grid--dismissal>div{background:#fef2f2}
+.report-preview__result-grid--neutral{border-left-color:#64748b;background:#f8fafc}
+.report-preview__result-grid--neutral>div{background:#f8fafc}
