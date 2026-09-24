@@ -28,6 +28,7 @@ type EventRow = {
     permanent_injury: boolean;
 
     analysis_type: string | null;
+    circumstantial_report_required?: boolean;
     status: string;
 };
 
@@ -59,7 +60,8 @@ function formatEventType(eventType: string) {
     }
 }
 
-function formatAnalysisType(analysisType: string | null) {
+function formatAnalysisType(analysisType: string | null, circumstantialRequired = false) {
+    if (circumstantialRequired) return at('circumstantial.analysisType');
     switch (analysisType) {
         case "NORMAL":
             return at('overview.normal');
@@ -330,7 +332,7 @@ export default
                                                     : 'accident-register-badge--normal'
                                                     }`}
                                             >
-                                                {formatAnalysisType(event.analysis_type)}
+                                                {formatAnalysisType(event.analysis_type, event.circumstantial_report_required)}
                                             </span>
                                         </td>
 
