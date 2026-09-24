@@ -18,6 +18,7 @@ import type { EventDetail } from './accidentTypes'
 import AccidentPhotosSection from './photos/AccidentPhotosSection'
 import AccidentReportsSection from './reports/AccidentReportsSection'
 import AccidentReportPreview from './reports/AccidentReportPreview'
+import SafetyFlashEditor from './reports/SafetyFlashEditor'
 
 type AccidentDossierPageProps = {
     eventId: number
@@ -73,6 +74,7 @@ function AccidentDossierPage({
 
     const [showReportPreview, setShowReportPreview] =
         useState(false)
+    const [showSafetyFlash, setShowSafetyFlash] = useState(false)
 
     const loadEvent = useCallback(async () => {
         try {
@@ -236,6 +238,10 @@ function AccidentDossierPage({
     /* ========================================================
        APERÇU RAPPORT
        ======================================================== */
+
+    if (showSafetyFlash) {
+        return <SafetyFlashEditor eventId={eventId} onBack={() => setShowSafetyFlash(false)} />
+    }
 
     if (showReportPreview) {
         return (
