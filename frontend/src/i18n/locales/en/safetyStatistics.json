@@ -72,6 +72,9 @@
       "TO_VALIDATE": "To validate",
       "DONE": "Done",
       "CLOSED": "Closed"
-    }
+    },
+    "localActions": "local actions",
+    "global9001": "actions tracked in 9001",
+    "localProgress": "Average progress of local actions"
   }
 }
