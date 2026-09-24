@@ -72,6 +72,9 @@
       "TO_VALIDATE": "Do zatwierdzenia",
       "DONE": "Wykonane",
       "CLOSED": "Zamknięte"
-    }
+    },
+    "localActions": "działania lokalne",
+    "global9001": "działania monitorowane w 9001",
+    "localProgress": "Średni postęp działań lokalnych"
   }
 }
