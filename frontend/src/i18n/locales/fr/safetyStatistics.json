@@ -43,5 +43,35 @@
     "none": "Aucune invalidité encodée.",
     "disabilitySaved": "Invalidité enregistrée.",
     "error": "L'opération a échoué."
+  },
+  "accidentology": {
+    "title": "Analyse accidentologique",
+    "subtitle": "Analyse structurée des événements sur la période sélectionnée",
+    "loadError": "Impossible de charger l’analyse accidentologique.",
+    "coverage": {
+      "heepo": "HEEPO complétés",
+      "classification": "Classifications complètes",
+      "just_culture": "Just Culture conclues",
+      "actions": "Actions"
+    },
+    "encoded": "encodées",
+    "heepoFamilies": "HEEPO — familles",
+    "heepoFactors": "HEEPO — facteurs principaux",
+    "classification": "Classification Fedris",
+    "deviation": "Déviation",
+    "material_agent": "Agent matériel",
+    "injury_nature": "Nature de la lésion",
+    "injury_location": "Localisation de la lésion",
+    "justCulture": "Conclusions Just Culture",
+    "actions": "Suivi des actions",
+    "actionsEncoded": "actions encodées",
+    "overdue": "action(s) hors délai",
+    "actionStatus": {
+      "TODO": "À réaliser",
+      "IN_PROGRESS": "En cours",
+      "TO_VALIDATE": "À valider",
+      "DONE": "Réalisée",
+      "CLOSED": "Clôturée"
+    }
   }
 }
