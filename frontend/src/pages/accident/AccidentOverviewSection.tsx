@@ -38,6 +38,27 @@ function AccidentOverviewSection({
     const [organizations, setOrganizations] =
         useState<OrganizationOption[]>([])
 
+    const [circumstantialRequired, setCircumstantialRequired] =
+        useState(false)
+
+    useEffect(() => {
+        const loadSeriousAssessment = async () => {
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/events/${event.id}/serious-accident-assessment`,
+                )
+                if (!response.ok) return
+                const assessment = await response.json()
+                setCircumstantialRequired(
+                    Boolean(assessment.circumstantial_report_required),
+                )
+            } catch {
+                setCircumstantialRequired(false)
+            }
+        }
+        void loadSeriousAssessment()
+    }, [event.id, event.analysis_type])
+
     useEffect(() => {
         const loadOrganizations = async () => {
             try {
@@ -441,9 +462,11 @@ function AccidentOverviewSection({
                             <div>
                                 <span>{at('overview.analysisType')}</span>
                                 <strong>
-                                    {event.analysis_type === 'ADVANCED'
-                                        ? at('overview.inDepth')
-                                        : at('overview.normal')}
+                                    {circumstantialRequired
+                                        ? at('circumstantial.analysisType')
+                                        : event.analysis_type === 'ADVANCED'
+                                            ? at('overview.inDepth')
+                                            : at('overview.normal')}
                                 </strong>
                             </div>
                         </div>
@@ -738,6 +761,7 @@ function AccidentOverviewSection({
                         <span>{at('overview.analysisType')}</span>
                         <select
                             value={eventDraft.analysis_type}
+                            disabled={circumstantialRequired}
                             onChange={(e) =>
                                 updateEventField(
                                     'analysis_type',
