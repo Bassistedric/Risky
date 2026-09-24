@@ -48,7 +48,6 @@ def get_statistics_summary(
                 year=year,
                 month_to=month_to,
                 trade_code=trade_code,
-                language=language,
             )
 
         except ValueError as exc:
@@ -82,6 +81,7 @@ def get_accidentology_statistics(
                 year=year,
                 month_to=month_to,
                 trade_code=trade_code,
+                language=language,
             )
         except ValueError as exc:
             raise HTTPException(
