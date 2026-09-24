@@ -123,12 +123,24 @@ class RiskyDocTemplate(BaseDocTemplate):
         super().__init__(buffer, **kwargs)
         self.event_number = event_number
         self.report_title = title
+        self.cover_version = "1.0"
+        self.cover_generated_label = ""
         frame = Frame(self.leftMargin, self.bottomMargin, self.width, self.height, id="body")
         self.addPageTemplates(PageTemplate(id="risky", frames=frame, onPage=self._page))
 
     def _page(self, canvas, doc):
         canvas.saveState()
-        if doc.page > 2:
+        if doc.page == 1:
+            # Pied de couverture fixe : hors du flux Platypus.
+            canvas.setStrokeColor(MID)
+            canvas.line(18 * mm, 18 * mm, A4[0] - 18 * mm, 18 * mm)
+            canvas.setFont("Helvetica", 7.2)
+            canvas.setFillColor(MUTED)
+            canvas.drawString(18 * mm, 11 * mm, self.cover_generated_label)
+            canvas.setFont("Helvetica-Bold", 15)
+            canvas.setFillColor(ORANGE)
+            canvas.drawRightString(A4[0] - 18 * mm, 10.5 * mm, "R")
+        elif doc.page > 2:
             canvas.setFillColor(NAVY)
             canvas.rect(0, A4[1] - 8 * mm, A4[0], 8 * mm, fill=1, stroke=0)
             canvas.setFillColor(ORANGE)
@@ -464,6 +476,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         pagesize=A4,
         rightMargin=18 * mm, leftMargin=18 * mm, topMargin=18 * mm, bottomMargin=20 * mm,
     )
+    doc.cover_generated_label = f"{tr['version']} 1.0  •  {tr['generated']}: {__import__('datetime').date.today().isoformat()}"
     styles = getSampleStyleSheet()
     body = ParagraphStyle("BodyRisky", parent=styles["BodyText"], fontName="Helvetica", fontSize=9, leading=13, textColor=TEXT)
     small = ParagraphStyle("SmallRisky", parent=body, fontSize=7.5, leading=10, textColor=MUTED)
@@ -481,6 +494,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     logo_candidates = [
         # Source Vite actuelle : frontend/src/assets/images/vma_logo.jpg
         Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images" / "vma_logo.jpg",
+        Path.cwd() / "frontend" / "src" / "assets" / "images" / "vma_logo.jpg",
         Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images" / "vma_logo.jpeg",
         Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images" / "vma_logo.png",
         # Fallbacks pour un futur packaging backend autonome.
@@ -491,7 +505,11 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     ]
     logo_path = next((p for p in logo_candidates if p.exists()), None)
     if logo_path:
-        logo = Image(str(logo_path), width=55 * mm, height=22 * mm)
+        logo = Image(str(logo_path))
+        max_w, max_h = 62 * mm, 26 * mm
+        scale = min(max_w / logo.imageWidth, max_h / logo.imageHeight)
+        logo.drawWidth = logo.imageWidth * scale
+        logo.drawHeight = logo.imageHeight * scale
         logo.hAlign = "LEFT"
         story += [logo, Spacer(1, 18 * mm)]
     else:
@@ -536,18 +554,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     ]))
     story.append(cover_grid)
 
-    # Bas de couverture : version/date à gauche, signature RISKY très discrète à droite.
-    story.append(Spacer(1, 1))
-    footer_cover = Table([[
-        Paragraph(f"{escape(tr['version'])} 1.0&nbsp;&nbsp;•&nbsp;&nbsp;{escape(tr['generated'])}: {__import__('datetime').date.today().isoformat()}", small),
-        Paragraph("<b>R</b>", ParagraphStyle("RiskyMark", parent=body, fontName="Helvetica-Bold", fontSize=16, textColor=ORANGE, alignment=2)),
-    ]], colWidths=[content_w - 12*mm, 12*mm])
-    footer_cover.setStyle(TableStyle([
-        ("VALIGN",(0,0),(-1,-1),"BOTTOM"), ("LEFTPADDING",(0,0),(-1,-1),0),
-        ("RIGHTPADDING",(0,0),(-1,-1),0), ("TOPPADDING",(0,0),(-1,-1),0),
-        ("BOTTOMPADDING",(0,0),(-1,-1),0),
-    ]))
-    story += [Spacer(1, 22 * mm), footer_cover]
+    # Le pied de couverture est dessiné par RiskyDocTemplate._page afin de rester en bas de page.
     story.append(PageBreak())
 
     # ========================================================
