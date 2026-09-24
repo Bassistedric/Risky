@@ -8,6 +8,7 @@ import {
 import { API_BASE_URL } from './accidentApi'
 
 import AccidentClassificationSection from './AccidentClassificationSection'
+import AccidentCircumstantialSection from './AccidentCircumstantialSection'
 import AccidentHeepoSection from './AccidentHeepoSection'
 import AccidentJustCultureSection from './AccidentJustCultureSection'
 import AccidentClassificationCard from './AccidentClassificationCard'
@@ -178,6 +179,11 @@ function AccidentAnalysisSection({
             <AccidentClassificationSection
                 eventId={eventId}
                 open={classificationOpen}
+            />
+
+            <AccidentCircumstantialSection
+                eventId={eventId}
+                mode="causes"
             />
         </section>
     )
