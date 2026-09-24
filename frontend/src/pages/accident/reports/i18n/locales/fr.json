@@ -21,7 +21,16 @@
         "type": "Communication CFE",
         "title": "Safety Flash",
         "description": "Communication synthétique basée sur le modèle officiel CFE.",
-        "prepare": "Préparer"
+        "prepare": "Préparer",
+        "editor": {
+            "what": "Quoi :",
+            "subject": "Sujet",
+            "facts": "Les faits",
+            "explanations": "Explications",
+            "support": "Support d’information (Photos / docs…)",
+            "noPhoto": "Aucune photo dans le dossier",
+            "actions": "Action corrective / Recommandations"
+        }
     },
     "preview": {
         "loading": "Chargement de l'aperçu…",
