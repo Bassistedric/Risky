@@ -292,3 +292,46 @@ class EventFactsResponse(EventFactsUpdate):
 
 class EventAnalysisTypeUpdate(BaseModel):
     analysis_type: str
+
+# ============================================================
+# RAPPORT CIRCONSTANCIÉ — ACCIDENT GRAVE
+# ============================================================
+
+class EventCircumstantialReportUpdate(BaseModel):
+    victim_address: Optional[str] = None
+    victim_birth_date: Optional[str] = None
+    victim_company_seniority: Optional[str] = None
+    victim_job_seniority: Optional[str] = None
+    employer_name: Optional[str] = None
+    employer_address: Optional[str] = None
+    insurer_name: Optional[str] = None
+    insurance_policy_number: Optional[str] = None
+    prevention_advisor: Optional[str] = None
+    sipp_manager: Optional[str] = None
+    sepp_name: Optional[str] = None
+    sepp_contact: Optional[str] = None
+    primary_material_factors: bool = False
+    primary_collective_protection: bool = False
+    primary_personal_protection: bool = False
+    primary_environmental_factors: bool = False
+    primary_other: bool = False
+    primary_details: Optional[str] = None
+    secondary_organization: bool = False
+    secondary_communication: bool = False
+    secondary_human_factors: bool = False
+    secondary_other: bool = False
+    secondary_details: Optional[str] = None
+    tertiary_third_party_material: bool = False
+    tertiary_incorrect_advice: bool = False
+    tertiary_third_party_organization: bool = False
+    tertiary_other: bool = False
+    tertiary_details: Optional[str] = None
+    report_contributors: Optional[str] = None
+    report_recipients: Optional[str] = None
+    committee_opinion: Optional[str] = None
+
+
+class EventCircumstantialReportResponse(EventCircumstantialReportUpdate):
+    id: int
+    event_id: int
+    model_config = ConfigDict(from_attributes=True)
