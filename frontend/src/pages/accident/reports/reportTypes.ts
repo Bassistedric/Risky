@@ -229,9 +229,34 @@ export type ReportAction = {
 }
 
 
+
+export type ReportCircumstantial = {
+    victim_address: string | null
+    victim_birth_date: string | null
+    victim_company_seniority: string | null
+    victim_job_seniority: string | null
+    employer_name: string | null
+    employer_address: string | null
+    insurer_name: string | null
+    insurance_policy_number: string | null
+    prevention_advisor: string | null
+    sipp_manager: string | null
+    sepp_name: string | null
+    sepp_contact: string | null
+    report_contributors: string | null
+    report_recipients: string | null
+    committee_opinion: string | null
+    cause_selections_json: string | null
+    primary_details: string | null
+    secondary_details: string | null
+    tertiary_details: string | null
+}
+
 export type ReportSections = {
     facts: boolean
     classification: boolean
+    circumstantial_details: boolean
+    circumstantial_causes: boolean
     photos: boolean
     heepo: boolean
     cause_tree: boolean
@@ -247,6 +272,7 @@ export type AccidentReportPreviewData = {
     event: ReportEvent
     facts: ReportFacts | null
     classification: ReportClassification | null
+    circumstantial_report: ReportCircumstantial | null
 
     heepo: ReportHeepoItem[]
     photos: ReportPhoto[]
