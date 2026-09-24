@@ -432,6 +432,9 @@ function AccidentDossierPage({
                     onOpenAnalysisReport={() => {
                         setShowReportPreview(true)
                     }}
+                    onOpenSafetyFlash={() => {
+                        setShowSafetyFlash(true)
+                    }}
                 />
 
                 <div className="accident-dossier__danger-zone">
