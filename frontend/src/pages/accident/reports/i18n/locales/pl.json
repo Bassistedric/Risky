@@ -21,7 +21,16 @@
         "type": "Komunikat CFE",
         "title": "Safety Flash",
         "description": "Skrócony komunikat oparty na oficjalnym wzorze CFE.",
-        "prepare": "Przygotuj"
+        "prepare": "Przygotuj",
+        "editor": {
+            "what": "Co:",
+            "subject": "Temat",
+            "facts": "Fakty",
+            "explanations": "Wyjaśnienia",
+            "support": "Materiały informacyjne (zdjęcia / dokumenty…)",
+            "noPhoto": "Brak zdjęć w dokumentacji",
+            "actions": "Działania korygujące / Zalecenia"
+        }
     },
     "preview": {
         "loading": "Ładowanie podglądu…",
