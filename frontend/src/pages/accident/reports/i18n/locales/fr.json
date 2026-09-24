@@ -142,6 +142,23 @@
                 "sitePressure": "Pression de chantier",
                 "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
             }
+        },
+        "circumstantialDetails": {
+            "title": "Données complémentaires du rapport circonstancié",
+            "victimAddress": "Adresse de la victime",
+            "birthDate": "Date de naissance",
+            "companySeniority": "Ancienneté dans l’entreprise",
+            "jobSeniority": "Ancienneté dans la fonction",
+            "employer": "Employeur",
+            "employerAddress": "Adresse de l’employeur",
+            "insurer": "Assureur accidents du travail",
+            "policyNumber": "N° de police",
+            "preventionAdvisor": "Conseiller en prévention",
+            "sippManager": "Responsable SIPP",
+            "sepp": "SEPP",
+            "seppContact": "Coordonnées SEPP",
+            "contributors": "Personnes ayant participé à l’élaboration",
+            "recipients": "Destinataires du rapport"
         }
     },
     "values": {
