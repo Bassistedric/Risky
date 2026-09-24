@@ -432,7 +432,17 @@ function AccidentReportPreview({
                 <button
                     type="button"
                     className="report-preview__generate"
-                    onClick={() => window.print()}
+                    disabled={isGeneratingPdf}
+                    onClick={async () => {
+                        try {
+                            setIsGeneratingPdf(true)
+                            await downloadAnalysisReportPdf(eventId, reportLanguage)
+                        } catch {
+                            setError(rt('preview.pdfGenerationError'))
+                        } finally {
+                            setIsGeneratingPdf(false)
+                        }
+                    }}
                 >
                     {rt(
                         'preview.generatePdf',
