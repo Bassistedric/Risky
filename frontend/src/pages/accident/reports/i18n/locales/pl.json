@@ -95,7 +95,8 @@
             "responsible": "Osoba odpowiedzialna",
             "dueDate": "Termin",
             "progress": "Postęp"
-        }
+        },
+        "pdfGenerationError": "Nie można wygenerować pliku PDF."
     },
     "values": {
         "eventType": {
