@@ -23,5 +23,25 @@
   "accidents": "Accidents",
   "monthlyDetail": "Monthly detail",
   "month": "Month",
-  "hours": "Hours"
+  "hours": "Hours",
+  "data": {
+    "title": "Statistical data",
+    "rhTitle": "HR hours import",
+    "rhHelp": "Import the monthly HR Excel file. A preview is shown before saving.",
+    "preview": "Preview",
+    "apply": "Confirm import",
+    "throughMonth": "through month {{month}}",
+    "records": "records",
+    "importDone": "Import completed: {{count}} records.",
+    "targetsTitle": "CFE targets",
+    "targetsHelp": "Annual limits used to monitor TF and TG.",
+    "save": "Save",
+    "targetsSaved": "CFE targets saved.",
+    "disabilityTitle": "Permanent disability",
+    "disabilityHelp": "Enter the percentages provided by AXA. JGC remains 0 until the official scale is configured.",
+    "add": "Add",
+    "none": "No disability entered.",
+    "disabilitySaved": "Disability saved.",
+    "error": "The operation failed."
+  }
 }
