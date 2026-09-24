@@ -23,5 +23,25 @@
   "accidents": "Wypadki",
   "monthlyDetail": "Szczegóły miesięczne",
   "month": "Miesiąc",
-  "hours": "Godziny"
+  "hours": "Godziny",
+  "data": {
+    "title": "Dane statystyczne",
+    "rhTitle": "Import godzin HR",
+    "rhHelp": "Zaimportuj miesięczny plik Excel z HR. Przed zapisem wyświetlany jest podgląd.",
+    "preview": "Podgląd",
+    "apply": "Zatwierdź import",
+    "throughMonth": "do miesiąca {{month}}",
+    "records": "rekordów",
+    "importDone": "Import zakończony: {{count}} rekordów.",
+    "targetsTitle": "Cele CFE",
+    "targetsHelp": "Roczne wartości graniczne używane do monitorowania TF i TG.",
+    "save": "Zapisz",
+    "targetsSaved": "Cele CFE zapisane.",
+    "disabilityTitle": "Trwały uszczerbek",
+    "disabilityHelp": "Wprowadź wartości procentowe przekazane przez AXA. JGC pozostaje 0 do czasu skonfigurowania oficjalnej tabeli.",
+    "add": "Dodaj",
+    "none": "Nie wprowadzono trwałego uszczerbku.",
+    "disabilitySaved": "Trwały uszczerbek zapisany.",
+    "error": "Operacja nie powiodła się."
+  }
 }
