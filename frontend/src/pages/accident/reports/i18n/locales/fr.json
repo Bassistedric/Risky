@@ -95,7 +95,8 @@
             "responsible": "Responsable",
             "dueDate": "Échéance",
             "progress": "Avancement"
-        }
+        },
+        "pdfGenerationError": "Impossible de générer le PDF."
     },
     "values": {
         "eventType": {
