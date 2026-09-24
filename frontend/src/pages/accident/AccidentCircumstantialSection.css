@@ -1,0 +1,19 @@
+.accident-circumstantial{margin-top:20px;padding:20px;border:1px solid #d8d2c7;border-radius:12px;background:#f8f5ef}
+.accident-circumstantial__head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+.accident-circumstantial__head h2{margin:4px 0 0;color:#24313b;font-size:19px}
+.accident-circumstantial__eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8a6748}
+.accident-circumstantial__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.accident-circumstantial__grid label,.accident-circumstantial__cause-card{padding:13px;border:1px solid #ded8ce;border-radius:9px;background:#fff}
+.accident-circumstantial__grid label.wide{grid-column:1/-1}
+.accident-circumstantial__grid label>span,.accident-circumstantial__detail-label{display:block;margin-bottom:5px;font-size:12px;font-weight:700;color:#75685b}
+.accident-circumstantial p{margin:0;white-space:pre-wrap;color:#27333b}
+.accident-circumstantial input[type=text],.accident-circumstantial input[type=date],.accident-circumstantial textarea{box-sizing:border-box;width:100%;padding:9px 10px;border:1px solid #bdb5aa;border-radius:7px;background:#fff;font:inherit;color:#24313b}
+.accident-circumstantial textarea{min-height:72px;resize:vertical}
+.accident-circumstantial__cause-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.accident-circumstantial__cause-card h3{margin:0 0 12px;color:#3f4b52;font-size:15px}
+.accident-circumstantial__check{display:flex;align-items:flex-start;gap:8px;margin:8px 0;font-size:13px;color:#36434b}
+.accident-circumstantial__check input{margin-top:2px}
+.accident-circumstantial__detail-label{margin-top:14px}
+.accident-circumstantial__actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.accident-circumstantial__error{margin-top:12px!important;color:#a83232!important;font-size:13px;font-weight:600}
+@media(max-width:900px){.accident-circumstantial__grid,.accident-circumstantial__cause-grid{grid-template-columns:1fr}.accident-circumstantial__grid label.wide{grid-column:auto}}
