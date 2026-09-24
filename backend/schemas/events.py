@@ -310,6 +310,7 @@ class EventCircumstantialReportUpdate(BaseModel):
     sipp_manager: Optional[str] = None
     sepp_name: Optional[str] = None
     sepp_contact: Optional[str] = None
+    cause_selections_json: Optional[str] = None
     primary_material_factors: bool = False
     primary_collective_protection: bool = False
     primary_personal_protection: bool = False
