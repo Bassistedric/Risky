@@ -7,7 +7,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
@@ -60,20 +60,21 @@ def _fit_image(path: Path, max_w: float, max_h: float):
 def render_safety_flash_pdf(data: dict, language: str = "fr") -> bytes:
     tr = TEXT.get(language, TEXT["fr"])
     out = BytesIO()
-    c = canvas.Canvas(out, pagesize=A4)
-    w, h = A4
+    page_size = landscape(A4)
+    c = canvas.Canvas(out, pagesize=page_size)
+    w, h = page_size
     assets = Path(__file__).resolve().parents[3] / "frontend" / "src" / "assets" / "images"
     vma = assets / "vma_logo.jpg"
     zero = assets / "Go_for_zero.jpg"
 
     def header():
         if vma.exists():
-            im=_fit_image(vma,47*mm,14*mm); im.drawOn(c,4*mm,h-20*mm)
+            im=_fit_image(vma,55*mm,16*mm); im.drawOn(c,4*mm,h-20*mm)
         if zero.exists():
-            im=_fit_image(zero,29*mm,18*mm); im.drawOn(c,w-33*mm,h-21*mm)
-        c.setFillColor(CFE_ORANGE); c.setFont(FONT,29)
+            im=_fit_image(zero,34*mm,20*mm); im.drawOn(c,w-39*mm,h-23*mm)
+        c.setFillColor(CFE_ORANGE); c.setFont(FONT,31)
         c.drawCentredString(w/2,h-18*mm,tr["title"])
-        c.setLineWidth(1.1); c.line(w/2-39*mm,h-21*mm,w/2+39*mm,h-21*mm)
+        c.setLineWidth(1.1); c.line(w/2-43*mm,h-21*mm,w/2+43*mm,h-21*mm)
         c.setFillColor(BLACK); c.setFont(FONT,6.5); c.drawString(2*mm,5*mm,tr["internal"])
 
     def orange_label(x,y,label,size=9):
@@ -90,7 +91,7 @@ def render_safety_flash_pdf(data: dict, language: str = "fr") -> bytes:
     # PAGE 1 — arrangement CFE
     header()
     top=h-37*mm
-    left_x=4*mm; what_w=32*mm; gap=3*mm; subj_x=left_x+what_w+gap; right=4*mm
+    left_x=5*mm; what_w=45*mm; gap=4*mm; subj_x=left_x+what_w+gap; right=5*mm
     row_h=19*mm
     bordered_box(left_x,top-row_h,what_w,row_h)
     bordered_box(subj_x,top-row_h,w-subj_x-right,row_h)
@@ -107,12 +108,12 @@ def render_safety_flash_pdf(data: dict, language: str = "fr") -> bytes:
     orange_label(subj_x+2*mm,top-5.5*mm,tr["subject"],8.5)
     p=_para(data.get("subject"),9.5,bold=True); p.wrapOn(c,w-subj_x-right-19*mm,8*mm); p.drawOn(c,subj_x+15*mm,top-8.2*mm)
 
-    facts_y=top-row_h-4*mm-31*mm; facts_h=31*mm
+    facts_y=top-row_h-4*mm-35*mm; facts_h=35*mm
     bordered_box(left_x,facts_y,w-left_x-right,facts_h)
     orange_label(left_x+2*mm,facts_y+facts_h-5.5*mm,tr["facts"],8.5)
     text_in_box(data.get("facts"),left_x,facts_y,w-left_x-right,facts_h,8*mm,9.3)
 
-    exp_y=50*mm; exp_h=facts_y-7*mm-exp_y
+    exp_y=18*mm; exp_h=facts_y-7*mm-exp_y
     bordered_box(left_x,exp_y,w-left_x-right,exp_h)
     orange_label(left_x+2*mm,exp_y+exp_h-5.5*mm,tr["explanations"],8.5)
     text_in_box(data.get("explanations"),left_x,exp_y,w-left_x-right,exp_h,9*mm,9.2)
@@ -120,13 +121,13 @@ def render_safety_flash_pdf(data: dict, language: str = "fr") -> bytes:
 
     # PAGE 2 — actions first, then support/photos
     header()
-    actions_top=h-35*mm; actions_h=45*mm; x=7*mm; bw=w-14*mm
+    actions_top=h-34*mm; actions_h=48*mm; x=7*mm; bw=w-14*mm
     bordered_box(x,actions_top-actions_h,bw,actions_h)
     orange_label(x+2*mm,actions_top-5.5*mm,tr["actions"],8.5)
     text_in_box(data.get("recommendations"),x,actions_top-actions_h,bw,actions_h,9*mm,9.2)
 
     support_top=actions_top-actions_h-6*mm
-    support_y=17*mm; support_h=support_top-support_y
+    support_y=13*mm; support_h=support_top-support_y
     bordered_box(4*mm,support_y,w-8*mm,support_h)
     orange_label(6*mm,support_top-5.5*mm,tr["support"],8.5)
     orange_label(11*mm,support_top-23*mm,tr["photo"],8.5)
@@ -137,10 +138,10 @@ def render_safety_flash_pdf(data: dict, language: str = "fr") -> bytes:
         filename=photo.get("filename")
         path=event_dir/filename if filename else None
         if not path or not path.exists(): continue
-        col=idx%4; slot_w=43*mm; px=14*mm+col*45*mm
+        col=idx%4; slot_w=62*mm; px=17*mm+col*66*mm
         try:
-            im=_fit_image(path,slot_w,65*mm)
-            im.drawOn(c,px+(slot_w-im.drawWidth)/2,support_y+5*mm+(65*mm-im.drawHeight)/2)
+            im=_fit_image(path,slot_w,52*mm)
+            im.drawOn(c,px+(slot_w-im.drawWidth)/2,support_y+5*mm+(52*mm-im.drawHeight)/2)
         except Exception:
             pass
     c.save()
