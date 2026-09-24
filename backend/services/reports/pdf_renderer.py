@@ -517,7 +517,11 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     story.append(Paragraph(escape(tr["contents"]), ParagraphStyle("ContentsTitle", parent=section, fontSize=20)))
     story.append(Spacer(1, 5 * mm))
     toc = TableOfContents()
-    toc.levelStyles = [ParagraphStyle("TOC0", fontName="Helvetica", fontSize=10, leading=18, leftIndent=0, firstLineIndent=0, textColor=TEXT)]
+    toc.levelStyles = [ParagraphStyle(
+        "TOC0", fontName="Helvetica", fontSize=10.5, leading=19,
+        leftIndent=0, firstLineIndent=0, textColor=NAVY,
+    )]
+    toc.dotsMinLevel = 0
     story += [toc, PageBreak()]
 
     def heading(no, key):
@@ -781,8 +785,11 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             ]
         ], colWidths=[content_w * .66, content_w * .34], hAlign="LEFT")
         result_cards.setStyle(TableStyle([
-            ("BACKGROUND",(0,0),(-1,-1),colors.white), ("BOX",(0,0),(-1,-1),.7,MID),
-            ("INNERGRID",(0,0),(-1,-1),.4,MID), ("VALIGN",(0,0),(-1,-1),"TOP"),
+            ("BACKGROUND",(0,0),(0,0),colors.HexColor("#F3FBF5")),
+            ("BACKGROUND",(1,0),(1,0),IVORY),
+            ("BOX",(0,0),(-1,-1),.7,BEIGE_BORDER),
+            ("LINEBEFORE",(0,0),(0,0),3,colors.HexColor("#16A34A")),
+            ("INNERGRID",(0,0),(-1,-1),.4,BEIGE_BORDER), ("VALIGN",(0,0),(-1,-1),"TOP"),
             ("LEFTPADDING",(0,0),(-1,-1),8), ("RIGHTPADDING",(0,0),(-1,-1),8),
             ("TOPPADDING",(0,0),(-1,-1),7), ("BOTTOMPADDING",(0,0),(-1,-1),7),
         ]))
