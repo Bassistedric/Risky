@@ -50,7 +50,7 @@ I18N = {
         "direct_cause": "Cause directe", "deviation": "Déviation", "agent": "Agent matériel",
         "injury": "Nature de la lésion", "injury_location": "Localisation de la lésion",
         "conclusion": "Conclusion", "recommendation": "Recommandation", "action": "Action",
-        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement", "signatures": "Avis & signatures", "name_function": "Nom / fonction", "date": "Date", "signature": "Signature", "employer_sign": "Employeur / représentant", "prevention_sign": "Conseiller en prévention / SIPP",
+        "responsible": "Responsable", "due": "Échéance", "priority": "Priorité", "progress": "Avancement", "signatures": "Avis & signatures", "name_function": "Initiales", "victim_sign": "Victime", "hierarchy_sign": "Ligne hiérarchique", "date": "Date", "signature": "Signature", "employer_sign": "Employeur / représentant", "prevention_sign": "Conseiller en prévention / SIPP",
     },
     "nl": {
         "report": "ANALYSERAPPORT VAN EEN GEBEURTENIS", "contents": "Inhoudsopgave",
@@ -68,7 +68,7 @@ I18N = {
         "deviation": "Afwijking", "agent": "Materiële agens", "injury": "Aard van het letsel",
         "injury_location": "Plaats van het letsel", "conclusion": "Conclusie",
         "recommendation": "Aanbeveling", "action": "Actie", "responsible": "Verantwoordelijke",
-        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang", "signatures": "Advies & handtekeningen", "name_function": "Naam / functie", "date": "Datum", "signature": "Handtekening", "employer_sign": "Werkgever / vertegenwoordiger", "prevention_sign": "Preventieadviseur / IDPBW",
+        "due": "Vervaldatum", "priority": "Prioriteit", "progress": "Voortgang", "signatures": "Advies & handtekeningen", "name_function": "Initialen", "victim_sign": "Slachtoffer", "hierarchy_sign": "Hiërarchische lijn", "date": "Datum", "signature": "Handtekening", "employer_sign": "Werkgever / vertegenwoordiger", "prevention_sign": "Preventieadviseur / IDPBW",
     },
     "en": {
         "report": "EVENT ANALYSIS REPORT", "contents": "Table of contents",
@@ -85,7 +85,7 @@ I18N = {
         "description": "Event description", "direct_cause": "Direct cause", "deviation": "Deviation",
         "agent": "Material agent", "injury": "Nature of injury", "injury_location": "Injury location",
         "conclusion": "Conclusion", "recommendation": "Recommendation", "action": "Action",
-        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress", "signatures": "Opinion & signatures", "name_function": "Name / function", "date": "Date", "signature": "Signature", "employer_sign": "Employer / representative", "prevention_sign": "Prevention advisor / internal service",
+        "responsible": "Responsible", "due": "Due date", "priority": "Priority", "progress": "Progress", "signatures": "Opinion & signatures", "name_function": "Initials", "victim_sign": "Victim", "hierarchy_sign": "Line management", "date": "Date", "signature": "Signature", "employer_sign": "Employer / representative", "prevention_sign": "Prevention advisor / internal service",
     },
     "pl": {
         "report": "RAPORT Z ANALIZY ZDARZENIA", "contents": "Spis treści",
@@ -103,7 +103,7 @@ I18N = {
         "deviation": "Odchylenie", "agent": "Czynnik materialny", "injury": "Rodzaj urazu",
         "injury_location": "Umiejscowienie urazu", "conclusion": "Wniosek",
         "recommendation": "Zalecenie", "action": "Działanie", "responsible": "Odpowiedzialny",
-        "due": "Termin", "priority": "Priorytet", "progress": "Postęp", "signatures": "Opinia i podpisy", "name_function": "Imię, nazwisko / funkcja", "date": "Data", "signature": "Podpis", "employer_sign": "Pracodawca / przedstawiciel", "prevention_sign": "Doradca ds. prewencji / służba wewnętrzna",
+        "due": "Termin", "priority": "Priorytet", "progress": "Postęp", "signatures": "Opinia i podpisy", "name_function": "Inicjały", "victim_sign": "Poszkodowany", "hierarchy_sign": "Linia hierarchiczna", "date": "Data", "signature": "Podpis", "employer_sign": "Pracodawca / przedstawiciel", "prevention_sign": "Doradca ds. prewencji / służba wewnętrzna",
     },
 }
 
@@ -154,74 +154,237 @@ class RiskyDocTemplate(BaseDocTemplate):
 
 
 
-class CauseTreeFlowable(Flowable):
-    """Dessine l'arbre des causes comme un schéma vectoriel sur une page dédiée."""
+CIRC_CAUSE_LABELS = {
+    "fr": {
+        "product": "Produits",
+        "machine": "Machines",
+        "tool": "Outils",
+        "orderCleanliness": "Ordre et propreté",
+        "transport": "Moyens de transport",
+        "materialOther": "Autres facteurs matériels",
+        "collectiveAbsent": "EPC absent",
+        "collectiveMissing": "EPC manquant ou enlevé",
+        "collectiveDisabled": "EPC court-circuité",
+        "collectiveOther": "Autre défaut d’EPC",
+        "ppeMisuse": "Mauvais emploi de l’EPI",
+        "ppeAbsent": "EPI absent",
+        "ppeUnsuitable": "EPI pas adapté",
+        "ppeOther": "Autre défaut d’EPI",
+        "lighting": "Éclairage",
+        "noise": "Bruit",
+        "temperature": "Température",
+        "environmentOther": "Autre facteur environnemental",
+        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
+        "instructions": "Instructions manquantes ou incomplètes",
+        "sippOperation": "Fonctionnement du SIPP",
+        "organizationOther": "Autre cause organisationnelle",
+        "followupControl": "Contrôle lacunaire du suivi des instructions",
+        "trainingGap": "Manque de formation",
+        "communicationOther": "Autre cause de communication",
+        "distraction": "Distraction",
+        "intentionalNegligence": "Négligence intentionnelle",
+        "fatigue": "Fatigue",
+        "incompetence": "Incompétence",
+        "haste": "Précipitation",
+        "humanOther": "Autre facteur humain",
+        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
+        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
+        "badAdvice": "Mauvais avis",
+        "instructionsNotFollowed": "Non-suivi des instructions",
+        "sitePressure": "Pression de chantier",
+        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
+    },
+    "pl": {
+        "product": "Produits",
+        "machine": "Machines",
+        "tool": "Outils",
+        "orderCleanliness": "Ordre et propreté",
+        "transport": "Moyens de transport",
+        "materialOther": "Autres facteurs matériels",
+        "collectiveAbsent": "EPC absent",
+        "collectiveMissing": "EPC manquant ou enlevé",
+        "collectiveDisabled": "EPC court-circuité",
+        "collectiveOther": "Autre défaut d’EPC",
+        "ppeMisuse": "Mauvais emploi de l’EPI",
+        "ppeAbsent": "EPI absent",
+        "ppeUnsuitable": "EPI pas adapté",
+        "ppeOther": "Autre défaut d’EPI",
+        "lighting": "Éclairage",
+        "noise": "Bruit",
+        "temperature": "Température",
+        "environmentOther": "Autre facteur environnemental",
+        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
+        "instructions": "Instructions manquantes ou incomplètes",
+        "sippOperation": "Fonctionnement du SIPP",
+        "organizationOther": "Autre cause organisationnelle",
+        "followupControl": "Contrôle lacunaire du suivi des instructions",
+        "trainingGap": "Manque de formation",
+        "communicationOther": "Autre cause de communication",
+        "distraction": "Distraction",
+        "intentionalNegligence": "Négligence intentionnelle",
+        "fatigue": "Fatigue",
+        "incompetence": "Incompétence",
+        "haste": "Précipitation",
+        "humanOther": "Autre facteur humain",
+        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
+        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
+        "badAdvice": "Mauvais avis",
+        "instructionsNotFollowed": "Non-suivi des instructions",
+        "sitePressure": "Pression de chantier",
+        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
+    },
+    "en": {
+        "product": "Produits",
+        "machine": "Machines",
+        "tool": "Outils",
+        "orderCleanliness": "Ordre et propreté",
+        "transport": "Moyens de transport",
+        "materialOther": "Autres facteurs matériels",
+        "collectiveAbsent": "EPC absent",
+        "collectiveMissing": "EPC manquant ou enlevé",
+        "collectiveDisabled": "EPC court-circuité",
+        "collectiveOther": "Autre défaut d’EPC",
+        "ppeMisuse": "Mauvais emploi de l’EPI",
+        "ppeAbsent": "EPI absent",
+        "ppeUnsuitable": "EPI pas adapté",
+        "ppeOther": "Autre défaut d’EPI",
+        "lighting": "Éclairage",
+        "noise": "Bruit",
+        "temperature": "Température",
+        "environmentOther": "Autre facteur environnemental",
+        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
+        "instructions": "Instructions manquantes ou incomplètes",
+        "sippOperation": "Fonctionnement du SIPP",
+        "organizationOther": "Autre cause organisationnelle",
+        "followupControl": "Contrôle lacunaire du suivi des instructions",
+        "trainingGap": "Manque de formation",
+        "communicationOther": "Autre cause de communication",
+        "distraction": "Distraction",
+        "intentionalNegligence": "Négligence intentionnelle",
+        "fatigue": "Fatigue",
+        "incompetence": "Incompétence",
+        "haste": "Précipitation",
+        "humanOther": "Autre facteur humain",
+        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
+        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
+        "badAdvice": "Mauvais avis",
+        "instructionsNotFollowed": "Non-suivi des instructions",
+        "sitePressure": "Pression de chantier",
+        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
+    },
+    "nl": {
+        "product": "Produits",
+        "machine": "Machines",
+        "tool": "Outils",
+        "orderCleanliness": "Ordre et propreté",
+        "transport": "Moyens de transport",
+        "materialOther": "Autres facteurs matériels",
+        "collectiveAbsent": "EPC absent",
+        "collectiveMissing": "EPC manquant ou enlevé",
+        "collectiveDisabled": "EPC court-circuité",
+        "collectiveOther": "Autre défaut d’EPC",
+        "ppeMisuse": "Mauvais emploi de l’EPI",
+        "ppeAbsent": "EPI absent",
+        "ppeUnsuitable": "EPI pas adapté",
+        "ppeOther": "Autre défaut d’EPI",
+        "lighting": "Éclairage",
+        "noise": "Bruit",
+        "temperature": "Température",
+        "environmentOther": "Autre facteur environnemental",
+        "riskAnalysis": "Analyse de risque non effectuée ou incomplète",
+        "instructions": "Instructions manquantes ou incomplètes",
+        "sippOperation": "Fonctionnement du SIPP",
+        "organizationOther": "Autre cause organisationnelle",
+        "followupControl": "Contrôle lacunaire du suivi des instructions",
+        "trainingGap": "Manque de formation",
+        "communicationOther": "Autre cause de communication",
+        "distraction": "Distraction",
+        "intentionalNegligence": "Négligence intentionnelle",
+        "fatigue": "Fatigue",
+        "incompetence": "Incompétence",
+        "haste": "Précipitation",
+        "humanOther": "Autre facteur humain",
+        "designManufacturing": "Faute de conception ou de fabrication d’une machine",
+        "noncompliantEquipment": "Utilisation d’un équipement de travail non conforme",
+        "badAdvice": "Mauvais avis",
+        "instructionsNotFollowed": "Non-suivi des instructions",
+        "sitePressure": "Pression de chantier",
+        "thirdOrganizationOther": "Autre cause organisationnelle chez un tiers"
+    }
+}
 
-    def __init__(self, tree, width=153 * mm, height=198 * mm):
+
+class CauseTreeFlowable(Flowable):
+    """Arbre vectoriel vertical : causes en haut, fait final en bas."""
+
+    def __init__(self, tree, width=153 * mm):
         super().__init__()
         self.tree = tree or {}
         self.width = width
-        self.height = height
+        count = len(self.tree.get("facts") or [])
+        self.height = min(150 * mm, max(72 * mm, (62 + count * 9) * mm))
 
     def wrap(self, availWidth, availHeight):
-        return min(self.width, availWidth), min(self.height, availHeight)
+        self._draw_width = min(self.width, availWidth)
+        self._draw_height = min(self.height, max(55 * mm, availHeight))
+        return self._draw_width, self._draw_height
 
     def draw(self):
         facts = self.tree.get("facts") or []
         relations = self.tree.get("relations") or []
         if not facts:
             return
-
         by_id = {f["id"]: f for f in facts}
-        levels = sorted({int(f.get("level") or 0) for f in facts})
-        level_index = {level: i for i, level in enumerate(levels)}
-        cols = max(1, len(levels))
-        col_w = self.width / cols
-        node_w = min(38 * mm, col_w - 5 * mm)
-        node_h = 18 * mm
+        effects = {r.get("effect_fact_id") for r in relations}
+        causes = {r.get("cause_fact_id") for r in relations}
+        finals = [f for f in facts if str(f.get("fact_type") or "").upper() == "FINAL"]
+        if not finals:
+            finals = [f for f in facts if f["id"] in effects and f["id"] not in causes]
+        final_id = finals[0]["id"] if finals else facts[0]["id"]
+        depth = {final_id: 0}
+        changed = True
+        while changed:
+            changed = False
+            for rel in relations:
+                cause_id, effect_id = rel.get("cause_fact_id"), rel.get("effect_fact_id")
+                if effect_id in depth:
+                    nd = depth[effect_id] + 1
+                    if depth.get(cause_id, -1) < nd:
+                        depth[cause_id] = nd
+                        changed = True
+        for fact in facts:
+            depth.setdefault(fact["id"], int(fact.get("level") or 0))
+        max_depth = max(depth.values()) if depth else 0
+        node_w, node_h = 43 * mm, 20 * mm
+        margin_y = 4 * mm
+        usable_h = self._draw_height - 2 * margin_y
         positions = {}
-
-        for level in levels:
-            items = sorted(
-                [f for f in facts if int(f.get("level") or 0) == level],
-                key=lambda x: (x.get("sort_order") or 0, x.get("id") or 0),
-            )
-            gap = self.height / (len(items) + 1)
-            x = level_index[level] * col_w + (col_w - node_w) / 2
-            for idx, fact in enumerate(items, start=1):
-                y = self.height - idx * gap - node_h / 2
-                positions[fact["id"]] = (x, y)
-
-        canvas = self.canv
-        canvas.saveState()
-        canvas.setStrokeColor(colors.HexColor("#AAB8C1"))
-        canvas.setLineWidth(0.8)
+        for d in range(max_depth, -1, -1):
+            items = sorted([f for f in facts if depth.get(f["id"]) == d], key=lambda x:(x.get("sort_order") or 0,x.get("id") or 0))
+            if not items: continue
+            y = margin_y + (max_depth - d) * (usable_h - node_h) / max(1, max_depth)
+            slot = self._draw_width / len(items)
+            for idx, fact in enumerate(items):
+                positions[fact["id"]] = (idx * slot + (slot-node_w)/2, y)
+        canvas=self.canv; canvas.saveState()
+        canvas.setStrokeColor(colors.HexColor("#667C98")); canvas.setLineWidth(1.15)
         for rel in relations:
-            a = positions.get(rel.get("cause_fact_id"))
-            b = positions.get(rel.get("effect_fact_id"))
-            if not a or not b:
-                continue
-            ax, ay = a
-            bx, by = b
-            canvas.line(ax + node_w, ay + node_h / 2, bx, by + node_h / 2)
-
-        node_style = ParagraphStyle(
-            "CauseTreeNode",
-            fontName="Helvetica",
-            fontSize=7.2,
-            leading=8.6,
-            textColor=TEXT,
-            alignment=TA_CENTER,
-        )
-        for fact_id, (x, y) in positions.items():
-            fact = by_id[fact_id]
-            canvas.setFillColor(IVORY)
-            canvas.setStrokeColor(ORANGE if fact.get("is_terminal") else BEIGE_BORDER)
-            canvas.roundRect(x, y, node_w, node_h, 4, fill=1, stroke=1)
-            p = Paragraph(escape(_s(fact.get("description"))), node_style)
-            pw, ph = p.wrap(node_w - 4 * mm, node_h - 3 * mm)
-            p.drawOn(canvas, x + 2 * mm, y + (node_h - ph) / 2)
+            a,b=positions.get(rel.get("cause_fact_id")),positions.get(rel.get("effect_fact_id"))
+            if not a or not b: continue
+            x1,y1=a[0]+node_w/2,a[1]; x2,y2=b[0]+node_w/2,b[1]+node_h
+            canvas.line(x1,y1,x2,y2)
+        node_style=ParagraphStyle("CauseTreeNode",fontName="Helvetica",fontSize=7.6,leading=9.2,textColor=TEXT)
+        label_style=ParagraphStyle("CauseTreeLabel",fontName="Helvetica-Bold",fontSize=6.2,leading=7,textColor=colors.HexColor("#456078"))
+        for fact_id,(x,y) in positions.items():
+            fact=by_id[fact_id]; is_final=fact_id==final_id; is_terminal=bool(fact.get("is_terminal"))
+            border=NAVY if is_final else ORANGE if is_terminal else colors.HexColor("#C7D3DC")
+            canvas.setFillColor(IVORY); canvas.setStrokeColor(border); canvas.setLineWidth(1.3 if (is_final or is_terminal) else .7)
+            canvas.roundRect(x,y,node_w,node_h,5,fill=1,stroke=1)
+            label="FAIT FINAL" if is_final else ("CAUSE TERMINALE" if is_terminal else "CAUSE")
+            lp=Paragraph(label,label_style); _,lh=lp.wrap(node_w-5*mm,5*mm); lp.drawOn(canvas,x+2.5*mm,y+node_h-lh-2*mm)
+            p=Paragraph(escape(_s(fact.get("description"))),node_style); _,ph=p.wrap(node_w-5*mm,node_h-8*mm); p.drawOn(canvas,x+2.5*mm,y+2.5*mm)
         canvas.restoreState()
+
 
 
 def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
@@ -309,7 +472,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
                 textColor=NAVY, spaceBefore=0, spaceAfter=0,
             ),
         )
-        banner = Table([[number, title]], colWidths=[12 * mm, 141 * mm])
+        banner = Table([[number, title]], colWidths=[12 * mm, 141 * mm], hAlign="LEFT")
         banner.setStyle(TableStyle([
             ("BACKGROUND", (0, 0), (-1, -1), LIGHT),
             ("LINEBELOW", (0, 0), (-1, -1), .6, MID),
@@ -370,10 +533,19 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     # 01
     heading(1, "summary")
     info_table([
-        (tr["person"], event.get("person_name")), (tr["status"], event.get("status")),
-        (tr["lost_days"], event.get("lost_days")), (tr["modified_days"], event.get("modified_duty_days")),
-        (tr["material"], event.get("material_damage_details") if event.get("material_damage") else tr["not_applicable"]),
-        (tr["environment"], event.get("environmental_damage_details") if event.get("environmental_damage") else tr["not_applicable"]),
+        (tr["description"], event.get("description")),
+        (tr["event_type"], event.get("event_type")), (tr["event_date"], event.get("event_date")),
+        (tr["person"], event.get("person_name")), ("Catégorie", event.get("person_category")),
+        (tr["organization"], event.get("organization_name")), (tr["location"], event.get("location")),
+        ("Project Manager", event.get("project_manager")), ("Chef de chantier", event.get("site_supervisor")),
+        ("Dégâts matériels", "Oui" if event.get("material_damage") else "Non"),
+        ("Dégâts environnementaux", "Oui" if event.get("environmental_damage") else "Non"),
+        (tr["analysis"], "Circonstancié" if data.get("circumstantial_report") else event.get("analysis_type")),
+        ("Arrêt de travail", f"Oui — {event.get('lost_days') or 0} jours" if event.get("lost_time") else "Non"),
+        ("Travail adapté", f"Oui — {event.get('modified_duty_days') or 0} jours" if event.get("modified_duty") else "Non"),
+        ("Incapacité permanente", "Oui" if event.get("permanent_injury") else "Non"),
+        ("Décès", "Oui" if event.get("fatal") else "Non"),
+        ("Coût dégâts matériels (€)", event.get("material_damage_cost") if event.get("material_damage") else tr["not_applicable"]),
     ])
 
     # 02
@@ -457,10 +629,10 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     heading(5, "classification")
     cl = data.get("classification") or {}
     info_table([
-        (tr["deviation"], _localized(cl, "deviation_label", lang)),
-        (tr["agent"], _localized(cl, "material_agent_label", lang)),
-        (tr["injury"], _localized(cl, "injury_nature_label", lang)),
-        (tr["injury_location"], _localized(cl, "injury_location_label", lang)),
+        (tr["deviation"], f"{_s(cl.get('deviation_code'))} — {_s(_localized(cl, 'deviation_label', lang))}"),
+        (tr["agent"], f"{_s(cl.get('material_agent_code'))} — {_s(_localized(cl, 'material_agent_label', lang))}"),
+        (tr["injury"], f"{_s(cl.get('injury_nature_code'))} — {_s(_localized(cl, 'injury_nature_label', lang))}"),
+        (tr["injury_location"], f"{_s(cl.get('injury_location_code'))} — {_s(_localized(cl, 'injury_location_label', lang))}"),
     ])
 
     # 06 — ANALYSE COMPLÉMENTAIRE DES CAUSES
@@ -478,7 +650,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         ]
         for title, codes, details in groups:
             chosen = [code for code in codes if code in selected]
-            content = " · ".join(chosen) if chosen else tr["not_provided"]
+            labels = CIRC_CAUSE_LABELS.get(lang, CIRC_CAUSE_LABELS["fr"])
+            content = "   ".join(f"✓ {labels.get(code, code)}" for code in chosen) if chosen else tr["not_provided"]
             rows = [[Paragraph(f"<b>{escape(title)}</b>", body)], [Paragraph(escape(content), body)]]
             if details:
                 rows.append([Paragraph(escape(_s(details)), small)])
@@ -521,15 +694,14 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,-1),bg),("BOX",(0,0),(-1,-1),.7,ORANGE),("INNERGRID",(0,0),(-1,-1),.3,MID),("PADDING",(0,0),(-1,-1),8),("VALIGN",(0,0),(-1,-1),"TOP")]))
         story.append(table)
 
-    # 09 — ARBRE DES CAUSES : PAGE DÉDIÉE
-    story.append(PageBreak())
+    # 09 — ARBRE DES CAUSES : hauteur adaptative dans le flux
     heading(9, "tree")
     tree = data.get("cause_tree")
     if not tree or not tree.get("facts"):
         story.append(Paragraph(escape(tr["not_provided"]), body))
     else:
         story.append(CauseTreeFlowable(tree))
-    story.append(PageBreak())
+        story.append(Spacer(1, 5 * mm))
 
     # 10
     heading(10, "actions")
@@ -575,29 +747,22 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         story.append(PageBreak())
         heading(11, "signatures")
         sign_cards = []
-        for role, default_name in (
-            (tr["prevention_sign"], circ.get("prevention_advisor") or circ.get("sipp_manager")),
-            (tr["employer_sign"], circ.get("employer_name")),
-        ):
-            name = _s(default_name, "")
+        for role in (tr["victim_sign"], tr["hierarchy_sign"], tr["prevention_sign"], tr["employer_sign"]):
             card = Table([
                 [Paragraph(f"<b>{escape(role)}</b>", body)],
-                [Paragraph(f"{escape(tr['name_function'])}: {escape(name)}", small)],
+                [Paragraph(f"{escape(tr['name_function'])}: ____________________", small)],
                 [Paragraph(f"{escape(tr['date'])}: ____________________", small)],
-                [Spacer(1, 24 * mm)],
-                [Paragraph(f"{escape(tr['signature'])}", small)],
-            ], colWidths=[72.5 * mm], rowHeights=[None, None, None, 26 * mm, None])
+                [Spacer(1, 18 * mm)],
+                [Paragraph(escape(tr["signature"]), small)],
+            ], colWidths=[72.5 * mm], rowHeights=[None, None, None, 20 * mm, None])
             card.setStyle(TableStyle([
-                ("BACKGROUND", (0, 0), (-1, -1), IVORY),
-                ("BOX", (0, 0), (-1, -1), .6, BEIGE_BORDER),
-                ("LEFTPADDING", (0, 0), (-1, -1), 9),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 9),
-                ("TOPPADDING", (0, 0), (-1, -1), 8),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+                ("BACKGROUND", (0, 0), (-1, -1), IVORY), ("BOX", (0, 0), (-1, -1), .6, BEIGE_BORDER),
+                ("LEFTPADDING", (0, 0), (-1, -1), 9), ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+                ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
                 ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ]))
             sign_cards.append(card)
-        sign_grid = Table([sign_cards], colWidths=[76.5 * mm, 76.5 * mm])
+        sign_grid = Table([sign_cards[:2], sign_cards[2:]], colWidths=[76.5 * mm, 76.5 * mm])
         sign_grid.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
