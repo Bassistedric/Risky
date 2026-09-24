@@ -60,7 +60,26 @@ def get_descendant_organization_ids(
 
 
 # ============================================================
-# FILTRE MÉTIER TRANSVERSAL
+# RÉFÉRENTIEL MÉTIER
+# ============================================================
+
+def get_trade_by_code(
+    db: Session,
+    trade_code: str,
+) -> Optional[models.TradeReference]:
+
+    return db.scalar(
+        select(models.TradeReference)
+        .where(
+            models.TradeReference.code
+            == trade_code.upper(),
+            models.TradeReference.active.is_(True),
+        )
+    )
+
+
+# ============================================================
+# FILTRE MÉTIER — ÉVÉNEMENTS
 # ============================================================
 
 def get_trade_organization_ids(
@@ -74,13 +93,9 @@ def get_trade_organization_ids(
         scope_organization_id,
     )
 
-    trade = db.scalar(
-        select(models.TradeReference)
-        .where(
-            models.TradeReference.code
-            == trade_code.upper(),
-            models.TradeReference.active.is_(True),
-        )
+    trade = get_trade_by_code(
+        db,
+        trade_code,
     )
 
     if not trade:
@@ -107,10 +122,10 @@ def get_trade_organization_ids(
 
 
 # ============================================================
-# RÉSOLUTION DU PÉRIMÈTRE
+# RÉSOLUTION PÉRIMÈTRE ÉVÉNEMENTS
 # ============================================================
 
-def resolve_statistics_scope(
+def resolve_event_scope(
     db: Session,
     organization_id: int,
     trade_code: Optional[str] = None,
@@ -137,6 +152,98 @@ def resolve_statistics_scope(
         db=db,
         organization_id=organization_id,
     )
+
+
+# ============================================================
+# RÉSOLUTION PÉRIMÈTRE HEURES
+# ============================================================
+
+def resolve_hours_scope(
+    db: Session,
+    organization_id: int,
+) -> list[int]:
+
+    organization = db.get(
+        models.Organization,
+        organization_id,
+    )
+
+    if not organization:
+        raise ValueError(
+            "Organisation introuvable"
+        )
+
+    # Si le périmètre sélectionné est un métier,
+    # les heures sont encodées au niveau de son parent.
+    if (
+        organization.entity_type == "TRADE"
+        and organization.parent_id is not None
+    ):
+        return [
+            organization.parent_id
+        ]
+
+    scope_ids = get_descendant_organization_ids(
+        db,
+        organization_id,
+    )
+
+    # On ne conserve pas les nœuds TRADE pour les heures :
+    # elles sont enregistrées au niveau des entités.
+    organizations = db.scalars(
+        select(models.Organization)
+        .where(
+            models.Organization.id.in_(
+                scope_ids
+            )
+        )
+    ).all()
+
+    return [
+        organization.id
+        for organization in organizations
+        if organization.entity_type != "TRADE"
+    ]
+
+
+# ============================================================
+# MÉTIER IMPLICITE D'UN NŒUD TRADE
+# ============================================================
+
+def get_organization_trade_code(
+    db: Session,
+    organization_id: int,
+) -> Optional[str]:
+
+    organization = db.get(
+        models.Organization,
+        organization_id,
+    )
+
+    if (
+        not organization
+        or organization.entity_type != "TRADE"
+    ):
+        return None
+
+    trade = db.scalar(
+        select(models.TradeReference)
+        .join(
+            models.OrganizationTrade,
+            models.OrganizationTrade.trade_id
+            == models.TradeReference.id,
+        )
+        .where(
+            models.OrganizationTrade.organization_id
+            == organization_id,
+            models.TradeReference.active.is_(True),
+        )
+    )
+
+    if not trade:
+        return None
+
+    return trade.code
 
 
 # ============================================================
@@ -266,7 +373,11 @@ def build_work_hours_dimension_key(
 
 def get_elapsed_months(
     year: int,
+    month_to: Optional[int] = None,
 ) -> int:
+
+    if month_to is not None:
+        return month_to
 
     now = datetime.now()
 
@@ -277,3 +388,506 @@ def get_elapsed_months(
         return 0
 
     return now.month
+
+
+# ============================================================
+# HEURES — AGRÉGATION
+# ============================================================
+
+def get_month_worked_hours(
+    db: Session,
+    *,
+    organization_id: int,
+    year: int,
+    month: int,
+    trade_code: Optional[str] = None,
+) -> float:
+
+    organization = db.get(
+        models.Organization,
+        organization_id,
+    )
+
+    if not organization:
+        raise ValueError(
+            "Organisation introuvable"
+        )
+
+    effective_trade_code = (
+        trade_code
+        or get_organization_trade_code(
+            db,
+            organization_id,
+        )
+    )
+
+    scope_ids = resolve_hours_scope(
+        db,
+        organization_id,
+    )
+
+    query = (
+        select(models.SafetyWorkHours)
+        .where(
+            models.SafetyWorkHours.organization_id.in_(
+                scope_ids
+            ),
+            models.SafetyWorkHours.year == year,
+            models.SafetyWorkHours.month == month,
+        )
+    )
+
+    rows = db.scalars(query).all()
+
+    # Filtre métier :
+    # uniquement les ouvriers du métier demandé.
+    if effective_trade_code:
+        trade = get_trade_by_code(
+            db,
+            effective_trade_code,
+        )
+
+        if not trade:
+            return 0.0
+
+        return sum(
+            row.worked_hours
+            for row in rows
+            if (
+                row.workforce_category == "WORKER"
+                and row.trade_id == trade.id
+            )
+        )
+
+    # Sans filtre métier :
+    # ouvriers tous métiers + employés.
+    return sum(
+        row.worked_hours
+        for row in rows
+    )
+
+
+# ============================================================
+# ÉVÉNEMENTS — AGRÉGATION MENSUELLE
+# ============================================================
+
+def get_month_event_metrics(
+    db: Session,
+    *,
+    organization_id: int,
+    year: int,
+    month: int,
+    trade_code: Optional[str] = None,
+) -> dict:
+
+    organization = db.get(
+        models.Organization,
+        organization_id,
+    )
+
+    if not organization:
+        raise ValueError(
+            "Organisation introuvable"
+        )
+
+    effective_trade_code = (
+        trade_code
+        or get_organization_trade_code(
+            db,
+            organization_id,
+        )
+    )
+
+    scope_ids = resolve_event_scope(
+        db=db,
+        organization_id=organization_id,
+        trade_code=effective_trade_code,
+    )
+
+    if not scope_ids:
+        return {
+            "accidents_with_lost_time": 0,
+            "accidents_without_lost_time": 0,
+            "lost_days": 0,
+            "incidents": 0,
+            "near_misses": 0,
+        }
+
+    events = db.scalars(
+        select(models.Event)
+        .where(
+            models.Event.organization_id.in_(
+                scope_ids
+            ),
+            models.Event.event_date
+            >= datetime(
+                year,
+                month,
+                1,
+            ),
+            models.Event.event_date
+            < (
+                datetime(
+                    year + 1,
+                    1,
+                    1,
+                )
+                if month == 12
+                else datetime(
+                    year,
+                    month + 1,
+                    1,
+                )
+            ),
+        )
+    ).all()
+
+    accidents = [
+        event
+        for event in events
+        if event.event_type == "ACCIDENT"
+    ]
+
+    return {
+        "accidents_with_lost_time": sum(
+            1
+            for event in accidents
+            if event.lost_time
+        ),
+        "accidents_without_lost_time": sum(
+            1
+            for event in accidents
+            if not event.lost_time
+        ),
+        "lost_days": sum(
+            event.lost_days
+            for event in accidents
+        ),
+        "incidents": sum(
+            1
+            for event in events
+            if event.event_type == "INCIDENT"
+        ),
+        "near_misses": sum(
+            1
+            for event in events
+            if event.event_type == "NEAR_MISS"
+        ),
+    }
+
+
+# ============================================================
+# JOURS CONVENTIONNELS
+# ============================================================
+
+def get_conventional_days(
+    db: Session,
+    *,
+    organization_id: int,
+    year: int,
+) -> float:
+
+    scope_ids = get_descendant_organization_ids(
+        db,
+        organization_id,
+    )
+
+    rows = db.scalars(
+        select(
+            models.SafetyPermanentDisability
+        )
+        .where(
+            models.SafetyPermanentDisability.organization_id.in_(
+                scope_ids
+            ),
+            models.SafetyPermanentDisability.year
+            == year,
+        )
+    ).all()
+
+    return sum(
+        row.conventional_days
+        for row in rows
+    )
+
+
+# ============================================================
+# OBJECTIFS CFE
+# ============================================================
+
+def get_safety_target(
+    db: Session,
+    *,
+    organization_id: int,
+    year: int,
+) -> dict:
+
+    target = db.scalar(
+        select(models.SafetyTarget)
+        .where(
+            models.SafetyTarget.organization_id
+            == organization_id,
+            models.SafetyTarget.year
+            == year,
+        )
+    )
+
+    if not target:
+        return {
+            "tf_target": None,
+            "tg_target": None,
+        }
+
+    return {
+        "tf_target": target.tf_target,
+        "tg_target": target.tg_target,
+    }
+
+
+# ============================================================
+# SYNTHÈSE STATISTIQUE
+# ============================================================
+
+def build_statistics_summary(
+    db: Session,
+    *,
+    organization_id: int,
+    year: int,
+    month_to: Optional[int] = None,
+    trade_code: Optional[str] = None,
+) -> dict:
+
+    organization = db.get(
+        models.Organization,
+        organization_id,
+    )
+
+    if not organization:
+        raise ValueError(
+            "Organisation introuvable"
+        )
+
+    if year < 2000 or year > 2100:
+        raise ValueError(
+            "Année invalide"
+        )
+
+    effective_month_to = (
+        month_to
+        if month_to is not None
+        else get_elapsed_months(year)
+    )
+
+    if (
+        effective_month_to < 1
+        or effective_month_to > 12
+    ):
+        raise ValueError(
+            "Mois invalide"
+        )
+
+    effective_trade_code = (
+        trade_code
+        or get_organization_trade_code(
+            db,
+            organization_id,
+        )
+    )
+
+    if effective_trade_code:
+        trade = get_trade_by_code(
+            db,
+            effective_trade_code,
+        )
+
+        if not trade:
+            raise ValueError(
+                "Métier introuvable"
+            )
+
+        effective_trade_code = trade.code
+
+    monthly: list[dict] = []
+
+    total_hours = 0.0
+    total_with_lost_time = 0
+    total_without_lost_time = 0
+    total_lost_days = 0
+    total_incidents = 0
+    total_near_misses = 0
+
+    cumulative_hours = 0.0
+    cumulative_lost_time = 0
+    cumulative_lost_days = 0
+
+    for month in range(
+        1,
+        effective_month_to + 1,
+    ):
+        worked_hours = get_month_worked_hours(
+            db,
+            organization_id=organization_id,
+            year=year,
+            month=month,
+            trade_code=effective_trade_code,
+        )
+
+        event_metrics = get_month_event_metrics(
+            db,
+            organization_id=organization_id,
+            year=year,
+            month=month,
+            trade_code=effective_trade_code,
+        )
+
+        total_hours += worked_hours
+        total_with_lost_time += (
+            event_metrics[
+                "accidents_with_lost_time"
+            ]
+        )
+        total_without_lost_time += (
+            event_metrics[
+                "accidents_without_lost_time"
+            ]
+        )
+        total_lost_days += (
+            event_metrics["lost_days"]
+        )
+        total_incidents += (
+            event_metrics["incidents"]
+        )
+        total_near_misses += (
+            event_metrics["near_misses"]
+        )
+
+        cumulative_hours += worked_hours
+        cumulative_lost_time += (
+            event_metrics[
+                "accidents_with_lost_time"
+            ]
+        )
+        cumulative_lost_days += (
+            event_metrics["lost_days"]
+        )
+
+        monthly.append(
+            {
+                "month": month,
+                "worked_hours": worked_hours,
+                "accidents_with_lost_time": (
+                    event_metrics[
+                        "accidents_with_lost_time"
+                    ]
+                ),
+                "accidents_without_lost_time": (
+                    event_metrics[
+                        "accidents_without_lost_time"
+                    ]
+                ),
+                "lost_days": (
+                    event_metrics["lost_days"]
+                ),
+                "incidents": (
+                    event_metrics["incidents"]
+                ),
+                "near_misses": (
+                    event_metrics["near_misses"]
+                ),
+                "tf": calculate_tf(
+                    event_metrics[
+                        "accidents_with_lost_time"
+                    ],
+                    worked_hours,
+                ),
+                "tg": calculate_tg(
+                    event_metrics["lost_days"],
+                    worked_hours,
+                ),
+                "tf_ytd": calculate_tf(
+                    cumulative_lost_time,
+                    cumulative_hours,
+                ),
+                "tg_ytd": calculate_tg(
+                    cumulative_lost_days,
+                    cumulative_hours,
+                ),
+            }
+        )
+
+    conventional_days = get_conventional_days(
+        db,
+        organization_id=organization_id,
+        year=year,
+    )
+
+    target = get_safety_target(
+        db,
+        organization_id=organization_id,
+        year=year,
+    )
+
+    projection = calculate_year_end_projection(
+        lost_time_accidents=(
+            total_with_lost_time
+        ),
+        lost_days=total_lost_days,
+        worked_hours=total_hours,
+        elapsed_months=effective_month_to,
+    )
+
+    return {
+        "scope": {
+            "organization_id": (
+                organization.id
+            ),
+            "organization_code": (
+                organization.code
+            ),
+            "organization_name": (
+                organization.name
+            ),
+            "organization_type": (
+                organization.entity_type
+            ),
+            "trade_code": (
+                effective_trade_code
+            ),
+        },
+        "period": {
+            "year": year,
+            "month_to": effective_month_to,
+        },
+        "totals": {
+            "worked_hours": total_hours,
+            "accidents_with_lost_time": (
+                total_with_lost_time
+            ),
+            "accidents_without_lost_time": (
+                total_without_lost_time
+            ),
+            "lost_days": total_lost_days,
+            "conventional_days": (
+                conventional_days
+            ),
+            "incidents": total_incidents,
+            "near_misses": total_near_misses,
+        },
+        "indicators": {
+            "tf": calculate_tf(
+                total_with_lost_time,
+                total_hours,
+            ),
+            "tg": calculate_tg(
+                total_lost_days,
+                total_hours,
+            ),
+            "tgg": calculate_tgg(
+                conventional_days,
+                total_hours,
+            ),
+        },
+        "targets": target,
+        "projection": projection,
+        "monthly": monthly,
+    }

@@ -10,6 +10,15 @@ export type EventOrganization = {
     name: string
 }
 
+export type OrganizationOption = {
+    id: number
+    code: string
+    name: string
+    type: string
+    parent_id: number | null
+    active: boolean
+}
+
 export type EventDetail = {
     id: number
     event_number: string
@@ -48,6 +57,7 @@ export type EventEditForm = {
     event_type: string
     event_date: string
     person_category: string
+    organization_id: string  
     victim_last_name: string
     victim_first_name: string
     location: string

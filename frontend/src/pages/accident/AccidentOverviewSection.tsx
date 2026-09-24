@@ -1,12 +1,17 @@
 import { at } from './accidentI18n'
 import './AccidentOverviewSection.css'
 
-import { useState } from 'react'
+import {
+    useEffect,
+    useState,
+} from 'react'
 
 import { API_BASE_URL } from './accidentApi'
+
 import type {
     EventDetail,
     EventEditForm,
+    OrganizationOption,
 } from './accidentTypes'
 
 type AccidentOverviewSectionProps = {
@@ -29,13 +34,100 @@ function AccidentOverviewSection({
 
     const [eventDraft, setEventDraft] =
         useState<EventEditForm | null>(null)
-        
+
+    const [organizations, setOrganizations] =
+        useState<OrganizationOption[]>([])
+
+    useEffect(() => {
+        const loadOrganizations = async () => {
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/organizations`,
+                )
+
+                if (!response.ok) {
+                    return
+                }
+
+                const data: OrganizationOption[] =
+                    await response.json()
+
+                setOrganizations(
+                    data.filter(
+                        (organization) =>
+                            organization.active,
+                    ),
+                )
+            } catch {
+                // Le dossier reste utilisable même si
+                // le référentiel organisationnel ne charge pas.
+            }
+        }
+
+        void loadOrganizations()
+    }, [])
+
+    const selectedOrganization =
+        organizations.find(
+            (organization) =>
+                organization.id === event.organization?.id,
+        )
+
+    const selectedEntity =
+        selectedOrganization?.type === 'TRADE'
+            ? organizations.find(
+                (organization) =>
+                    organization.id ===
+                    selectedOrganization.parent_id,
+            )
+            : selectedOrganization?.type === 'ENTITY'
+                ? selectedOrganization
+                : undefined
+
+    const selectedTrade =
+        selectedOrganization?.type === 'TRADE'
+            ? selectedOrganization
+            : undefined
+
+    const entityOrganizations =
+        organizations.filter(
+            (organization) =>
+                organization.type === 'ENTITY',
+        )
+
+    const selectedDraftOrganization =
+        organizations.find(
+            (organization) =>
+                organization.id ===
+                Number(eventDraft?.organization_id),
+        )
+
+    const draftEntityId =
+        selectedDraftOrganization?.type === 'TRADE'
+            ? selectedDraftOrganization.parent_id
+            : selectedDraftOrganization?.type === 'ENTITY'
+                ? selectedDraftOrganization.id
+                : null
+
+    const draftTradeId =
+        selectedDraftOrganization?.type === 'TRADE'
+            ? selectedDraftOrganization.id
+            : null
+
+    const availableTrades =
+        organizations.filter(
+            (organization) =>
+                organization.type === 'TRADE' &&
+                organization.parent_id === draftEntityId,
+        )
 
     const startEventEditing = () => {
         setEventDraft({
             event_type: event.event_type,
             event_date: event.event_date.slice(0, 10),
             person_category: event.person_category ?? '',
+            organization_id:
+                event.organization?.id.toString() ?? '',
             victim_last_name:
                 event.person?.last_name ??
                 event.victim_last_name ??
@@ -133,6 +225,10 @@ function AccidentOverviewSection({
                         event_date: eventDraft.event_date,
                         person_category:
                             eventDraft.person_category || null,
+                        organization_id:
+                            eventDraft.organization_id
+                                ? Number(eventDraft.organization_id)
+                                : null,
                         victim_last_name:
                             eventDraft.victim_last_name || null,
                         victim_first_name:
@@ -172,7 +268,7 @@ function AccidentOverviewSection({
                                 : null,
                         material_damage_cost:
                             eventDraft.material_damage &&
-                            eventDraft.material_damage_cost !== ''
+                                eventDraft.material_damage_cost !== ''
                                 ? Number(eventDraft.material_damage_cost)
                                 : null,
 
@@ -188,7 +284,7 @@ function AccidentOverviewSection({
                                 : null,
                         environmental_quantity:
                             eventDraft.environmental_damage &&
-                            eventDraft.environmental_quantity !== ''
+                                eventDraft.environmental_quantity !== ''
                                 ? Number(eventDraft.environmental_quantity)
                                 : null,
                         environmental_unit:
@@ -267,7 +363,7 @@ function AccidentOverviewSection({
                                     {event.person
                                         ? `${event.person.first_name} ${event.person.last_name}`
                                         : event.victim_first_name ||
-                                          event.victim_last_name
+                                            event.victim_last_name
                                             ? `${event.victim_first_name ?? ''} ${event.victim_last_name ?? ''}`.trim()
                                             : at('common.notProvidedF')}
                                 </strong>
@@ -284,12 +380,21 @@ function AccidentOverviewSection({
                             <div>
                                 <span>{at('overview.organization')}</span>
                                 <strong>
-                                    {event.organization?.name ??
+                                    {selectedEntity?.name ??
+                                        (selectedOrganization?.type !== 'TRADE'
+                                            ? event.organization?.name
+                                            : null) ??
                                         at('common.notProvidedF')}
                                 </strong>
                             </div>
 
                             <div>
+                                <span>Métier</span>
+                                <strong>
+                                    {selectedTrade?.name ?? '—'}
+                                </strong>
+                            </div>
+                           <div>
                                 <span>{at('overview.location')}</span>
                                 <strong>
                                     {event.location ??
@@ -318,7 +423,7 @@ function AccidentOverviewSection({
                                 <strong>
                                     {event.material_damage
                                         ? event.material_damage_details ||
-                                          at('common.yesWithoutDescription')
+                                        at('common.yesWithoutDescription')
                                         : at('common.no')}
                                 </strong>
                             </div>
@@ -328,7 +433,7 @@ function AccidentOverviewSection({
                                 <strong>
                                     {event.environmental_damage
                                         ? event.environmental_damage_details ||
-                                          at('common.yesWithoutDescription')
+                                        at('common.yesWithoutDescription')
                                         : at('common.no')}
                                 </strong>
                             </div>
@@ -344,493 +449,556 @@ function AccidentOverviewSection({
                         </div>
                     )}
 
-                    {eventEditing && eventDraft && (
-                        <div className="accident-dossier__facts-grid">
+            {eventEditing && eventDraft && (
+                <div className="accident-dossier__facts-grid">
+                    <label>
+                        <span>{at('overview.type')}</span>
+                        <select
+                            value={eventDraft.event_type}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'event_type',
+                                    e.target.value,
+                                )
+                            }
+                        >
+                            <option value="ACCIDENT">{at('common.eventType.accident')}</option>
+                            <option value="INCIDENT">{at('common.eventType.incident')}</option>
+                            <option value="NEAR_MISS">
+                                {at('common.eventType.nearMiss')}
+                            </option>
+                            <option value="MATERIAL">{at('common.eventType.material')}</option>
+                            <option value="ENVIRONMENT">
+                                {at('common.eventType.environment')}
+                            </option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>{at('overview.date')}</span>
+                        <input
+                            type="date"
+                            value={eventDraft.event_date}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'event_date',
+                                    e.target.value,
+                                )
+                            }
+                        />
+                    </label>
+
+                    <label>
+                        <span>{at('create.firstName')}</span>
+                        <input
+                            value={eventDraft.victim_first_name}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'victim_first_name',
+                                    e.target.value,
+                                )
+                            }
+                        />
+                    </label>
+
+                    <label>
+                        <span>{at('create.lastName')}</span>
+                        <input
+                            value={eventDraft.victim_last_name}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'victim_last_name',
+                                    e.target.value,
+                                )
+                            }
+                        />
+                    </label>
+
+                    <label>
+                        <span>{at('overview.category')}</span>
+                        <select
+                            value={eventDraft.person_category}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'person_category',
+                                    e.target.value,
+                                )
+                            }
+                        >
+                            <option value="">{at('common.notProvidedF')}</option>
+                            <option value="WORKER">{at('common.category.worker')}</option>
+                            <option value="EMPLOYEE">{at('common.category.employee')}</option>
+                            <option value="TEMPORARY">{at('common.category.temp')}</option>
+                            <option value="SUBCONTRACTOR">{at('common.category.contractor')}</option>
+                            <option value="OTHER">{at('common.category.other')}</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>{at('overview.organization')}</span>
+
+                        <select
+                            value={draftEntityId ?? ''}
+                            onChange={(e) => {
+                                updateEventField(
+                                    'organization_id',
+                                    e.target.value,
+                                )
+                            }}
+                        >
+                            <option value="">
+                                {at('common.notProvidedF')}
+                            </option>
+
+                            {entityOrganizations.map(
+                                (organization) => (
+                                    <option
+                                        key={organization.id}
+                                        value={organization.id}
+                                    >
+                                        {organization.name}
+                                    </option>
+                                ),
+                            )}
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Métier</span>
+
+                        <select
+                            value={draftTradeId ?? ''}
+                            disabled={!draftEntityId}
+                            onChange={(e) => {
+                                const tradeId = e.target.value
+
+                                updateEventField(
+                                    'organization_id',
+                                    tradeId ||
+                                    draftEntityId?.toString() ||
+                                    '',
+                                )
+                            }}
+                        >
+                            <option value="">
+                                — Transversal / non attribué —
+                            </option>
+
+                            {availableTrades.map(
+                                (organization) => (
+                                    <option
+                                        key={organization.id}
+                                        value={organization.id}
+                                    >
+                                        {organization.name}
+                                    </option>
+                                ),
+                            )}
+                        </select>
+                    </label>
+                    <label>
+                        <span>{at('overview.location')}</span>
+                        <input
+                            value={eventDraft.location}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'location',
+                                    e.target.value,
+                                )
+                            }
+                        />
+                    </label>
+
+                    <label>
+                        <span>{at('overview.projectManager')}</span>
+                        <input
+                            value={eventDraft.project_manager}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'project_manager',
+                                    e.target.value,
+                                )
+                            }
+                        />
+                    </label>
+
+                    <label>
+                        <span>{at('create.siteSupervisor')}</span>
+                        <input
+                            value={eventDraft.site_supervisor}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'site_supervisor',
+                                    e.target.value,
+                                )
+                            }
+                        />
+                    </label>
+
+                    <label>
+                        <span>{at('overview.materialDamage')}</span>
+                        <select
+                            value={
+                                eventDraft.material_damage
+                                    ? 'true'
+                                    : 'false'
+                            }
+                            onChange={(e) =>
+                                updateEventField(
+                                    'material_damage',
+                                    e.target.value === 'true',
+                                )
+                            }
+                        >
+                            <option value="false">{at('common.no')}</option>
+                            <option value="true">{at('common.yes')}</option>
+                        </select>
+                    </label>
+
+                    {eventDraft.material_damage && (
+                        <label className="accident-dossier__facts-wide">
+                            <span>
+                                {at('overview.materialDetails')}
+                            </span>
+                            <textarea
+                                rows={3}
+                                value={eventDraft.material_damage_details}
+                                onChange={(e) =>
+                                    updateEventField(
+                                        'material_damage_details',
+                                        e.target.value,
+                                    )
+                                }
+                            />
+                        </label>
+                    )}
+
+                    <label>
+                        <span>{at('overview.environmentalDamage')}</span>
+                        <select
+                            value={
+                                eventDraft.environmental_damage
+                                    ? 'true'
+                                    : 'false'
+                            }
+                            onChange={(e) =>
+                                updateEventField(
+                                    'environmental_damage',
+                                    e.target.value === 'true',
+                                )
+                            }
+                        >
+                            <option value="false">{at('common.no')}</option>
+                            <option value="true">{at('common.yes')}</option>
+                        </select>
+                    </label>
+
+                    {eventDraft.environmental_damage && (
+                        <>
                             <label>
-                                <span>{at('overview.type')}</span>
+                                <span>Type d&apos;impact</span>
                                 <select
-                                    value={eventDraft.event_type}
+                                    value={eventDraft.environmental_damage_type}
                                     onChange={(e) =>
                                         updateEventField(
-                                            'event_type',
+                                            'environmental_damage_type',
                                             e.target.value,
                                         )
                                     }
                                 >
-                                    <option value="ACCIDENT">{at('common.eventType.accident')}</option>
-                                    <option value="INCIDENT">{at('common.eventType.incident')}</option>
-                                    <option value="NEAR_MISS">
-                                        {at('common.eventType.nearMiss')}
-                                    </option>
-                                    <option value="MATERIAL">{at('common.eventType.material')}</option>
-                                    <option value="ENVIRONMENT">
-                                        {at('common.eventType.environment')}
-                                    </option>
-                                </select>
-                            </label>
-
-                            <label>
-                                <span>{at('overview.date')}</span>
-                                <input
-                                    type="date"
-                                    value={eventDraft.event_date}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'event_date',
-                                            e.target.value,
-                                        )
-                                    }
-                                />
-                            </label>
-
-                            <label>
-                                <span>{at('create.firstName')}</span>
-                                <input
-                                    value={eventDraft.victim_first_name}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'victim_first_name',
-                                            e.target.value,
-                                        )
-                                    }
-                                />
-                            </label>
-
-                            <label>
-                                <span>{at('create.lastName')}</span>
-                                <input
-                                    value={eventDraft.victim_last_name}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'victim_last_name',
-                                            e.target.value,
-                                        )
-                                    }
-                                />
-                            </label>
-
-                            <label>
-                                <span>{at('overview.category')}</span>
-                                <select
-                                    value={eventDraft.person_category}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'person_category',
-                                            e.target.value,
-                                        )
-                                    }
-                                >
-                                    <option value="">{at('common.notProvidedF')}</option>
-                                    <option value="WORKER">{at('common.category.worker')}</option>
-                                    <option value="EMPLOYEE">{at('common.category.employee')}</option>
-                                    <option value="TEMPORARY">{at('common.category.temp')}</option>
-                                    <option value="SUBCONTRACTOR">{at('common.category.contractor')}</option>
+                                    <option value="">{at('common.notProvided')}</option>
+                                    <option value="SPILL">{at('create.spill')}</option>
+                                    <option value="LEAK">{at('create.leak')}</option>
+                                    <option value="RELEASE">{at('create.release')}</option>
+                                    <option value="SOIL">Sol</option>
+                                    <option value="WATER">Eau</option>
+                                    <option value="AIR">Air</option>
                                     <option value="OTHER">{at('common.category.other')}</option>
                                 </select>
                             </label>
 
-                            <label>
-                                <span>{at('overview.location')}</span>
-                                <input
-                                    value={eventDraft.location}
+                            <label className="accident-dossier__facts-wide">
+                                <span>
+                                    {at('overview.environmentalDetails')}
+                                </span>
+                                <textarea
+                                    rows={3}
+                                    value={eventDraft.environmental_damage_details}
                                     onChange={(e) =>
                                         updateEventField(
-                                            'location',
+                                            'environmental_damage_details',
                                             e.target.value,
                                         )
                                     }
                                 />
                             </label>
-
-                            <label>
-                                <span>{at('overview.projectManager')}</span>
-                                <input
-                                    value={eventDraft.project_manager}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'project_manager',
-                                            e.target.value,
-                                        )
-                                    }
-                                />
-                            </label>
-
-                            <label>
-                                <span>{at('create.siteSupervisor')}</span>
-                                <input
-                                    value={eventDraft.site_supervisor}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'site_supervisor',
-                                            e.target.value,
-                                        )
-                                    }
-                                />
-                            </label>
-
-                            <label>
-                                <span>{at('overview.materialDamage')}</span>
-                                <select
-                                    value={
-                                        eventDraft.material_damage
-                                            ? 'true'
-                                            : 'false'
-                                    }
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'material_damage',
-                                            e.target.value === 'true',
-                                        )
-                                    }
-                                >
-                                    <option value="false">{at('common.no')}</option>
-                                    <option value="true">{at('common.yes')}</option>
-                                </select>
-                            </label>
-
-                            {eventDraft.material_damage && (
-                                <label className="accident-dossier__facts-wide">
-                                    <span>
-                                        {at('overview.materialDetails')}
-                                    </span>
-                                    <textarea
-                                        rows={3}
-                                        value={eventDraft.material_damage_details}
-                                        onChange={(e) =>
-                                            updateEventField(
-                                                'material_damage_details',
-                                                e.target.value,
-                                            )
-                                        }
-                                    />
-                                </label>
-                            )}
-
-                            <label>
-                                <span>{at('overview.environmentalDamage')}</span>
-                                <select
-                                    value={
-                                        eventDraft.environmental_damage
-                                            ? 'true'
-                                            : 'false'
-                                    }
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'environmental_damage',
-                                            e.target.value === 'true',
-                                        )
-                                    }
-                                >
-                                    <option value="false">{at('common.no')}</option>
-                                    <option value="true">{at('common.yes')}</option>
-                                </select>
-                            </label>
-
-                            {eventDraft.environmental_damage && (
-                                <>
-                                    <label>
-                                        <span>Type d&apos;impact</span>
-                                        <select
-                                            value={eventDraft.environmental_damage_type}
-                                            onChange={(e) =>
-                                                updateEventField(
-                                                    'environmental_damage_type',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        >
-                                            <option value="">{at('common.notProvided')}</option>
-                                            <option value="SPILL">{at('create.spill')}</option>
-                                            <option value="LEAK">{at('create.leak')}</option>
-                                            <option value="RELEASE">{at('create.release')}</option>
-                                            <option value="SOIL">Sol</option>
-                                            <option value="WATER">Eau</option>
-                                            <option value="AIR">Air</option>
-                                            <option value="OTHER">{at('common.category.other')}</option>
-                                        </select>
-                                    </label>
-
-                                    <label className="accident-dossier__facts-wide">
-                                        <span>
-                                            {at('overview.environmentalDetails')}
-                                        </span>
-                                        <textarea
-                                            rows={3}
-                                            value={eventDraft.environmental_damage_details}
-                                            onChange={(e) =>
-                                                updateEventField(
-                                                    'environmental_damage_details',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </label>
-                                </>
-                            )}
-
-                            <label>
-                                <span>{at('overview.analysisType')}</span>
-                                <select
-                                    value={eventDraft.analysis_type}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'analysis_type',
-                                            e.target.value,
-                                        )
-                                    }
-                                >
-                                    <option value="NORMAL">{at('overview.normal')}</option>
-                                    <option value="ADVANCED">{at('overview.inDepth')}</option>
-                                </select>
-                            </label>
-                        </div>
+                        </>
                     )}
-                </section>
 
-                <section className="accident-dossier__section">
-                    <h2>{at('overview.consequences')}</h2>
+                    <label>
+                        <span>{at('overview.analysisType')}</span>
+                        <select
+                            value={eventDraft.analysis_type}
+                            onChange={(e) =>
+                                updateEventField(
+                                    'analysis_type',
+                                    e.target.value,
+                                )
+                            }
+                        >
+                            <option value="NORMAL">{at('overview.normal')}</option>
+                            <option value="ADVANCED">{at('overview.inDepth')}</option>
+                        </select>
+                    </label>
+                </div>
+            )}
+        </section >
 
-                    {!eventEditing && (
-                        <div className="accident-dossier__consequences">
-                            <div>
-                                <span>{at('create.lostTime')}</span>
-                                <strong>
-                                    {event.lost_time
-                                        ? at('overview.lostDaysValue', { count: event.lost_days ?? 0 })
-                                        : at('common.no')}
-                                </strong>
-                            </div>
+            <section className="accident-dossier__section">
+                <h2>{at('overview.consequences')}</h2>
 
-                            <div>
-                                <span>{at('create.modifiedDuty')}</span>
-                                <strong>
-                                    {event.modified_duty
-                                        ? at('overview.modifiedDaysValue', { count: event.modified_duty_days ?? 0 })
-                                        : at('common.no')}
-                                </strong>
-                            </div>
+                {!eventEditing && (
+                    <div className="accident-dossier__consequences">
+                        <div>
+                            <span>{at('create.lostTime')}</span>
+                            <strong>
+                                {event.lost_time
+                                    ? at('overview.lostDaysValue', { count: event.lost_days ?? 0 })
+                                    : at('common.no')}
+                            </strong>
+                        </div>
 
-                            <div>
-                                <span>{at('create.permanentInjury')}</span>
-                                <strong>
-                                    {event.permanent_injury ? at('common.yes') : at('common.no')}
-                                </strong>
-                            </div>
+                        <div>
+                            <span>{at('create.modifiedDuty')}</span>
+                            <strong>
+                                {event.modified_duty
+                                    ? at('overview.modifiedDaysValue', { count: event.modified_duty_days ?? 0 })
+                                    : at('common.no')}
+                            </strong>
+                        </div>
 
-                            <div>
-                                <span>{at('create.death')}</span>
-                                <strong>
-                                    {event.fatal ? at('common.yes') : at('common.no')}
-                                </strong>
-                            </div>
+                        <div>
+                            <span>{at('create.permanentInjury')}</span>
+                            <strong>
+                                {event.permanent_injury ? at('common.yes') : at('common.no')}
+                            </strong>
+                        </div>
 
-                            <div>
+                        <div>
+                            <span>{at('create.death')}</span>
+                            <strong>
+                                {event.fatal ? at('common.yes') : at('common.no')}
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>{at('overview.materialCost')}</span>
+                            <strong>
+                                {event.material_damage
+                                    ? event.material_damage_cost !== null
+                                        ? event.material_damage_cost.toLocaleString(
+                                            'fr-BE',
+                                            {
+                                                style: 'currency',
+                                                currency: 'EUR',
+                                            },
+                                        )
+                                        : at('common.notProvided')
+                                    : 'Sans objet'}
+                            </strong>
+                        </div>
+                    </div>
+                )}
+
+                {eventEditing && eventDraft && (
+                    <div className="accident-dossier__facts-grid">
+                        <label>
+                            <span>{at('create.lostTime')}</span>
+                            <select
+                                value={eventDraft.lost_time ? 'true' : 'false'}
+                                onChange={(e) =>
+                                    updateEventField(
+                                        'lost_time',
+                                        e.target.value === 'true',
+                                    )
+                                }
+                            >
+                                <option value="false">{at('common.no')}</option>
+                                <option value="true">{at('common.yes')}</option>
+                            </select>
+                        </label>
+
+                        {eventDraft.lost_time && (
+                            <label>
+                                <span>{at('overview.lostDays')}</span>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={eventDraft.lost_days}
+                                    onChange={(e) =>
+                                        updateEventField(
+                                            'lost_days',
+                                            e.target.value,
+                                        )
+                                    }
+                                />
+                            </label>
+                        )}
+
+                        <label>
+                            <span>{at('create.modifiedDuty')}</span>
+                            <select
+                                value={eventDraft.modified_duty ? 'true' : 'false'}
+                                onChange={(e) =>
+                                    updateEventField(
+                                        'modified_duty',
+                                        e.target.value === 'true',
+                                    )
+                                }
+                            >
+                                <option value="false">{at('common.no')}</option>
+                                <option value="true">{at('common.yes')}</option>
+                            </select>
+                        </label>
+
+                        {eventDraft.modified_duty && (
+                            <label>
+                                <span>{at('overview.modifiedDays')}</span>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={eventDraft.modified_duty_days}
+                                    onChange={(e) =>
+                                        updateEventField(
+                                            'modified_duty_days',
+                                            e.target.value,
+                                        )
+                                    }
+                                />
+                            </label>
+                        )}
+
+                        <label>
+                            <span>{at('create.permanentInjury')}</span>
+                            <select
+                                value={eventDraft.permanent_injury ? 'true' : 'false'}
+                                onChange={(e) =>
+                                    updateEventField(
+                                        'permanent_injury',
+                                        e.target.value === 'true',
+                                    )
+                                }
+                            >
+                                <option value="false">{at('common.no')}</option>
+                                <option value="true">{at('common.yes')}</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <span>{at('create.death')}</span>
+                            <select
+                                value={eventDraft.fatal ? 'true' : 'false'}
+                                onChange={(e) =>
+                                    updateEventField(
+                                        'fatal',
+                                        e.target.value === 'true',
+                                    )
+                                }
+                            >
+                                <option value="false">{at('common.no')}</option>
+                                <option value="true">{at('common.yes')}</option>
+                            </select>
+                        </label>
+
+                        {eventDraft.material_damage && (
+                            <label>
                                 <span>{at('overview.materialCost')}</span>
-                                <strong>
-                                    {event.material_damage
-                                        ? event.material_damage_cost !== null
-                                            ? event.material_damage_cost.toLocaleString(
-                                                'fr-BE',
-                                                {
-                                                    style: 'currency',
-                                                    currency: 'EUR',
-                                                },
-                                            )
-                                            : at('common.notProvided')
-                                        : 'Sans objet'}
-                                </strong>
-                            </div>
-                        </div>
-                    )}
-
-                    {eventEditing && eventDraft && (
-                        <div className="accident-dossier__facts-grid">
-                            <label>
-                                <span>{at('create.lostTime')}</span>
-                                <select
-                                    value={eventDraft.lost_time ? 'true' : 'false'}
+                                <input
+                                    type="number"
+                                    min="0"
+                                    step="0.01"
+                                    value={eventDraft.material_damage_cost}
                                     onChange={(e) =>
                                         updateEventField(
-                                            'lost_time',
-                                            e.target.value === 'true',
+                                            'material_damage_cost',
+                                            e.target.value,
                                         )
                                     }
-                                >
-                                    <option value="false">{at('common.no')}</option>
-                                    <option value="true">{at('common.yes')}</option>
-                                </select>
+                                />
                             </label>
+                        )}
 
-                            {eventDraft.lost_time && (
+                        {eventDraft.environmental_damage && (
+                            <>
                                 <label>
-                                    <span>{at('overview.lostDays')}</span>
-                                    <input
-                                        type="number"
-                                        min="0"
-                                        value={eventDraft.lost_days}
-                                        onChange={(e) =>
-                                            updateEventField(
-                                                'lost_days',
-                                                e.target.value,
-                                            )
-                                        }
-                                    />
-                                </label>
-                            )}
-
-                            <label>
-                                <span>{at('create.modifiedDuty')}</span>
-                                <select
-                                    value={eventDraft.modified_duty ? 'true' : 'false'}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'modified_duty',
-                                            e.target.value === 'true',
-                                        )
-                                    }
-                                >
-                                    <option value="false">{at('common.no')}</option>
-                                    <option value="true">{at('common.yes')}</option>
-                                </select>
-                            </label>
-
-                            {eventDraft.modified_duty && (
-                                <label>
-                                    <span>{at('overview.modifiedDays')}</span>
-                                    <input
-                                        type="number"
-                                        min="0"
-                                        value={eventDraft.modified_duty_days}
-                                        onChange={(e) =>
-                                            updateEventField(
-                                                'modified_duty_days',
-                                                e.target.value,
-                                            )
-                                        }
-                                    />
-                                </label>
-                            )}
-
-                            <label>
-                                <span>{at('create.permanentInjury')}</span>
-                                <select
-                                    value={eventDraft.permanent_injury ? 'true' : 'false'}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'permanent_injury',
-                                            e.target.value === 'true',
-                                        )
-                                    }
-                                >
-                                    <option value="false">{at('common.no')}</option>
-                                    <option value="true">{at('common.yes')}</option>
-                                </select>
-                            </label>
-
-                            <label>
-                                <span>{at('create.death')}</span>
-                                <select
-                                    value={eventDraft.fatal ? 'true' : 'false'}
-                                    onChange={(e) =>
-                                        updateEventField(
-                                            'fatal',
-                                            e.target.value === 'true',
-                                        )
-                                    }
-                                >
-                                    <option value="false">{at('common.no')}</option>
-                                    <option value="true">{at('common.yes')}</option>
-                                </select>
-                            </label>
-
-                            {eventDraft.material_damage && (
-                                <label>
-                                    <span>{at('overview.materialCost')}</span>
+                                    <span>{at('overview.quantity')}</span>
                                     <input
                                         type="number"
                                         min="0"
                                         step="0.01"
-                                        value={eventDraft.material_damage_cost}
+                                        value={eventDraft.environmental_quantity}
                                         onChange={(e) =>
                                             updateEventField(
-                                                'material_damage_cost',
+                                                'environmental_quantity',
                                                 e.target.value,
                                             )
                                         }
                                     />
                                 </label>
-                            )}
 
-                            {eventDraft.environmental_damage && (
-                                <>
-                                    <label>
-                                        <span>{at('overview.quantity')}</span>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            step="0.01"
-                                            value={eventDraft.environmental_quantity}
-                                            onChange={(e) =>
-                                                updateEventField(
-                                                    'environmental_quantity',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>{at('overview.unit')}</span>
-                                        <input
-                                            value={eventDraft.environmental_unit}
-                                            onChange={(e) =>
-                                                updateEventField(
-                                                    'environmental_unit',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </label>
-                                </>
-                            )}
-                        </div>
-                    )}
-                </section>
-            </div>
-
-            {eventEditing && (
-                <>
-                    {eventSaveError && (
-                        <p className="accident-dossier__facts-error">
-                            {eventSaveError}
-                        </p>
-                    )}
-
-                    <div className="accident-dossier__facts-actions">
-                        <button
-                            className="risky-button risky-button--cancel"
-                            type="button"
-                            onClick={cancelEventEditing}
-                            disabled={eventSaving}
-                        >
-                            {at('common.cancel')}
-                        </button>
-
-                        <button
-                            className="risky-button risky-button--confirm"
-                            type="button"
-                            onClick={saveEvent}
-                            disabled={eventSaving}
-                        >
-                            {eventSaving
-                                ? 'Enregistrement...'
-                                : 'Enregistrer'}
-                        </button>
+                                <label>
+                                    <span>{at('overview.unit')}</span>
+                                    <input
+                                        value={eventDraft.environmental_unit}
+                                        onChange={(e) =>
+                                            updateEventField(
+                                                'environmental_unit',
+                                                e.target.value,
+                                            )
+                                        }
+                                    />
+                                </label>
+                            </>
+                        )}
                     </div>
-                </>
-            )}
+                )}
+            </section>
+            </div >
+
+        { eventEditing && (
+            <>
+                {eventSaveError && (
+                    <p className="accident-dossier__facts-error">
+                        {eventSaveError}
+                    </p>
+                )}
+
+                <div className="accident-dossier__facts-actions">
+                    <button
+                        className="risky-button risky-button--cancel"
+                        type="button"
+                        onClick={cancelEventEditing}
+                        disabled={eventSaving}
+                    >
+                        {at('common.cancel')}
+                    </button>
+
+                    <button
+                        className="risky-button risky-button--confirm"
+                        type="button"
+                        onClick={saveEvent}
+                        disabled={eventSaving}
+                    >
+                        {eventSaving
+                            ? 'Enregistrement...'
+                            : 'Enregistrer'}
+                    </button>
+                </div>
+            </>
+        )}
+
         </>
     )
 }
 
 export default AccidentOverviewSection
+

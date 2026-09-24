@@ -9,6 +9,7 @@ import JustCulturePage from './pages/accident/JustCulturePage'
 import ActionPlanPage from './pages/actions/ActionPlanPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
+import SafetyDashboardPage from './pages/dashboard/SafetyDashboardPage'
 
 import LanguageSelector, {
   type RiskyLanguage,
@@ -964,17 +965,8 @@ function App() {
     ======================================================== */}
 
           {mainView === 'dashboard' && (
-            <section className="risky-placeholder">
-              <h2>
-                {t('common.dashboard')}
-              </h2>
-
-              <p>
-                {t('dashboard.placeholder')}
-              </p>
-            </section>
+            <SafetyDashboardPage />
           )}
-
           {/* ========================================================
               MODULE ACCIDENTS
               ======================================================== */}

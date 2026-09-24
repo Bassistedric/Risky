@@ -17,6 +17,11 @@ import plCommon from './locales/pl/common.json'
 import plNavigation from './locales/pl/navigation.json'
 import plAccidents from './locales/pl/accidents.json'
 
+import frSafetyStatistics from './locales/fr/safetyStatistics.json'
+import nlSafetyStatistics from './locales/nl/safetyStatistics.json'
+import enSafetyStatistics from './locales/en/safetyStatistics.json'
+import plSafetyStatistics from './locales/pl/safetyStatistics.json'
+
 const storedLanguage =
   localStorage.getItem('risky_language')
 
@@ -36,6 +41,7 @@ void i18n
           ...frCommon,
           ...frNavigation,
           accident: frAccidents,
+          safetyStatistics: frSafetyStatistics,
         },
       },
 
@@ -44,6 +50,7 @@ void i18n
           ...nlCommon,
           ...nlNavigation,
           accident: nlAccidents,
+          safetyStatistics: nlSafetyStatistics,
         },
       },
 
@@ -52,6 +59,7 @@ void i18n
           ...enCommon,
           ...enNavigation,
           accident: enAccidents,
+          safetyStatistics: enSafetyStatistics,
         },
       },
 
@@ -60,6 +68,7 @@ void i18n
           ...plCommon,
           ...plNavigation,
           accident: plAccidents,
+          safetyStatistics: plSafetyStatistics,
         },
       },
     },

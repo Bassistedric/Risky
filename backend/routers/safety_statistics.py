@@ -9,8 +9,10 @@ from ..schemas.safety_statistics import (
     SafetyWorkHoursUpsert,
 )
 from ..services.safety_statistics import (
+    build_statistics_summary,
     build_work_hours_dimension_key,
 )
+
 from ..services.session import require_write_session
 
 
@@ -19,6 +21,37 @@ router = APIRouter(
     tags=["Safety Statistics"],
 )
 
+# ============================================================
+# SYNTHÈSE STATISTIQUE
+# ============================================================
+
+@router.get("/summary")
+def get_statistics_summary(
+    organization_id: int,
+    year: int,
+    month_to: int | None = None,
+    trade_code: str | None = None,
+):
+    db = SessionLocal()
+
+    try:
+        try:
+            return build_statistics_summary(
+                db,
+                organization_id=organization_id,
+                year=year,
+                month_to=month_to,
+                trade_code=trade_code,
+            )
+
+        except ValueError as exc:
+            raise HTTPException(
+                status_code=400,
+                detail=str(exc),
+            )
+
+    finally:
+        db.close()
 
 # ============================================================
 # RÉFÉRENTIEL MÉTIERS
