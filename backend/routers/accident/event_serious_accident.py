@@ -441,3 +441,92 @@ def get_serious_accident_assessment(
         db.close()
 
 
+
+
+# ============================================================
+# RAPPORT CIRCONSTANCIÉ — DONNÉES COMPLÉMENTAIRES
+# ============================================================
+
+@router.get(
+    "/{event_id}/circumstantial-report",
+    response_model=schemas.EventCircumstantialReportResponse | None,
+)
+def get_circumstantial_report(event_id: int):
+    db = SessionLocal()
+    try:
+        event = db.get(models.Event, event_id)
+        if not event:
+            raise HTTPException(status_code=404, detail="Événement introuvable")
+        return (
+            db.query(models.EventCircumstantialReport)
+            .filter(models.EventCircumstantialReport.event_id == event_id)
+            .first()
+        )
+    finally:
+        db.close()
+
+
+@router.put(
+    "/{event_id}/circumstantial-report",
+    response_model=schemas.EventCircumstantialReportResponse,
+)
+def save_circumstantial_report(
+    event_id: int,
+    payload: schemas.EventCircumstantialReportUpdate,
+    session=Depends(require_write_session),
+):
+    db = SessionLocal()
+    try:
+        event = db.get(models.Event, event_id)
+        if not event:
+            raise HTTPException(status_code=404, detail="Événement introuvable")
+
+        classification = db.scalar(
+            select(models.EventClassification).where(
+                models.EventClassification.event_id == event_id
+            )
+        )
+        assessment = evaluate_serious_accident(db, event, classification)
+        if not assessment["circumstantial_report_required"]:
+            raise HTTPException(
+                status_code=409,
+                detail="Le rapport circonstancié n'est pas requis pour cet événement.",
+            )
+
+        report = (
+            db.query(models.EventCircumstantialReport)
+            .filter(models.EventCircumstantialReport.event_id == event_id)
+            .first()
+        )
+        before_data = None
+        if report is None:
+            report = models.EventCircumstantialReport(event_id=event_id)
+            db.add(report)
+        else:
+            before_data = {
+                key: getattr(report, key)
+                for key in payload.model_fields
+            }
+
+        for key, value in payload.model_dump().items():
+            setattr(report, key, value)
+
+        db.flush()
+        write_audit_log(
+            db=db,
+            session=session,
+            action="UPDATE" if before_data else "CREATE",
+            entity_type="EVENT_CIRCUMSTANTIAL_REPORT",
+            entity_id=str(event_id),
+            before_data=before_data,
+            after_data=payload.model_dump(),
+            details="Données complémentaires du rapport circonstancié",
+        )
+        db.commit()
+        db.refresh(report)
+        return report
+    except:
+        db.rollback()
+        raise
+    finally:
+        db.close()
