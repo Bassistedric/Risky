@@ -9,6 +9,7 @@ import './AccidentDossierPage.css'
 import './AccidentShared.css'
 
 import AccidentAnalysisSection from './AccidentAnalysisSection'
+import AccidentCircumstantialSection from './AccidentCircumstantialSection'
 import AccidentFactsSection from './AccidentFactsSection'
 import AccidentMeasuresSection from './AccidentMeasuresSection'
 import AccidentOverviewSection from './AccidentOverviewSection'
@@ -392,6 +393,8 @@ function AccidentDossierPage({
                     eventId={eventId}
                 />
 
+
+                <AccidentCircumstantialSection eventId={eventId} mode="details" />
 
                 {/* ========================================================
     PHOTOS
