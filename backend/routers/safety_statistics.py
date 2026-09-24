@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy import select
 
 from .. import models
@@ -12,7 +12,10 @@ from ..services.safety_statistics import (
     build_statistics_summary,
     build_work_hours_dimension_key,
 )
-
+from ..services.safety_hours_import import (
+    parse_rh_work_hours,
+)
+from ..services.audit import write_audit_log
 from ..services.session import require_write_session
 
 
@@ -86,6 +89,223 @@ def list_trades():
 
 
 # ============================================================
+# IMPORT RH — APERÇU
+# ============================================================
+
+@router.post("/work-hours/import/preview")
+async def preview_work_hours_import(
+    file: UploadFile = File(...),
+    session=Depends(require_write_session),
+):
+    try:
+        content = await file.read()
+
+        return parse_rh_work_hours(
+            content,
+            file.filename or "import.xlsx",
+        )
+
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=str(exc),
+        )
+
+
+# ============================================================
+# IMPORT RH — APPLICATION
+# ============================================================
+
+@router.post("/work-hours/import/apply")
+async def apply_work_hours_import(
+    file: UploadFile = File(...),
+    session=Depends(require_write_session),
+):
+    try:
+        content = await file.read()
+        preview = parse_rh_work_hours(
+            content,
+            file.filename or "import.xlsx",
+        )
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=str(exc),
+        )
+
+    db = SessionLocal()
+
+    try:
+        organizations = {}
+
+        for entity in preview["entities"]:
+            code = entity[
+                "organization_code"
+            ]
+
+            organization = db.scalar(
+                select(models.Organization)
+                .where(
+                    models.Organization.code
+                    == code,
+                    models.Organization.active.is_(
+                        True
+                    ),
+                )
+            )
+
+            if not organization:
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        "Organisation RISKY "
+                        f"introuvable : {code}"
+                    ),
+                )
+
+            organizations[
+                code
+            ] = organization
+
+        changed = 0
+
+        for source_row in preview["rows"]:
+            organization = organizations[
+                source_row[
+                    "organization_code"
+                ]
+            ]
+
+            for (
+                category,
+                hours_key,
+            ) in (
+                (
+                    "WORKER",
+                    "worker_hours",
+                ),
+                (
+                    "EMPLOYEE",
+                    "employee_hours",
+                ),
+            ):
+                dimension_key = (
+                    build_work_hours_dimension_key(
+                        workforce_category=category,
+                    )
+                )
+
+                existing = db.scalar(
+                    select(
+                        models.SafetyWorkHours
+                    )
+                    .where(
+                        models.SafetyWorkHours.organization_id
+                        == organization.id,
+                        models.SafetyWorkHours.year
+                        == source_row["year"],
+                        models.SafetyWorkHours.month
+                        == source_row["month"],
+                        models.SafetyWorkHours.dimension_key
+                        == dimension_key,
+                    )
+                )
+
+                if not existing:
+                    existing = (
+                        models.SafetyWorkHours(
+                            organization_id=(
+                                organization.id
+                            ),
+                            year=source_row[
+                                "year"
+                            ],
+                            month=source_row[
+                                "month"
+                            ],
+                            workforce_category=(
+                                category
+                            ),
+                            trade_id=None,
+                            dimension_key=(
+                                dimension_key
+                            ),
+                        )
+                    )
+
+                    db.add(existing)
+
+                existing.workforce_category = (
+                    category
+                )
+                existing.trade_id = None
+                existing.worked_hours = (
+                    source_row[
+                        hours_key
+                    ]
+                )
+                existing.source = (
+                    "RH Excel - "
+                    + preview["filename"]
+                )
+
+                changed += 1
+
+        write_audit_log(
+            db=db,
+            session=session,
+            action="IMPORT",
+            entity_type=(
+                "SAFETY_WORK_HOURS"
+            ),
+            entity_id=(
+                f'{preview["year"]}:'
+                f'{preview["month_to"]}'
+            ),
+            after_data={
+                "filename":
+                    preview["filename"],
+                "year":
+                    preview["year"],
+                "month_to":
+                    preview["month_to"],
+                "record_count":
+                    changed,
+            },
+            details=(
+                "Import des heures prestées "
+                "depuis le fichier mensuel RH"
+            ),
+        )
+
+        db.commit()
+
+        return {
+            "status": "ok",
+            "filename":
+                preview["filename"],
+            "year": preview["year"],
+            "month_to":
+                preview["month_to"],
+            "records_written":
+                changed,
+            "entities":
+                preview["entities"],
+        }
+
+    except HTTPException:
+        db.rollback()
+        raise
+
+    except Exception:
+        db.rollback()
+        raise
+
+    finally:
+        db.close()
+
+
+# ============================================================
 # HEURES PRESTÉES — ENCODAGE / MODIFICATION
 # ============================================================
 
@@ -135,44 +355,10 @@ def upsert_work_hours(
             .upper()
         )
 
-        trade = None
-        trade_code = None
-
-        if category == "WORKER":
-            if data.trade_id is None:
-                raise HTTPException(
-                    status_code=400,
-                    detail=(
-                        "Un métier est obligatoire "
-                        "pour les heures ouvriers"
-                    ),
-                )
-
-            trade = db.get(
-                models.TradeReference,
-                data.trade_id,
-            )
-
-            if not trade or not trade.active:
-                raise HTTPException(
-                    status_code=404,
-                    detail="Métier introuvable",
-                )
-
-            trade_code = trade.code
-
-        elif category == "EMPLOYEE":
-            if data.trade_id is not None:
-                raise HTTPException(
-                    status_code=400,
-                    detail=(
-                        "Les heures employés sont "
-                        "transversales : aucun métier "
-                        "ne doit être renseigné"
-                    ),
-                )
-
-        else:
+        if category not in {
+            "WORKER",
+            "EMPLOYEE",
+        }:
             raise HTTPException(
                 status_code=400,
                 detail=(
@@ -184,7 +370,6 @@ def upsert_work_hours(
         dimension_key = (
             build_work_hours_dimension_key(
                 workforce_category=category,
-                trade_code=trade_code,
             )
         )
 
@@ -205,11 +390,7 @@ def upsert_work_hours(
         if existing:
             row = existing
             row.workforce_category = category
-            row.trade_id = (
-                trade.id
-                if trade
-                else None
-            )
+            row.trade_id = None
             row.worked_hours = data.worked_hours
             row.source = data.source
 
@@ -219,11 +400,7 @@ def upsert_work_hours(
                 year=data.year,
                 month=data.month,
                 workforce_category=category,
-                trade_id=(
-                    trade.id
-                    if trade
-                    else None
-                ),
+                trade_id=None,
                 dimension_key=dimension_key,
                 worked_hours=data.worked_hours,
                 source=data.source,
