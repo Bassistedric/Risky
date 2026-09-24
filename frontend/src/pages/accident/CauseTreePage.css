@@ -13,31 +13,7 @@
    RETOUR
    ============================================================ */
 
-.cause-tree-page__back {
-    align-self: flex-start;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 4px 0;
-
-    background: transparent;
-    border: 0;
-
-    color: #17324d;
-
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-
-    cursor: pointer;
-}
-
-.cause-tree-page__back:hover {
-    color: #1f6fae;
-}
-
+.cause-tree-page__back{align-self:flex-start}
 
 /* ============================================================
    CARTE DE SYNTHÈSE
