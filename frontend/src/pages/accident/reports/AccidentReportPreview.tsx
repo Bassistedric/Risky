@@ -432,10 +432,7 @@ function AccidentReportPreview({
                 <button
                     type="button"
                     className="report-preview__generate"
-                    disabled
-                    title={rt(
-                        'preview.generatePdfPending',
-                    )}
+                    onClick={() => window.print()}
                 >
                     {rt(
                         'preview.generatePdf',
