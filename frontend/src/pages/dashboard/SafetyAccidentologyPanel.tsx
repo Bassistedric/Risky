@@ -34,10 +34,10 @@ function Pie({rows}:{rows:Row[]}){
 }
 
 export default function SafetyAccidentologyPanel({organizationId,year,month,tradeCode,temporaryWorkers=0,subcontractors=0}:{organizationId:number;year:number;month:number;tradeCode:string;temporaryWorkers?:number;subcontractors?:number}){
- const {t}=useTranslation()
+ const {t,i18n}=useTranslation()
  const other=t('safetyStatistics.accidentology.other')
  const [data,setData]=useState<Accidentology|null>(null),[error,setError]=useState('')
- useEffect(()=>{const q=new URLSearchParams({organization_id:String(organizationId),year:String(year),month_to:String(month)});if(tradeCode)q.set('trade_code',tradeCode);setError('');fetch(`${API}/safety-statistics/accidentology?${q}`).then(r=>{if(!r.ok)throw Error(t('safetyStatistics.accidentology.loadError'));return r.json()}).then(setData).catch(e=>{setData(null);setError(e.message)})},[organizationId,year,month,tradeCode,t])
+ useEffect(()=>{const q=new URLSearchParams({organization_id:String(organizationId),year:String(year),month_to:String(month)});if(tradeCode)q.set('trade_code',tradeCode);q.set('language',i18n.language);setError('');fetch(`${API}/safety-statistics/accidentology?${q}`).then(r=>{if(!r.ok)throw Error(t('safetyStatistics.accidentology.loadError'));return r.json()}).then(setData).catch(e=>{setData(null);setError(e.message)})},[organizationId,year,month,tradeCode,t,i18n.language])
  if(error)return <section className="safety-dashboard__panel"><div className="acc-error">{error}</div></section>
  if(!data)return null
  const a=data.actions, progress=a.completion_percent??0
