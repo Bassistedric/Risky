@@ -7,7 +7,7 @@
         "yes": "Oui",
         "no": "Non",
         "notProvided": "Non renseigné",
-        "notApplicable": "Sans objet",
+        "notApplicable": "Non applicable",
         "day": "jour",
         "days": "jours"
     },
@@ -47,7 +47,6 @@
             "cause": "Cause",
             "unlinked": "Éléments non rattachés"
         },
-        
         "summary": {
             "title": "Synthèse",
             "type": "Type",
