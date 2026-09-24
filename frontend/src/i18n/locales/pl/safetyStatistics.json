@@ -43,5 +43,35 @@
     "none": "Nie wprowadzono trwałego uszczerbku.",
     "disabilitySaved": "Trwały uszczerbek zapisany.",
     "error": "Operacja nie powiodła się."
+  },
+  "accidentology": {
+    "title": "Analiza wypadkowości",
+    "subtitle": "Ustrukturyzowana analiza zdarzeń w wybranym okresie",
+    "loadError": "Nie można załadować analizy wypadkowości.",
+    "coverage": {
+      "heepo": "HEEPO zakończone",
+      "classification": "Klasyfikacje zakończone",
+      "just_culture": "Just Culture zakończone",
+      "actions": "Działania"
+    },
+    "encoded": "wprowadzono",
+    "heepoFamilies": "HEEPO — rodziny",
+    "heepoFactors": "HEEPO — główne czynniki",
+    "classification": "Klasyfikacja Fedris",
+    "deviation": "Odchylenie",
+    "material_agent": "Czynnik materialny",
+    "injury_nature": "Rodzaj urazu",
+    "injury_location": "Umiejscowienie urazu",
+    "justCulture": "Wnioski Just Culture",
+    "actions": "Monitorowanie działań",
+    "actionsEncoded": "wprowadzonych działań",
+    "overdue": "działanie/działania po terminie",
+    "actionStatus": {
+      "TODO": "Do wykonania",
+      "IN_PROGRESS": "W toku",
+      "TO_VALIDATE": "Do zatwierdzenia",
+      "DONE": "Wykonane",
+      "CLOSED": "Zamknięte"
+    }
   }
 }
