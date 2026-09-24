@@ -10,6 +10,7 @@ from ...schemas import events as schemas
 
 from ...services.session import require_write_session
 from ...services.audit import write_audit_log
+from ...services.serious_accidents import evaluate_serious_accident
 router = APIRouter(
     prefix="/events",
     tags=["Accidents & Incidents"],
@@ -1171,5 +1172,4 @@ def delete_event(
         raise
 
     finally:
-        db.close(
-from ...services.serious_accidents import evaluate_serious_accident)
+        db.close()
