@@ -33,7 +33,7 @@ function Pie({rows}:{rows:Row[]}){
  </div>
 }
 
-export default function SafetyAccidentologyPanel({organizationId,year,month,tradeCode}:{organizationId:number;year:number;month:number;tradeCode:string}){
+export default function SafetyAccidentologyPanel({organizationId,year,month,tradeCode,temporaryWorkers=0,subcontractors=0}:{organizationId:number;year:number;month:number;tradeCode:string;temporaryWorkers?:number;subcontractors?:number}){
  const {t}=useTranslation()
  const other=t('safetyStatistics.accidentology.other')
  const [data,setData]=useState<Accidentology|null>(null),[error,setError]=useState('')
@@ -58,5 +58,6 @@ export default function SafetyAccidentologyPanel({organizationId,year,month,trad
   <section className="acc-group acc-group--culture"><h3>{t('safetyStatistics.accidentology.justCulture')}</h3><article className="acc-card"><Pie rows={data.just_culture.conclusions}/></article></section>
 
   <section className="acc-group acc-group--actions"><h3>{t('safetyStatistics.accidentology.actions')}</h3><article className="acc-card acc-actions"><div className="acc-actions__head"><div><span>{a.local_count} {t('safetyStatistics.accidentology.localActions')} · {a.global_9001_count} {t('safetyStatistics.accidentology.global9001')}</span></div><strong>{Math.round(progress)}%</strong></div><div className="acc-actions__progress"><i style={{width:`${Math.min(100,progress)}%`}}/></div><small>{t('safetyStatistics.accidentology.localProgress')}</small><div className="acc-actions__statuses">{a.statuses.map(s=><span key={s.status}><b>{s.count}</b> {statusLabel(s.status)}</span>)}</div>{a.overdue>0&&<div className="acc-actions__overdue">{a.overdue} {t('safetyStatistics.accidentology.overdue')}</div>}</article></section>
+  <section className="acc-external"><span>{t('safetyStatistics.accidentology.externalWorkers')}</span><div><b>{temporaryWorkers}</b> {t('safetyStatistics.accidentology.temporaryWorkers')}<i/> <b>{subcontractors}</b> {t('safetyStatistics.accidentology.subcontractors')}</div></section>
  </section>
 }
