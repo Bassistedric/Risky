@@ -288,6 +288,31 @@ def build_accident_report_preview(
         })
 
     # ====================================================
+    # ACCIDENT GRAVE — RAPPORT CIRCONSTANCIÉ
+    # ====================================================
+
+    circumstantial_report = (
+        db.query(models.EventCircumstantialReport)
+        .filter(
+            models.EventCircumstantialReport.event_id
+            == event_id
+        )
+        .first()
+    )
+
+    circumstantial_data = None
+
+    if circumstantial_report is not None:
+        circumstantial_data = {
+            column.name: getattr(
+                circumstantial_report,
+                column.name,
+            )
+            for column
+            in models.EventCircumstantialReport.__table__.columns
+        }
+
+    # ====================================================
     # HEEPO
     # ====================================================
 
@@ -721,6 +746,9 @@ def build_accident_report_preview(
             is not None
         ),
 
+        "circumstantial_details": circumstantial_data is not None,
+        "circumstantial_causes": circumstantial_data is not None,
+
         "photos": bool(
             photos_data
         ),
@@ -756,6 +784,7 @@ def build_accident_report_preview(
         "classification": (
             classification_data
         ),
+        "circumstantial_report": circumstantial_data,
 
         "heepo": heepo_data,
         "photos": photos_data,
