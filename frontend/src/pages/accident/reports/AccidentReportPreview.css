@@ -488,3 +488,58 @@
 .report-preview__circumstantial-pills em{color:#7b8185;font-size:12px}
 .report-preview__circumstantial-cause>p{margin:10px 0 0;color:#4b555b;font-size:12px;white-space:pre-wrap}
 @media(max-width:800px){.report-preview__circumstantial-grid{grid-template-columns:1fr}}
+
+
+/* ========================================================
+   LANGAGE VISUEL RISKY — APERÇU DU RAPPORT
+   Toutes les sections suivent le même système documentaire.
+   ======================================================== */
+.report-preview__section,
+.report-preview__section--circumstantial{
+    border:1px solid #d3dde4;
+    border-radius:12px;
+    background:#edf2f5;
+    box-shadow:none;
+}
+.report-preview__summary-panel,
+.report-preview__cards>div,
+.report-preview__classification>div,
+.report-preview__result-grid>div,
+.report-preview__text-card,
+.report-preview__fact-card,
+.report-preview__list-item,
+.report-preview__decision,
+.report-preview__action,
+.report-preview__photo,
+.report-preview__circumstantial-card,
+.report-preview__circumstantial-cause{
+    border:1px solid #ded7ca;
+    border-radius:9px;
+    background:#faf8f4;
+    box-shadow:none;
+}
+.report-preview__section-title{padding-bottom:10px;border-bottom:1px solid #d7e0e5}
+.report-preview__section-title>span{color:#c66a2b}
+.report-preview__section-title h2,
+.report-preview__summary-panel h3{color:#17384a}
+.report-preview__cards span,
+.report-preview__classification span,
+.report-preview__result-grid span,
+.report-preview__action span,
+.report-preview__summary-grid span,
+.report-preview__consequences span,
+.report-preview__fact-card span,
+.report-preview__text-card>span,
+.report-preview__list-item span,
+.report-preview__circumstantial-card span{
+    color:#75685b;
+}
+.report-preview__photo a{background:#f5f3ef}
+.report-preview__not-applicable{border-color:#d6d0c7;background:#faf8f4;color:#75685b}
+
+/* Mesures : la progression reste le seul élément graphique de suivi. */
+.report-preview__action-progress{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center}
+.report-preview__action-progress>span{grid-column:1/-1;margin:0}
+.report-preview__progress-track{height:7px;overflow:hidden;border-radius:999px;background:#e3e7e9}
+.report-preview__progress-bar{height:100%;border-radius:999px;background:#c66a2b}
+.report-preview__progress-value{min-width:38px;text-align:right;color:#17384a;font-size:12px;font-weight:700}
