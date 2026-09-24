@@ -522,6 +522,9 @@ def get_month_event_metrics(
             "accidents_with_lost_time": 0,
             "accidents_without_lost_time": 0,
             "lost_days": 0,
+            "modified_duty_days": 0,
+            "temporary_worker_accidents": 0,
+            "subcontractor_accidents": 0,
             "incidents": 0,
             "near_misses": 0,
         }
@@ -575,6 +578,19 @@ def get_month_event_metrics(
         "lost_days": sum(
             event.lost_days
             for event in accidents
+        ),
+        "modified_duty_days": sum(
+            event.modified_duty_days
+            for event in accidents
+            if event.modified_duty
+        ),
+        "temporary_worker_accidents": sum(
+            1 for event in accidents
+            if (event.person_category or "").upper() in {"TEMPORARY", "INTERIM", "INTERIMAIRE"}
+        ),
+        "subcontractor_accidents": sum(
+            1 for event in accidents
+            if (event.person_category or "").upper() in {"SUBCONTRACTOR", "SOUS_TRAITANT"}
         ),
         "incidents": sum(
             1
@@ -729,6 +745,9 @@ def build_statistics_summary(
     event_with_lost_time = 0
     event_without_lost_time = 0
     event_lost_days = 0
+    event_modified_duty_days = 0
+    event_temporary_worker_accidents = 0
+    event_subcontractor_accidents = 0
     event_incidents = 0
     event_near_misses = 0
 
@@ -770,6 +789,9 @@ def build_statistics_summary(
         event_lost_days += (
             event_metrics["lost_days"]
         )
+        event_modified_duty_days += event_metrics["modified_duty_days"]
+        event_temporary_worker_accidents += event_metrics["temporary_worker_accidents"]
+        event_subcontractor_accidents += event_metrics["subcontractor_accidents"]
         event_incidents += (
             event_metrics["incidents"]
         )
@@ -917,6 +939,9 @@ def build_statistics_summary(
                 event_without_lost_time
             ),
             "lost_days": event_lost_days,
+            "modified_duty_days": event_modified_duty_days,
+            "temporary_worker_accidents": event_temporary_worker_accidents,
+            "subcontractor_accidents": event_subcontractor_accidents,
             "conventional_days": (
                 conventional_days
             ),
