@@ -13,7 +13,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import (
     BaseDocTemplate, Frame, Image, KeepTogether, PageBreak, PageTemplate,
-    Paragraph, Spacer, Table, TableStyle, Flowable,
+    Paragraph, Spacer, Table, TableStyle, Flowable, CondPageBreak,
 )
 from reportlab.platypus.tableofcontents import TableOfContents
 
@@ -476,18 +476,19 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
     # ========================================================
     # COUVERTURE
     # ========================================================
-    story += [Spacer(1, 12 * mm)]
-    cover_bar = Table([["RISKY", "QHSE"]], colWidths=[105 * mm, 35 * mm], rowHeights=[16 * mm])
-    cover_bar.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (0, 0), NAVY), ("BACKGROUND", (1, 0), (1, 0), ORANGE),
-        ("TEXTCOLOR", (0, 0), (-1, -1), colors.white), ("FONTNAME", (0, 0), (-1, -1), "Helvetica-Bold"),
-        ("FONTSIZE", (0, 0), (0, 0), 24), ("FONTSIZE", (1, 0), (1, 0), 12),
-        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), ("LEFTPADDING", (0, 0), (-1, -1), 6 * mm),
-    ]))
-    story += [cover_bar, Spacer(1, 7 * mm)]
-    accent = Table([[""]], colWidths=[140 * mm], rowHeights=[2.2 * mm])
-    accent.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), ORANGE)]))
-    story += [accent, Spacer(1, 19 * mm)]
+    story += [Spacer(1, 5 * mm)]
+    # Logo VMA corporate — commun à toutes les entités.
+    logo_candidates = [
+        Path(__file__).resolve().parents[3] / "assets" / "vma_logo.png",
+        Path(__file__).resolve().parents[3] / "frontend" / "public" / "vma_logo.png",
+    ]
+    logo_path = next((p for p in logo_candidates if p.exists()), None)
+    if logo_path:
+        logo = Image(str(logo_path), width=55 * mm, height=22 * mm)
+        logo.hAlign = "LEFT"
+        story += [logo, Spacer(1, 18 * mm)]
+    else:
+        story += [Spacer(1, 25 * mm)]
     story.append(Paragraph(escape(tr["report"]), ParagraphStyle("CoverTitle", parent=section, fontSize=25, leading=30, spaceAfter=10 * mm)))
     story.append(Paragraph(escape(data["event_number"]), ParagraphStyle("CoverNo", parent=body, fontName="Helvetica-Bold", fontSize=17, textColor=ORANGE, spaceAfter=6 * mm)))
     story.append(Paragraph(escape(_s(event.get("description"))), ParagraphStyle("CoverEvent", parent=body, fontName="Helvetica-Bold", fontSize=20, leading=25, textColor=TEXT, spaceAfter=16 * mm)))
@@ -499,16 +500,47 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
         [tr["location"], _s(event.get("location"))],
         [tr["analysis"], _s(event.get("analysis_type"))],
     ]
-    ct = Table([[Paragraph(f"<b>{escape(a)}</b>", body), Paragraph(escape(b), body)] for a, b in cover_rows], colWidths=[48 * mm, 92 * mm])
-    ct.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (0, -1), LIGHT), ("BOX", (0, 0), (-1, -1), .5, BEIGE_BORDER),
-        ("INNERGRID", (0, 0), (-1, -1), .35, MID), ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+    cover_label = ParagraphStyle("CoverCardLabel", parent=small, fontSize=7.5, leading=9, textColor=MUTED)
+    cover_value = ParagraphStyle("CoverCardValue", parent=body, fontName="Helvetica-Bold", fontSize=10, leading=13, textColor=TEXT)
+    cover_cards = []
+    for label, value in cover_rows:
+        card = Table([
+            [Paragraph(escape(_s(label)), cover_label)],
+            [Paragraph(escape(_s(value)), cover_value)],
+        ], colWidths=[(content_w - 4 * mm) / 2])
+        card.setStyle(TableStyle([
+            ("BACKGROUND",(0,0),(-1,-1),IVORY), ("BOX",(0,0),(-1,-1),.6,BEIGE_BORDER),
+            ("LEFTPADDING",(0,0),(-1,-1),9), ("RIGHTPADDING",(0,0),(-1,-1),9),
+            ("TOPPADDING",(0,0),(-1,0),7), ("BOTTOMPADDING",(0,0),(-1,0),2),
+            ("TOPPADDING",(0,1),(-1,1),2), ("BOTTOMPADDING",(0,1),(-1,1),8),
+        ]))
+        cover_cards.append(card)
+    cover_grid_rows = []
+    for i in range(0, len(cover_cards), 2):
+        row = cover_cards[i:i+2]
+        if len(row) == 1:
+            row.append("")
+        cover_grid_rows.append(row)
+    cover_grid = Table(cover_grid_rows, colWidths=[content_w/2, content_w/2], hAlign="LEFT")
+    cover_grid.setStyle(TableStyle([
+        ("VALIGN",(0,0),(-1,-1),"TOP"),
+        ("LEFTPADDING",(0,0),(-1,-1),0), ("RIGHTPADDING",(0,0),(-1,-1),0),
+        ("TOPPADDING",(0,0),(-1,-1),0), ("BOTTOMPADDING",(0,0),(-1,-1),4),
     ]))
-    story += [ct, Spacer(1, 22 * mm)]
-    story.append(Paragraph(f"{escape(tr['version'])} 1.0&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;{escape(tr['generated'])}: {__import__('datetime').date.today().isoformat()}", small))
-    story.append(Spacer(1, 2 * mm))
-    story.append(Paragraph(escape(tr["generated_by"]), small))
+    story.append(cover_grid)
+
+    # Bas de couverture : version/date à gauche, signature RISKY très discrète à droite.
+    story.append(Spacer(1, 1))
+    footer_cover = Table([[
+        Paragraph(f"{escape(tr['version'])} 1.0&nbsp;&nbsp;•&nbsp;&nbsp;{escape(tr['generated'])}: {__import__('datetime').date.today().isoformat()}", small),
+        Paragraph("<b>R</b>", ParagraphStyle("RiskyMark", parent=body, fontName="Helvetica-Bold", fontSize=16, textColor=ORANGE, alignment=2)),
+    ]], colWidths=[content_w - 12*mm, 12*mm])
+    footer_cover.setStyle(TableStyle([
+        ("VALIGN",(0,0),(-1,-1),"BOTTOM"), ("LEFTPADDING",(0,0),(-1,-1),0),
+        ("RIGHTPADDING",(0,0),(-1,-1),0), ("TOPPADDING",(0,0),(-1,-1),0),
+        ("BOTTOMPADDING",(0,0),(-1,-1),0),
+    ]))
+    story += [Spacer(1, 22 * mm), footer_cover]
     story.append(PageBreak())
 
     # ========================================================
@@ -551,7 +583,8 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
             ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
         ]))
         banner._risky_toc_title = f"{no:02d}  {tr[key]}"
-        story.extend([banner, Spacer(1, 4 * mm)])
+        # Empêche un titre de rester seul en bas de page.
+        story.extend([CondPageBreak(34 * mm), banner, Spacer(1, 4 * mm)])
 
     def info_table(rows):
         """Grille de cartes, calquée sur l'aperçu web du rapport."""
@@ -839,7 +872,7 @@ def render_accident_report_pdf(data: dict, db, language: str = "fr") -> bytes:
                 Paragraph(escape(_s(a.get("due_date"))), small), Paragraph(escape(_s(a.get("priority"))), small),
                 progress_cell,
             ])
-        table = Table(rows, colWidths=[65 * mm, 32 * mm, 22 * mm, 20 * mm, 20 * mm], repeatRows=1)
+        table = Table(rows, colWidths=[content_w*.39, content_w*.19, content_w*.14, content_w*.12, content_w*.16], repeatRows=1, hAlign="LEFT")
         table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,0),NAVY),("TEXTCOLOR",(0,0),(-1,0),colors.white),("BOX",(0,0),(-1,-1),.4,MID),("INNERGRID",(0,0),(-1,-1),.25,MID),("VALIGN",(0,0),(-1,-1),"TOP"),("PADDING",(0,0),(-1,-1),5)]))
         story.append(table)
 
