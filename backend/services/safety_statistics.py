@@ -685,48 +685,52 @@ def build_statistics_summary(
             "Année invalide"
         )
 
-    effective_month_to = (
+    requested_month_to = (
         month_to
         if month_to is not None
         else get_elapsed_months(year)
     )
 
     if (
-        effective_month_to < 1
-        or effective_month_to > 12
+        requested_month_to < 1
+        or requested_month_to > 12
     ):
         raise ValueError(
             "Mois invalide"
         )
 
-    # Les indicateurs officiels ne peuvent pas aller au-delà
-    # du dernier mois pour lequel les heures RH sont disponibles.
-    # Cela évite, par exemple, d'intégrer des accidents de septembre
-    # avec un dénominateur d'heures arrêté à août.
+    # Deux périodes distinctes :
+    # - événements : jusqu'au mois demandé ;
+    # - indicateurs officiels TF/TG/TGG : jusqu'au dernier
+    #   mois pour lequel les heures RH sont disponibles.
     last_hours_month = get_last_available_hours_month(
         db,
         organization_id=organization_id,
         year=year,
-        month_to=effective_month_to,
+        month_to=requested_month_to,
     )
 
-    if last_hours_month is not None:
-        effective_month_to = last_hours_month
+    indicator_month_to = (
+        last_hours_month
+        if last_hours_month is not None
+        else requested_month_to
+    )
 
-    # TF/TG/TGG utilisent toujours l'ensemble des événements
-    # du périmètre organisationnel avec les heures RH officielles.
-    # Le métier sera appliqué séparément aux analyses
-    # accidentologiques (HEEPO, Fedris, causes, etc.).
+    # Les heures RH officielles ne sont pas ventilées par métier.
+    # Le filtre métier reste réservé à l'analyse accidentologique.
     effective_trade_code = None
 
     monthly: list[dict] = []
 
-    total_hours = 0.0
-    total_with_lost_time = 0
-    total_without_lost_time = 0
-    total_lost_days = 0
-    total_incidents = 0
-    total_near_misses = 0
+    indicator_hours = 0.0
+    indicator_with_lost_time = 0
+    indicator_lost_days = 0
+
+    event_with_lost_time = 0
+    event_without_lost_time = 0
+    event_lost_days = 0
+    event_incidents = 0
+    event_near_misses = 0
 
     cumulative_hours = 0.0
     cumulative_lost_time = 0
@@ -734,7 +738,7 @@ def build_statistics_summary(
 
     for month in range(
         1,
-        effective_month_to + 1,
+        requested_month_to + 1,
     ):
         worked_hours = get_month_worked_hours(
             db,
@@ -752,36 +756,53 @@ def build_statistics_summary(
             trade_code=effective_trade_code,
         )
 
-        total_hours += worked_hours
-        total_with_lost_time += (
+        # Totaux accidentologiques : toute la période demandée.
+        event_with_lost_time += (
             event_metrics[
                 "accidents_with_lost_time"
             ]
         )
-        total_without_lost_time += (
+        event_without_lost_time += (
             event_metrics[
                 "accidents_without_lost_time"
             ]
         )
-        total_lost_days += (
+        event_lost_days += (
             event_metrics["lost_days"]
         )
-        total_incidents += (
+        event_incidents += (
             event_metrics["incidents"]
         )
-        total_near_misses += (
+        event_near_misses += (
             event_metrics["near_misses"]
         )
 
-        cumulative_hours += worked_hours
-        cumulative_lost_time += (
-            event_metrics[
-                "accidents_with_lost_time"
-            ]
+        # Indicateurs officiels : uniquement les mois couverts
+        # par les heures RH.
+        in_indicator_period = (
+            month <= indicator_month_to
         )
-        cumulative_lost_days += (
-            event_metrics["lost_days"]
-        )
+
+        if in_indicator_period:
+            indicator_hours += worked_hours
+            indicator_with_lost_time += (
+                event_metrics[
+                    "accidents_with_lost_time"
+                ]
+            )
+            indicator_lost_days += (
+                event_metrics["lost_days"]
+            )
+
+            cumulative_hours += worked_hours
+            cumulative_lost_time += (
+                event_metrics[
+                    "accidents_with_lost_time"
+                ]
+            )
+            cumulative_lost_days += (
+                event_metrics["lost_days"]
+            )
 
         monthly.append(
             {
@@ -806,23 +827,39 @@ def build_statistics_summary(
                 "near_misses": (
                     event_metrics["near_misses"]
                 ),
-                "tf": calculate_tf(
-                    event_metrics[
-                        "accidents_with_lost_time"
-                    ],
-                    worked_hours,
+                "tf": (
+                    calculate_tf(
+                        event_metrics[
+                            "accidents_with_lost_time"
+                        ],
+                        worked_hours,
+                    )
+                    if in_indicator_period
+                    else None
                 ),
-                "tg": calculate_tg(
-                    event_metrics["lost_days"],
-                    worked_hours,
+                "tg": (
+                    calculate_tg(
+                        event_metrics["lost_days"],
+                        worked_hours,
+                    )
+                    if in_indicator_period
+                    else None
                 ),
-                "tf_ytd": calculate_tf(
-                    cumulative_lost_time,
-                    cumulative_hours,
+                "tf_ytd": (
+                    calculate_tf(
+                        cumulative_lost_time,
+                        cumulative_hours,
+                    )
+                    if in_indicator_period
+                    else None
                 ),
-                "tg_ytd": calculate_tg(
-                    cumulative_lost_days,
-                    cumulative_hours,
+                "tg_ytd": (
+                    calculate_tg(
+                        cumulative_lost_days,
+                        cumulative_hours,
+                    )
+                    if in_indicator_period
+                    else None
                 ),
             }
         )
@@ -841,11 +878,11 @@ def build_statistics_summary(
 
     projection = calculate_year_end_projection(
         lost_time_accidents=(
-            total_with_lost_time
+            indicator_with_lost_time
         ),
-        lost_days=total_lost_days,
-        worked_hours=total_hours,
-        elapsed_months=effective_month_to,
+        lost_days=indicator_lost_days,
+        worked_hours=indicator_hours,
+        elapsed_months=indicator_month_to,
     )
 
     return {
@@ -868,35 +905,36 @@ def build_statistics_summary(
         },
         "period": {
             "year": year,
-            "month_to": effective_month_to,
+            "month_to": requested_month_to,
+            "indicator_month_to": indicator_month_to,
         },
         "totals": {
-            "worked_hours": total_hours,
+            "worked_hours": indicator_hours,
             "accidents_with_lost_time": (
-                total_with_lost_time
+                event_with_lost_time
             ),
             "accidents_without_lost_time": (
-                total_without_lost_time
+                event_without_lost_time
             ),
-            "lost_days": total_lost_days,
+            "lost_days": event_lost_days,
             "conventional_days": (
                 conventional_days
             ),
-            "incidents": total_incidents,
-            "near_misses": total_near_misses,
+            "incidents": event_incidents,
+            "near_misses": event_near_misses,
         },
         "indicators": {
             "tf": calculate_tf(
-                total_with_lost_time,
-                total_hours,
+                indicator_with_lost_time,
+                indicator_hours,
             ),
             "tg": calculate_tg(
-                total_lost_days,
-                total_hours,
+                indicator_lost_days,
+                indicator_hours,
             ),
             "tgg": calculate_tgg(
                 conventional_days,
-                total_hours,
+                indicator_hours,
             ),
         },
         "targets": target,
