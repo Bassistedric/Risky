@@ -21,7 +21,16 @@
         "type": "CFE communication",
         "title": "Safety Flash",
         "description": "Summary communication based on the official CFE template.",
-        "prepare": "Prepare"
+        "prepare": "Prepare",
+        "editor": {
+            "what": "What:",
+            "subject": "Subject",
+            "facts": "Facts",
+            "explanations": "Explanations",
+            "support": "Information support (Photos / documents…)",
+            "noPhoto": "No photo in the case file",
+            "actions": "Corrective actions / Recommendations"
+        }
     },
     "preview": {
         "loading": "Loading preview…",
