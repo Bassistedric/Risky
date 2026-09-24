@@ -443,6 +443,17 @@ def get_events():
             .order_by(models.Event.event_date.desc())
         ).all()
 
+        classifications = {
+            item.event_id: item
+            for item in db.scalars(
+                select(models.EventClassification).where(
+                    models.EventClassification.event_id.in_(
+                        [event.id for event in events]
+                    )
+                )
+            ).all()
+        }
+
         return {
             "count": len(events),
             "events": [
@@ -513,6 +524,13 @@ def get_events():
                         event.environmental_unit
                     ),
                     "analysis_type": event.analysis_type,
+                    "circumstantial_report_required": bool(
+                        evaluate_serious_accident(
+                            db,
+                            event,
+                            classifications.get(event.id),
+                        ).get("circumstantial_report_required")
+                    ),
                     "status": event.status,
                                 "person_category": event.person_category,
                     "victim_last_name": event.victim_last_name,
@@ -1153,4 +1171,5 @@ def delete_event(
         raise
 
     finally:
-        db.close()
+        db.close(
+from ...services.serious_accidents import evaluate_serious_accident)
