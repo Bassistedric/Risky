@@ -447,6 +447,40 @@ def get_month_worked_hours(
 
 
 # ============================================================
+# DERNIER MOIS RH DISPONIBLE
+# ============================================================
+
+def get_last_available_hours_month(
+    db: Session,
+    *,
+    organization_id: int,
+    year: int,
+    month_to: int,
+) -> Optional[int]:
+
+    scope_ids = resolve_hours_scope(
+        db,
+        organization_id,
+    )
+
+    months = db.scalars(
+        select(models.SafetyWorkHours.month)
+        .where(
+            models.SafetyWorkHours.organization_id.in_(scope_ids),
+            models.SafetyWorkHours.year == year,
+            models.SafetyWorkHours.month <= month_to,
+            models.SafetyWorkHours.dimension_key.in_(
+                ["WORKER", "EMPLOYEE"]
+            ),
+        )
+        .distinct()
+        .order_by(models.SafetyWorkHours.month.desc())
+    ).all()
+
+    return months[0] if months else None
+
+
+# ============================================================
 # ÉVÉNEMENTS — AGRÉGATION MENSUELLE
 # ============================================================
 
@@ -664,6 +698,20 @@ def build_statistics_summary(
         raise ValueError(
             "Mois invalide"
         )
+
+    # Les indicateurs officiels ne peuvent pas aller au-delà
+    # du dernier mois pour lequel les heures RH sont disponibles.
+    # Cela évite, par exemple, d'intégrer des accidents de septembre
+    # avec un dénominateur d'heures arrêté à août.
+    last_hours_month = get_last_available_hours_month(
+        db,
+        organization_id=organization_id,
+        year=year,
+        month_to=effective_month_to,
+    )
+
+    if last_hours_month is not None:
+        effective_month_to = last_hours_month
 
     # TF/TG/TGG utilisent toujours l'ensemble des événements
     # du périmètre organisationnel avec les heures RH officielles.
