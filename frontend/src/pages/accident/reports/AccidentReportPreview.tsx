@@ -890,6 +890,67 @@ function AccidentReportPreview({
 
 
             {/* =================================================
+                DOCUMENTATION PHOTOGRAPHIQUE
+            ================================================= */}
+
+            {sections.photos &&
+                photos.length > 0 && (
+                    <section className="report-preview__section">
+                        <div className="report-preview__section-title">
+                            <span>03</span>
+
+                            <h2>
+                                {rt(
+                                    'preview.sections.photos',
+                                )}
+                            </h2>
+                        </div>
+
+                        <div className="report-preview__photo-grid">
+                            {photos.map((photo) => {
+                                const imageUrl =
+                                    `${API_BASE_URL}/events/${eventId}` +
+                                    `/photos/${photo.id}/file`
+
+                                return (
+                                    <figure
+                                        key={photo.id}
+                                        className="report-preview__photo"
+                                    >
+                                        <a
+                                            href={imageUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            <img
+                                                src={imageUrl}
+                                                alt={
+                                                    photo.caption ||
+                                                    photo.original_filename
+                                                }
+                                            />
+                                        </a>
+
+                                        <figcaption>
+                                            {photo.caption ? (
+                                                <strong>
+                                                    {photo.caption}
+                                                </strong>
+                                            ) : (
+                                                <span>
+                                                    {photo.original_filename}
+                                                </span>
+                                            )}
+                                        </figcaption>
+                                    </figure>
+                                )
+                            })}
+                        </div>
+                    </section>
+                )}
+
+
+            {/* =================================================
                 CLASSIFICATION
             ================================================= */}
 
@@ -897,7 +958,7 @@ function AccidentReportPreview({
                 classification && (
                     <section className="report-preview__section">
                         <div className="report-preview__section-title">
-                            <span>03</span>
+                            <span>04</span>
 
                             <h2>
                                 {rt(
@@ -984,67 +1045,6 @@ function AccidentReportPreview({
 
 
             {/* =================================================
-                DOCUMENTATION PHOTOGRAPHIQUE
-            ================================================= */}
-
-            {sections.photos &&
-                photos.length > 0 && (
-                    <section className="report-preview__section">
-                        <div className="report-preview__section-title">
-                            <span>04</span>
-
-                            <h2>
-                                {rt(
-                                    'preview.sections.photos',
-                                )}
-                            </h2>
-                        </div>
-
-                        <div className="report-preview__photo-grid">
-                            {photos.map((photo) => {
-                                const imageUrl =
-                                    `${API_BASE_URL}/events/${eventId}` +
-                                    `/photos/${photo.id}/file`
-
-                                return (
-                                    <figure
-                                        key={photo.id}
-                                        className="report-preview__photo"
-                                    >
-                                        <a
-                                            href={imageUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            <img
-                                                src={imageUrl}
-                                                alt={
-                                                    photo.caption ||
-                                                    photo.original_filename
-                                                }
-                                            />
-                                        </a>
-
-                                        <figcaption>
-                                            {photo.caption ? (
-                                                <strong>
-                                                    {photo.caption}
-                                                </strong>
-                                            ) : (
-                                                <span>
-                                                    {photo.original_filename}
-                                                </span>
-                                            )}
-                                        </figcaption>
-                                    </figure>
-                                )
-                            })}
-                        </div>
-                    </section>
-                )}
-
-
-            {/* =================================================
                 HEEPO
             ================================================= */}
 
@@ -1094,35 +1094,6 @@ function AccidentReportPreview({
 
 
             {/* =================================================
-                ARBRE DES CAUSES
-            ================================================= */}
-
-            {sections.cause_tree &&
-                cause_tree && (
-                    <section className="report-preview__section">
-                        <div className="report-preview__section-title">
-                            <span>06</span>
-
-                            <h2>
-                                {rt(
-                                    'preview.sections.causeTree',
-                                )}
-                            </h2>
-                        </div>
-
-                        <CauseTreeReportDiagram
-                            facts={
-                                cause_tree.facts
-                            }
-                            relations={
-                                cause_tree.relations
-                            }
-                        />
-                    </section>
-                )}
-
-
-            {/* =================================================
                 JUST CULTURE
             ================================================= */}
 
@@ -1130,7 +1101,7 @@ function AccidentReportPreview({
                 just_culture && (
                     <section className="report-preview__section">
                         <div className="report-preview__section-title">
-                            <span>07</span>
+                            <span>06</span>
 
                             <h2>
                                 {rt(
@@ -1217,6 +1188,35 @@ function AccidentReportPreview({
                                 </strong>
                             </div>
                         </div>
+                    </section>
+                )}
+
+
+            {/* =================================================
+                ARBRE DES CAUSES
+            ================================================= */}
+
+            {sections.cause_tree &&
+                cause_tree && (
+                    <section className="report-preview__section">
+                        <div className="report-preview__section-title">
+                            <span>07</span>
+
+                            <h2>
+                                {rt(
+                                    'preview.sections.causeTree',
+                                )}
+                            </h2>
+                        </div>
+
+                        <CauseTreeReportDiagram
+                            facts={
+                                cause_tree.facts
+                            }
+                            relations={
+                                cause_tree.relations
+                            }
+                        />
                     </section>
                 )}
 
