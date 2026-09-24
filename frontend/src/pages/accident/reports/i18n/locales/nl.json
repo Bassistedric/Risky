@@ -21,7 +21,16 @@
         "type": "CFE-communicatie",
         "title": "Safety Flash",
         "description": "Beknopte communicatie op basis van het officiële CFE-model.",
-        "prepare": "Voorbereiden"
+        "prepare": "Voorbereiden",
+        "editor": {
+            "what": "Wat :",
+            "subject": "Onderwerp",
+            "facts": "De feiten",
+            "explanations": "Toelichting",
+            "support": "Informatiemateriaal (foto’s / documenten…)",
+            "noPhoto": "Geen foto in het dossier",
+            "actions": "Corrigerende acties / Aanbevelingen"
+        }
     },
     "preview": {
         "loading": "Voorbeeld laden…",
