@@ -523,7 +523,7 @@ function HeepoPage({
 
             <button
                 type="button"
-                className="heepo-page__back"
+                className="heepo-page__back risky-back-button"
                 onClick={onBack}
             >
                 <span aria-hidden="true">
