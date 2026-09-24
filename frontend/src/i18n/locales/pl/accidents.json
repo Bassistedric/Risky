@@ -1,12 +1,61 @@
 {
-  "dossier": {
-    "editTitle": {
-      "button": "Edytuj tytuł",
-      "save": "Zapisz",
-      "cancel": "Anuluj",
-      "required": "Tytuł nie może być pusty.",
-      "sessionRequired": "Aby zmienić tytuł, wymagane jest uwierzytelnienie.",
-      "updateError": "Nie można zmienić tytułu dokumentacji."
+    "dossier": {
+        "editTitle": {
+            "button": "Edytuj tytuł",
+            "save": "Zapisz",
+            "cancel": "Anuluj",
+            "required": "Tytuł nie może być pusty.",
+            "sessionRequired": "Aby zmienić tytuł, wymagane jest uwierzytelnienie.",
+            "updateError": "Nie można zmienić tytułu dokumentacji."
+        }
+    },
+    "circumstantial": {
+        "required": "Poważny wypadek · wymagany raport szczegółowy",
+        "detailsTitle": "Dane uzupełniające",
+        "causesTitle": "Uzupełniająca analiza przyczyn",
+        "precision": "Szczegóły / elementy faktyczne",
+        "save": "Zapisz",
+        "saving": "Zapisywanie…",
+        "loadError": "Nie można wczytać danych raportu szczegółowego.",
+        "saveError": "Nie można zapisać danych raportu szczegółowego.",
+        "sessionRequired": "Aby zmienić te dane, wymagane jest uwierzytelnienie.",
+        "primary": {
+            "title": "Przyczyny pierwotne · materialne"
+        },
+        "secondary": {
+            "title": "Przyczyny wtórne · organizacyjne"
+        },
+        "tertiary": {
+            "title": "Przyczyny trzeciorzędne · osoby trzecie"
+        },
+        "fields": {
+            "victim_address": "Adres poszkodowanego",
+            "victim_birth_date": "Data urodzenia",
+            "victim_company_seniority": "Staż w przedsiębiorstwie",
+            "victim_job_seniority": "Staż na stanowisku",
+            "employer_name": "Pracodawca",
+            "employer_address": "Adres pracodawcy",
+            "insurer_name": "Ubezpieczyciel wypadków przy pracy",
+            "insurance_policy_number": "Numer polisy",
+            "prevention_advisor": "Doradca ds. prewencji",
+            "sipp_manager": "Kierownik wewnętrznej służby prewencji",
+            "sepp_name": "Zewnętrzna służba prewencji",
+            "sepp_contact": "Dane kontaktowe służby zewnętrznej",
+            "report_contributors": "Osoby uczestniczące w opracowaniu raportu",
+            "report_recipients": "Odbiorcy raportu",
+            "primary_material_factors": "Czynniki materialne",
+            "primary_collective_protection": "Ochrona zbiorowa",
+            "primary_personal_protection": "Środki ochrony indywidualnej",
+            "primary_environmental_factors": "Czynniki środowiskowe",
+            "primary_other": "Inna przyczyna pierwotna",
+            "secondary_organization": "Organizacja",
+            "secondary_communication": "Komunikacja",
+            "secondary_human_factors": "Czynniki ludzkie",
+            "secondary_other": "Inna przyczyna wtórna",
+            "tertiary_third_party_material": "Przyczyny materialne po stronie osób trzecich",
+            "tertiary_incorrect_advice": "Niewłaściwa porada / instrukcja",
+            "tertiary_third_party_organization": "Przyczyny organizacyjne po stronie osób trzecich",
+            "tertiary_other": "Inna przyczyna trzeciorzędna"
+        }
     }
-  }
 }
