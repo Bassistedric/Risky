@@ -27,6 +27,30 @@ def _counter_rows(counter: Counter) -> list[dict]:
     ]
 
 
+
+
+def _translated_label(obj, language: str | None, fallback: str | None) -> str:
+    lang = (language or "fr").split("-")[0].lower()
+    if lang in {"nl", "en", "pl"}:
+        value = getattr(obj, f"label_{lang}", None)
+        if value:
+            return value
+    return getattr(obj, "label", None) or fallback or ""
+
+
+def _just_culture_label(db: Session, row, language: str | None) -> str:
+    node = db.scalar(select(models.JustCultureNode).where(models.JustCultureNode.conclusion_code == row.conclusion_code, models.JustCultureNode.node_type == "CONCLUSION").limit(1))
+    if node:
+        lang = (language or "fr").split("-")[0].lower()
+        if lang in {"nl", "en", "pl"}:
+            value = getattr(node, f"conclusion_label_{lang}", None)
+            if value:
+                return value
+        if node.conclusion_label:
+            return node.conclusion_label
+    return row.conclusion_label or row.conclusion_code
+
+
 def build_accidentology_summary(
     db: Session,
     *,
@@ -34,6 +58,7 @@ def build_accidentology_summary(
     year: int,
     month_to: int,
     trade_code: str | None = None,
+    language: str = "fr",
 ) -> dict:
     if month_to < 1 or month_to > 12:
         raise ValueError("Mois invalide")
@@ -98,10 +123,11 @@ def build_accidentology_summary(
     heepo_family = Counter(
         (row.family, row.family) for row in heepo_rows
     )
+    heepo_refs = {factor.code: factor for factor in db.scalars(select(models.HeepoFactor)).all()}
     heepo_factors = Counter(
         (
             row.factor_code_snapshot or "OTHER",
-            row.factor_label_snapshot or row.other_text or "Autre",
+            (_translated_label(heepo_refs[row.factor_code_snapshot], language, row.factor_label_snapshot) if row.factor_code_snapshot in heepo_refs else row.other_text or row.factor_label_snapshot or "Autre"),
         )
         for row in heepo_rows
     )
@@ -136,7 +162,10 @@ def build_accidentology_summary(
             code = getattr(row, code_field)
             label = getattr(row, label_field)
             if code:
-                counter[(code, label or code)] += 1
+                category_map = {"deviation_code": "DEVIATION", "material_agent_code": "MATERIAL_AGENT", "injury_nature_code": "INJURY_NATURE", "injury_location_code": "INJURY_LOCATION"}
+                reference = db.scalar(select(models.EventCodeReference).where(models.EventCodeReference.category == category_map[code_field], models.EventCodeReference.code == code).limit(1))
+                localized = _translated_label(reference, language, label) if reference else label or code
+                counter[(code, localized)] += 1
         return _counter_rows(counter)
 
     just_culture = (
@@ -154,7 +183,7 @@ def build_accidentology_summary(
     conclusions = Counter(
         (
             row.conclusion_code,
-            row.conclusion_label or row.conclusion_code,
+            _just_culture_label(db, row, language),
         )
         for row in just_culture
     )
