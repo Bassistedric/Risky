@@ -359,3 +359,13 @@
     font-weight: 600;
     text-align: right;
 }
+/* ============================================================
+   TITRE DU DOSSIER — ÉDITION
+   ============================================================ */
+.accident-dossier__title-row{display:flex;align-items:center;gap:8px}
+.accident-dossier__title-edit{padding:2px 7px;border:0;background:transparent;color:#64748b;font-size:16px;cursor:pointer}
+.accident-dossier__title-edit:hover{color:#c66a2b}
+.accident-dossier__title-editor{display:flex;align-items:center;gap:8px;margin-top:4px}
+.accident-dossier__title-editor input{min-width:320px;padding:7px 9px;border:1px solid #94a3b8;border-radius:7px;font:inherit}
+.accident-dossier__title-editor button{padding:7px 10px;border:1px solid #cbd5e1;border-radius:7px;background:#f8fafc;cursor:pointer}
+.accident-dossier__title-error{display:block;margin-top:5px;color:#a83232;font-size:12px;font-weight:600}
