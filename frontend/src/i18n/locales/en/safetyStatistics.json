@@ -76,6 +76,10 @@
     "localActions": "local actions",
     "global9001": "actions tracked in 9001",
     "localProgress": "Average progress of local actions",
-    "other": "Other"
-  }
+    "other": "Other",
+    "externalWorkers": "External monitoring",
+    "temporaryWorkers": "temporary-worker accident(s)",
+    "subcontractors": "subcontractor accident(s)"
+  },
+  "modifiedDutyDays": "Modified-duty days"
 }
