@@ -5,6 +5,7 @@
 from fastapi import (
     APIRouter,
     HTTPException,
+    Response,
 )
 
 from backend.database import SessionLocal
@@ -13,6 +14,9 @@ from backend.schemas.event_reports import (
 )
 from backend.services.reports.accident_report import (
     build_accident_report_preview,
+)
+from backend.services.reports.pdf_renderer import (
+    render_accident_report_pdf,
 )
 
 
