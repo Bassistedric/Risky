@@ -3,6 +3,7 @@
 # ========================================================
 
 from backend.services.reports.accident_report import build_accident_report_preview
+from backend.services.event_photos import get_event_photos
 
 
 def _join_non_empty(values: list[str | None]) -> str:
@@ -42,5 +43,5 @@ def build_safety_flash_preview(db, event_id: int) -> dict:
         "facts": facts_text,
         "explanations": _join_non_empty(explanation_parts),
         "recommendations": _join_non_empty(recommendation_parts),
-        "photos": report.get("photos") or [],
+        "photos": flash_photos,
     }
