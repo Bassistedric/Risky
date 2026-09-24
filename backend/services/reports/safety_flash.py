@@ -35,6 +35,30 @@ def build_safety_flash_preview(db, event_id: int) -> dict:
         if action.get("description")
     ]
 
+    # Le preview du rapport n'expose pas le nom de fichier physique.
+    # On l'ajoute ici uniquement pour permettre au renderer Safety Flash
+    # d'afficher les photos réellement stockées dans le dossier événement.
+    stored_photos = get_event_photos(
+        db=db,
+        event_id=event_id,
+    )
+    filenames = {
+        photo.id: photo.filename
+        for photo in stored_photos
+    }
+    flash_photos = [
+        {
+            **photo,
+            "filename": filenames.get(
+                photo.get("id")
+            ),
+        }
+        for photo in (
+            report.get("photos")
+            or []
+        )
+    ]
+
     return {
         "event_id": event_id,
         "event_number": report["event_number"],
