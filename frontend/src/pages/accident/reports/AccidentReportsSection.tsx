@@ -86,7 +86,7 @@ function AccidentReportsSection({
                     <div className="accident-reports__actions">
                         <button
                             type="button"
-                            className="accident-reports__button accident-reports__button--secondary"
+                            className="accident-reports__button accident-reports__button--primary"
                             onClick={onOpenSafetyFlash}
                         >
                             {rt('safetyFlash.prepare')}
