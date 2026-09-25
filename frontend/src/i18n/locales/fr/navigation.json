@@ -17,7 +17,8 @@
         "competencies": "Compétences & habilitations",
         "equipmentSafety": "Sécurité équipements",
         "field": "Terrain",
-        "qualitySmi": "Qualité & SMI"
+        "qualitySmi": "Qualité & SMI",
+        "cppt": "CPPT"
     },
     "topbar": {
         "accidentRegister": "Registre des accidents & incidents",
