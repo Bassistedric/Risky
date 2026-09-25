@@ -61,6 +61,16 @@
                 "title": "Quality & IMS",
                 "description": "Indicators, processes and management review."
             }
-        }
+        },
+        "heroTitle": "One piece of data. One source. Multiple uses.",
+        "heroDescription": "Centralize QHSE information, analyze it and turn it into useful actions and deliverables.",
+        "principles": {
+            "centralize": "Centralize",
+            "analyze": "Analyze",
+            "act": "Act",
+            "report": "Communicate"
+        },
+        "modulesEyebrow": "Workspace",
+        "modulesTitle": "QHSE modules"
     }
 }
