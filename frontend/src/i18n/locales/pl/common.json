@@ -9,6 +9,12 @@
             "report": "Komunikuj"
         },
         "modulesEyebrow": "Obszar roboczy",
-        "modulesTitle": "Moduły QHSE"
+        "modulesTitle": "Moduły QHSE",
+        "modules": {
+            "training": {
+                "title": "Szkolenia",
+                "description": "Szkolenia, kompetencje, BA4/BA5 i certyfikaty."
+            }
+        }
     }
 }
