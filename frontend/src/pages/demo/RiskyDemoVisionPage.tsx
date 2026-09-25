@@ -43,7 +43,20 @@ export default function RiskyDemoVisionPage({_onBack}:Props){
   </section>
 
   <section className="demo-network"><div className="demo-card__head"><span>05 · INTERCONNEXION DES MODULES</span><b>Architecture cible</b></div><div className="demo-network__stage"><div className="demo-core"><strong>RISKY</strong><span>Q H S E</span><small>Source structurée</small></div>{modules.map((m,i)=><div key={m[1]} className={'demo-node demo-node--'+i}><i>{m[0]}</i><div><strong>{m[1]}</strong><span>{m[2]}</span></div></div>)}</div></section>
-  <section className="demo-flow"><div className="demo-card__head"><span>06 · EXEMPLE DE FLUX DE DONNÉES</span><b>Une donnée, plusieurs usages</b></div><div className="demo-flow__row"><div><i>△</i><strong>Accident encodé</strong><span>Classification · causes</span></div><b>→</b><div><i>♙</i><strong>Fiche personnel</strong><span>Événement lié · impact</span></div><b>→</b><div><i>☑</i><strong>Plan d'action</strong><span>Responsable · échéance</span></div><b>→</b><div><i>▦</i><strong>Tableau de bord</strong><span>Indicateurs actualisés</span></div></div></section>
+  <section className="demo-ecosystem">
+   <div className="demo-card__head"><span>06 · OUVERTURE DE L'ÉCOSYSTÈME</span><b>Vision étendue</b></div>
+   <p className="demo-ecosystem__lead">Allons plus loin : RISKY peut devenir le socle QHSE connecté à des outils spécialisés, sans dupliquer les données.</p>
+   <div className="demo-ecosystem__row">
+    <div className="demo-system demo-system--risky"><i>R</i><div><strong>RISKY</strong><span>Prévention · QHSE</span></div></div>
+    <div className="demo-double-arrow"><span>↔</span><small>Données & référentiels</small></div>
+    <div className="demo-system demo-system--quality"><i>Q</i><div><strong>QUALITY</strong><span>ISO 9001 · SMI · processus</span></div></div>
+    <div className="demo-double-arrow"><span>↔</span><small>Équipements & contrôles</small></div>
+    <div className="demo-system demo-system--tooly"><i>T</i><div><strong>TOOLY</strong><span>Matériel · parc · suivi</span></div></div>
+   </div>
+   <div className="demo-ecosystem__caption"><span>RISKY</span><b>↔</b><span>QUALITY</span><b>↔</b><span>TOOLY</span><p>Écosystème cible — interfaces à développer ultérieurement</p></div>
+  </section>
+
+  <section className="demo-flow"><div className="demo-card__head"><span>07 · EXEMPLE DE FLUX DE DONNÉES</span><b>Une donnée, plusieurs usages</b></div><div className="demo-flow__row"><div><i>△</i><strong>Accident encodé</strong><span>Classification · causes</span></div><b>→</b><div><i>♙</i><strong>Fiche personnel</strong><span>Événement lié · impact</span></div><b>→</b><div><i>☑</i><strong>Plan d'action</strong><span>Responsable · échéance</span></div><b>→</b><div><i>▦</i><strong>Tableau de bord</strong><span>Indicateurs actualisés</span></div></div></section>
   <footer className="demo-final"><div><strong>RISKY <span>QHSE</span></strong><h2>Une donnée. Une source. Plusieurs usages.</h2><p>Centraliser · Analyser · Agir · Communiquer</p></div><div className="demo-benefits"><span>▤<b>Données centralisées</b></span><span>↔<b>Processus connectés</b></span><span>▦<b>Pilotage amélioré</b></span><span>◇<b>Culture QHSE renforcée</b></span></div></footer>
  </div>
 }
