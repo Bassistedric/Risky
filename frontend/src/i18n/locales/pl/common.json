@@ -1,1 +1,14 @@
-{}
+{
+    "home": {
+        "heroTitle": "Jedna informacja. Jedno źródło. Wiele zastosowań.",
+        "heroDescription": "Centralizuj informacje QHSE, analizuj je i przekształcaj w użyteczne działania i raporty.",
+        "principles": {
+            "centralize": "Centralizuj",
+            "analyze": "Analizuj",
+            "act": "Działaj",
+            "report": "Komunikuj"
+        },
+        "modulesEyebrow": "Obszar roboczy",
+        "modulesTitle": "Moduły QHSE"
+    }
+}
