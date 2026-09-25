@@ -18,7 +18,8 @@
         "equipmentSafety": "Veiligheid arbeidsmiddelen",
         "field": "Terrein",
         "qualitySmi": "Kwaliteit & IMS",
-        "cppt": "CPBW"
+        "cppt": "CPBW",
+        "training": "Opleidingen"
     },
     "topbar": {
         "accidentRegister": "Register van ongevallen & incidenten",
