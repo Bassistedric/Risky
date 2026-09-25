@@ -97,17 +97,25 @@ export default function HomePage({
           EN-TÊTE
           ==================================================== */}
 
-      <section className="home-header">
-        <div>
-          <h1>
-            {t('common.home')}
-          </h1>
-
-          <p>
-            {t('home.description')}
-          </p>
+      <section className="home-hero">
+        <div className="home-hero__eyebrow">RISKY QHSE</div>
+        <h1>{t('home.heroTitle')}</h1>
+        <p>{t('home.heroDescription')}</p>
+        <div className="home-hero__principles">
+          <span>{t('home.principles.centralize')}</span>
+          <span>{t('home.principles.analyze')}</span>
+          <span>{t('home.principles.act')}</span>
+          <span>{t('home.principles.report')}</span>
         </div>
       </section>
+
+      <div className="home-section-heading">
+        <div>
+          <span>{t('home.modulesEyebrow')}</span>
+          <h2>{t('home.modulesTitle')}</h2>
+        </div>
+        <p>{t('home.description')}</p>
+      </div>
 
 
       {/* ====================================================
