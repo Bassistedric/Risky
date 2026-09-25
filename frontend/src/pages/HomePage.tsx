@@ -132,8 +132,8 @@ export default function HomePage({
               onOpenModule(module.id)
             }}
           >
-            <div className="home-module-card__symbol">
-              {module.symbol}
+            <div className={`home-module-card__symbol home-module-card__symbol--${module.id}`}>
+              <span>{module.symbol}</span>
             </div>
 
             <div className="home-module-card__content">
@@ -146,8 +146,8 @@ export default function HomePage({
               </p>
             </div>
 
-            <div className="home-module-card__arrow">
-              ›
+            <div className="home-module-card__arrow" aria-hidden="true">
+              →
             </div>
           </button>
         ))}
