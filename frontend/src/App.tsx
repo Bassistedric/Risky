@@ -30,6 +30,7 @@ type MainView =
   | 'accidents'
   | 'action-plans'
   | 'personnel'
+  | 'cppt'
   | 'competencies'
   | 'equipment'
   | 'field'
@@ -550,6 +551,29 @@ function App() {
             </button>
 
             <button
+              className={`risky-nav-item ${mainView === 'cppt'
+                ? 'risky-nav-item--active'
+                : ''
+                }`}
+              type="button"
+              aria-label={t('navigation.cppt')}
+              title={
+                sidebarCollapsed
+                  ? t('navigation.cppt')
+                  : undefined
+              }
+              onClick={() => {
+                setMainView('cppt')
+              }}
+            >
+              <span className="risky-nav-item__icon">
+                ◫
+              </span>
+
+              {t('navigation.cppt')}
+            </button>
+
+            <button
               className={`risky-nav-item ${mainView === 'equipment'
                 ? 'risky-nav-item--active'
                 : ''
@@ -804,6 +828,10 @@ function App() {
                         ? t('navigation.actionPlans')
                         : mainView === 'personnel'
                           ? t('navigation.personnel')
+                          : mainView === 'cppt'
+                            ? t('navigation.cppt')
+                          : mainView === 'cppt'
+                            ? t('navigation.cppt')
                           : mainView === 'competencies'
                             ? t('navigation.competencies')
                             : mainView === 'equipment'
