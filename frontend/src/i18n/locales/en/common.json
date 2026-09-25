@@ -60,6 +60,10 @@
             "quality": {
                 "title": "Quality & IMS",
                 "description": "Indicators, processes and management review."
+            },
+            "training": {
+                "title": "Training",
+                "description": "Training, competencies, BA4/BA5 and certificates."
             }
         },
         "heroTitle": "One piece of data. One source. Multiple uses.",
