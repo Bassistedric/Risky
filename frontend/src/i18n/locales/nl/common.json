@@ -60,6 +60,10 @@
             "quality": {
                 "title": "Kwaliteit & IMS",
                 "description": "Indicatoren, processen en directiebeoordeling."
+            },
+            "training": {
+                "title": "Opleidingen",
+                "description": "Opleidingen, competenties, BA4/BA5 en attesten."
             }
         },
         "heroTitle": "Eén gegeven. Eén bron. Meerdere toepassingen.",
