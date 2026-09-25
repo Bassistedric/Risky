@@ -61,6 +61,8 @@ type RiskySession = {
 // ============================================================
 
 function App() {
+  const DEMO_VISION = true
+
   // ============================================================
   // APPLICATION SHELL STATE
   // ============================================================
@@ -69,7 +71,7 @@ function App() {
     useState(false)
 
   const [mainView, setMainView] =
-    useState<MainView>('home')
+    useState<MainView>(DEMO_VISION ? 'demo-vision' : 'home')
 
   const [language, setLanguage] =
     useState<RiskyLanguage>(() => {
@@ -194,19 +196,20 @@ function App() {
 
   const userInitials =
     currentSession?.user?.initials?.toUpperCase() ??
-    '---'
+    (DEMO_VISION ? 'DEMO' : '---')
 
   const userDisplayName =
     currentSession?.user?.display_name ??
-    t('profile.user')
+    (DEMO_VISION ? 'Risky Demo' : t('profile.user'))
 
   const userRole =
     currentSession?.roles?.[0] ??
     currentSession?.mode ??
-    'UTILISATEUR'
+    (DEMO_VISION ? 'VISION CIBLE' : 'UTILISATEUR')
 
-  const userScope =
-    currentSession?.scope_all
+  const userScope = DEMO_VISION
+    ? 'Démonstration'
+    : currentSession?.scope_all
       ? t('profile.allEntities')
       : currentSession?.scopes?.[0]?.organization_name ??
       currentSession?.scopes?.[0]?.name ??
@@ -263,7 +266,7 @@ function App() {
   // IDENTIFICATION
   // ============================================================
 
-  if (!authenticated) {
+  if (!authenticated && !DEMO_VISION) {
     return (
       <LoginPage
         onAuthenticated={() => {
