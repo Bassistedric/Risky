@@ -18,7 +18,8 @@
         "equipmentSafety": "Equipment safety",
         "field": "Field",
         "qualitySmi": "Quality & IMS",
-        "cppt": "CPPT"
+        "cppt": "CPPT",
+        "training": "Training"
     },
     "topbar": {
         "accidentRegister": "Accident & incident register",
