@@ -60,6 +60,45 @@ function AccidentOverviewSection({
     }, [event.id, event.analysis_type])
 
     useEffect(() => {
+        const refreshSeriousAssessment = async (
+            browserEvent: Event,
+        ) => {
+            const detail = (
+                browserEvent as CustomEvent<{ eventId?: number }>
+            ).detail
+
+            if (detail?.eventId !== event.id) {
+                return
+            }
+
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/events/${event.id}/serious-accident-assessment`,
+                )
+                if (!response.ok) return
+                const assessment = await response.json()
+                setCircumstantialRequired(
+                    Boolean(assessment.circumstantial_report_required),
+                )
+            } catch {
+                setCircumstantialRequired(false)
+            }
+        }
+
+        window.addEventListener(
+            'risky:serious-accident-assessment-changed',
+            refreshSeriousAssessment,
+        )
+
+        return () => {
+            window.removeEventListener(
+                'risky:serious-accident-assessment-changed',
+                refreshSeriousAssessment,
+            )
+        }
+    }, [event.id])
+
+    useEffect(() => {
         const loadOrganizations = async () => {
             try {
                 const response = await fetch(
