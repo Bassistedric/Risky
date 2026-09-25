@@ -61,6 +61,16 @@
                 "title": "Kwaliteit & IMS",
                 "description": "Indicatoren, processen en directiebeoordeling."
             }
-        }
+        },
+        "heroTitle": "Eén gegeven. Eén bron. Meerdere toepassingen.",
+        "heroDescription": "QHSE-informatie centraliseren, analyseren en omzetten in bruikbare acties en rapporten.",
+        "principles": {
+            "centralize": "Centraliseren",
+            "analyze": "Analyseren",
+            "act": "Handelen",
+            "report": "Communiceren"
+        },
+        "modulesEyebrow": "Werkruimte",
+        "modulesTitle": "QHSE-modules"
     }
 }
