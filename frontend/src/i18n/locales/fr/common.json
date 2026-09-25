@@ -61,6 +61,16 @@
                 "title": "Qualité & SMI",
                 "description": "Indicateurs, processus et revue de direction."
             }
-        }
+        },
+        "heroTitle": "Une donnée. Une source. Plusieurs usages.",
+        "heroDescription": "Centraliser l'information QHSE, l'analyser et la transformer en actions et livrables utiles.",
+        "principles": {
+            "centralize": "Centraliser",
+            "analyze": "Analyser",
+            "act": "Agir",
+            "report": "Communiquer"
+        },
+        "modulesEyebrow": "Espace de travail",
+        "modulesTitle": "Modules QHSE"
     }
 }
