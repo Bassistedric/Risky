@@ -17,7 +17,8 @@
         "competencies": "Competenties & bevoegdheden",
         "equipmentSafety": "Veiligheid arbeidsmiddelen",
         "field": "Terrein",
-        "qualitySmi": "Kwaliteit & IMS"
+        "qualitySmi": "Kwaliteit & IMS",
+        "cppt": "CPBW"
     },
     "topbar": {
         "accidentRegister": "Register van ongevallen & incidenten",
