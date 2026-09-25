@@ -10,6 +10,7 @@ import ActionPlanPage from './pages/actions/ActionPlanPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import SafetyDashboardPage from './pages/dashboard/SafetyDashboardPage'
+import RiskyDemoVisionPage from './pages/demo/RiskyDemoVisionPage'
 
 import LanguageSelector, {
   type RiskyLanguage,
@@ -35,6 +36,7 @@ type MainView =
   | 'equipment'
   | 'field'
   | 'quality'
+  | 'demo-vision'
 
 type RiskySession = {
   mode?: string
@@ -678,6 +680,20 @@ function App() {
           </div>
 
 
+          <div className="risky-nav-group">
+            <div className="risky-nav-group__title">DÉMONSTRATION</div>
+            <button
+              className={`risky-nav-item ${mainView === 'demo-vision' ? 'risky-nav-item--active' : ''}`}
+              type="button"
+              aria-label="Vision cible"
+              title={sidebarCollapsed ? 'Vision cible' : undefined}
+              onClick={() => setMainView('demo-vision')}
+            >
+              <span className="risky-nav-item__icon">◎</span>
+              Vision cible
+            </button>
+          </div>
+
           {/* ============================================================
             SYSTÈME
             ============================================================ */}
@@ -1120,6 +1136,10 @@ function App() {
             />
           )}
 
+          {mainView === 'demo-vision' && (
+            <RiskyDemoVisionPage onBack={() => setMainView('home')} />
+          )}
+
           {/* ========================================================
               MODULES EN ATTENTE
               ======================================================== */}
@@ -1127,7 +1147,8 @@ function App() {
           {mainView !== 'home' &&
             mainView !== 'dashboard' &&
             mainView !== 'accidents' &&
-            mainView !== 'action-plans' && (
+            mainView !== 'action-plans' &&
+            mainView !== 'demo-vision' && (
               <section className="risky-placeholder">
                 <h2>
                   {t('common.moduleInPreparation')}
