@@ -20,62 +20,14 @@ type HomePageProps = {
 
 
 const modules = [
-  {
-    id: 'risk-analysis',
-    titleKey: 'home.modules.riskAnalysis.title',
-    descriptionKey:
-      'home.modules.riskAnalysis.description',
-    symbol: 'AR',
-  },
-  {
-    id: 'accidents',
-    titleKey: 'home.modules.accidents.title',
-    descriptionKey:
-      'home.modules.accidents.description',
-    symbol: 'AI',
-  },
-  {
-    id: 'action-plans',
-    titleKey: 'home.modules.actionPlans.title',
-    descriptionKey:
-      'home.modules.actionPlans.description',
-    symbol: 'PA',
-  },
-  {
-    id: 'personnel',
-    titleKey: 'home.modules.personnel.title',
-    descriptionKey:
-      'home.modules.personnel.description',
-    symbol: 'PE',
-  },
-  {
-    id: 'competencies',
-    titleKey: 'home.modules.competencies.title',
-    descriptionKey:
-      'home.modules.competencies.description',
-    symbol: 'CH',
-  },
-  {
-    id: 'equipment',
-    titleKey: 'home.modules.equipment.title',
-    descriptionKey:
-      'home.modules.equipment.description',
-    symbol: 'SE',
-  },
-  {
-    id: 'field',
-    titleKey: 'home.modules.field.title',
-    descriptionKey:
-      'home.modules.field.description',
-    symbol: 'TE',
-  },
-  {
-    id: 'quality',
-    titleKey: 'home.modules.quality.title',
-    descriptionKey:
-      'home.modules.quality.description',
-    symbol: 'QI',
-  },
+  { id: 'risk-analysis', titleKey: 'home.modules.riskAnalysis.title', descriptionKey: 'home.modules.riskAnalysis.description', symbol: '◇' },
+  { id: 'accidents', titleKey: 'home.modules.accidents.title', descriptionKey: 'home.modules.accidents.description', symbol: '△' },
+  { id: 'action-plans', titleKey: 'home.modules.actionPlans.title', descriptionKey: 'home.modules.actionPlans.description', symbol: '☑' },
+  { id: 'personnel', titleKey: 'home.modules.personnel.title', descriptionKey: 'home.modules.personnel.description', symbol: '♙' },
+  { id: 'competencies', titleKey: 'home.modules.competencies.title', descriptionKey: 'home.modules.competencies.description', symbol: '✓' },
+  { id: 'equipment', titleKey: 'home.modules.equipment.title', descriptionKey: 'home.modules.equipment.description', symbol: '▣' },
+  { id: 'field', titleKey: 'home.modules.field.title', descriptionKey: 'home.modules.field.description', symbol: '⌖' },
+  { id: 'quality', titleKey: 'home.modules.quality.title', descriptionKey: 'home.modules.quality.description', symbol: '☆' },
 ] satisfies Array<{
   id: HomeModule
   titleKey: string
@@ -96,18 +48,6 @@ export default function HomePage({
       {/* ====================================================
           EN-TÊTE
           ==================================================== */}
-
-      <section className="home-hero">
-        <div className="home-hero__eyebrow">RISKY QHSE</div>
-        <h1>{t('home.heroTitle')}</h1>
-        <p>{t('home.heroDescription')}</p>
-        <div className="home-hero__principles">
-          <span>{t('home.principles.centralize')}</span>
-          <span>{t('home.principles.analyze')}</span>
-          <span>{t('home.principles.act')}</span>
-          <span>{t('home.principles.report')}</span>
-        </div>
-      </section>
 
       <div className="home-section-heading">
         <div>
