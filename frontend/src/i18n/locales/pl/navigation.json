@@ -1,6 +1,39 @@
 {
     "navigation": {
+        "overview": "Widok ogólny",
+        "safety": "Bezpieczeństwo",
+        "management": "Zarządzanie",
+        "system": "System",
+        "accidents": "Wypadki i incydenty",
+        "riskAnalysis": "Analizy ryzyka",
+        "personnel": "Personel",
+        "equipment": "Wyposażenie",
+        "environment": "Środowisko",
+        "quality": "Jakość",
+        "documents": "Dokumenty",
+        "actionPlans": "Plan działań",
+        "forms": "Formularze",
+        "administration": "Administracja",
+        "competencies": "Kompetencje i uprawnienia",
+        "equipmentSafety": "Bezpieczeństwo wyposażenia",
+        "field": "Teren",
+        "qualitySmi": "Jakość i ZSZ",
         "cppt": "CPPT",
         "training": "Szkolenia"
+    },
+    "topbar": {
+        "accidentRegister": "Rejestr wypadków i incydentów",
+        "newEvent": "Nowe zdarzenie",
+        "eventFile": "Dokumentacja zdarzenia",
+        "causeTree": "Drzewo przyczyn",
+        "homeDescription": "Przejdź do poszczególnych modułów Risky QHSE.",
+        "dashboardDescription": "Wskaźniki, trendy, alerty i globalne monitorowanie QHSE.",
+        "accidentRegisterDescription": "Monitorowanie i dostęp do zgłoszonych zdarzeń.",
+        "newEventDescription": "Utworzenie nowej dokumentacji zdarzenia.",
+        "eventFileDescription": "Szczegółowy przegląd i analiza zdarzenia.",
+        "causeTreeDescription": "Uporządkowana analiza faktów i ich związków przyczynowych.",
+        "genericDescription": "Zintegrowane zarządzanie prewencją, jakością i środowiskiem.",
+        "heepo": "Analiza HEEPO",
+        "heepoDescription": "Uporządkowana analiza czynników przyczyniających się."
     }
 }
