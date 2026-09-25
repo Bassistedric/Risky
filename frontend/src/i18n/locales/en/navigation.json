@@ -17,7 +17,8 @@
         "competencies": "Competencies & authorizations",
         "equipmentSafety": "Equipment safety",
         "field": "Field",
-        "qualitySmi": "Quality & IMS"
+        "qualitySmi": "Quality & IMS",
+        "cppt": "CPPT"
     },
     "topbar": {
         "accidentRegister": "Accident & incident register",
