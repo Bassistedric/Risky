@@ -24,7 +24,7 @@ const modules = [
   { id: 'accidents', titleKey: 'home.modules.accidents.title', descriptionKey: 'home.modules.accidents.description', symbol: '△' },
   { id: 'action-plans', titleKey: 'home.modules.actionPlans.title', descriptionKey: 'home.modules.actionPlans.description', symbol: '☑' },
   { id: 'personnel', titleKey: 'home.modules.personnel.title', descriptionKey: 'home.modules.personnel.description', symbol: '♙' },
-  { id: 'competencies', titleKey: 'home.modules.competencies.title', descriptionKey: 'home.modules.competencies.description', symbol: '✓' },
+  { id: 'competencies', titleKey: 'home.modules.training.title', descriptionKey: 'home.modules.training.description', symbol: '✓' },
   { id: 'equipment', titleKey: 'home.modules.equipment.title', descriptionKey: 'home.modules.equipment.description', symbol: '▣' },
   { id: 'field', titleKey: 'home.modules.field.title', descriptionKey: 'home.modules.field.description', symbol: '⌖' },
   { id: 'quality', titleKey: 'home.modules.quality.title', descriptionKey: 'home.modules.quality.description', symbol: '☆' },
