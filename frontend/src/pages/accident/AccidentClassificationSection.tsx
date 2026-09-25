@@ -342,6 +342,12 @@ function AccidentClassificationSection({
                 loadSeriousAccidentAssessment(),
             ])
 
+            window.dispatchEvent(
+                new CustomEvent('risky:serious-accident-assessment-changed', {
+                    detail: { eventId },
+                }),
+            )
+
             setClassificationEditing(false)
         } catch (error) {
             if (error instanceof Error) {
