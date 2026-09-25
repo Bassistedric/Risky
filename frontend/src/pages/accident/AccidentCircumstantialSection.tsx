@@ -55,6 +55,14 @@ function AccidentCircumstantialSection({ eventId, mode }: Props) {
   }catch{setError(at('circumstantial.loadError'))}
  },[eventId])
  useEffect(()=>{void load()},[load])
+ useEffect(()=>{
+  const refresh=(event:Event)=>{
+   const detail=(event as CustomEvent<{eventId?:number}>).detail
+   if(detail?.eventId===eventId)void load()
+  }
+  window.addEventListener('risky:serious-accident-assessment-changed',refresh)
+  return()=>window.removeEventListener('risky:serious-accident-assessment-changed',refresh)
+ },[eventId,load])
  if(!required)return null
 
  const set=(key:string,value:string|boolean)=>setData(current=>({...current,[key]:value}))
