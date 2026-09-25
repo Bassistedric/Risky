@@ -60,6 +60,10 @@
             "quality": {
                 "title": "Qualité & SMI",
                 "description": "Indicateurs, processus et revue de direction."
+            },
+            "training": {
+                "title": "Formations",
+                "description": "Formations, compétences, BA4/BA5 et attestations."
             }
         },
         "heroTitle": "Une donnée. Une source. Plusieurs usages.",
