@@ -117,9 +117,9 @@
   background: #edf4f8;
   color: #285d87;
   border: 1px solid #dde8ef;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: .02em;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .home-module-card__symbol--accidents,
