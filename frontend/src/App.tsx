@@ -599,10 +599,10 @@ function App() {
             <button
               className="risky-nav-item"
               type="button"
-              aria-label={t('navigation.environment')}
+              aria-label={t('navigation.training')}
               title={
                 sidebarCollapsed
-                  ? t('navigation.environment')
+                  ? t('navigation.training')
                   : undefined
               }
             >
@@ -610,7 +610,7 @@ function App() {
                 ♧
               </span>
 
-              {t('navigation.environment')}
+              {t('navigation.training')}
             </button>
 
             <button
