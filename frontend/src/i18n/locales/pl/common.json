@@ -1,5 +1,71 @@
 {
+    "common": {
+        "home": "Strona główna",
+        "dashboard": "Panel",
+        "save": "Zapisz",
+        "cancel": "Anuluj",
+        "back": "Powrót",
+        "allTrades": "Wszystkie branże",
+        "loadingRisky": "Ładowanie Risky...",
+        "expandMenu": "Rozwiń menu",
+        "collapseMenu": "Zwiń menu",
+        "notifications": "Powiadomienia",
+        "moduleInPreparation": "Moduł w przygotowaniu",
+        "sectionComingSoon": "Ta sekcja będzie stopniowo integrowana z Risky QHSE.",
+        "riskyQhse": "Risky QHSE"
+    },
+    "profile": {
+        "myProfile": "Mój profil",
+        "changeScope": "Zmień zakres",
+        "logout": "Wyloguj się",
+        "profile": "Profil",
+        "user": "Użytkownik",
+        "allEntities": "Wszystkie jednostki",
+        "assignedScope": "Przypisany zakres"
+    },
+    "dashboard": {
+        "placeholder": "W tym miejscu zostaną zintegrowane wskaźniki i kluczowe dane QHSE."
+    },
     "home": {
+        "description": "Przejdź do poszczególnych modułów Risky QHSE.",
+        "modules": {
+            "riskAnalysis": {
+                "title": "Analiza ryzyka",
+                "description": "Analizy Kinney, RePSS i metody specjalistyczne."
+            },
+            "accidents": {
+                "title": "Wypadki i incydenty",
+                "description": "Rejestr, dokumentacja zdarzeń i analizy."
+            },
+            "actionPlans": {
+                "title": "Plany działań",
+                "description": "Plan globalny, roczny, CPPT, SIPP i ISO."
+            },
+            "personnel": {
+                "title": "Personel",
+                "description": "Kartoteki pracowników i dane QHSE."
+            },
+            "competencies": {
+                "title": "Kompetencje i uprawnienia",
+                "description": "Kompetencje, szkolenia, BA4/BA5 i certyfikaty."
+            },
+            "equipment": {
+                "title": "Bezpieczeństwo wyposażenia",
+                "description": "Maszyny, kontrole i trzy zielone światła."
+            },
+            "field": {
+                "title": "Teren",
+                "description": "FMRA, STOP, Toolbox i inspekcje ILT."
+            },
+            "quality": {
+                "title": "Jakość i ZSZ",
+                "description": "Wskaźniki, procesy i przegląd zarządzania."
+            },
+            "training": {
+                "title": "Szkolenia",
+                "description": "Szkolenia, kompetencje, BA4/BA5 i certyfikaty."
+            }
+        },
         "heroTitle": "Jedna informacja. Jedno źródło. Wiele zastosowań.",
         "heroDescription": "Centralizuj informacje QHSE, analizuj je i przekształcaj w użyteczne działania i raporty.",
         "principles": {
@@ -9,12 +75,6 @@
             "report": "Komunikuj"
         },
         "modulesEyebrow": "Obszar roboczy",
-        "modulesTitle": "Moduły QHSE",
-        "modules": {
-            "training": {
-                "title": "Szkolenia",
-                "description": "Szkolenia, kompetencje, BA4/BA5 i certyfikaty."
-            }
-        }
+        "modulesTitle": "Moduły QHSE"
     }
 }
